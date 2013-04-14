@@ -25,7 +25,13 @@
 
 @implementation AbbrevEntry
 
-@dynamic variants;
+@synthesize variants;
+
+- (void) dealloc
+{
+    self.variants = nil;
+    [super dealloc];
+}
 
 - (NSString*) expansionDesc
 {
@@ -66,7 +72,7 @@
         self.variants = nil;
     }
     else {
-        NSMutableOrderedSet *vv = [NSMutableOrderedSet orderedSetWithCapacity:2];
+        NSMutableArray *vv = [NSMutableArray arrayWithCapacity:2];
         NSString *x;
         NSCharacterSet *nameDelims = [NSCharacterSet characterSetWithCharactersInString:@" \t="];
         while ([scan scanUpToCharactersFromSet:nameDelims intoString:&s]) {
@@ -77,7 +83,7 @@
                 x = s;
             }
             if ([s length]) {
-                AbbrevBase *v = [NSEntityDescription insertNewObjectForEntityForName:@"AbbrevBase" inManagedObjectContext:[self managedObjectContext]];
+                AbbrevBase *v = [[AbbrevBase alloc] init];
                 v.abbreviation = s;
                 v.expansion = x;
                 [vv addObject:v];
@@ -123,6 +129,27 @@
     }
     [s appendString:[ve substringFromIndex:1]];
     return s;
+}
+
+//
+//	NSCoding methods
+//
+
+- (id) initWithCoder:(NSCoder*)coder
+{
+	self = [super initWithCoder:coder];
+	if (self != nil) {
+        self.variants = [coder decodeObjectForKey:@"var"];
+	}
+	return self;
+}
+
+- (void) encodeWithCoder:(NSCoder*)coder
+{
+    [super encodeWithCoder:coder];
+    if (variants) {
+        [coder encodeObject:variants forKey:@"var"];
+	}
 }
 
 @end

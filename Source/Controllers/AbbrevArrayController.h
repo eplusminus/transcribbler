@@ -33,9 +33,9 @@
     IBOutlet AbbrevListDocument* document;
 
 }
-- (IBAction) delete: (id)sender;
-- (IBAction) copy: (id)sender;
-- (IBAction) paste: (id)sender;
+- (IBAction) delete:(id)sender;
+- (IBAction) copy:(id)sender;
+- (IBAction) paste:(id)sender;
 
 - (AbbrevEntry*) newEntry;
 

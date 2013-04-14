@@ -26,7 +26,7 @@
 
 #define AbbrevListDocumentModified @"AbbrevListDocumentModified"
 
-@interface AbbrevListDocument : NSPersistentDocument {
+@interface AbbrevListDocument : NSDocument {
     
     IBOutlet NSView* view;
     IBOutlet AbbrevArrayController* controller;

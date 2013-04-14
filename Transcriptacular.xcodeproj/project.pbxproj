@@ -12,7 +12,6 @@
 		453833C41710D807005C1637 /* AbbrevParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 453833C31710D807005C1637 /* AbbrevParser.m */; };
 		453833C71710D841005C1637 /* AbbrevResolverImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 453833C61710D841005C1637 /* AbbrevResolverImpl.m */; };
 		453F062C1719C94500086669 /* MediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453F062B1719C94500086669 /* MediaController.m */; };
-		455BE3901711F52900DCAF5F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 455BE38E1711F52900DCAF5F /* Model.xcdatamodeld */; };
 		455BE3961711F89A00DCAF5F /* AbbrevBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 455BE3951711F89A00DCAF5F /* AbbrevBase.m */; };
 		455BE3991711F8C700DCAF5F /* AbbrevEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 455BE3981711F8C700DCAF5F /* AbbrevEntry.m */; };
 		455BE3A01711FDB100DCAF5F /* AbbrevListDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 455BE39E1711FDB000DCAF5F /* AbbrevListDocument.m */; };
@@ -73,7 +72,6 @@
 		453833C61710D841005C1637 /* AbbrevResolverImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbrevResolverImpl.m; sourceTree = "<group>"; };
 		453F062A1719C94500086669 /* MediaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaController.h; sourceTree = "<group>"; };
 		453F062B1719C94500086669 /* MediaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaController.m; sourceTree = "<group>"; };
-		455BE38F1711F52900DCAF5F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		455BE3941711F89A00DCAF5F /* AbbrevBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbrevBase.h; sourceTree = "<group>"; };
 		455BE3951711F89A00DCAF5F /* AbbrevBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbrevBase.m; sourceTree = "<group>"; };
 		455BE3971711F8C700DCAF5F /* AbbrevEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbrevEntry.h; sourceTree = "<group>"; };
@@ -178,7 +176,6 @@
 			isa = PBXGroup;
 			children = (
 				32DBCF750370BD2300C91783 /* Transcriptacular_Prefix.pch */,
-				455BE38E1711F52900DCAF5F /* Model.xcdatamodeld */,
 				45E95DC8171B4DBD008FEEE4 /* LICENSE */,
 			);
 			name = "Other Sources";
@@ -374,7 +371,6 @@
 				451579BE1711471F00BC08AA /* AbbrevTableViewDelegate.m in Sources */,
 				451579C11711564500BC08AA /* HandyTableView.m in Sources */,
 				458257C417116EF9001270E9 /* QuickTableTextView.m in Sources */,
-				455BE3901711F52900DCAF5F /* Model.xcdatamodeld in Sources */,
 				455BE3961711F89A00DCAF5F /* AbbrevBase.m in Sources */,
 				455BE3991711F8C700DCAF5F /* AbbrevEntry.m in Sources */,
 				455BE3A01711FDB100DCAF5F /* AbbrevListDocument.m in Sources */,
@@ -540,19 +536,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		455BE38E1711F52900DCAF5F /* Model.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				455BE38F1711F52900DCAF5F /* Model.xcdatamodel */,
-			);
-			currentVersion = 455BE38F1711F52900DCAF5F /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
 }

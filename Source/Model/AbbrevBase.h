@@ -20,15 +20,16 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
 
-@class AbbrevEntry;
+@interface AbbrevBase : NSObject <NSCoding> {
+    
+    @protected
+    NSString* abbreviation;
+    NSString* expansion;
+}
 
-@interface AbbrevBase : NSManagedObject
-
-@property (nonatomic, retain) NSString * abbreviation;
-@property (nonatomic, retain) NSString * expansion;
-@property (nonatomic, retain) AbbrevEntry *entry;
+@property (nonatomic, retain) NSString* abbreviation;
+@property (nonatomic, retain) NSString* expansion;
 
 @end

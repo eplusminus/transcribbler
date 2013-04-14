@@ -22,14 +22,15 @@
 #import "AbbrevBase.h"
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
 
-@class AbbrevBase;
+@interface AbbrevEntry : AbbrevBase {
+    
+    @protected
+    NSArray* variants;
+}
 
-@interface AbbrevEntry : AbbrevBase
-
-@property (nonatomic, retain) NSOrderedSet *variants;
+@property (nonatomic, retain) NSArray *variants;
 
 - (NSString*) expansionDesc;
 - (void) setExpansionDesc:(NSString*)desc;
@@ -37,18 +38,4 @@
 - (NSString*) variantAbbreviation:(AbbrevBase*)variant;
 - (NSString*) variantExpansion:(AbbrevBase*)variant;
 
-@end
-
-@interface AbbrevEntry (CoreDataGeneratedAccessors)
-
-- (void)insertObject:(AbbrevBase *)value inVariantsAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromVariantsAtIndex:(NSUInteger)idx;
-- (void)insertVariants:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeVariantsAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInVariantsAtIndex:(NSUInteger)idx withObject:(AbbrevBase *)value;
-- (void)replaceVariantsAtIndexes:(NSIndexSet *)indexes withVariants:(NSOrderedSet *)values;
-- (void)addVariantsObject:(AbbrevBase *)value;
-- (void)removeVariantsObject:(AbbrevBase *)value;
-- (void)addVariants:(NSOrderedSet *)values;
-- (void)removeVariants:(NSOrderedSet *)values;
 @end

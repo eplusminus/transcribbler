@@ -22,7 +22,6 @@
 			<string>NSTableHeaderView</string>
 			<string>NSTableView</string>
 			<string>NSTextFieldCell</string>
-			<string>NSUserDefaultsController</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -81,7 +80,6 @@
 						<string key="NSFrame">{{25, -1}, {26, 26}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="614817073">
 							<int key="NSCellFlags">67239424</int>
@@ -315,11 +313,9 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSArrayController" id="610475873">
+				<string key="NSObjectClassName">AbbrevEntry</string>
 				<bool key="NSEditable">YES</bool>
-				<object class="_NSManagedProxy" key="_NSManagedProxy">
-					<string key="NSEntityName">AbbrevEntry</string>
-				</object>
-				<bool key="_NSIsUsingManagedProxy">YES</bool>
+				<bool key="NSAutomaticallyPreparesContent">YES</bool>
 				<bool key="NSAvoidsEmptySelection">YES</bool>
 				<bool key="NSPreservesSelection">YES</bool>
 				<bool key="NSSelectsInsertedObjects">YES</bool>
@@ -328,9 +324,6 @@
 			</object>
 			<object class="NSCustomObject" id="7160964">
 				<string key="NSClassName">AbbrevTableViewDelegate</string>
-			</object>
-			<object class="NSUserDefaultsController" id="277777818">
-				<bool key="NSSharedInstance">YES</bool>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -390,22 +383,6 @@
 						</object>
 					</object>
 					<int key="connectionID">100</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">managedObjectContext: managedObjectContext</string>
-						<reference key="source" ref="610475873"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="610475873"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">managedObjectContext: managedObjectContext</string>
-							<string key="NSBinding">managedObjectContext</string>
-							<string key="NSKeyPath">managedObjectContext</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">88</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -577,11 +554,6 @@
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">82</int>
-						<reference key="object" ref="277777818"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">96</int>
 						<reference key="object" ref="7160964"/>
 						<reference key="parent" ref="0"/>
@@ -623,7 +595,6 @@
 				<string key="77.CustomClassName">AbbrevArrayController</string>
 				<string key="77.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="82.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="9.CustomClassName">HandyTableView</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="96.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -632,7 +603,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">100</int>
+			<int key="maxID">101</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -679,7 +650,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">AbbrevListDocument</string>
-					<string key="superclassName">NSPersistentDocument</string>
+					<string key="superclassName">NSDocument</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="controller">AbbrevArrayController</string>
 						<string key="view">NSView</string>

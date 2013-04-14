@@ -24,6 +24,9 @@
 #import "AbbrevListDocument.h"
 
 
+#define DefaultAbbrevsKey @"DefaultAbbrevations"
+
+
 @implementation AbbrevArrayController
 
 - (void) dealloc
@@ -33,11 +36,11 @@
 
 - (void) awakeFromNib
 {
-	NSData *theData=[[NSUserDefaults standardUserDefaults] dataForKey:@"substitutionArray"];
-		if (theData != nil) {
-			[self addObjects:[NSKeyedUnarchiver unarchiveObjectWithData:theData]];
-            [resolver setItems: [self arrangedObjects]];
-		}			
+	NSData *data = [[NSUserDefaults standardUserDefaults] dataForKey:DefaultAbbrevsKey];
+    if (data) {
+        [self addObjects:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+        [document modified];
+    }			
 }
 
 - (void) delete:(id)sender
@@ -139,9 +142,9 @@
     [self persist];
 }
 
-- (AbbrevEntry*)newEntry
+- (AbbrevEntry*) newEntry
 {
-    AbbrevEntry* e = [NSEntityDescription insertNewObjectForEntityForName:@"AbbrevEntry" inManagedObjectContext:document.managedObjectContext];
+    AbbrevEntry* e = [[AbbrevEntry alloc] init];
     e.abbreviation = @"";
     e.expansion = @"";
     return e;
@@ -150,6 +153,8 @@
 - (void) persist
 {
     [document modified];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[self arrangedObjects]];
+	[[NSUserDefaults standardUserDefaults] setObject:data forKey:DefaultAbbrevsKey];
 }
 
 @end

@@ -20,13 +20,40 @@
  */
 
 #import "AbbrevBase.h"
-#import "AbbrevEntry.h"
 
 
 @implementation AbbrevBase
 
-@dynamic abbreviation;
-@dynamic expansion;
-@dynamic entry;
+@synthesize abbreviation, expansion;
+
+- (void) dealloc {
+    self.abbreviation = nil;
+    self.expansion = nil;
+    [super dealloc];
+}
+
+//
+//	NSCoding methods
+//
+
+- (id) initWithCoder:(NSCoder*)coder
+{
+	self = [super init];
+	if (self != nil) {
+		self.abbreviation = [coder decodeObjectForKey:@"short"];
+		self.expansion = [coder decodeObjectForKey:@"long"];
+        if (self.abbreviation == nil || self.expansion == nil) {
+            [self dealloc];
+            return nil;
+        }
+	}
+	return self;
+}
+
+- (void) encodeWithCoder:(NSCoder*)coder
+{
+	[coder encodeObject:self.abbreviation forKey:@"short"];
+	[coder encodeObject:self.expansion forKey:@"long"];
+}
 
 @end
