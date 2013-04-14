@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1811" systemVersion="11G63" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="AbbrevBase" representedClassName="AbbrevBase" syncable="YES">
+        <attribute name="abbreviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expansion" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="entry" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AbbrevEntry" inverseName="variants" inverseEntity="AbbrevEntry" syncable="YES"/>
+    </entity>
+    <entity name="AbbrevEntry" representedClassName="AbbrevEntry" parentEntity="AbbrevBase" syncable="YES">
+        <relationship name="variants" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="AbbrevBase" inverseName="entry" inverseEntity="AbbrevBase" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="AbbrevBase" positionX="322" positionY="18" width="128" height="90"/>
+        <element name="AbbrevEntry" positionX="394" positionY="207" width="128" height="60"/>
+    </elements>
+</model>
