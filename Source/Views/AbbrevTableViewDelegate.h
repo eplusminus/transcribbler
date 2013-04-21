@@ -19,25 +19,29 @@
  
  */
 
-#import "AbbrevResolver.h"
-#import "AbbrevArrayController.h"
+#import "HandyTableView.h"
 
 #import <Foundation/Foundation.h>
 
+@protocol AbbrevResolver;
+@class AbbrevArrayController;
 
-@interface AbbrevTableViewDelegate : NSResponder <NSTableViewDelegate> {
-    
-    IBOutlet AbbrevArrayController* table;
-    IBOutlet id<AbbrevResolver> resolver;
-    IBOutlet NSTableView* view;
+
+@interface AbbrevTableViewDelegate : NSResponder <NSTableViewDelegate, HandyTableViewDelegate> {
+ @private
+  IBOutlet AbbrevArrayController* table;
+  IBOutlet NSTableView* view;
+
+  NSObject<AbbrevResolver>* resolver;
 }
 
-- (IBAction) delete: (id)sender;
-- (IBAction) cut: (id)sender;
-- (IBAction) copy: (id)sender;
-- (IBAction) paste: (id)sender;
+- (IBAction)add:(id)sender;
+- (IBAction)delete:(id)sender;
+- (IBAction)cut:(id)sender;
+- (IBAction)copy:(id)sender;
+- (IBAction)paste:(id)sender;
 
-- (void) tableView:(NSTableView*)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex;
-- (BOOL) validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)item;
+- (void)tableView:(NSTableView*)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex;
+- (BOOL)validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)item;
 
 @end

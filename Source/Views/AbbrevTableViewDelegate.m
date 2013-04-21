@@ -20,72 +20,93 @@
  */
 
 #import "AbbrevTableViewDelegate.h"
+
+#import "AbbrevArrayController.h"
+#import "AbbrevListDocument.h"
+#import "AbbrevResolver.h"
+#import "AbbrevResolverImpl.h"
 #import "AppDelegate.h"
+#import "HandyTableView.h"
 
 
 @implementation AbbrevTableViewDelegate
 
-- (void) awakeFromNib
+- (void)dealloc
 {
-    [self setNextResponder:[view nextResponder]];
-    [view setNextResponder:self];
-    
-    AppDelegate* ad = [NSApp delegate];
-    resolver = ad.abbrevResolver;
+  [resolver release];
+  [super dealloc];
 }
 
-- (IBAction) delete:(id)sender
+- (void)awakeFromNib
 {
-    [table delete:self];
+  [self setNextResponder:[view nextResponder]];
+  [view setNextResponder:self];
+  
+  resolver = [[table document] abbrevResolver];
 }
 
-- (IBAction) cut:(id)sender
+- (IBAction)delete:(id)sender
 {
-    [table copy:self];
-    [table delete:self];
+  [table delete:self];
 }
 
-- (IBAction) copy:(id)sender
+- (IBAction)cut:(id)sender
 {
-    [table copy:self];
+  [table copy:self];
+  [table delete:self];
 }
 
-- (IBAction) paste:(id)sender
+- (IBAction)copy:(id)sender
 {
-    [table paste:self];
+  [table copy:self];
 }
 
-- (void) tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
+- (IBAction)paste:(id)sender
 {
-    AbbrevEntry *a = [[table arrangedObjects] objectAtIndex:rowIndex];
-    if (a != nil) {
-        NSTextFieldCell *cell = aCell;
-        if ([[aTableColumn identifier] isEqualToString:@"abbreviation"] && [resolver hasDuplicateAbbreviation:a]) {
-            [cell setBackgroundColor:[NSColor yellowColor]];
-            [cell setDrawsBackground:YES];
-        }
-        else {
-            [cell setBackgroundColor:[NSColor textBackgroundColor]];
-            [cell setDrawsBackground:NO];
-        }
-    }
+  [table paste:self];
 }
 
-- (void) add:(id)sender
+- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
-    NSInteger row = [view selectedRow];
-    if (row < 0) {
-        row = [view numberOfRows];
+  AbbrevEntry *a = [[table arrangedObjects] objectAtIndex:rowIndex];
+  if (a != nil) {
+    NSTextFieldCell *cell = aCell;
+    if ([[aTableColumn identifier] isEqualToString:@"abbreviation"] && [resolver hasDuplicateAbbreviation:a]) {
+      [cell setBackgroundColor:[NSColor yellowColor]];
+      [cell setDrawsBackground:YES];
     }
     else {
-        row++;
+      [cell setBackgroundColor:[NSColor textBackgroundColor]];
+      [cell setDrawsBackground:NO];
     }
-    [table insertObject:[table newEntry] atArrangedObjectIndex:row];
-    [view selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
-    [view editColumn:0 row:row withEvent:nil select:NO];
+  }
 }
 
-- (void) keyDown:(NSEvent*)e
+- (IBAction)newAbbreviation:(id)sender
+{
+  [self add:sender];
+}
+
+- (IBAction)add:(id)sender
+{
+  NSInteger row = [view selectedRow];
+  if (row < 0) {
+    row = [view numberOfRows];
+  }
+  else {
+    AbbrevEntry* e = [[table arrangedObjects] objectAtIndex:row];
+    if ([e isEmpty]) {
+      [view editColumn:0 row:row withEvent:nil select:NO];
+      return;
+    }
+    row++;
+  }
+  [table insertObject:[table newEntry] atArrangedObjectIndex:row];
+  [view selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+  [view editColumn:0 row:row withEvent:nil select:NO];
+}
+
+- (void)keyDown:(NSEvent*)e
 {
 	unichar ch = [[e characters] characterAtIndex:0];
     
@@ -98,24 +119,34 @@
 	}
 }
 
-- (BOOL) validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)item
+- (BOOL)validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)item
 {
-    SEL theAction = [item action];
-    
-    if (theAction == @selector(copy:) || theAction == @selector(cut:) || theAction == @selector(delete:)) {
-        return ([table selectionIndex] != NSNotFound) ? YES : NO;
+  SEL theAction = [item action];
+  
+  if (theAction == @selector(copy:) || theAction == @selector(cut:) || theAction == @selector(delete:)) {
+    return ([table selectionIndex] != NSNotFound) ? YES : NO;
+  }
+  
+  if (theAction == @selector(paste:)) {
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    if ([pb dataForType:AbbreviationsPasteboardType] != nil ||
+      [pb dataForType:NSStringPboardType] != nil) {
+      return YES;
     }
-    
-    if (theAction == @selector(paste:)) {
-        NSPasteboard *pb = [NSPasteboard generalPasteboard];
-        if ([pb dataForType:AbbreviationsPasteboardType] != nil ||
-            [pb dataForType:NSStringPboardType] != nil) {
-            return YES;
-        }
-        return NO;
-    }
-    
     return NO;
+  }
+  
+  return NO;
+}
+
+//
+// HandyTableView delegate
+//
+
+- (BOOL)tableView:(HandyTableView*)view canDeleteEmptyRow:(NSUInteger)row
+{
+  AbbrevEntry* e = [[table arrangedObjects] objectAtIndex:row];
+  return [e isEmpty];
 }
 
 @end

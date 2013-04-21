@@ -61,11 +61,16 @@
 
 - (void) setExpansionDesc:(NSString *)desc
 {
+    if (desc == nil) {
+        desc = @"";
+    }
     NSScanner *scan = [NSScanner scannerWithString:desc];
     [scan setCharactersToBeSkipped:nil];
     NSString *s;
     
-    [scan scanUpToString:@"~" intoString:&s];
+    if (![scan scanUpToString:@"~" intoString:&s]) {
+        s = @"";
+    }
     self.expansion = s;
     
     if (![scan scanString:@"~" intoString:nil]) {
@@ -129,6 +134,12 @@
     }
     [s appendString:[ve substringFromIndex:1]];
     return s;
+}
+
+- (BOOL)isEmpty
+{
+    return ((self.abbreviation == nil) || [self.abbreviation isEqualToString:@""]) &&
+           ((self.expansion == nil) || [self.expansion isEqualToString:@""]);
 }
 
 //

@@ -23,10 +23,9 @@
 
 
 @interface StackingView : NSView {
-    
-    NSMutableDictionary* viewProperties;
+ @private
+  BOOL inited;
+  BOOL updating;
 }
-
-- (void) addSubview:(NSView*)view setsOwnSize:(BOOL)setsOwnSize;
 
 @end

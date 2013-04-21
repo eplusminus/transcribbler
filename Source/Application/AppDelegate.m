@@ -20,84 +20,13 @@
  */
 
 #import "AppDelegate.h"
-#import "AbbrevListDocument.h"
+
 
 @implementation AppDelegate
 
-@synthesize abbrevResolver;
-
-- (id) init
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
-    self = [super init];
-    abbrevResolver = [[[AbbrevResolverImpl alloc] init] retain];
-    return self;
-}
-
-- (NSRect) windowZoomRect
-{
-    NSRect desktopFrame = [[appControlPanel screen] visibleFrame];
-    NSRect panelFrame = [appControlPanel frame];
-    return NSMakeRect(desktopFrame.origin.x + panelFrame.size.width, desktopFrame.origin.y,
-                      desktopFrame.size.width - panelFrame.size.width, desktopFrame.size.height);
-}
-
-- (void) applicationDidFinishLaunching:(NSNotification *)notification
-{
-    [NSBundle loadNibNamed:@"ControlPanelWindow" owner:self];
-    
-    NSRect desktopFrame = [[appControlPanel screen] visibleFrame];
-    [appControlPanel setFrame:NSMakeRect(desktopFrame.origin.x,
-                                         desktopFrame.origin.y,
-                                         [appControlPanel frame].size.width,
-                                         desktopFrame.size.height)
-                      display:YES];
-    [appControlPanel orderBack:self];
-
-    [[[NSNib alloc] initWithNibNamed:@"MediaPanelView" bundle:[NSBundle mainBundle]] instantiateNibWithOwner:self topLevelObjects:nil];
-    [[appControlPanel modules] addSubview:mediaController.mediaPanel setsOwnSize:YES];
-    
-    AbbrevListDocument* ald = [[AbbrevListDocument alloc] init];
-    [abbrevResolver addedDocument:ald];
-    
-    NSNib* nib = [[NSNib alloc] initWithNibNamed:@"AbbrevListView" bundle:[NSBundle mainBundle]];
-    [nib instantiateNibWithOwner:ald topLevelObjects:nil];
-    [[appControlPanel modules] addSubview:[ald view] setsOwnSize:NO];
-    
-    [NSApp setNextResponder:mediaController];
-}
-
-- (IBAction) openDocument:(id)sender
-{
-    NSOpenPanel* aPanel = [NSOpenPanel openPanel];
-	NSArray* types = [QTMovie movieFileTypes:0xfff];
-    NSURL* url;
-    
-    [aPanel setAllowedFileTypes:types];
-    [aPanel runModal];
-    url = [aPanel URL];
-    if (url) {
-        [self application:NSApp openFile:[url path]];
-    }
-}
-
-- (BOOL) application:(NSApplication*)app openFile:(NSString*)filename
-{
-    NSWorkspace* ws = [NSWorkspace sharedWorkspace];
-    NSURL *fileURL = [NSURL fileURLWithPath:filename];
-    NSString *fileUTI = nil;
-    
-    [fileURL getResourceValue:&fileUTI forKey:NSURLTypeIdentifierKey error:NULL];
-    
-    if (fileUTI) {
-        NSArray* types = [QTMovie movieTypesWithOptions:QTIncludeCommonTypes];
-        for (NSString* movieType in types) {
-            if ([ws type:fileUTI conformsToType:movieType]) {
-                return [mediaController openFile:filename];
-            }
-        }
-    }
-    
-    return NO;
+  [NSApp setPresentationOptions:NSApplicationPresentationFullScreen];
 }
 
 @end

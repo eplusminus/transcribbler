@@ -19,28 +19,45 @@
  
  */
 
-#import "MediaPanel.h"
-
 #import <Cocoa/Cocoa.h>
 #import <QTKit/QTKit.h>
 
+@class DisclosureView;
+@class StackingView;
 
-@interface MediaController : NSResponder {
-    
-    IBOutlet MediaPanel* mediaPanel;
-    
-    QTMovie* movie;
+
+@interface MediaController : NSViewController {
+ @private
+  IBOutlet NSDrawer* drawer;
+  IBOutlet NSTextField* fileNameLabel;
+  IBOutlet QTMovieView* movieView;
+  IBOutlet StackingView* stackingView;
+  IBOutlet DisclosureView* movieDisclosureView;
+  IBOutlet DisclosureView* propertiesDisclosureView;
+  IBOutlet NSTextField* totalTimeLabel;
+  IBOutlet NSTextField* fileSizeLabel;
+  
+  IBOutlet NSTextField* timeCodeLabel;
+  
+  QTMovie* movie;
+  NSString* movieFilePath;
+  BOOL hasVideo;
+  NSTimer* timer;
+  long lastTimeValue;
 }
 
-@property(readonly) MediaPanel* mediaPanel;
+- (QTMovie*)movie;
+- (void)setMovie:(QTMovie*)movie;
 
-- (BOOL) isPlaying;
+- (BOOL)openMediaFile:(NSString*)filePath;
+- (void)closeMediaFile;
 
-- (BOOL) openFile:(NSString*)filename;
+- (BOOL)isPlaying;
 
-- (IBAction) pause:(id)sender;
-- (IBAction) play:(id)sender;
-- (IBAction) replay:(id)sender;
-- (IBAction) togglePlay:(id)sender;
+- (IBAction)loadMedia:(id)sender;
+- (IBAction)pause:(id)sender;
+- (IBAction)play:(id)sender;
+- (IBAction)replay:(id)sender;
+- (IBAction)togglePlay:(id)sender;
 
 @end

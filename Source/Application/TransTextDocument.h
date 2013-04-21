@@ -19,17 +19,28 @@
  
  */
 
-#import "TransTextView.h"
-
 #import <Cocoa/Cocoa.h>
+
+@class AbbrevListDocument;
+@class AbbrevResolverImpl;
+@class TransTextView;
+@class TransTextWindowController;
+@protocol AbbrevResolver;
 
 
 @interface TransTextDocument : NSDocument
 {
+  TransTextWindowController* windowController;
+  
 	IBOutlet TransTextView* textView;
-    
+  
+  NSTextStorage* textStorage;
 	NSAttributedString* loadedText;
+  AbbrevListDocument* abbrevListDocument;
+  AbbrevResolverImpl* abbrevResolver;
 }
 
+@property (readonly) AbbrevListDocument* abbrevListDocument;
+@property (readonly) id<AbbrevResolver> abbrevResolver;
 
 @end

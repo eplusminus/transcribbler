@@ -19,28 +19,11 @@
  
  */
 
-#import <Cocoa/Cocoa.h>
-#import <QTKit/QTKit.h>
+#import <Foundation/Foundation.h>
 
+@protocol ViewSizeLimits <NSObject>
 
-@interface MediaPanel : NSView {
-    
-    IBOutlet QTMovieView* movieView;
-    IBOutlet NSTextField* fileNameLabel;
-    IBOutlet NSTextField* timeCodeLabel;
-    IBOutlet NSTextField* noVideoLabel;
-    IBOutlet NSBox* divider;
-    IBOutlet NSButton* twixie;
-    
-    QTMovie* movie;
-    NSTimer* timer;
-}
-
-- (QTMovie*) movie;
-
-- (void) setMovie:(QTMovie*)movie;
-- (void) setMovieName:(NSString*)name;
-
-- (IBAction) updateState:(id)sender;
+- (NSSize)minimumSize;
+- (NSSize)maximumSize;
 
 @end

@@ -19,19 +19,16 @@
  
  */
 
-#import "AbbrevArrayController.h"
-#import "AbbrevResolver.h"
-
 #import <Cocoa/Cocoa.h>
 
-
-@class TransTextDocument;
+@protocol AbbrevResolver;
 
 
 @interface TransTextView : NSTextView {
-
-    IBOutlet id<AbbrevResolver> abbrevResolver;
-	IBOutlet TransTextDocument* owner;
+ @private
+	IBOutlet id<AbbrevResolver> abbrevResolver;
 }
+
+@property (retain) id<AbbrevResolver> abbrevResolver;
 
 @end

@@ -20,6 +20,7 @@
  */
 
 #import "AbbrevArrayController.h"
+
 #import "AbbrevEntry.h"
 #import "AbbrevListDocument.h"
 
@@ -29,58 +30,61 @@
 
 @implementation AbbrevArrayController
 
-- (void) dealloc
+@synthesize document;
+
+- (void)dealloc
 {
 	[super dealloc];
 }
 
-- (void) awakeFromNib
+- (void)awakeFromNib
 {
 	NSData *data = [[NSUserDefaults standardUserDefaults] dataForKey:DefaultAbbrevsKey];
-    if (data) {
-        [self addObjects:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
-        [document modified];
-    }			
+  if (data) {
+    [self addObjects:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+    [self setSelectionIndexes:[NSIndexSet indexSet]];
+    [document modified];
+  }			
 }
 
-- (void) delete:(id)sender
+- (void)delete:(id)sender
 {
-    if ([self selectionIndex] != NSNotFound) {
-        [self removeObjects:[self selectedObjects]];
-        [self persist];
-    }
+  if ([self selectionIndex] != NSNotFound) {
+    [self removeObjects:[self selectedObjects]];
+    [self persist];
+  }
 }
 
-- (void) add:(id)sender
+- (void)add:(id)sender
 {
 	[super add:sender];
-    [self persist];
+  [self persist];
 }
 
-- (void) remove:(id)sender
+- (void)remove:(id)sender
 {
 	[super remove:sender];
-    [self persist];
+  [self persist];
 }
 
-- (void) copy:(id)sender
+- (void)copy:(id)sender
 {
     NSArray *selectedObjects = [self selectedObjects];
     NSUInteger count = [selectedObjects count];
     if (count == 0) {
-        return;
+      return;
     }
     NSMutableArray *copyObjectsArray = [NSMutableArray arrayWithCapacity: count];
     NSMutableString *textBuffer = [NSMutableString stringWithCapacity:2000];
         
     for (AbbrevEntry *a in selectedObjects) {
-        [copyObjectsArray addObject: a];
-        if (a.abbreviation && a.abbreviation.length && a.expansion) {
-            [textBuffer appendString:a.abbreviation];
-            [textBuffer appendString:@"\t"];
-            [textBuffer appendString:a.expansion];
-            [textBuffer appendString:@"\n"];
-        }
+      [copyObjectsArray addObject: a];
+      if (a.abbreviation && a.abbreviation.length && a.expansion) {
+        [textBuffer appendString:a.abbreviation];
+        [textBuffer appendString:@"\t"];
+        [textBuffer appendString:a.expansion];
+        [textBuffer appendString:@"\n"];
+      }
     }
     
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
@@ -92,68 +96,68 @@
     [pb setString:textBuffer forType:NSPasteboardTypeString];
 }
 
-- (void) paste:(id)sender
+- (void)paste:(id)sender
 {
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
     NSData *data = [pb dataForType: AbbreviationsPasteboardType];
     NSArray *items = nil;
     
     if (data != nil) {
-        items = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+      items = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     }
     else {
-        NSString *s = [pb stringForType: NSPasteboardTypeString];
-        if (s != nil) {
-            NSScanner *scan = [NSScanner scannerWithString:s];
-            NSMutableArray *aa = [NSMutableArray array];
-            while (![scan isAtEnd]) {
-                [scan scanCharactersFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] intoString:nil];
-                NSString *n;
-                if ([scan scanUpToCharactersFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] intoString:&n]) {
-                    NSString *v;
-                    if ([scan scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&v]) {
-                        AbbrevEntry *a = [self newEntry];
-                        a.abbreviation = n;
-                        a.expansionDesc = v;
-                        [aa addObject:a];
-                    }
-                }
+      NSString *s = [pb stringForType: NSPasteboardTypeString];
+      if (s != nil) {
+        NSScanner *scan = [NSScanner scannerWithString:s];
+        NSMutableArray *aa = [NSMutableArray array];
+        while (![scan isAtEnd]) {
+          [scan scanCharactersFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] intoString:nil];
+          NSString *n;
+          if ([scan scanUpToCharactersFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] intoString:&n]) {
+            NSString *v;
+            if ([scan scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&v]) {
+              AbbrevEntry *a = [self newEntry];
+              a.abbreviation = n;
+              a.expansionDesc = v;
+              [aa addObject:a];
             }
-            items = aa;
+          }
         }
+        items = aa;
+      }
     }
 
     if (items != nil && [items count] > 0) {
-        NSUInteger pos = [self selectionIndex];
-        if (pos == NSNotFound) {
-            pos = [[self arrangedObjects] count];
-        }
-        for (AbbrevEntry *a in items) {
-            [self insertObject:a atArrangedObjectIndex:pos];
-            pos++;
-        }
-        [self persist];
+      NSUInteger pos = [self selectionIndex];
+      if (pos == NSNotFound) {
+        pos = [[self arrangedObjects] count];
+      }
+      for (AbbrevEntry *a in items) {
+        [self insertObject:a atArrangedObjectIndex:pos];
+        pos++;
+      }
+      [self persist];
     }
 }
 
-- (void) objectDidEndEditing:(id)editor
+- (void)objectDidEndEditing:(id)editor
 {
 	[super objectDidEndEditing:editor];
     [self persist];
 }
 
-- (AbbrevEntry*) newEntry
+- (AbbrevEntry*)newEntry
 {
-    AbbrevEntry* e = [[AbbrevEntry alloc] init];
-    e.abbreviation = @"";
-    e.expansion = @"";
-    return e;
+  AbbrevEntry* e = [[AbbrevEntry alloc] init];
+  e.abbreviation = @"";
+  e.expansion = @"";
+  return e;
 }
 
-- (void) persist
+- (void)persist
 {
-    [document modified];
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[self arrangedObjects]];
+  [document modified];
+  NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[self arrangedObjects]];
 	[[NSUserDefaults standardUserDefaults] setObject:data forKey:DefaultAbbrevsKey];
 }
 

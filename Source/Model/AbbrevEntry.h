@@ -32,10 +32,12 @@
 
 @property (nonatomic, retain) NSArray *variants;
 
-- (NSString*) expansionDesc;
-- (void) setExpansionDesc:(NSString*)desc;
+- (NSString*)expansionDesc;
+- (void)setExpansionDesc:(NSString*)desc;
 
-- (NSString*) variantAbbreviation:(AbbrevBase*)variant;
-- (NSString*) variantExpansion:(AbbrevBase*)variant;
+- (NSString*)variantAbbreviation:(AbbrevBase*)variant;
+- (NSString*)variantExpansion:(AbbrevBase*)variant;
+
+- (BOOL)isEmpty;
 
 @end

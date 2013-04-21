@@ -19,50 +19,76 @@
  
  */
 
-#import "AppDelegate.h"
 #import "TransTextDocument.h"
+
+#import "AbbrevListDocument.h"
+#import "AbbrevResolver.h"
+#import "AbbrevResolverImpl.h"
+#import "AbbrevsController.h"
+#import "AppDelegate.h"
+#import "TransTextWindowController.h"
+#import "TransTextView.h"
 
 
 @implementation TransTextDocument
 
-- (NSString*) windowNibName
+@synthesize abbrevListDocument, abbrevResolver;
+
+- (id)init
 {
-    return @"TransTextDocument";
+  self = [super init];
+  abbrevListDocument = [[[AbbrevListDocument alloc] init] retain];
+  abbrevResolver = [[[AbbrevResolverImpl alloc] init] retain];
+  [abbrevResolver addedDocument:abbrevListDocument];
+  abbrevListDocument.abbrevResolver = abbrevResolver;
+  return self;
 }
 
-- (void) windowControllerDidLoadNib:(NSWindowController*)windowController
+- (void)dealloc
 {
-    [super windowControllerDidLoadNib:windowController];
-
-	 if (loadedText) {
-        [[textView textStorage] replaceCharactersInRange:NSMakeRange(0, [[textView string] length]) withAttributedString:loadedText];
-        [loadedText release];
-    }
+  [windowController release];
+  [abbrevListDocument release];
+  [abbrevResolver release];
+  [super dealloc];
 }
 
-- (NSRect) windowWillUseStandardFrame:(NSWindow*)window defaultFrame:(NSRect)newFrame
+- (void)makeWindowControllers
 {
-    AppDelegate* ad = [NSApp delegate];
-    return [ad windowZoomRect];
+  windowController = [[[TransTextWindowController alloc] initWithWindowNibName:@"TransTextDocument"] retain];
+  [self addWindowController:windowController];
+}
+
+- (void)windowControllerDidLoadNib:(NSWindowController*)w
+{
+  [super windowControllerDidLoadNib:w];
+
+  textStorage = [[windowController textView] textStorage];
+  if (loadedText) {
+    [textStorage replaceCharactersInRange:NSMakeRange(0, [textStorage length]) withAttributedString:loadedText];
+    [loadedText release];
+  }
+  
+  [[windowController abbrevsController] addAbbrevListDocument:abbrevListDocument];
+  [windowController textView].abbrevResolver = abbrevResolver;
 }
 	
-- (BOOL) readFromFileWrapper:(NSFileWrapper*)file ofType:(NSString*)type error:(NSError**)error
+- (BOOL)readFromFileWrapper:(NSFileWrapper*)file ofType:(NSString*)type error:(NSError**)error
 {
 	loadedText = [[NSAttributedString alloc] initWithRTF:[file regularFileContents] documentAttributes:nil];
 
-	if (textView) {                                                         
-        [[textView textStorage] replaceCharactersInRange:NSMakeRange(0, [[textView string] length]) withAttributedString:loadedText];
-        [loadedText release];
+	if (textStorage) {
+    [textStorage replaceCharactersInRange:NSMakeRange(0, [textStorage length]) withAttributedString:loadedText];
+    [loadedText release];
 	}
     
 	return YES;
 }
 
-- (NSFileWrapper*) fileWrapperOfType:(NSString*)type error:(NSError**)error
+- (NSFileWrapper*)fileWrapperOfType:(NSString*)type error:(NSError**)error
 {
 	NSFileWrapper* file = [[NSFileWrapper alloc] initRegularFileWithContents:[[textView textStorage] RTFFromRange:NSMakeRange(0, [[textView string] length]) documentAttributes:nil]];
 	
-    return [file autorelease];
+  return [file autorelease];
 }
 
 @end

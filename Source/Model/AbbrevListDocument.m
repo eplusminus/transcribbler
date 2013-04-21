@@ -20,63 +20,70 @@
  */
 
 #import "AbbrevListDocument.h"
+#import "AbbrevResolverImpl.h"
 
 
 @implementation AbbrevListDocument
 
-@synthesize controller, view;
+@synthesize abbrevResolver, controller, tableView, view;
 
-- (id) init
+- (id)init
 {
-    self = [super init];
-    if (self) {
-        // Add your subclass-specific initialization here.
-    }
-    return self;
+  self = [super init];
+  if (self) {
+    // Add your subclass-specific initialization here.
+  }
+  return self;
 }
 
-- (NSString*) windowNibName
+- (void)dealloc
 {
-    // Override returning the nib file name of the document
-    // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
-    return @"AbbrevListDocument";
+  self.abbrevResolver = nil;
+  [super dealloc];
 }
 
-- (void) windowControllerDidLoadNib:(NSWindowController *)aController
+- (NSString*)windowNibName
 {
-    [super windowControllerDidLoadNib:aController];
-    // Add any code here that needs to be executed once the windowController has loaded the document's window.
+  // Override returning the nib file name of the document
+  // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
+  return @"AbbrevListDocument";
 }
 
-- (NSData*) dataOfType:(NSString*)typeName error:(NSError**)outError
+- (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
-    // Insert code here to write your document to data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning nil.
-    // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
-    if (outError) {
-        *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-    }
-    return nil;
+  [super windowControllerDidLoadNib:aController];
+  // Add any code here that needs to be executed once the windowController has loaded the document's window.
 }
 
-- (BOOL) readFromData:(NSData*)data ofType:(NSString*)typeName error:(NSError**)outError
+- (NSData*)dataOfType:(NSString*)typeName error:(NSError**)outError
 {
-    // Insert code here to read your document from the given data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning NO.
-    // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead.
-    // If you override either of these, you should also override -isEntireFileLoaded to return NO if the contents are lazily loaded.
-    if (outError) {
-        *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-    }
-    return YES;
+  // Insert code here to write your document to data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning nil.
+  // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
+  if (outError) {
+    *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
+  }
+  return nil;
 }
 
-+ (BOOL) autosavesInPlace
+- (BOOL)readFromData:(NSData*)data ofType:(NSString*)typeName error:(NSError**)outError
 {
-    return YES;
+  // Insert code here to read your document from the given data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning NO.
+  // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead.
+  // If you override either of these, you should also override -isEntireFileLoaded to return NO if the contents are lazily loaded.
+  if (outError) {
+    *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
+  }
+  return YES;
 }
 
-- (void) modified
++ (BOOL)autosavesInPlace
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:AbbrevListDocumentModified object:self];
+  return YES;
+}
+
+- (void)modified
+{
+  [abbrevResolver refresh:self];
 }
 
 @end

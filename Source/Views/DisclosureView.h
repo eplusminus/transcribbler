@@ -19,35 +19,45 @@
  
  */
 
-#import "AppControlPanel.h"
-#import "HandyTableView.h"
+#import "ViewSizeLimits.h"
 
+#import <Cocoa/Cocoa.h>
 
-@implementation AppControlPanel
+@interface DisclosureView : NSView <ViewSizeLimits> {
+ @private
+  IBOutlet NSButton* disclosureButton;
+  IBOutlet NSTextField* label;
 
-@synthesize modules;
-
-- (void) awakeFromNib
-{
-    [self setFloatingPanel:YES];
-//    [self setBecomesKeyOnlyIfNeeded:YES];
-    [self setDelegate:self];
-    
-    tableFieldEditor = [[QuickTableTextView alloc] init];
+  BOOL inited;
+  NSView* contentView;
+  NSString* title;
+  BOOL enabled;
+  BOOL expanded;
+  BOOL fixedHeight;
+  BOOL indentContent;
+  float titleHeight;
+  float preferredHeight;
+  float preferredWidth;
 }
 
-- (BOOL) canBecomeKeyWindow
-{
-    return YES;
-}
+- (BOOL)isEnabled;
+- (void)setEnabled:(BOOL)enabled;
 
-- (id) windowWillReturnFieldEditor:(NSWindow*)sender toObject:(id)anObject
-{
-	if ([anObject isKindOfClass:[HandyTableView class]]) {
-		tableFieldEditor.tableView = (NSTableView*)anObject;
-		return tableFieldEditor;
-	}
-	return nil;
-}
+- (BOOL)isExpanded;
+- (void)setExpanded:(BOOL)expanded;
+
+- (BOOL)isIndentContent;
+- (void)setIndentContent:(BOOL)indentContent;
+
+- (float)preferredHeight;
+- (void)setPreferredHeight:(float)expandedHeight;
+
+- (BOOL)fixedHeight;
+- (void)setFixedHeight:(BOOL)fixedHeight;
+
+- (NSString*)title;
+- (void)setTitle:(NSString*)title;
+
+- (IBAction)toggle:(id)sender;
 
 @end

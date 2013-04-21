@@ -19,26 +19,27 @@
  
  */
 
-#import "AbbrevResolverImpl.h"
-
 #import <Cocoa/Cocoa.h>
 
+@class AbbrevEntry;
+@class AbbrevListDocument;
 
 #define AbbreviationsPasteboardType @"AbbreviationsPasteBoardType"
 
 
 @interface AbbrevArrayController : NSArrayController {
-    
-    IBOutlet AbbrevResolverImpl* resolver;
-    IBOutlet AbbrevListDocument* document;
-
+ @private
+  IBOutlet AbbrevListDocument* document;
 }
-- (IBAction) delete:(id)sender;
-- (IBAction) copy:(id)sender;
-- (IBAction) paste:(id)sender;
 
-- (AbbrevEntry*) newEntry;
+@property (readonly) AbbrevListDocument* document;
 
-- (void) persist;
+- (IBAction)delete:(id)sender;
+- (IBAction)copy:(id)sender;
+- (IBAction)paste:(id)sender;
+
+- (AbbrevEntry*)newEntry;
+
+- (void)persist;
 
 @end

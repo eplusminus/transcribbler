@@ -19,21 +19,28 @@
  
  */
 
-#import "AbbrevArrayController.h"
-
 #import <Cocoa/Cocoa.h>
+
+@class AbbrevArrayController;
+@class AbbrevResolverImpl;
+@class HandyTableView;
 
 
 #define AbbrevListDocumentModified @"AbbrevListDocumentModified"
 
 @interface AbbrevListDocument : NSDocument {
-    
-    IBOutlet NSView* view;
-    IBOutlet AbbrevArrayController* controller;
+ @private
+  IBOutlet NSView* view;
+  IBOutlet AbbrevArrayController* controller;
+  IBOutlet HandyTableView* tableView;
+  
+  AbbrevResolverImpl* abbrevResolver;
 }
 
-@property(readonly) NSView* view;
-@property(readonly) AbbrevArrayController* controller;
+@property (readonly) NSView* view;
+@property (readonly) HandyTableView* tableView;
+@property (readonly) AbbrevArrayController* controller;
+@property (retain) AbbrevResolverImpl* abbrevResolver;
 
 - (void) modified;
 

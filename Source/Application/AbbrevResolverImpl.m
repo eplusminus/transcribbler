@@ -19,127 +19,130 @@
  
  */
 
-#import "AbbrevListDocument.h"
 #import "AbbrevResolverImpl.h"
+
+#import "AbbrevListDocument.h"
 
 
 @implementation AbbrevResolverImpl
 
-- (id) init
+- (id)init
 {
-    self = [super init];
-    documents = [[NSMutableArray arrayWithCapacity:10] retain];
-    return self;
+  self = [super init];
+  documents = [[NSMutableArray arrayWithCapacity:10] retain];
+  return self;
 }
 
-- (void) dealloc {
-    [index release];
-    [documents release];
-    [super dealloc];
+- (void)dealloc
+{
+  [index release];
+  [documents release];
+  [super dealloc];
 }
 
-- (void) addedDocument:(AbbrevListDocument*)document
+- (void)addedDocument:(AbbrevListDocument*)document
 {
-    [documents count];
-    [documents addObject:document];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:)
-                                                 name:AbbrevListDocumentModified object:document];
-    [self refresh:nil];
+  [documents addObject:document];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:)
+                                               name:AbbrevListDocumentModified object:document];
+  [self refresh:nil];
 }
 
-- (void) refresh:(id)sender
+- (void)refresh:(id)sender
 {
-    NSArray* items = nil;
-    for (AbbrevListDocument* d in documents) {
-        NSArray* a = [d.controller arrangedObjects];
-        if (items) {
-            items = [items arrayByAddingObjectsFromArray:a];
-        }
-        else {
-            items = a;
-        }
-    }
-    
-    [self setItems:items];
-}
-
-- (void) setItems:(NSArray*)newItems
-{
-    NSMutableDictionary *newIndex = [NSMutableDictionary dictionaryWithCapacity:[newItems count]];
-    for (AbbrevEntry *a in newItems) {
-        [self addToIndex:newIndex value:a forKey:a.abbreviation];
-        if (a.variants != nil) {
-            for (AbbrevBase *v in a.variants) {
-                [self addToIndex:newIndex value:a forKey:[a variantAbbreviation:v]];
-            }
-        }
-    }
-    [index release];
-    index = [newIndex retain];
-}
-
-- (void) addToIndex:(NSMutableDictionary*)newIndex value:(id)value forKey:(NSString*)key
-{
-    if (key == nil || value == nil) {
-        return;
-    }
-    NSString *k = [key lowercaseString];
-    NSObject *existing = [newIndex valueForKey:k];
-    if (existing == nil) {
-        [newIndex setValue:value forKey:k];
+  NSArray* items = nil;
+  for (AbbrevListDocument* d in documents) {
+    NSArray* a = [d.controller arrangedObjects];
+    if (items) {
+      items = [items arrayByAddingObjectsFromArray:a];
     }
     else {
-        NSArray *na;
-        if ([existing isMemberOfClass:[NSArray class]]) {
-            na = [((NSArray*)existing) arrayByAddingObject:value];
-        }
-        else {
-            na = [NSArray arrayWithObjects:existing, value, nil];
-        }
-        [newIndex setValue:na forKey:k];
+      items = a;
     }
+  }
+  
+  [self setItems:items];
 }
 
-// AbbrevResolver
-
-- (NSString *) getExpansion: (NSString *)abbrev
+- (void)setItems:(NSArray*)newItems
 {
-    NSString *key = [abbrev lowercaseString];
-    NSObject *found = [index valueForKey:[abbrev lowercaseString]];
-    if (found != nil && [found isMemberOfClass:[AbbrevEntry class]]) {
-        AbbrevEntry *a = (AbbrevEntry *)found;
-        if ([a.abbreviation caseInsensitiveCompare:key] == NSOrderedSame) {
-            return a.expansion;
-        }
-        else {
-            for (AbbrevBase *v in a.variants) {
-                if ([[a variantAbbreviation:v] caseInsensitiveCompare:key] == NSOrderedSame) {
-                    return [a variantExpansion:v];
-                }
-            }
-        }
-    }
-    return nil;
-}
-
-- (BOOL) hasDuplicateAbbreviation:(AbbrevEntry*)a
-{
-    if ([self isDuplicate:a.abbreviation]) {
-        return YES;
-    }
+  NSMutableDictionary *newIndex = [NSMutableDictionary dictionaryWithCapacity:[newItems count]];
+  for (AbbrevEntry *a in newItems) {
+    [self addToIndex:newIndex value:a forKey:a.abbreviation];
     if (a.variants != nil) {
-        for (AbbrevBase *v in a.variants) {
-            if ([self isDuplicate:[a variantAbbreviation:v]]) {
-                return YES;
-            }
-        }
+      for (AbbrevBase *v in a.variants) {
+        [self addToIndex:newIndex value:a forKey:[a variantAbbreviation:v]];
+      }
     }
-    return NO;
+  }
+  [index release];
+  index = [newIndex retain];
 }
 
-- (BOOL) isDuplicate:(NSString*)abbrev
+- (void)addToIndex:(NSMutableDictionary*)newIndex value:(id)value forKey:(NSString*)key
 {
-    return [[index valueForKey:[abbrev lowercaseString]] isKindOfClass:[NSArray class]];
+  if (key == nil || value == nil) {
+    return;
+  }
+  NSString *k = [key lowercaseString];
+  NSObject *existing = [newIndex valueForKey:k];
+  if (existing == nil) {
+    [newIndex setValue:value forKey:k];
+  }
+  else {
+    NSArray *na;
+    if ([existing isMemberOfClass:[NSArray class]]) {
+      na = [((NSArray*)existing) arrayByAddingObject:value];
+    }
+    else {
+      na = [NSArray arrayWithObjects:existing, value, nil];
+    }
+    [newIndex setValue:na forKey:k];
+  }
+}
+
+//
+// protocol AbbrevResolver
+//
+
+- (NSString*)getExpansion:(NSString*)abbrev
+{
+  NSString *key = [abbrev lowercaseString];
+  NSObject *found = [index valueForKey:[abbrev lowercaseString]];
+  if (found != nil && [found isMemberOfClass:[AbbrevEntry class]]) {
+    AbbrevEntry *a = (AbbrevEntry *)found;
+    if ([a.abbreviation caseInsensitiveCompare:key] == NSOrderedSame) {
+      return a.expansion;
+    }
+    else {
+      for (AbbrevBase *v in a.variants) {
+        if ([[a variantAbbreviation:v] caseInsensitiveCompare:key] == NSOrderedSame) {
+            return [a variantExpansion:v];
+        }
+      }
+    }
+  }
+  return nil;
+}
+
+- (BOOL)hasDuplicateAbbreviation:(AbbrevEntry*)a
+{
+  if ([self isDuplicate:a.abbreviation]) {
+    return YES;
+  }
+  if (a.variants != nil) {
+    for (AbbrevBase *v in a.variants) {
+      if ([self isDuplicate:[a variantAbbreviation:v]]) {
+        return YES;
+      }
+    }
+  }
+  return NO;
+}
+
+- (BOOL)isDuplicate:(NSString*)abbrev
+{
+  return [[index valueForKey:[abbrev lowercaseString]] isKindOfClass:[NSArray class]];
 }
 
 @end

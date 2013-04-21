@@ -21,18 +21,27 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class AbbrevsController;
+@class MediaController;
+@class TransTextView;
 
-@interface QuickTableTextView : NSTextView {
-    
-    IBOutlet NSDocument *document;
-    IBOutlet NSTableView *tableView;
-    
-    @protected
-	int _movedVerticallyAtCharPos;
-	int _movedVerticallyAtPixelPos;
+
+@interface TransTextWindowController : NSWindowController <NSWindowDelegate, NSDrawerDelegate> {
+ @private
+  IBOutlet MediaController* mediaController;
+  IBOutlet AbbrevsController* abbrevsController;
+  
+	IBOutlet TransTextView* textView;
+  IBOutlet NSDrawer* mediaDrawer;
+  IBOutlet NSDrawer* abbrevDrawer;
 }
 
-@property(retain) NSDocument *document;
-@property(retain) NSTableView *tableView;
+@property (readonly) AbbrevsController* abbrevsController;
+@property (readonly) MediaController* mediaController;
+@property (readonly) TransTextView* textView;
+
+- (IBAction)toggleMediaDrawer:(id)sender;
+- (IBAction)toggleAbbrevDrawer:(id)sender;
+- (IBAction)toggleRuler:(id)sender;
 
 @end

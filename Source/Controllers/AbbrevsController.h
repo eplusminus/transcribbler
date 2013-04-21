@@ -19,19 +19,27 @@
  
  */
 
-#import "QuickTableTextView.h"
-#import "StackingView.h"
-
 #import <Cocoa/Cocoa.h>
 
+@class AbbrevListDocument;
 
-@interface AppControlPanel : NSPanel <NSWindowDelegate> {
-    
-    IBOutlet StackingView* modules;
-    
-    QuickTableTextView* tableFieldEditor;
+
+@interface AbbrevsController : NSViewController {
+@private
+  IBOutlet NSDrawer* drawer;
+  IBOutlet NSView* containerView;
+  IBOutlet NSView* textView;
+  
+  AbbrevListDocument* document;
 }
 
-@property(retain) StackingView* modules;
+@property (readonly) AbbrevListDocument* document;
+
+- (void)addAbbrevListDocument:(AbbrevListDocument*)document;
+
+- (IBAction)newAbbreviation:(id)sender;
+
+- (NSView*)textView;
+- (void)setTextView:(NSView*)textView;
 
 @end

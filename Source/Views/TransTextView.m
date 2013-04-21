@@ -21,82 +21,87 @@
 
 #import "TransTextView.h"
 
+#import "AbbrevArrayController.h"
 #import "AbbrevParser.h"
+#import "AbbrevResolver.h"
 #import "AppDelegate.h"
 #import "TransTextDocument.h"
 
 
 @implementation TransTextView
 
+@synthesize abbrevResolver;
 
 #define BOTH_SHIFT_KEYS (NSShiftKeyMask | 0x06)
 
-
-- (void) awakeFromNib
+- (void)dealloc
 {
-    AppDelegate* ad = [NSApp delegate];
-	abbrevResolver = [ad abbrevResolver];
-    
-    [self setRulerVisible:YES];
+  self.abbrevResolver = nil;
+  [super dealloc];
 }
 
-- (void) keyDown:(NSEvent*)theEvent {
+- (void)awakeFromNib
+{
+  [self setRulerVisible:YES];
+}
+
+- (void)keyDown:(NSEvent*)theEvent {
 	
-    NSString *chars = [theEvent characters];
-    if ([chars length] == 1) {
-        unichar ch = [chars characterAtIndex:0];
-        if ([AbbrevParser isWordTerminatorChar:ch]) {
-            NSRange r = [self selectedRange];
-            if (r.length == 0) {
-                int pos = r.location;
-                NSString* currentText = [[self textStorage] string];
-                NSString* lastWord = [self findLastWordIn: currentText fromPos: pos];
-                if ([lastWord length] > 0) {
-                    NSString* expansion = [AbbrevParser expandAbbreviation:lastWord withResolver:abbrevResolver];
-                    if (expansion) {
-                        [[[self textStorage] mutableString]
-                            replaceCharactersInRange: NSMakeRange(pos - [lastWord length], [lastWord length])
-                            withString: expansion];
-                        [self setNeedsDisplayInRect:[[[self enclosingScrollView] contentView] visibleRect]];
-                    }
-                }
-            }
+  NSString *chars = [theEvent characters];
+  if ([chars length] == 1) {
+    unichar ch = [chars characterAtIndex:0];
+    if ([AbbrevParser isWordTerminatorChar:ch]) {
+      NSRange r = [self selectedRange];
+      if (r.length == 0) {
+        int pos = r.location;
+        NSString* currentText = [[self textStorage] string];
+        NSString* lastWord = [self findLastWordIn: currentText fromPos: pos];
+        if ([lastWord length] > 0) {
+          NSString* expansion = [AbbrevParser expandAbbreviation:lastWord withResolver:abbrevResolver];
+          if (expansion) {
+            [[[self textStorage] mutableString]
+                replaceCharactersInRange: NSMakeRange(pos - [lastWord length], [lastWord length])
+                withString: expansion];
+            [self setNeedsDisplayInRect:[[[self enclosingScrollView] contentView] visibleRect]];
+          }
         }
-        if ((ch == 13) && [[[NSUserDefaults standardUserDefaults] objectForKey:@"autoTimestamp"] boolValue] == YES){
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"automaticTimestamp" object:self];
-        }
+      }
     }
-    
+    if ((ch == 13) && [[[NSUserDefaults standardUserDefaults] objectForKey:@"autoTimestamp"] boolValue] == YES) {
+      [[NSNotificationCenter defaultCenter] postNotificationName:@"automaticTimestamp" object:self];
+    }
+  }
+  
 	[self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
 }
 
-- (void) flagsChanged:(NSEvent*)theEvent {
-    if (([theEvent modifierFlags] & BOTH_SHIFT_KEYS) == BOTH_SHIFT_KEYS) {
-        [[NSApplication sharedApplication] sendAction:@selector(replay:) to:nil from:self];
-    }
+- (void)flagsChanged:(NSEvent*)theEvent {
+  if (([theEvent modifierFlags] & BOTH_SHIFT_KEYS) == BOTH_SHIFT_KEYS) {
+    [[NSApplication sharedApplication] sendAction:@selector(replay:) to:nil from:self];
+  }
 }
 
-- (NSString*) findLastWordIn:(NSString*)text fromPos: (int)pos {
+- (NSString*)findLastWordIn:(NSString*)text fromPos: (int)pos {
     int start;
 	for (start = pos - 1; start >= 0; start--) {
 		unichar ch = [text characterAtIndex:start];
-        if ([AbbrevParser isWordBoundaryChar:ch]) {
-			// The following test is meant to keep us from expanding things like the
-			// "s" in "that's"; the apostrophe counts as a boundary character for
-			// terminating words (so the "that" could be expanded), and it counts as one
-			// if it's preceded by another terminator (e.g. a space), but not if it's
-			// inside an existing word.
-			if (ch == '\'') {
-				if (start > 0) {
-					if (![AbbrevParser isWordBoundaryChar:[text characterAtIndex:(start - 1)]]) {
-						continue;
-					}
-				}
-			}
-            break;
+    if ([AbbrevParser isWordBoundaryChar:ch]) {
+      // The following test is meant to keep us from expanding things like the
+      // "s" in "that's"; the apostrophe counts as a boundary character for
+      // terminating words (so the "that" could be expanded), and it counts as one
+      // if it's preceded by another terminator (e.g. a space), but not if it's
+      // inside an existing word.
+      if (ch == '\'') {
+        if (start > 0) {
+          if (![AbbrevParser isWordBoundaryChar:[text characterAtIndex:(start - 1)]]) {
+            continue;
+          }
+        }
+      }
+      break;
 		}
 	}
-    return [text substringWithRange: NSMakeRange(start + 1, pos - (start + 1))];
+  return [text substringWithRange: NSMakeRange(start + 1, pos - (start + 1))];
 }
 
 @end

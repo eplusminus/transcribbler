@@ -27,18 +27,14 @@
 @class AbbrevListDocument;
 
 @interface AbbrevResolverImpl : NSObject <AbbrevResolver> {
-
-    @private
-    NSDictionary *index;
-    NSDictionary *duplicates;
-    
-    NSMutableArray* documents;
+ @private
+  NSDictionary *index;
+  NSDictionary *duplicates;
+  
+  NSMutableArray* documents;
 }
 
-- (void) dealloc;
-
-- (void) addedDocument:(AbbrevListDocument*)document;
-
-- (void) setItems:(NSArray*)items;
+- (void)addedDocument:(AbbrevListDocument*)document;
+- (void)refresh:(id)sender;
 
 @end

@@ -19,24 +19,10 @@
  
  */
 
-#import "AbbrevResolverImpl.h"
-#import "AppControlPanel.h"
-#import "MediaController.h"
-
 #import <Foundation/Foundation.h>
 
 
 @interface AppDelegate : NSResponder <NSApplicationDelegate> {
-    
-    IBOutlet AppControlPanel* appControlPanel;
-    IBOutlet MediaController* mediaController;
-    IBOutlet NSView* abbrevPanel;
-    
-    AbbrevResolverImpl* abbrevResolver;
 }
-
-@property(readonly) AbbrevResolverImpl* abbrevResolver;
-
-- (NSRect) windowZoomRect;
 
 @end

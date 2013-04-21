@@ -21,13 +21,33 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class QuickTableTextView;
+
 
 @interface HandyTableView : NSTableView {
-    
-    @protected
-    int clickedCol;
-    int clickedRow;
-    BOOL editing;
+ @private
+  IBOutlet NSView* backTabDestination;
+  IBOutlet NSView* forwardTabDestination;
+  
+  int clickedCol;
+  int clickedRow;
+  BOOL editing;
+  BOOL tabWrapsForward;
+  BOOL tabWrapsBackward;
+  
+  QuickTableTextView* fieldEditor;
 }
+
+@property (retain) NSView* backTabDestination;
+@property (retain) NSView* forwardTabDestination;
+
++ (id)windowWillReturnFieldEditor:(NSWindow*)sender toObject:(id)anObject;
+
+@end
+
+
+@protocol HandyTableViewDelegate
+
+- (BOOL)tableView:(HandyTableView*)view canDeleteEmptyRow:(NSUInteger)row;
 
 @end
