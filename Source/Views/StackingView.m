@@ -67,7 +67,7 @@
 - (void)willRemoveSubview:(NSView*)view
 {
   if ([view superview] == self && ![view isKindOfClass:NSClassFromString(@"NSCustomView")]) {
-    [view removeObserver:self forKeyPath:@"hidden" context:nil];
+    [view removeObserver:self forKeyPath:@"hidden"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:view];
   }
 }

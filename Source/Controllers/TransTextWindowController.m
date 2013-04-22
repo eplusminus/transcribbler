@@ -30,6 +30,8 @@
 
 @implementation TransTextWindowController
 
+#define kNSWindowCollectionBehaviorFullScreenPrimary (1 << 7)
+
 @synthesize abbrevsController, mediaController, textView;
 
 - (void)dealloc
@@ -40,6 +42,8 @@
 - (void)windowDidLoad
 {
   [super windowDidLoad];
+  
+  [[self window] setCollectionBehavior:kNSWindowCollectionBehaviorFullScreenPrimary];
   
   [mediaController setNextResponder:[self nextResponder]];
   [abbrevsController setNextResponder:mediaController];

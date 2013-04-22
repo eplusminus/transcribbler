@@ -24,9 +24,11 @@
 
 @implementation AppDelegate
 
+#define kNSApplicationPresentationFullScreen (1 << 10)
+
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
-  [NSApp setPresentationOptions:NSApplicationPresentationFullScreen];
+  [NSApp setPresentationOptions:kNSApplicationPresentationFullScreen];
 }
 
 @end
