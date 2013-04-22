@@ -1,5 +1,5 @@
 
-Transcriptacular is a Mac OS X text editor with extensions for audio/video transcription.  It doesn't do
+Transcribbler is a Mac OS X text editor with extensions for audio/video transcription.  It doesn't do
 voice recognition, it just helps you type as quickly as possible using customizable keyboard controls and
 word/phrase abbreviations.  It uses basic Cocoa API components for text editing, and QuickTime for audio
 and video playback.

@@ -18,7 +18,6 @@
 		455BE3DB1712467C00DCAF5F /* AbbrevListDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */; };
 		455BE3DD1712467C00DCAF5F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BF1712467C00DCAF5F /* Credits.rtf */; };
 		455BE3DE1712467C00DCAF5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3C11712467C00DCAF5F /* InfoPlist.strings */; };
-		455BE3E11712467C00DCAF5F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3C71712467C00DCAF5F /* Info.plist */; };
 		455BE40817124D5400DCAF5F /* Menus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455BE40617124D5400DCAF5F /* Menus.xib */; };
 		455BE40B171259DB00DCAF5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 455BE40A171259DB00DCAF5F /* AppDelegate.m */; };
 		4591D48817232EC200BC713B /* DisclosureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4591D48717232EC200BC713B /* DisclosureView.m */; };
@@ -60,7 +59,7 @@
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		32DBCF750370BD2300C91783 /* Transcriptacular_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transcriptacular_Prefix.pch; sourceTree = "<group>"; };
+		32DBCF750370BD2300C91783 /* Transcribbler_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transcribbler_Prefix.pch; sourceTree = "<group>"; };
 		451579BB171129A900BC08AA /* AbbrevResolverImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbrevResolverImpl.h; sourceTree = "<group>"; };
 		451579BC1711471F00BC08AA /* AbbrevTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbbrevTableViewDelegate.h; path = Source/Views/AbbrevTableViewDelegate.h; sourceTree = "<group>"; };
 		451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbbrevTableViewDelegate.m; path = Source/Views/AbbrevTableViewDelegate.m; sourceTree = "<group>"; };
@@ -79,7 +78,7 @@
 		455BE39E1711FDB000DCAF5F /* AbbrevListDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbrevListDocument.m; sourceTree = "<group>"; };
 		455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbrevListDocument.xib; sourceTree = "<group>"; };
 		455BE3C01712467C00DCAF5F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
-		455BE3C21712467C00DCAF5F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
+		455BE3C21712467C00DCAF5F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		455BE3C71712467C00DCAF5F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		455BE40717124D5400DCAF5F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Menus.xib; sourceTree = "<group>"; };
 		455BE409171259DB00DCAF5F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -111,7 +110,7 @@
 		63C868300DDA098500DC3670 /* TransTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransTextView.h; path = Source/Views/TransTextView.h; sourceTree = "<group>"; };
 		63C868310DDA098500DC3670 /* TransTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransTextView.m; path = Source/Views/TransTextView.m; sourceTree = "<group>"; };
 		63C8684D0DDA0A5300DC3670 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
-		8D15AC370486D014006FF6A4 /* Transcriptacular.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transcriptacular.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D15AC370486D014006FF6A4 /* Transcribbler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transcribbler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,7 +155,7 @@
 		19C28FB0FE9D524F11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D15AC370486D014006FF6A4 /* Transcriptacular.app */,
+				8D15AC370486D014006FF6A4 /* Transcribbler.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,7 +175,7 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				32DBCF750370BD2300C91783 /* Transcriptacular_Prefix.pch */,
+				32DBCF750370BD2300C91783 /* Transcribbler_Prefix.pch */,
 				45E95DC8171B4DBD008FEEE4 /* LICENSE */,
 			);
 			name = "Other Sources";
@@ -294,9 +293,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D15AC270486D014006FF6A4 /* Transcriptacular */ = {
+		8D15AC270486D014006FF6A4 /* Transcribbler */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Transcriptacular" */;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Transcribbler" */;
 			buildPhases = (
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC300486D014006FF6A4 /* Sources */,
@@ -307,10 +306,10 @@
 			);
 			dependencies = (
 			);
-			name = Transcriptacular;
+			name = Transcribbler;
 			productInstallPath = "$(HOME)/Applications";
 			productName = Transcriptions;
-			productReference = 8D15AC370486D014006FF6A4 /* Transcriptacular.app */;
+			productReference = 8D15AC370486D014006FF6A4 /* Transcribbler.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -321,7 +320,7 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 			};
-			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Transcriptacular" */;
+			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Transcribbler" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -333,7 +332,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D15AC270486D014006FF6A4 /* Transcriptacular */,
+				8D15AC270486D014006FF6A4 /* Transcribbler */,
 			);
 		};
 /* End PBXProject section */
@@ -346,7 +345,6 @@
 				455BE3DB1712467C00DCAF5F /* AbbrevListDocument.xib in Resources */,
 				455BE3DD1712467C00DCAF5F /* Credits.rtf in Resources */,
 				455BE3DE1712467C00DCAF5F /* InfoPlist.strings in Resources */,
-				455BE3E11712467C00DCAF5F /* Info.plist in Resources */,
 				455BE40817124D5400DCAF5F /* Menus.xib in Resources */,
 				45FD2E8E1719E1D400D0204F /* AbbrevListView.xib in Resources */,
 				45FD2E95171A1F6700D0204F /* Localizable.strings in Resources */,
@@ -465,10 +463,10 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Transcriptacular_Prefix.pch;
+				GCC_PREFIX_HEADER = Transcribbler_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = Transcriptacular;
+				PRODUCT_NAME = Transcribbler;
 			};
 			name = Debug;
 		};
@@ -481,10 +479,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Transcriptacular_Prefix.pch;
+				GCC_PREFIX_HEADER = Transcribbler_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = Transcriptacular;
+				PRODUCT_NAME = Transcribbler;
 			};
 			name = Release;
 		};
@@ -519,7 +517,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Transcriptacular" */ = {
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Transcribbler" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C05733C808A9546B00998B17 /* Debug */,
@@ -528,7 +526,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Transcriptacular" */ = {
+		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Transcribbler" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C05733CC08A9546B00998B17 /* Debug */,

@@ -1,6 +1,6 @@
 /*
  
- Transcriptacular, a Mac OS X text editor for audio/video transcription
+ Transcribbler, a Mac OS X text editor for audio/video transcription
  Copyright (C) 2013  Eli Bishop
  
  This program is free software; you can redistribute it and/or
