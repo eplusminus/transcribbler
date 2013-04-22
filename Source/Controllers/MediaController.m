@@ -143,11 +143,32 @@
   }
 }
 
+- (NSString*)mediaFilePath
+{
+  return movieFilePath;
+}
+
 - (BOOL)isPlaying
 {
   return movie && ([movie rate] != 0);
 }
 
+- (NSString*)timeCodeString
+{
+  if (movie) {
+    QTTime current = [movie currentTime];
+    return [MediaController timeString:current withTenths:YES];
+  }
+  return nil;
+}
+
+- (void)setTimeCodeString:(NSString*)s
+{
+  if (s) {
+    QTTime t = [MediaController timeFromString:s];
+    [movie setCurrentTime:t];
+  }
+}
 
 - (IBAction)pause:(id)sender
 {
@@ -263,6 +284,26 @@
   else {
     return [NSString stringWithFormat:@"%02d:%02d:%02d", hh, mm, ss];
   }
+}
+
++ (QTTime)timeFromString:(NSString*)s
+{
+  if ([s length] == 8) {
+    s = [s stringByAppendingString:@".0"];
+  }
+  if ([s length] == 10) {
+    NSArray* fields = [s componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@":."]];
+    if ([fields count] == 4) {
+      NSString* hh = [fields objectAtIndex:0];
+      NSString* mm = [fields objectAtIndex:1];
+      NSString* ss = [fields objectAtIndex:2];
+      NSString* t = [fields objectAtIndex:3];
+      NSString* qtTimeStr = [NSString stringWithFormat:@"00:%@:%@:%@.%@/10",
+                             hh, mm, ss, t];
+      return QTTimeFromString(qtTimeStr);
+    }
+  }
+  return QTMakeTime(0, 10);
 }
 
 + (NSString*)fileSizeString:(long long)bytes

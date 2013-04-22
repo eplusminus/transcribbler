@@ -51,8 +51,11 @@
 
 - (BOOL)openMediaFile:(NSString*)filePath;
 - (void)closeMediaFile;
+- (NSString*)mediaFilePath;
 
 - (BOOL)isPlaying;
+- (NSString*)timeCodeString;
+- (void)setTimeCodeString:(NSString*)s;
 
 - (IBAction)loadMedia:(id)sender;
 - (IBAction)pause:(id)sender;

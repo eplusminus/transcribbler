@@ -68,6 +68,26 @@
   [textView setRulerVisible:![textView isRulerVisible]];
 }
 
+- (BOOL)isMediaDrawerOpen
+{
+  return ([mediaDrawer state] == NSDrawerOpenState);
+}
+
+- (void)setMediaDrawerOpen:(BOOL)open
+{
+  [self setDrawerState:mediaDrawer open:open];
+}
+
+- (BOOL)isAbbrevDrawerOpen
+{
+  return ([abbrevDrawer state] == NSDrawerOpenState);
+}
+
+- (void)setAbbrevDrawerOpen:(BOOL)open
+{
+  [self setDrawerState:abbrevDrawer open:open];
+}
+
 //
 // protocol NSWindowDelegate
 //
@@ -119,22 +139,22 @@
   return NO;
 }
 
-
-//
-// informal protocol NSToolbarItemValidation
-//
-
 //
 // internal
 //
 
 - (void)toggleDrawer:(NSDrawer*)drawer onEdge:(NSRectEdge)edge
 {
-  if ([drawer state] == NSDrawerOpenState) {
-    [drawer close];
+  [self setDrawerState:drawer open:([drawer state] == NSDrawerClosedState)];
+}
+
+- (void)setDrawerState:(NSDrawer*)drawer open:(BOOL)open
+{
+  if (open) {
+    [drawer openOnEdge:((drawer == mediaDrawer) ? NSMinXEdge : NSMaxXEdge)];
   }
   else {
-    [drawer openOnEdge:edge];
+    [drawer close];
   }
 }
 

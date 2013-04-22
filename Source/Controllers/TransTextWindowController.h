@@ -44,4 +44,9 @@
 - (IBAction)toggleAbbrevDrawer:(id)sender;
 - (IBAction)toggleRuler:(id)sender;
 
+- (BOOL)isMediaDrawerOpen;
+- (void)setMediaDrawerOpen:(BOOL)open;
+- (BOOL)isAbbrevDrawerOpen;
+- (void)setAbbrevDrawerOpen:(BOOL)open;
+
 @end

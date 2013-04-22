@@ -32,12 +32,12 @@
 {
   TransTextWindowController* windowController;
   
-	IBOutlet TransTextView* textView;
-  
   NSTextStorage* textStorage;
-	NSAttributedString* loadedText;
   AbbrevListDocument* abbrevListDocument;
   AbbrevResolverImpl* abbrevResolver;
+  
+  NSAttributedString* loadedText;
+  NSDictionary* loadedDocAttributes;
 }
 
 @property (readonly) AbbrevListDocument* abbrevListDocument;
