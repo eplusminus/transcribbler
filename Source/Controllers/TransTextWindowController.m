@@ -23,8 +23,10 @@
 
 #import "AbbrevListDocument.h"
 #import "AbbrevsController.h"
+#import "DisclosureView.h"
 #import "HandyTableView.h"
 #import "MediaController.h"
+#import "StackingView.h"
 #import "TransTextView.h"
 
 
@@ -34,6 +36,10 @@
 
 - (void)dealloc
 {
+  [mainContentView release];
+  [fullScreenSidebarView release];
+  [toolbar release];
+  [splitter release];
   [super dealloc];
 }
 
@@ -49,6 +55,24 @@
   
   [mediaDrawer setDelegate:self];
   [abbrevDrawer setDelegate:self];
+  
+  fullScreenSidebarWidth = 250;
+  toolbarVisibleInFullScreen = NO;
+  
+  NSRect r0 = NSMakeRect(0, 0, 200, 200);
+  NSRect r1 = NSMakeRect(0, 0, 100, 200);
+  splitter = [[NSSplitView alloc] initWithFrame:r0];
+  [splitter setVertical:YES];
+  [splitter setDividerStyle:NSSplitViewDividerStyleThin];
+  [splitter setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
+
+  fullScreenSidebarView = [[NSView alloc] initWithFrame:r1];
+  stackingView = [[StackingView alloc] initWithFrame:NSInsetRect(r1, 4, 4)];
+  [stackingView setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
+  [fullScreenSidebarView addSubview:stackingView];
+  [splitter addSubview:fullScreenSidebarView];
+  
+  [mainContentView retain];
   
   [[self document] windowControllerDidLoadNib:self];
 }
@@ -75,6 +99,48 @@
 - (id)windowWillReturnFieldEditor:(NSWindow*)sender toObject:(id)anObject
 {
   return [HandyTableView windowWillReturnFieldEditor:sender toObject:anObject];
+}
+
+- (void)windowWillEnterFullScreen:(NSNotification*)notification
+{
+  toolbar = [[[self window] toolbar] retain];
+  toolbarVisibleDefault = [toolbar isVisible];
+  [[self window] setToolbar:nil];
+
+  [splitter setFrame: [[[self window] contentView] frame]];
+  [mainContentView removeFromSuperview];
+  [splitter addSubview:mainContentView];
+  [splitter setPosition:fullScreenSidebarWidth ofDividerAtIndex:0];
+  [[[self window] contentView] addSubview:splitter];
+  
+  [mediaController lendViewsTo:stackingView];
+  [abbrevsController lendViewsTo:stackingView];
+  
+  [textView setTextContainerInset:NSMakeSize(100, 0)];  
+}
+
+- (void)windowWillExitFullScreen:(NSNotification*)notification
+{
+  fullScreenSidebarWidth = [fullScreenSidebarView frame].size.width - 40;
+  
+  NSRect cf = [[[self window] contentView] frame];
+  [mainContentView removeFromSuperview];
+  [splitter removeFromSuperview];
+  [mainContentView setFrame:cf];
+  [[[self window] contentView] addSubview:mainContentView];
+  
+  [mediaController restoreViews];
+  [abbrevsController restoreViews];
+  
+  [textView setTextContainerInset:NSMakeSize(0, 0)];
+}
+
+- (void)windowDidExitFullScreen:(NSNotification*)notification
+{
+  [[self window] setToolbar:toolbar];
+  [toolbar setVisible:toolbarVisibleDefault];
+  [toolbar release];
+  toolbar = nil;
 }
 
 //

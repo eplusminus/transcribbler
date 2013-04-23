@@ -36,7 +36,7 @@
 
 - (void)dealloc
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:stackingView];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:movieDisclosureView];
   [movie release];
   [timer invalidate];
   [timer release];
@@ -57,7 +57,7 @@
   [movieDisclosureView setHidden:YES];
   [propertiesDisclosureView setHidden:YES];
   
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stackingViewFrameChanged:) name:NSViewFrameDidChangeNotification object:stackingView];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewResized:) name:NSViewFrameDidChangeNotification object:movieDisclosureView];
   
   if (!timer){
     timer = [[NSTimer timerWithTimeInterval:0.1 target:self selector:@selector(timerTask:) userInfo:nil repeats:YES] retain];
@@ -148,7 +148,6 @@
   return movie && ([movie rate] != 0);
 }
 
-
 - (IBAction)pause:(id)sender
 {
   if ([self isPlaying]) {
@@ -182,6 +181,22 @@
     [movie setCurrentTime:QTTimeDecrement([movie currentTime], decrement)];
     [self play:sender];
   }
+}
+
+- (void)lendViewsTo:(StackingView*)sv
+{
+  [movieDisclosureView removeFromSuperview];
+  [sv addSubview:movieDisclosureView];
+  [propertiesDisclosureView removeFromSuperview];
+  [sv addSubview:propertiesDisclosureView];
+}
+
+- (void)restoreViews
+{
+  [movieDisclosureView removeFromSuperview];
+  [stackingView addSubview:movieDisclosureView];
+  [propertiesDisclosureView removeFromSuperview];
+  [stackingView addSubview:propertiesDisclosureView];
 }
 
 //
@@ -242,7 +257,7 @@
   }
 }
 
-- (void)stackingViewFrameChanged:(id)sender
+- (void)viewResized:(id)sender
 {
   [self updateMovieViewSize];
 }

@@ -60,4 +60,7 @@
 - (IBAction)replay:(id)sender;
 - (IBAction)togglePlay:(id)sender;
 
+- (void)lendViewsTo:(StackingView*)sv;
+- (void)restoreViews;
+
 @end

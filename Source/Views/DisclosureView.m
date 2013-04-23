@@ -119,6 +119,11 @@
   }
 }
 
+- (NSView*)contentView
+{
+  return contentView;
+}
+
 - (BOOL)isEnabled
 {
   return enabled;

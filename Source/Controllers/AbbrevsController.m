@@ -22,7 +22,9 @@
 #import "AbbrevsController.h"
 
 #import "AbbrevListDocument.h"
+#import "DisclosureView.h"
 #import "HandyTableView.h"
+#import "StackingView.h"
 
 
 @implementation AbbrevsController
@@ -39,7 +41,9 @@
 - (void)dealloc
 {
   [document release];
+  [listView release];
   [textView release];
+  [disclosureView release];
   [super dealloc];
 }
 
@@ -52,6 +56,7 @@
     [drawer setMinContentSize:size];
     [drawer setContentView:[self view]];
   }
+  [disclosureView setFixedHeight:NO];
 }
 
 - (void)addAbbrevListDocument:(AbbrevListDocument*)d
@@ -61,12 +66,13 @@
     if (![document view]) {
       [NSBundle loadNibNamed:@"AbbrevListView" owner:document];
     }
-    NSView* listView = [document view];
+    listView = [[document view] retain];
     [listView setFrameOrigin:NSMakePoint(0, 0)];
     [listView setFrameSize:[containerView frame].size];
     [listView setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
     [containerView addSubview:listView];
     [document tableView].backTabDestination = textView;
+    [disclosureView retain];
   }
 }
 
@@ -88,6 +94,22 @@
     textView = [v retain];
     [document tableView].backTabDestination = textView;
   }
+}
+
+- (void)lendViewsTo:(StackingView*)sv
+{
+  [listView removeFromSuperview];
+  [[disclosureView contentView] addSubview:listView];
+  [listView setFrame:[[disclosureView contentView] frame]];
+  [sv addSubview:disclosureView];
+}
+
+- (void)restoreViews
+{
+  [disclosureView removeFromSuperview];
+  [listView removeFromSuperview];
+  [containerView addSubview:listView];
+  [listView setFrame:NSMakeRect(0, 0, [containerView frame].size.width, [containerView frame].size.height)];
 }
 
 //

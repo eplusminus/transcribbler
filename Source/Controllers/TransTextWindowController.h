@@ -22,7 +22,9 @@
 #import <Cocoa/Cocoa.h>
 
 @class AbbrevsController;
+@class DisclosureView;
 @class MediaController;
+@class StackingView;
 @class TransTextView;
 
 
@@ -31,9 +33,20 @@
   IBOutlet MediaController* mediaController;
   IBOutlet AbbrevsController* abbrevsController;
   
+  IBOutlet NSView* mainContentView;
 	IBOutlet TransTextView* textView;
+  IBOutlet NSScrollView* scrollView;
   IBOutlet NSDrawer* mediaDrawer;
   IBOutlet NSDrawer* abbrevDrawer;
+  
+  BOOL fullScreen;
+  NSToolbar* toolbar;
+  NSSplitView* splitter;
+  NSView* fullScreenSidebarView;
+  StackingView* stackingView;
+  NSUInteger fullScreenSidebarWidth;
+  BOOL toolbarVisibleDefault;
+  BOOL toolbarVisibleInFullScreen;
 }
 
 @property (readonly) AbbrevsController* abbrevsController;

@@ -40,6 +40,8 @@
   float preferredWidth;
 }
 
+- (NSView*)contentView;
+
 - (BOOL)isEnabled;
 - (void)setEnabled:(BOOL)enabled;
 
