@@ -65,9 +65,6 @@
         }
       }
     }
-    if ((ch == 13) && [[[NSUserDefaults standardUserDefaults] objectForKey:@"autoTimestamp"] boolValue] == YES) {
-      [[NSNotificationCenter defaultCenter] postNotificationName:@"automaticTimestamp" object:self];
-    }
   }
   
 	[self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
