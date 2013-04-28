@@ -32,8 +32,6 @@
 
 @synthesize abbrevResolver;
 
-#define BOTH_SHIFT_KEYS (NSShiftKeyMask | 0x06)
-
 - (void)dealloc
 {
   self.abbrevResolver = nil;
@@ -73,12 +71,6 @@
   }
   
 	[self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
-}
-
-- (void)flagsChanged:(NSEvent*)theEvent {
-  if (([theEvent modifierFlags] & BOTH_SHIFT_KEYS) == BOTH_SHIFT_KEYS) {
-    [[NSApplication sharedApplication] sendAction:@selector(replay:) to:nil from:self];
-  }
 }
 
 - (NSString*)findLastWordIn:(NSString*)text fromPos: (int)pos {

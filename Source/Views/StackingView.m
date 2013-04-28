@@ -41,6 +41,7 @@
   self = [super initWithFrame:r];
   inited = NO;
   updating = NO;
+  dirty = NO;
   return self;
 }
 
@@ -86,7 +87,12 @@
 
 - (void)subviewFrameChanged:(id)sender
 {
-  [self updateLayout];
+  if (updating) {
+    dirty = YES;
+  }
+  else {
+    [self updateLayout];
+  }
 }
 
 - (void)updateLayout
@@ -95,51 +101,56 @@
     return;
   }
   updating = YES;
-  BOOL changed = NO;
   
-  float fixedWidth = [self frame].size.width;
-  float minSpaceUsed = 0;
-  int varHeightCount = 0;
-  for (NSView* v in [self subviews]) {
-    if (![v isHidden]) {
-      float min = [self minimumHeight:v];
-      float max = [self maximumHeight:v];
-      minSpaceUsed += min;
-      if (max > min) {
-        varHeightCount++;
-      }
-    }
-  }
-  float availableHeight = [self frame].size.height - minSpaceUsed;
-  
-  float pos = [self frame].size.height;
-  for (NSView* v in [self subviews]) {
-    if (![v isHidden]) {
-      float newHeight;
-      float min = [self minimumHeight:v];
-      float max = [self maximumHeight:v];
-      if (min == max) {
-        newHeight = min;
-      }
-      else {
-        newHeight = min + (availableHeight / varHeightCount);
-        if (newHeight > max) {
-          newHeight = max;
+  do {
+    dirty = NO;
+    BOOL changed = NO;
+    
+    float fixedWidth = [self frame].size.width;
+    float minSpaceUsed = 0;
+    int varHeightCount = 0;
+    for (NSView* v in [self subviews]) {
+      if (![v isHidden]) {
+        float min = [self minimumHeight:v];
+        float max = [self maximumHeight:v];
+        minSpaceUsed += min;
+        if (max > min) {
+          varHeightCount++;
         }
       }
-      NSRect newFrame = NSMakeRect(0, pos - newHeight, fixedWidth, newHeight);
-      NSRect oldFrame = [v frame];
-      if (!NSEqualRects(oldFrame, newFrame)) {
-        [v setFrame:newFrame];
-        changed = YES;
-      }
-      pos -= newHeight;
     }
-  }
+    float availableHeight = [self frame].size.height - minSpaceUsed;
+    
+    float pos = [self frame].size.height;
+    for (NSView* v in [self subviews]) {
+      if (![v isHidden]) {
+        float newHeight;
+        float min = [self minimumHeight:v];
+        float max = [self maximumHeight:v];
+        if (min == max) {
+          newHeight = min;
+        }
+        else {
+          newHeight = min + (availableHeight / varHeightCount);
+          if (newHeight > max) {
+            newHeight = max;
+          }
+        }
+        NSRect newFrame = NSMakeRect(0, pos - newHeight, fixedWidth, newHeight);
+        NSRect oldFrame = [v frame];
+        if (!NSEqualRects(oldFrame, newFrame)) {
+          [v setFrame:newFrame];
+          changed = YES;
+        }
+        pos -= newHeight;
+      }
+    }
+    
+    if (changed) {
+      [self setNeedsDisplay:YES];
+    }
+  } while (dirty);
   
-  if (changed) {
-    [self setNeedsDisplay:YES];
-  }
   updating = NO;
 }
 
