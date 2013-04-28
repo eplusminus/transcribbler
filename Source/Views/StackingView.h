@@ -26,6 +26,7 @@
  @private
   BOOL inited;
   BOOL updating;
+  BOOL dirty;
 }
 
 @end

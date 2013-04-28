@@ -23,9 +23,16 @@
 
 #import "AbbrevListDocument.h"
 #import "AbbrevsController.h"
+#import "DisclosureView.h"
 #import "HandyTableView.h"
 #import "MediaController.h"
+#import "StackingView.h"
 #import "TransTextView.h"
+
+
+#define kDefaultSidebarWidth 200
+#define kDefaultSidebarWidthKey @"SidebarWidth"
+#define kBothShiftKeys (NSShiftKeyMask | 0x06)
 
 
 @implementation TransTextWindowController
@@ -34,6 +41,10 @@
 
 - (void)dealloc
 {
+  [mainContentView release];
+  [fullScreenSidebarView release];
+  [toolbar release];
+  [splitter release];
   [super dealloc];
 }
 
@@ -50,7 +61,30 @@
   [mediaDrawer setDelegate:self];
   [abbrevDrawer setDelegate:self];
   
+  toolbarVisibleInFullScreen = NO;
+  
+  NSRect r0 = NSMakeRect(0, 0, 200, 200);
+  NSRect r1 = NSMakeRect(0, 0, 100, 200);
+  splitter = [[NSSplitView alloc] initWithFrame:r0];
+  [splitter setVertical:YES];
+  [splitter setDividerStyle:NSSplitViewDividerStyleThin];
+  [splitter setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
+
+  fullScreenSidebarView = [[NSView alloc] initWithFrame:r1];
+  stackingView = [[StackingView alloc] initWithFrame:NSInsetRect(r1, 4, 4)];
+  [stackingView setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
+  [fullScreenSidebarView addSubview:stackingView];
+  [splitter addSubview:fullScreenSidebarView];
+  
+  [mainContentView retain];
+  
   [[self document] windowControllerDidLoadNib:self];
+}
+
+- (void)flagsChanged:(NSEvent*)theEvent {
+  if (([theEvent modifierFlags] & kBothShiftKeys) == kBothShiftKeys) {
+    [[NSApplication sharedApplication] sendAction:@selector(replay:) to:nil from:self];
+  }
 }
 
 - (IBAction)toggleMediaDrawer:(id)sender
@@ -95,6 +129,58 @@
 - (id)windowWillReturnFieldEditor:(NSWindow*)sender toObject:(id)anObject
 {
   return [HandyTableView windowWillReturnFieldEditor:sender toObject:anObject];
+}
+
+- (void)windowWillEnterFullScreen:(NSNotification*)notification
+{
+  toolbar = [[[self window] toolbar] retain];
+  toolbarVisibleDefault = [toolbar isVisible];
+  [[self window] setToolbar:nil];
+
+  float scaledWidth = ([TransTextWindowController defaultSidebarWidth] * [[self window] frame].size.width)
+    / [[NSScreen mainScreen] frame].size.width;
+
+  [splitter setFrame: [[[self window] contentView] frame]];
+  [mainContentView removeFromSuperview];
+  [splitter addSubview:mainContentView];
+  [splitter setPosition:scaledWidth ofDividerAtIndex:0];
+  
+  [[[self window] contentView] addSubview:splitter];
+  
+  [mediaController lendViewsTo:stackingView];
+  [abbrevsController lendViewsTo:stackingView];
+  
+  [textView setTextContainerInset:NSMakeSize(100, 30)];
+}
+
+- (void)windowDidEnterFullScreen:(NSNotification *)notification
+{
+  // set splitter position again in case scaledWidth had a rounding error
+  [splitter setPosition:[TransTextWindowController defaultSidebarWidth] ofDividerAtIndex:0];
+}
+
+- (void)windowWillExitFullScreen:(NSNotification*)notification
+{
+  [TransTextWindowController setDefaultSidebarWidth:[fullScreenSidebarView frame].size.width];
+  
+  NSRect cf = [[[self window] contentView] frame];
+  [mainContentView removeFromSuperview];
+  [splitter removeFromSuperview];
+  [mainContentView setFrame:cf];
+  [[[self window] contentView] addSubview:mainContentView];
+  
+  [mediaController restoreViews];
+  [abbrevsController restoreViews];
+  
+  [textView setTextContainerInset:NSMakeSize(0, 0)];
+}
+
+- (void)windowDidExitFullScreen:(NSNotification*)notification
+{
+  [[self window] setToolbar:toolbar];
+  [toolbar setVisible:toolbarVisibleDefault];
+  [toolbar release];
+  toolbar = nil;
 }
 
 //
@@ -156,6 +242,17 @@
   else {
     [drawer close];
   }
+}
+
++ (float)defaultSidebarWidth
+{
+  float f = [[NSUserDefaults standardUserDefaults] floatForKey:kDefaultSidebarWidthKey];
+  return (f == 0) ? kDefaultSidebarWidth : ((f < 0) ? 0 : f);
+}
+
++ (void)setDefaultSidebarWidth:(float)width
+{
+  [[NSUserDefaults standardUserDefaults] setFloat:((width <= 0) ? -1 : width) forKey:kDefaultSidebarWidthKey];
 }
 
 @end

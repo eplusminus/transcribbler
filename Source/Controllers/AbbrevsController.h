@@ -22,6 +22,8 @@
 #import <Cocoa/Cocoa.h>
 
 @class AbbrevListDocument;
+@class DisclosureView;
+@class StackingView;
 
 
 @interface AbbrevsController : NSViewController {
@@ -29,8 +31,10 @@
   IBOutlet NSDrawer* drawer;
   IBOutlet NSView* containerView;
   IBOutlet NSView* textView;
-  
+  IBOutlet DisclosureView* disclosureView;
+
   AbbrevListDocument* document;
+  NSView* listView;
 }
 
 @property (readonly) AbbrevListDocument* document;
@@ -41,5 +45,8 @@
 
 - (NSView*)textView;
 - (void)setTextView:(NSView*)textView;
+
+- (void)lendViewsTo:(StackingView*)sv;
+- (void)restoreViews;
 
 @end
