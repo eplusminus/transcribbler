@@ -32,6 +32,7 @@
 
 #define kDefaultSidebarWidth 200
 #define kDefaultSidebarWidthKey @"SidebarWidth"
+#define kBothShiftKeys (NSShiftKeyMask | 0x06)
 
 
 @implementation TransTextWindowController
@@ -78,6 +79,12 @@
   [mainContentView retain];
   
   [[self document] windowControllerDidLoadNib:self];
+}
+
+- (void)flagsChanged:(NSEvent*)theEvent {
+  if (([theEvent modifierFlags] & kBothShiftKeys) == kBothShiftKeys) {
+    [[NSApplication sharedApplication] sendAction:@selector(replay:) to:nil from:self];
+  }
 }
 
 - (IBAction)toggleMediaDrawer:(id)sender
