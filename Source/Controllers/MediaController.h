@@ -24,6 +24,7 @@
 
 @class DisclosureView;
 @class StackingView;
+@class MiniTimecodeView;
 
 
 @interface MediaController : NSViewController {
@@ -36,8 +37,8 @@
   IBOutlet DisclosureView* propertiesDisclosureView;
   IBOutlet NSTextField* totalTimeLabel;
   IBOutlet NSTextField* fileSizeLabel;
-  
   IBOutlet NSTextField* timeCodeLabel;
+  IBOutlet MiniTimecodeView* miniTimecodeView;
   
   QTMovie* movie;
   NSString* movieFilePath;

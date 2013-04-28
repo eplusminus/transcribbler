@@ -23,6 +23,16 @@
 
 #import "DisclosureView.h"
 #import "StackingView.h"
+#import "ViewSizeLimits.h"
+
+
+@interface MiniTimecodeView : NSView <ViewSizeLimits> {
+ @private
+  IBOutlet NSTextField* timeCodeLabel;
+  NSSize minSize;
+}
+- (void)setTimeCodeString:(NSString*)s;
+@end
 
 
 @implementation MediaController
@@ -40,6 +50,11 @@
   [movie release];
   [timer invalidate];
   [timer release];
+  
+  if ([miniTimecodeView superview] == nil) {
+    [miniTimecodeView release];
+  }
+  
   [super dealloc];
 }
 
@@ -56,6 +71,7 @@
   [self showMovieFileName];
   [movieDisclosureView setHidden:YES];
   [propertiesDisclosureView setHidden:YES];
+  [miniTimecodeView setHidden:YES];
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewResized:) name:NSViewFrameDidChangeNotification object:movieDisclosureView];
   
@@ -88,13 +104,16 @@
       [totalTimeLabel setStringValue:[MediaController timeString: totalTime withTenths:NO]];
       [fileSizeLabel setStringValue:[MediaController fileSizeString:fileSize]];
       [propertiesDisclosureView setHidden:NO];
-
+      [miniTimecodeView setHidden:NO];
+      
       lastTimeValue = -1;
     }
     else {
       [movieDisclosureView setHidden:YES];
       [propertiesDisclosureView setHidden:YES];
       [timeCodeLabel setStringValue:@""];
+      [miniTimecodeView setTimeCodeString:@""];
+      [miniTimecodeView setHidden:YES];
     }
   }
 }
@@ -185,6 +204,7 @@
 
 - (void)lendViewsTo:(StackingView*)sv
 {
+  [sv addSubview:miniTimecodeView];
   [movieDisclosureView removeFromSuperview];
   [sv addSubview:movieDisclosureView];
   [propertiesDisclosureView removeFromSuperview];
@@ -193,6 +213,7 @@
 
 - (void)restoreViews
 {
+  [miniTimecodeView removeFromSuperview];
   [movieDisclosureView removeFromSuperview];
   [stackingView addSubview:movieDisclosureView];
   [propertiesDisclosureView removeFromSuperview];
@@ -231,7 +252,9 @@
     QTTime current = [movie currentTime];
     if (current.timeValue != lastTimeValue) {
       lastTimeValue = current.timeValue;
-      [timeCodeLabel setStringValue:[MediaController timeString:current withTenths:YES]];
+      NSString* ts = [MediaController timeString:current withTenths:YES];
+      [timeCodeLabel setStringValue:ts];
+      [miniTimecodeView setTimeCodeString:ts];
     }
   }
 }
@@ -289,6 +312,31 @@
   else {
     return [NSString stringWithFormat:@"%lldM", k / 1024];
   }
+}
+
+@end
+
+
+@implementation MiniTimecodeView
+
+- (void)awakeFromNib
+{
+  minSize = [self frame].size;
+}
+
+- (void)setTimeCodeString:(NSString*)s
+{
+  [timeCodeLabel setStringValue:s];
+}
+
+- (NSSize)minimumSize
+{
+  return minSize;
+}
+
+- (NSSize)maximumSize
+{
+  return minSize;
 }
 
 @end
