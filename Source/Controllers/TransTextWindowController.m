@@ -30,6 +30,10 @@
 #import "TransTextView.h"
 
 
+#define kDefaultSidebarWidth 200
+#define kDefaultSidebarWidthKey @"SidebarWidth"
+
+
 @implementation TransTextWindowController
 
 @synthesize abbrevsController, mediaController, textView;
@@ -56,7 +60,6 @@
   [mediaDrawer setDelegate:self];
   [abbrevDrawer setDelegate:self];
   
-  fullScreenSidebarWidth = 250;
   toolbarVisibleInFullScreen = NO;
   
   NSRect r0 = NSMakeRect(0, 0, 200, 200);
@@ -107,21 +110,31 @@
   toolbarVisibleDefault = [toolbar isVisible];
   [[self window] setToolbar:nil];
 
+  float scaledWidth = ([TransTextWindowController defaultSidebarWidth] * [[self window] frame].size.width)
+    / [[NSScreen mainScreen] frame].size.width;
+
   [splitter setFrame: [[[self window] contentView] frame]];
   [mainContentView removeFromSuperview];
   [splitter addSubview:mainContentView];
-  [splitter setPosition:fullScreenSidebarWidth ofDividerAtIndex:0];
+  [splitter setPosition:scaledWidth ofDividerAtIndex:0];
+  
   [[[self window] contentView] addSubview:splitter];
   
   [mediaController lendViewsTo:stackingView];
   [abbrevsController lendViewsTo:stackingView];
   
-  [textView setTextContainerInset:NSMakeSize(100, 0)];  
+  [textView setTextContainerInset:NSMakeSize(100, 30)];
+}
+
+- (void)windowDidEnterFullScreen:(NSNotification *)notification
+{
+  // set splitter position again in case scaledWidth had a rounding error
+  [splitter setPosition:[TransTextWindowController defaultSidebarWidth] ofDividerAtIndex:0];
 }
 
 - (void)windowWillExitFullScreen:(NSNotification*)notification
 {
-  fullScreenSidebarWidth = [fullScreenSidebarView frame].size.width - 40;
+  [TransTextWindowController setDefaultSidebarWidth:[fullScreenSidebarView frame].size.width];
   
   NSRect cf = [[[self window] contentView] frame];
   [mainContentView removeFromSuperview];
@@ -185,11 +198,6 @@
   return NO;
 }
 
-
-//
-// informal protocol NSToolbarItemValidation
-//
-
 //
 // internal
 //
@@ -202,6 +210,17 @@
   else {
     [drawer openOnEdge:edge];
   }
+}
+
++ (float)defaultSidebarWidth
+{
+  float f = [[NSUserDefaults standardUserDefaults] floatForKey:kDefaultSidebarWidthKey];
+  return (f == 0) ? kDefaultSidebarWidth : ((f < 0) ? 0 : f);
+}
+
++ (void)setDefaultSidebarWidth:(float)width
+{
+  [[NSUserDefaults standardUserDefaults] setFloat:((width <= 0) ? -1 : width) forKey:kDefaultSidebarWidthKey];
 }
 
 @end

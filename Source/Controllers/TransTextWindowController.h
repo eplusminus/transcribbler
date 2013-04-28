@@ -44,7 +44,6 @@
   NSSplitView* splitter;
   NSView* fullScreenSidebarView;
   StackingView* stackingView;
-  NSUInteger fullScreenSidebarWidth;
   BOOL toolbarVisibleDefault;
   BOOL toolbarVisibleInFullScreen;
 }
