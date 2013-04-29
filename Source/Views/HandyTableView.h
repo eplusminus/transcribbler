@@ -22,6 +22,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class QuickTableTextView;
+@protocol HandyTableViewDelegate;
 
 
 @interface HandyTableView : NSTableView {
@@ -42,6 +43,7 @@
 @property (retain) NSView* forwardTabDestination;
 
 + (id)windowWillReturnFieldEditor:(NSWindow*)sender toObject:(id)anObject;
+- (id<HandyTableViewDelegate>)handyDelegate;
 
 @end
 
@@ -49,5 +51,6 @@
 @protocol HandyTableViewDelegate
 
 - (BOOL)tableView:(HandyTableView*)view canDeleteEmptyRow:(NSUInteger)row;
+- (BOOL)tableView:(HandyTableView*)view clickedBelowLastRowAt:(NSPoint)point;
 
 @end

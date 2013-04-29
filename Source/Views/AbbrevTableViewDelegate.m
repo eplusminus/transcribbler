@@ -158,6 +158,25 @@
   return [e isEmpty];
 }
 
+- (BOOL)tableView:(HandyTableView*)v clickedBelowLastRowAt:(NSPoint)point
+{
+  [v validateEditing];
+  [v abortEditing];
+
+  int count = [v numberOfRows];
+  if (count > 0) {
+    AbbrevEntry* e = [[table arrangedObjects] objectAtIndex:(count - 1)];
+    if ([e isEmpty]) {
+      [v selectRowIndexes:[NSIndexSet indexSetWithIndex:(count - 1)] byExtendingSelection:NO];
+      [v editColumn:0 row:(count - 1) withEvent:nil select:NO];
+      return YES;
+    }
+  }
+  [v selectRowIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
+  [self add:nil];
+  return YES;
+}
+
 @end
 
 //

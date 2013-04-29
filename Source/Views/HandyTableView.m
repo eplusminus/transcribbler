@@ -60,6 +60,12 @@
   [super dealloc];
 }
 
+- (id<HandyTableViewDelegate>)handyDelegate
+{
+  id d = [self delegate];
+  return ([d conformsToProtocol:@protocol(HandyTableViewDelegate)]) ? d : nil;
+}
+
 //
 // NSTableView
 //
@@ -91,6 +97,7 @@
 	NSPoint loc;
 	int col, row;
   
+  clickedRow = clickedCol = -1;
   if ([event clickCount] > 1 && editing) {
     NSTextView *field = (NSTextView*)[self currentEditor];
     [field mouseDown:event];
@@ -104,7 +111,7 @@
     col = [self columnAtPoint:loc];
     row = [self rowAtPoint:loc];
     if (row >= 0) {
-      if ([self selectedRow] != row) {
+      if (([self selectedRow] != row) || ([self editedColumn] != col)) {
         [self validateEditing];
         [self abortEditing];
         [self deselectAll:self];
@@ -114,7 +121,9 @@
       }
     }
     else {
-      [super mouseDown:event];
+      if (![[self handyDelegate] tableView:self clickedBelowLastRowAt:loc]) {
+        [super mouseDown:event];
+      }
     }
   }
 }
@@ -270,8 +279,7 @@
     if (row > 0) {
       [tableView validateEditing];
       [tableView abortEditing];
-      if ([[tableView delegate] conformsToProtocol:@protocol(HandyTableViewDelegate)] &&
-          [(id<HandyTableViewDelegate>)[tableView delegate] tableView:tableView canDeleteEmptyRow:row]) {
+      if ([[tableView handyDelegate] tableView:tableView canDeleteEmptyRow:row]) {
         [[self window] makeFirstResponder:tableView];
         [self selectRow:row];
         [[NSApplication sharedApplication] sendAction:@selector(delete:) to:[tableView delegate] from:self];
