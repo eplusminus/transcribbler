@@ -31,7 +31,11 @@
 
 
 #define kDefaultSidebarWidth 200
-#define kDefaultSidebarWidthKey @"SidebarWidth"
+#define kMinimumSidebarWidth 126  // width of MiniTimecodeView + insets
+#define kSidebarInset 4
+#define kSidebarWidthKey @"SidebarWidth"
+#define kSidebarHiddenKey @"SidebarHidden"
+
 #define kBothShiftKeys (NSShiftKeyMask | 0x06)
 
 
@@ -73,9 +77,10 @@
   [splitter setVertical:YES];
   [splitter setDividerStyle:NSSplitViewDividerStyleThin];
   [splitter setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
-
+  [splitter setDelegate:self];
+  
   fullScreenSidebarView = [[NSView alloc] initWithFrame:r1];
-  stackingView = [[StackingView alloc] initWithFrame:NSInsetRect(r1, 4, 4)];
+  stackingView = [[StackingView alloc] initWithFrame:NSInsetRect(r1, kSidebarInset, kSidebarInset)];
   [stackingView setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
   [fullScreenSidebarView addSubview:stackingView];
   [splitter addSubview:fullScreenSidebarView];
@@ -148,6 +153,7 @@
   [mainContentView removeFromSuperview];
   [splitter addSubview:mainContentView];
   [splitter setPosition:scaledWidth ofDividerAtIndex:0];
+  [fullScreenSidebarView setHidden:[TransTextWindowController defaultSidebarHidden]];
   
   [[[self window] contentView] addSubview:splitter];
   
@@ -160,12 +166,15 @@
 - (void)windowDidEnterFullScreen:(NSNotification *)notification
 {
   // set splitter position again in case scaledWidth had a rounding error
-  [splitter setPosition:[TransTextWindowController defaultSidebarWidth] ofDividerAtIndex:0];
+  if (![fullScreenSidebarView isHidden]) {
+    [splitter setPosition:[TransTextWindowController defaultSidebarWidth] ofDividerAtIndex:0];
+  }
 }
 
 - (void)windowWillExitFullScreen:(NSNotification*)notification
 {
   [TransTextWindowController setDefaultSidebarWidth:[fullScreenSidebarView frame].size.width];
+  [TransTextWindowController setDefaultSidebarHidden:[fullScreenSidebarView isHidden]];
   
   NSRect cf = [[[self window] contentView] frame];
   [mainContentView removeFromSuperview];
@@ -199,6 +208,30 @@
   if (!NSContainsRect(sf, df)) {
     [[self window] zoom:nil];
   }
+}
+
+//
+// protocol NSSplitViewDelegate
+//
+
+- (BOOL)splitView:(NSSplitView*)splitView canCollapseSubview:(NSView*)subview
+{
+  return (subview == fullScreenSidebarView);
+}
+
+- (CGFloat)splitView:(NSSplitView*)splitView constrainMinCoordinate:(CGFloat)proposedMin
+         ofSubviewAt:(NSInteger)dividerIndex
+{
+  if (dividerIndex == 0) {
+    return kMinimumSidebarWidth;
+  }
+  return proposedMin;
+}
+
+- (BOOL)splitView:(NSSplitView*)splitView shouldCollapseSubview:(NSView*)subview
+  forDoubleClickOnDividerAtIndex:(NSInteger)dividerIndex
+{
+  return YES;
 }
 
 //
@@ -250,13 +283,23 @@
 
 + (float)defaultSidebarWidth
 {
-  float f = [[NSUserDefaults standardUserDefaults] floatForKey:kDefaultSidebarWidthKey];
+  float f = [[NSUserDefaults standardUserDefaults] floatForKey:kSidebarWidthKey];
   return (f == 0) ? kDefaultSidebarWidth : ((f < 0) ? 0 : f);
 }
 
 + (void)setDefaultSidebarWidth:(float)width
 {
-  [[NSUserDefaults standardUserDefaults] setFloat:((width <= 0) ? -1 : width) forKey:kDefaultSidebarWidthKey];
+  [[NSUserDefaults standardUserDefaults] setFloat:((width <= 0) ? -1 : width) forKey:kSidebarWidthKey];
+}
+
++ (BOOL)defaultSidebarHidden
+{
+  return [[NSUserDefaults standardUserDefaults] boolForKey:kSidebarHiddenKey];
+}
+
++ (void)setDefaultSidebarHidden:(BOOL)hidden
+{
+  [[NSUserDefaults standardUserDefaults] setBool:hidden forKey:kSidebarHiddenKey];
 }
 
 @end

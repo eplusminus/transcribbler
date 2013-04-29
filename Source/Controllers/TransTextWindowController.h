@@ -28,7 +28,7 @@
 @class TransTextView;
 
 
-@interface TransTextWindowController : NSWindowController <NSWindowDelegate, NSDrawerDelegate> {
+@interface TransTextWindowController : NSWindowController <NSWindowDelegate, NSDrawerDelegate, NSSplitViewDelegate> {
  @private
   IBOutlet MediaController* mediaController;
   IBOutlet AbbrevsController* abbrevsController;
