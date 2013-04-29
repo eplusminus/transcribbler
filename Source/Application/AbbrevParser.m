@@ -21,31 +21,70 @@
 
 #import "AbbrevParser.h"
 
+static AbbrevParser* sAbbrevParser = nil;
+
 
 @implementation AbbrevParser
 
-+ (BOOL) isWordTerminatorChar:(unichar)ch
++ (AbbrevParser*)sharedInstance
 {
-	return (ch == ' ') || (ch == '\r') || (ch == '\n') || (ch == '\t')
-    || (ch == ',') || (ch == '.') || (ch == '-') || (ch == '!')
-    || (ch == '?') || (ch == '\'') || (ch == '"');
+  if (!sAbbrevParser) {
+    sAbbrevParser = [[AbbrevParser alloc] init];
+  }
+  return sAbbrevParser;
 }
 
-+ (BOOL) isWordBoundaryChar:(unichar)ch
+- (id)init
 {
-	return (ch == ' ') || (ch == '\r') || (ch == '\n') || (ch == '\t')
-    || (ch == ',') || (ch == '.') || (ch == '-') || (ch == '!')
-    || (ch == '?') || (ch == '\'') || (ch == '"');
+  self = [super init];
+  wordTerminators = [[NSCharacterSet characterSetWithCharactersInString:
+                      @" \r\n\t,.-!?'\""] retain];
+  nonTerminatorsInsideWord = [[NSCharacterSet characterSetWithCharactersInString:
+                               @"'"] retain];
+  return self;
 }
 
-+ (BOOL) isWordBoundaryCharInsideWord:(unichar)ch
+- (void)dealloc
 {
-	return (ch == ' ') || (ch == '\r') || (ch == '\n') || (ch == '\t')
-    || (ch == ',') || (ch == '.') || (ch == '-') || (ch == '!')
-    || (ch == '?');
+  [wordTerminators release];
+  [nonTerminatorsInsideWord release];
+  [super dealloc];
 }
 
-+ (NSString*) expandAbbreviation:(NSString*)abbrev withResolver:(id<AbbrevResolver>)resolver
+- (BOOL)isWordTerminator:(unichar)ch
+{
+  return [wordTerminators characterIsMember:ch];
+}
+
+- (NSString*)findPossibleAbbreviationInString:(NSString*)string beforePos:(NSUInteger)pos
+{
+  if (pos == 0) {
+    return nil;
+  }
+  NSUInteger start = pos;
+  do {
+    --start;
+		unichar ch = [string characterAtIndex:start];
+    if ([wordTerminators characterIsMember:ch]) {
+      // The following test is meant to keep us from expanding things like the
+      // "s" in "that's"; the apostrophe counts as a boundary character for
+      // terminating words (so the "that" could be expanded), and it counts as one
+      // if it's preceded by another terminator (e.g. a space), but not if it's
+      // inside an existing word.
+      if ([nonTerminatorsInsideWord characterIsMember:ch]) {
+        if (start > 0) {
+          if (![wordTerminators characterIsMember:[string characterAtIndex:(start - 1)]]) {
+            continue;
+          }
+        }
+      }
+      break;
+		}
+	} while (start > 0);
+  return [string substringWithRange: NSMakeRange(start + 1, pos - (start + 1))];
+}
+
+- (NSString*)expandAbbreviation:(NSString*)abbrev withResolver:(id<AbbrevResolver>)resolver
 {
     NSString *expansion = [resolver getExpansion:abbrev];
     if (expansion) {

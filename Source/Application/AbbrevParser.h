@@ -24,12 +24,18 @@
 #import <Foundation/Foundation.h>
 
 
-@interface AbbrevParser : NSObject
+@interface AbbrevParser : NSObject {
+ @private
+  NSCharacterSet* wordTerminators;
+  NSCharacterSet* nonTerminatorsInsideWord;
+}
 
-+ (BOOL) isWordTerminatorChar:(unichar)ch;
-+ (BOOL) isWordBoundaryChar:(unichar)ch;
-+ (BOOL) isWordBoundaryCharInsideWord:(unichar)ch;
++ (AbbrevParser*)sharedInstance;
 
-+ (NSString*) expandAbbreviation:(NSString*)abbrev withResolver:(id<AbbrevResolver>)resolver;
+- (BOOL)isWordTerminator:(unichar)ch;
+
+- (NSString*)findPossibleAbbreviationInString:(NSString*)string beforePos:(NSUInteger)pos;
+
+- (NSString*)expandAbbreviation:(NSString*)abbrev withResolver:(id<AbbrevResolver>)resolver;
 
 @end

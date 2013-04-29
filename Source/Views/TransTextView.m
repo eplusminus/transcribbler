@@ -46,16 +46,17 @@
 - (void)keyDown:(NSEvent*)theEvent {
 	
   NSString *chars = [theEvent characters];
+  AbbrevParser* ap = [AbbrevParser sharedInstance];
   if ([chars length] == 1) {
     unichar ch = [chars characterAtIndex:0];
-    if ([AbbrevParser isWordTerminatorChar:ch]) {
+    if ([ap isWordTerminator:ch]) {
       NSRange r = [self selectedRange];
       if (r.length == 0) {
         int pos = r.location;
         NSString* currentText = [[self textStorage] string];
-        NSString* lastWord = [self findLastWordIn: currentText fromPos: pos];
+        NSString* lastWord = [ap findPossibleAbbreviationInString:currentText beforePos:pos];
         if ([lastWord length] > 0) {
-          NSString* expansion = [AbbrevParser expandAbbreviation:lastWord withResolver:abbrevResolver];
+          NSString* expansion = [ap expandAbbreviation:lastWord withResolver:abbrevResolver];
           if (expansion) {
             [[[self textStorage] mutableString]
                 replaceCharactersInRange: NSMakeRange(pos - [lastWord length], [lastWord length])
@@ -68,29 +69,6 @@
   }
   
 	[self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
-}
-
-- (NSString*)findLastWordIn:(NSString*)text fromPos: (int)pos {
-    int start;
-	for (start = pos - 1; start >= 0; start--) {
-		unichar ch = [text characterAtIndex:start];
-    if ([AbbrevParser isWordBoundaryChar:ch]) {
-      // The following test is meant to keep us from expanding things like the
-      // "s" in "that's"; the apostrophe counts as a boundary character for
-      // terminating words (so the "that" could be expanded), and it counts as one
-      // if it's preceded by another terminator (e.g. a space), but not if it's
-      // inside an existing word.
-      if (ch == '\'') {
-        if (start > 0) {
-          if (![AbbrevParser isWordBoundaryChar:[text characterAtIndex:(start - 1)]]) {
-            continue;
-          }
-        }
-      }
-      break;
-		}
-	}
-  return [text substringWithRange: NSMakeRange(start + 1, pos - (start + 1))];
 }
 
 @end

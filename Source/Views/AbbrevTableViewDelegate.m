@@ -23,13 +23,24 @@
 
 #import "AbbrevArrayController.h"
 #import "AbbrevListDocument.h"
+#import "AbbrevParser.h"
 #import "AbbrevResolver.h"
 #import "AbbrevResolverImpl.h"
 #import "AppDelegate.h"
 #import "HandyTableView.h"
 
 
+@interface AbbrevFormatter : NSFormatter
+@end
+
+
 @implementation AbbrevTableViewDelegate
+
+- (id)init
+{
+  self = [super init];
+  return self;
+}
 
 - (void)dealloc
 {
@@ -41,8 +52,6 @@
 {
   [self setNextResponder:[view nextResponder]];
   [view setNextResponder:self];
-  
-  resolver = [[table document] abbrevResolver];
 }
 
 - (IBAction)delete:(id)sender
@@ -147,6 +156,63 @@
 {
   AbbrevEntry* e = [[table arrangedObjects] objectAtIndex:row];
   return [e isEmpty];
+}
+
+@end
+
+//
+// AbbrevFormatter - prevents illegal characters in abbreviation field
+//
+
+@implementation AbbrevFormatter
+
+- (NSString*)stringForObjectValue:(id)obj
+{
+  if (![obj isKindOfClass:[NSString class]]) {
+    return nil;
+  }
+  return obj;
+}
+
+- (BOOL)getObjectValue:(id*)anObject forString:(NSString*)string errorDescription:(NSString**)error
+{
+  NSString* f = [self filterString:string];
+  if (anObject) {
+    *anObject = (f == nil) ? string : f;
+  }
+  return YES;
+}
+
+- (BOOL)isPartialStringValid:(NSString*)partialString newEditingString:(NSString**)newString errorDescription:(NSString**)error
+{
+  NSString* f = [self filterString:partialString];
+  if (f) {
+    if (newString) {
+      *newString = f;
+    }
+    return NO;
+  }
+  return YES;
+}
+
+- (NSString*)filterString:(NSString*)s
+{
+  NSMutableString* filtered = nil;
+  AbbrevParser* ap = [AbbrevParser sharedInstance];
+  for (NSUInteger i = 0; i < [s length]; i++) {
+    if ([ap isWordTerminator:[s characterAtIndex:i]]) {
+      if (!filtered) {
+        filtered = [NSMutableString stringWithCapacity:[s length]];
+        [filtered appendString:[s substringToIndex:i]];
+      }
+    }
+    else {
+      if (filtered) {
+        [filtered appendString:[s substringWithRange:NSMakeRange(i, 1)]];
+      }
+    }
+  }
+  return (filtered == nil) ? nil : [NSString stringWithString:filtered];
 }
 
 @end
