@@ -81,26 +81,29 @@
   }
 }
 
-- (QTMovie*)movie
+- (AVAsset*)movie
 {
   return movie;
 }
 
-- (void)setMovie:(QTMovie*)m
+- (void)setMovie:(AVAsset*)m
 {
   if (movie != m) {
     [movie release];
     movie = [m retain];
-    [movieView setMovie:m];
+    [player release];
+    AVPlayerItem* playerItem = [AVPlayerItem playerItemWithAsset:movie];
+    player = [AVPlayer playerWithPlayerItem: playerItem];
+    [movieView setPlayer:player];
     
     if (movie) {
-      hasVideo = [[movie attributeForKey:QTMovieHasVideoAttribute] boolValue];
+      hasVideo = ([movie tracksWithMediaCharacteristic: AVMediaCharacteristicVisual].count > 0);
       [movieDisclosureView setTitle:NSLocalizedString(hasVideo ? @"Video" : @"AudioOnly", nil)];
       [movieDisclosureView setHidden:NO];
       [self updateMovieViewSize];
       
-      QTTime totalTime = [[movie attributeForKey:QTMovieDurationAttribute] QTTimeValue];
-      long long fileSize = [[movie attributeForKey:QTMovieDataSizeAttribute] longLongValue];
+      CMTime totalTime = [movie duration];
+      long long fileSize = 0; // [[movie attributeForKey:QTMovieDataSizeAttribute] longLongValue];
       [totalTimeLabel setStringValue:[MediaController timeString: totalTime withTenths:NO]];
       [fileSizeLabel setStringValue:[MediaController fileSizeString:fileSize]];
       [propertiesDisclosureView setHidden:NO];
@@ -121,10 +124,9 @@
 - (IBAction) loadMedia:(id)sender
 {
   NSOpenPanel* aPanel = [NSOpenPanel openPanel];
-	NSArray* types = [QTMovie movieFileTypes:0xfff];
   NSURL* url;
   
-  [aPanel setAllowedFileTypes:types];
+  [aPanel setAllowedFileTypes:[AVURLAsset audiovisualTypes]];
   [aPanel runModal];
   url = [aPanel URL];
   if (url) {
@@ -138,9 +140,8 @@
     return YES;
   }
   
-  NSError* error;
-  QTMovie* m = [QTMovie movieWithFile:filePath error:&error];
-  if (error || !m) {
+  AVAsset* m = [AVURLAsset assetWithURL: [NSURL fileURLWithPath: filePath]];
+  if (!m) {
     return NO;
   }
   
@@ -169,13 +170,13 @@
 
 - (BOOL)isPlaying
 {
-  return movie && ([movie rate] != 0);
+  return player && ([player rate] > 0);
 }
 
 - (NSString*)timeCodeString
 {
   if (movie) {
-    QTTime current = [movie currentTime];
+    CMTime current = [player currentTime];
     return [MediaController timeString:current withTenths:YES];
   }
   return nil;
@@ -184,22 +185,22 @@
 - (void)setTimeCodeString:(NSString*)s
 {
   if (s) {
-    QTTime t = [MediaController timeFromString:s];
-    [movie setCurrentTime:t];
+    CMTime t = [MediaController timeFromString:s];
+    [player seekToTime:t];
   }
 }
 
 - (IBAction)pause:(id)sender
 {
   if ([self isPlaying]) {
-    [movie stop];
+    [player pause];
   }
 }
 
 - (IBAction)play:(id)sender
 {
   if (movie && ![self isPlaying]) {
-    [movie play];
+    [player play];
   }
 }
 
@@ -218,8 +219,8 @@
 - (IBAction)replay:(id)sender
 {
   if (movie) {
-    QTTime decrement = QTMakeTime(1, 1);
-    [movie setCurrentTime:QTTimeDecrement([movie currentTime], decrement)];
+    CMTime decrement = CMTimeMake(1, 1);
+    [player seekToTime:CMTimeSubtract([player currentTime], decrement)];
     [self play:sender];
   }
 }
@@ -270,10 +271,10 @@
 
 - (void)updateTimeCode
 {
-  if (movie) {
-    QTTime current = [movie currentTime];
-    if (current.timeValue != lastTimeValue) {
-      lastTimeValue = current.timeValue;
+  if (player) {
+    CMTime current = [player currentTime];
+    if (current.value != lastTimeValue) {
+      lastTimeValue = current.value;
       NSString* ts = [MediaController timeString:current withTenths:YES];
       [timeCodeLabel setStringValue:ts];
       [miniTimecodeView setTimeCodeString:ts];
@@ -294,11 +295,12 @@
 - (void)updateMovieViewSize
 {
   if (hasVideo) {
-    NSSize size = [[movie attributeForKey:QTMovieNaturalSizeAttribute] sizeValue];
+    NSSize size = [[[movie tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] naturalSize];
     int moviePanelHeight = ([movieDisclosureView frame].size.width * size.height) / size.width;
     [movieDisclosureView setPreferredHeight:moviePanelHeight];
   } else {
-    [movieDisclosureView setPreferredHeight:[movieView controllerBarHeight]];
+    int barHeight = 20; // [movieView controllerBarHeight]
+    [movieDisclosureView setPreferredHeight:barHeight];
   }
 }
 
@@ -307,9 +309,9 @@
   [self updateMovieViewSize];
 }
 
-+ (NSString*)timeString:(QTTime)time withTenths:(BOOL)withTenths
++ (NSString*)timeString:(CMTime)time withTenths:(BOOL)withTenths
 {
-  long secondsTimes10 = (time.timeValue * 10) / time.timeScale;
+  long secondsTimes10 = CMTimeGetSeconds(time) * 10;
   int t = secondsTimes10 % 10;
   long seconds = secondsTimes10 / 10;
   int ss = seconds % 60;
@@ -325,7 +327,7 @@
   }
 }
 
-+ (QTTime)timeFromString:(NSString*)s
++ (CMTime)timeFromString:(NSString*)s
 {
   if ([s length] == 8) {
     s = [s stringByAppendingString:@".0"];
@@ -333,16 +335,15 @@
   if ([s length] == 10) {
     NSArray* fields = [s componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@":."]];
     if ([fields count] == 4) {
-      NSString* hh = [fields objectAtIndex:0];
-      NSString* mm = [fields objectAtIndex:1];
-      NSString* ss = [fields objectAtIndex:2];
-      NSString* t = [fields objectAtIndex:3];
-      NSString* qtTimeStr = [NSString stringWithFormat:@"00:%@:%@:%@.%@/10",
-                             hh, mm, ss, t];
-      return QTTimeFromString(qtTimeStr);
+      int hh = [[fields objectAtIndex:0] intValue];
+      int mm = [[fields objectAtIndex:1] intValue];
+      int ss = [[fields objectAtIndex:2] intValue];
+      int t = [[fields objectAtIndex:3] intValue];
+      long value = (((((hh * 60) + mm) * 60) + ss) * 1000) + t;
+      return CMTimeMake(value, 10);
     }
   }
-  return QTMakeTime(0, 10);
+  return CMTimeMake(0, 10);
 }
 
 + (NSString*)fileSizeString:(long long)bytes

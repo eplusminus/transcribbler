@@ -20,7 +20,8 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import <QTKit/QTKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <AVKit/AVKit.h>
 
 @class DisclosureView;
 @class StackingView;
@@ -31,7 +32,7 @@
  @private
   IBOutlet NSDrawer* drawer;
   IBOutlet NSTextField* fileNameLabel;
-  IBOutlet QTMovieView* movieView;
+  IBOutlet AVPlayerView* movieView;
   IBOutlet StackingView* stackingView;
   IBOutlet DisclosureView* movieDisclosureView;
   IBOutlet DisclosureView* propertiesDisclosureView;
@@ -40,15 +41,16 @@
   IBOutlet NSTextField* timeCodeLabel;
   IBOutlet MiniTimecodeView* miniTimecodeView;
   
-  QTMovie* movie;
+  AVAsset* movie;
+  AVPlayer* player;
   NSString* movieFilePath;
   BOOL hasVideo;
   NSTimer* timer;
-  long lastTimeValue;
+  CMTimeValue lastTimeValue;
 }
 
-- (QTMovie*)movie;
-- (void)setMovie:(QTMovie*)movie;
+- (AVAsset*)movie;
+- (void)setMovie:(AVAsset*)movie;
 
 - (BOOL)openMediaFile:(NSString*)filePath;
 - (void)closeMediaFile;

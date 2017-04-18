@@ -21,6 +21,9 @@
 		455BE40817124D5400DCAF5F /* Menus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455BE40617124D5400DCAF5F /* Menus.xib */; };
 		455BE40B171259DB00DCAF5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 455BE40A171259DB00DCAF5F /* AppDelegate.m */; };
 		4560D3E0172E066E002BCDA6 /* TransQTMovieView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4560D3DF172E066E002BCDA6 /* TransQTMovieView.m */; };
+		457BFB041EA6816D00E24526 /* AbbrevBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB031EA6816D00E24526 /* AbbrevBase.swift */; };
+		457BFB061EA681EC00E24526 /* AbbrevEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB051EA681EC00E24526 /* AbbrevEntry.swift */; };
+		457BFB081EA699AD00E24526 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457BFB071EA699AD00E24526 /* AVKit.framework */; };
 		4591D48817232EC200BC713B /* DisclosureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4591D48717232EC200BC713B /* DisclosureView.m */; };
 		4591D48C172345D100BC713B /* MediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4591D48B172345D100BC713B /* MediaController.m */; };
 		4591D48F1723482100BC713B /* MediaDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4591D48D1723482100BC713B /* MediaDrawerView.xib */; };
@@ -38,7 +41,6 @@
 		63C8682C0DDA097500DC3670 /* TransTextDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C8682B0DDA097500DC3670 /* TransTextDocument.m */; };
 		63C8682F0DDA097B00DC3670 /* AbbrevArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C8682E0DDA097B00DC3670 /* AbbrevArrayController.m */; };
 		63C868320DDA098500DC3670 /* TransTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C868310DDA098500DC3670 /* TransTextView.m */; };
-		63C8684E0DDA0A5300DC3670 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C8684D0DDA0A5300DC3670 /* QTKit.framework */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -86,6 +88,10 @@
 		455BE40A171259DB00DCAF5F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4560D3DE172E066E002BCDA6 /* TransQTMovieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransQTMovieView.h; path = Source/Views/TransQTMovieView.h; sourceTree = "<group>"; };
 		4560D3DF172E066E002BCDA6 /* TransQTMovieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransQTMovieView.m; path = Source/Views/TransQTMovieView.m; sourceTree = "<group>"; };
+		457BFB021EA6816D00E24526 /* Transcribbler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Transcribbler-Bridging-Header.h"; path = "Source/Model/Transcribbler-Bridging-Header.h"; sourceTree = "<group>"; };
+		457BFB031EA6816D00E24526 /* AbbrevBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevBase.swift; sourceTree = "<group>"; };
+		457BFB051EA681EC00E24526 /* AbbrevEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevEntry.swift; sourceTree = "<group>"; };
+		457BFB071EA699AD00E24526 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		4591D48617232EC200BC713B /* DisclosureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DisclosureView.h; path = Source/Views/DisclosureView.h; sourceTree = "<group>"; };
 		4591D48717232EC200BC713B /* DisclosureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DisclosureView.m; path = Source/Views/DisclosureView.m; sourceTree = "<group>"; };
 		4591D48A172345D100BC713B /* MediaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaController.h; sourceTree = "<group>"; };
@@ -121,8 +127,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				457BFB081EA699AD00E24526 /* AVKit.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
-				63C8684E0DDA0A5300DC3670 /* QTKit.framework in Frameworks */,
 				636620B60E3BF419001D4B0F /* Quartz.framework in Frameworks */,
 				636620B80E3BF426001D4B0F /* QuartzCore.framework in Frameworks */,
 				633A4FD30E4F0E0400B4D45A /* Carbon.framework in Frameworks */,
@@ -178,6 +184,7 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				457BFB021EA6816D00E24526 /* Transcribbler-Bridging-Header.h */,
 				32DBCF750370BD2300C91783 /* Transcribbler_Prefix.pch */,
 				45E95DC8171B4DBD008FEEE4 /* LICENSE */,
 			);
@@ -187,6 +194,7 @@
 		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				457BFB071EA699AD00E24526 /* AVKit.framework */,
 				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
 				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
 			);
@@ -202,6 +210,8 @@
 				455BE3981711F8C700DCAF5F /* AbbrevEntry.m */,
 				455BE39D1711FDB000DCAF5F /* AbbrevListDocument.h */,
 				455BE39E1711FDB000DCAF5F /* AbbrevListDocument.m */,
+				457BFB031EA6816D00E24526 /* AbbrevBase.swift */,
+				457BFB051EA681EC00E24526 /* AbbrevEntry.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -323,7 +333,12 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0800;
+				TargetAttributes = {
+					8D15AC270486D014006FF6A4 = {
+						LastSwiftMigration = 0800;
+					};
+				};
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Transcribbler" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -383,7 +398,9 @@
 				45E95DE4171B65B5008FEEE4 /* TransTextWindowController.m in Sources */,
 				4591D48817232EC200BC713B /* DisclosureView.m in Sources */,
 				4591D48C172345D100BC713B /* MediaController.m in Sources */,
+				457BFB061EA681EC00E24526 /* AbbrevEntry.swift in Sources */,
 				4591D49B17246DF700BC713B /* AbbrevsController.m in Sources */,
+				457BFB041EA6816D00E24526 /* AbbrevBase.swift in Sources */,
 				4560D3E0172E066E002BCDA6 /* TransQTMovieView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,6 +479,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -472,7 +490,14 @@
 				GCC_PREFIX_HEADER = Transcribbler_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler;
 				PRODUCT_NAME = Transcribbler;
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Source/Model/Transcribbler-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -480,6 +505,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -488,7 +514,13 @@
 				GCC_PREFIX_HEADER = Transcribbler_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler;
 				PRODUCT_NAME = Transcribbler;
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Source/Model/Transcribbler-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -496,14 +528,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -511,12 +559,28 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
