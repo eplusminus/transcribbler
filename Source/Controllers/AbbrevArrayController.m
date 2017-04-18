@@ -19,9 +19,9 @@
  
  */
 
-#import "AbbrevArrayController.h"
+#import "Transcribbler-Swift.h"
 
-#import "AbbrevEntry.h"
+#import "AbbrevArrayController.h"
 #import "AbbrevListDocument.h"
 
 
@@ -149,8 +149,6 @@
 - (AbbrevEntry*)newEntry
 {
   AbbrevEntry* e = [[AbbrevEntry alloc] init];
-  e.abbreviation = @"";
-  e.expansion = @"";
   return e;
 }
 

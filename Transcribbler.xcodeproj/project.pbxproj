@@ -12,8 +12,6 @@
 		4525340F1724A5BB00E6D805 /* TransTextDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4525340D1724A5BB00E6D805 /* TransTextDocument.xib */; };
 		453833C41710D807005C1637 /* AbbrevParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 453833C31710D807005C1637 /* AbbrevParser.m */; };
 		453833C71710D841005C1637 /* AbbrevResolverImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 453833C61710D841005C1637 /* AbbrevResolverImpl.m */; };
-		455BE3961711F89A00DCAF5F /* AbbrevBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 455BE3951711F89A00DCAF5F /* AbbrevBase.m */; };
-		455BE3991711F8C700DCAF5F /* AbbrevEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 455BE3981711F8C700DCAF5F /* AbbrevEntry.m */; };
 		455BE3A01711FDB100DCAF5F /* AbbrevListDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 455BE39E1711FDB000DCAF5F /* AbbrevListDocument.m */; };
 		455BE3DB1712467C00DCAF5F /* AbbrevListDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */; };
 		455BE3DD1712467C00DCAF5F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BF1712467C00DCAF5F /* Credits.rtf */; };
@@ -73,10 +71,6 @@
 		453833C31710D807005C1637 /* AbbrevParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbrevParser.m; sourceTree = "<group>"; };
 		453833C51710D841005C1637 /* AbbrevResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbrevResolver.h; sourceTree = "<group>"; };
 		453833C61710D841005C1637 /* AbbrevResolverImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbrevResolverImpl.m; sourceTree = "<group>"; };
-		455BE3941711F89A00DCAF5F /* AbbrevBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbrevBase.h; sourceTree = "<group>"; };
-		455BE3951711F89A00DCAF5F /* AbbrevBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbrevBase.m; sourceTree = "<group>"; };
-		455BE3971711F8C700DCAF5F /* AbbrevEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbrevEntry.h; sourceTree = "<group>"; };
-		455BE3981711F8C700DCAF5F /* AbbrevEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbrevEntry.m; sourceTree = "<group>"; };
 		455BE39D1711FDB000DCAF5F /* AbbrevListDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbrevListDocument.h; sourceTree = "<group>"; };
 		455BE39E1711FDB000DCAF5F /* AbbrevListDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbrevListDocument.m; sourceTree = "<group>"; };
 		455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbrevListDocument.xib; sourceTree = "<group>"; };
@@ -204,10 +198,6 @@
 		455BE3A21712426A00DCAF5F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				455BE3941711F89A00DCAF5F /* AbbrevBase.h */,
-				455BE3951711F89A00DCAF5F /* AbbrevBase.m */,
-				455BE3971711F8C700DCAF5F /* AbbrevEntry.h */,
-				455BE3981711F8C700DCAF5F /* AbbrevEntry.m */,
 				455BE39D1711FDB000DCAF5F /* AbbrevListDocument.h */,
 				455BE39E1711FDB000DCAF5F /* AbbrevListDocument.m */,
 				457BFB031EA6816D00E24526 /* AbbrevBase.swift */,
@@ -390,8 +380,6 @@
 				453833C71710D841005C1637 /* AbbrevResolverImpl.m in Sources */,
 				451579BE1711471F00BC08AA /* AbbrevTableViewDelegate.m in Sources */,
 				451579C11711564500BC08AA /* HandyTableView.m in Sources */,
-				455BE3961711F89A00DCAF5F /* AbbrevBase.m in Sources */,
-				455BE3991711F8C700DCAF5F /* AbbrevEntry.m in Sources */,
 				455BE3A01711FDB100DCAF5F /* AbbrevListDocument.m in Sources */,
 				455BE40B171259DB00DCAF5F /* AppDelegate.m in Sources */,
 				459A3DE2171B46BB00EC447A /* StackingView.m in Sources */,
@@ -482,6 +470,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -508,6 +497,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -538,6 +528,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -569,6 +560,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;

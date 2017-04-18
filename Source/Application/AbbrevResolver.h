@@ -19,7 +19,7 @@
  
  */
 
-#import "AbbrevEntry.h"
+#import "Transcribbler-Swift.h"
 
 #import <Foundation/Foundation.h>
 
