@@ -19,9 +19,9 @@
  
  */
 
-#import <Cocoa/Cocoa.h>
+#import "Transcribbler-Swift.h"
 
-@protocol AbbrevResolver;
+#import <Cocoa/Cocoa.h>
 
 
 @interface TransTextView : NSTextView {

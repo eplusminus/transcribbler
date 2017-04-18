@@ -19,13 +19,10 @@
  
  */
 
+#import "Transcribbler-Swift.h"
+
 #import "AbbrevTableViewDelegate.h"
 
-#import "AbbrevArrayController.h"
-#import "AbbrevListDocument.h"
-#import "AbbrevParser.h"
-#import "AbbrevResolver.h"
-#import "AbbrevResolverImpl.h"
 #import "AppDelegate.h"
 #import "HandyTableView.h"
 
@@ -138,7 +135,7 @@
   
   if (theAction == @selector(paste:)) {
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
-    if ([pb dataForType:AbbreviationsPasteboardType] != nil ||
+    if ([pb dataForType:[AbbrevArrayController pasteboardType]] != nil ||
       [pb dataForType:NSStringPboardType] != nil) {
       return YES;
     }

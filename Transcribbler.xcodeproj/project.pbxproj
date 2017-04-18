@@ -10,9 +10,6 @@
 		451579BE1711471F00BC08AA /* AbbrevTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */; };
 		451579C11711564500BC08AA /* HandyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451579C01711564500BC08AA /* HandyTableView.m */; };
 		4525340F1724A5BB00E6D805 /* TransTextDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4525340D1724A5BB00E6D805 /* TransTextDocument.xib */; };
-		453833C41710D807005C1637 /* AbbrevParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 453833C31710D807005C1637 /* AbbrevParser.m */; };
-		453833C71710D841005C1637 /* AbbrevResolverImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 453833C61710D841005C1637 /* AbbrevResolverImpl.m */; };
-		455BE3A01711FDB100DCAF5F /* AbbrevListDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 455BE39E1711FDB000DCAF5F /* AbbrevListDocument.m */; };
 		455BE3DB1712467C00DCAF5F /* AbbrevListDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */; };
 		455BE3DD1712467C00DCAF5F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BF1712467C00DCAF5F /* Credits.rtf */; };
 		455BE3DE1712467C00DCAF5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3C11712467C00DCAF5F /* InfoPlist.strings */; };
@@ -22,6 +19,11 @@
 		457BFB041EA6816D00E24526 /* AbbrevBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB031EA6816D00E24526 /* AbbrevBase.swift */; };
 		457BFB061EA681EC00E24526 /* AbbrevEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB051EA681EC00E24526 /* AbbrevEntry.swift */; };
 		457BFB081EA699AD00E24526 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457BFB071EA699AD00E24526 /* AVKit.framework */; };
+		457BFB0A1EA69F0000E24526 /* AbbrevListDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */; };
+		457BFB0C1EA69F3900E24526 /* AbbrevResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB0B1EA69F3900E24526 /* AbbrevResolver.swift */; };
+		457BFB0E1EA69F6C00E24526 /* AbbrevResolverImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB0D1EA69F6C00E24526 /* AbbrevResolverImpl.swift */; };
+		457BFB111EA6AD5800E24526 /* AbbrevArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */; };
+		457BFB131EA6B12800E24526 /* AbbrevParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB121EA6B12800E24526 /* AbbrevParser.swift */; };
 		4591D48817232EC200BC713B /* DisclosureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4591D48717232EC200BC713B /* DisclosureView.m */; };
 		4591D48C172345D100BC713B /* MediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4591D48B172345D100BC713B /* MediaController.m */; };
 		4591D48F1723482100BC713B /* MediaDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4591D48D1723482100BC713B /* MediaDrawerView.xib */; };
@@ -37,7 +39,6 @@
 		636620B60E3BF419001D4B0F /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636620B50E3BF419001D4B0F /* Quartz.framework */; };
 		636620B80E3BF426001D4B0F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636620B70E3BF426001D4B0F /* QuartzCore.framework */; };
 		63C8682C0DDA097500DC3670 /* TransTextDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C8682B0DDA097500DC3670 /* TransTextDocument.m */; };
-		63C8682F0DDA097B00DC3670 /* AbbrevArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C8682E0DDA097B00DC3670 /* AbbrevArrayController.m */; };
 		63C868320DDA098500DC3670 /* TransTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C868310DDA098500DC3670 /* TransTextView.m */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
@@ -61,18 +62,11 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32DBCF750370BD2300C91783 /* Transcribbler_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transcribbler_Prefix.pch; sourceTree = "<group>"; };
-		451579BB171129A900BC08AA /* AbbrevResolverImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbrevResolverImpl.h; sourceTree = "<group>"; };
 		451579BC1711471F00BC08AA /* AbbrevTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbbrevTableViewDelegate.h; path = Source/Views/AbbrevTableViewDelegate.h; sourceTree = "<group>"; };
 		451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbbrevTableViewDelegate.m; path = Source/Views/AbbrevTableViewDelegate.m; sourceTree = "<group>"; };
 		451579BF1711564500BC08AA /* HandyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HandyTableView.h; path = Source/Views/HandyTableView.h; sourceTree = "<group>"; };
 		451579C01711564500BC08AA /* HandyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HandyTableView.m; path = Source/Views/HandyTableView.m; sourceTree = "<group>"; };
 		4525340E1724A5BB00E6D805 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = TransTextDocument.xib; sourceTree = "<group>"; };
-		453833C21710D807005C1637 /* AbbrevParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbrevParser.h; sourceTree = "<group>"; };
-		453833C31710D807005C1637 /* AbbrevParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbrevParser.m; sourceTree = "<group>"; };
-		453833C51710D841005C1637 /* AbbrevResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbrevResolver.h; sourceTree = "<group>"; };
-		453833C61710D841005C1637 /* AbbrevResolverImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbrevResolverImpl.m; sourceTree = "<group>"; };
-		455BE39D1711FDB000DCAF5F /* AbbrevListDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbrevListDocument.h; sourceTree = "<group>"; };
-		455BE39E1711FDB000DCAF5F /* AbbrevListDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbrevListDocument.m; sourceTree = "<group>"; };
 		455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbrevListDocument.xib; sourceTree = "<group>"; };
 		455BE3C01712467C00DCAF5F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
 		455BE3C21712467C00DCAF5F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -82,10 +76,15 @@
 		455BE40A171259DB00DCAF5F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4560D3DE172E066E002BCDA6 /* TransQTMovieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransQTMovieView.h; path = Source/Views/TransQTMovieView.h; sourceTree = "<group>"; };
 		4560D3DF172E066E002BCDA6 /* TransQTMovieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransQTMovieView.m; path = Source/Views/TransQTMovieView.m; sourceTree = "<group>"; };
-		457BFB021EA6816D00E24526 /* Transcribbler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Transcribbler-Bridging-Header.h"; path = "Source/Model/Transcribbler-Bridging-Header.h"; sourceTree = "<group>"; };
+		457BFB021EA6816D00E24526 /* Transcribbler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Transcribbler-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		457BFB031EA6816D00E24526 /* AbbrevBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevBase.swift; sourceTree = "<group>"; };
 		457BFB051EA681EC00E24526 /* AbbrevEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevEntry.swift; sourceTree = "<group>"; };
 		457BFB071EA699AD00E24526 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevListDocument.swift; sourceTree = "<group>"; };
+		457BFB0B1EA69F3900E24526 /* AbbrevResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevResolver.swift; sourceTree = "<group>"; };
+		457BFB0D1EA69F6C00E24526 /* AbbrevResolverImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevResolverImpl.swift; sourceTree = "<group>"; };
+		457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevArrayController.swift; sourceTree = "<group>"; };
+		457BFB121EA6B12800E24526 /* AbbrevParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevParser.swift; sourceTree = "<group>"; };
 		4591D48617232EC200BC713B /* DisclosureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DisclosureView.h; path = Source/Views/DisclosureView.h; sourceTree = "<group>"; };
 		4591D48717232EC200BC713B /* DisclosureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DisclosureView.m; path = Source/Views/DisclosureView.m; sourceTree = "<group>"; };
 		4591D48A172345D100BC713B /* MediaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaController.h; sourceTree = "<group>"; };
@@ -108,8 +107,6 @@
 		636620B70E3BF426001D4B0F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		63C8682A0DDA097500DC3670 /* TransTextDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransTextDocument.h; sourceTree = "<group>"; };
 		63C8682B0DDA097500DC3670 /* TransTextDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransTextDocument.m; sourceTree = "<group>"; };
-		63C8682D0DDA097B00DC3670 /* AbbrevArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbrevArrayController.h; sourceTree = "<group>"; };
-		63C8682E0DDA097B00DC3670 /* AbbrevArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbrevArrayController.m; sourceTree = "<group>"; };
 		63C868300DDA098500DC3670 /* TransTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransTextView.h; path = Source/Views/TransTextView.h; sourceTree = "<group>"; };
 		63C868310DDA098500DC3670 /* TransTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransTextView.m; path = Source/Views/TransTextView.m; sourceTree = "<group>"; };
 		63C8684D0DDA0A5300DC3670 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
@@ -198,10 +195,9 @@
 		455BE3A21712426A00DCAF5F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				455BE39D1711FDB000DCAF5F /* AbbrevListDocument.h */,
-				455BE39E1711FDB000DCAF5F /* AbbrevListDocument.m */,
 				457BFB031EA6816D00E24526 /* AbbrevBase.swift */,
 				457BFB051EA681EC00E24526 /* AbbrevEntry.swift */,
+				457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -223,11 +219,9 @@
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
 				63C8682A0DDA097500DC3670 /* TransTextDocument.h */,
 				63C8682B0DDA097500DC3670 /* TransTextDocument.m */,
-				453833C21710D807005C1637 /* AbbrevParser.h */,
-				453833C31710D807005C1637 /* AbbrevParser.m */,
-				453833C51710D841005C1637 /* AbbrevResolver.h */,
-				451579BB171129A900BC08AA /* AbbrevResolverImpl.h */,
-				453833C61710D841005C1637 /* AbbrevResolverImpl.m */,
+				457BFB121EA6B12800E24526 /* AbbrevParser.swift */,
+				457BFB0B1EA69F3900E24526 /* AbbrevResolver.swift */,
+				457BFB0D1EA69F6C00E24526 /* AbbrevResolverImpl.swift */,
 				455BE409171259DB00DCAF5F /* AppDelegate.h */,
 				455BE40A171259DB00DCAF5F /* AppDelegate.m */,
 			);
@@ -283,8 +277,7 @@
 		639E92AD0E4D0B7F0006FDEE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				63C8682D0DDA097B00DC3670 /* AbbrevArrayController.h */,
-				63C8682E0DDA097B00DC3670 /* AbbrevArrayController.m */,
+				457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */,
 				4591D49917246DF700BC713B /* AbbrevsController.h */,
 				4591D49A17246DF700BC713B /* AbbrevsController.m */,
 				4591D48A172345D100BC713B /* MediaController.h */,
@@ -374,18 +367,19 @@
 			files = (
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				63C8682C0DDA097500DC3670 /* TransTextDocument.m in Sources */,
-				63C8682F0DDA097B00DC3670 /* AbbrevArrayController.m in Sources */,
+				457BFB0A1EA69F0000E24526 /* AbbrevListDocument.swift in Sources */,
 				63C868320DDA098500DC3670 /* TransTextView.m in Sources */,
-				453833C41710D807005C1637 /* AbbrevParser.m in Sources */,
-				453833C71710D841005C1637 /* AbbrevResolverImpl.m in Sources */,
+				457BFB131EA6B12800E24526 /* AbbrevParser.swift in Sources */,
 				451579BE1711471F00BC08AA /* AbbrevTableViewDelegate.m in Sources */,
 				451579C11711564500BC08AA /* HandyTableView.m in Sources */,
-				455BE3A01711FDB100DCAF5F /* AbbrevListDocument.m in Sources */,
 				455BE40B171259DB00DCAF5F /* AppDelegate.m in Sources */,
 				459A3DE2171B46BB00EC447A /* StackingView.m in Sources */,
 				45E95DE4171B65B5008FEEE4 /* TransTextWindowController.m in Sources */,
+				457BFB111EA6AD5800E24526 /* AbbrevArrayController.swift in Sources */,
 				4591D48817232EC200BC713B /* DisclosureView.m in Sources */,
 				4591D48C172345D100BC713B /* MediaController.m in Sources */,
+				457BFB0C1EA69F3900E24526 /* AbbrevResolver.swift in Sources */,
+				457BFB0E1EA69F6C00E24526 /* AbbrevResolverImpl.swift in Sources */,
 				457BFB061EA681EC00E24526 /* AbbrevEntry.swift in Sources */,
 				4591D49B17246DF700BC713B /* AbbrevsController.m in Sources */,
 				457BFB041EA6816D00E24526 /* AbbrevBase.swift in Sources */,
@@ -484,7 +478,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler;
 				PRODUCT_NAME = Transcribbler;
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "Source/Model/Transcribbler-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Transcribbler-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -509,7 +503,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler;
 				PRODUCT_NAME = Transcribbler;
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "Source/Model/Transcribbler-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Transcribbler-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

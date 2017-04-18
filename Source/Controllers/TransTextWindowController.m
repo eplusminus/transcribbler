@@ -19,9 +19,10 @@
  
  */
 
+#import "Transcribbler-Swift.h"
+
 #import "TransTextWindowController.h"
 
-#import "AbbrevListDocument.h"
 #import "AbbrevsController.h"
 #import "DisclosureView.h"
 #import "HandyTableView.h"

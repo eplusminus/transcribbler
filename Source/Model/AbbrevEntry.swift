@@ -1,8 +1,8 @@
 /*
  
  Transcribbler, a Mac OS X text editor for audio/video transcription
- Copyright (C) 2013  Eli Bishop
- 
+ Copyright (C) 2013-2017  Eli Bishop
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -134,7 +134,7 @@ class AbbrevEntry: AbbrevBase {
   required init?(coder: NSCoder) {
     super.init(coder: coder)
     if (coder.containsValue(forKey: "var")) {
-      variants = coder.decodeObject(forKey: "var") as! [AbbrevBase]
+      variants = coder.decodeObject(forKey: "var") as? [AbbrevBase]
     }
   }
   

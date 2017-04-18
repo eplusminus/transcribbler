@@ -19,11 +19,10 @@
  
  */
 
+#import "Transcribbler-Swift.h"
+
 #import "TransTextDocument.h"
 
-#import "AbbrevListDocument.h"
-#import "AbbrevResolver.h"
-#import "AbbrevResolverImpl.h"
 #import "AbbrevsController.h"
 #import "AppDelegate.h"
 #import "MediaController.h"

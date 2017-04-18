@@ -1,7 +1,7 @@
 /*
  
  Transcribbler, a Mac OS X text editor for audio/video transcription
- Copyright (C) 2013  Eli Bishop
+ Copyright (C) 2013-2017  Eli Bishop
  
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -19,29 +19,10 @@
  
  */
 
-#import <Cocoa/Cocoa.h>
+import Foundation
 
-@class AbbrevArrayController;
-@class AbbrevResolverImpl;
-@class HandyTableView;
-
-
-#define AbbrevListDocumentModified @"AbbrevListDocumentModified"
-
-@interface AbbrevListDocument : NSDocument {
- @private
-  IBOutlet NSView* view;
-  IBOutlet AbbrevArrayController* controller;
-  IBOutlet HandyTableView* tableView;
+@objc protocol AbbrevResolver: class {
+  func getExpansion(_ abbrev: String) -> String
   
-  AbbrevResolverImpl* abbrevResolver;
+  func hasDuplicateAbbreviation(_ a: AbbrevEntry) -> Bool
 }
-
-@property (readonly) NSView* view;
-@property (readonly) HandyTableView* tableView;
-@property (readonly) AbbrevArrayController* controller;
-@property (retain) AbbrevResolverImpl* abbrevResolver;
-
-- (void) modified;
-
-@end

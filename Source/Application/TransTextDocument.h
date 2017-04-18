@@ -19,13 +19,12 @@
  
  */
 
+#import "Transcribbler-Swift.h"
+
 #import <Cocoa/Cocoa.h>
 
-@class AbbrevListDocument;
-@class AbbrevResolverImpl;
 @class TransTextView;
 @class TransTextWindowController;
-@protocol AbbrevResolver;
 
 
 @interface TransTextDocument : NSDocument
@@ -41,6 +40,6 @@
 }
 
 @property (readonly) AbbrevListDocument* abbrevListDocument;
-@property (readonly) id<AbbrevResolver> abbrevResolver;
+@property (readonly) AbbrevResolverImpl* abbrevResolver;
 
 @end
