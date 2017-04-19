@@ -15,7 +15,7 @@
 		455BE3DE1712467C00DCAF5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3C11712467C00DCAF5F /* InfoPlist.strings */; };
 		455BE40817124D5400DCAF5F /* Menus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455BE40617124D5400DCAF5F /* Menus.xib */; };
 		455BE40B171259DB00DCAF5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 455BE40A171259DB00DCAF5F /* AppDelegate.m */; };
-		4560D3E0172E066E002BCDA6 /* TransQTMovieView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4560D3DF172E066E002BCDA6 /* TransQTMovieView.m */; };
+		4560D3E0172E066E002BCDA6 /* NonKeyboardingAVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4560D3DF172E066E002BCDA6 /* NonKeyboardingAVPlayerView.m */; };
 		457BFB041EA6816D00E24526 /* AbbrevBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB031EA6816D00E24526 /* AbbrevBase.swift */; };
 		457BFB061EA681EC00E24526 /* AbbrevEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB051EA681EC00E24526 /* AbbrevEntry.swift */; };
 		457BFB081EA699AD00E24526 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457BFB071EA699AD00E24526 /* AVKit.framework */; };
@@ -74,8 +74,8 @@
 		455BE40717124D5400DCAF5F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Menus.xib; sourceTree = "<group>"; };
 		455BE409171259DB00DCAF5F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		455BE40A171259DB00DCAF5F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4560D3DE172E066E002BCDA6 /* TransQTMovieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransQTMovieView.h; path = Source/Views/TransQTMovieView.h; sourceTree = "<group>"; };
-		4560D3DF172E066E002BCDA6 /* TransQTMovieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransQTMovieView.m; path = Source/Views/TransQTMovieView.m; sourceTree = "<group>"; };
+		4560D3DE172E066E002BCDA6 /* NonKeyboardingAVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NonKeyboardingAVPlayerView.h; path = Source/Views/NonKeyboardingAVPlayerView.h; sourceTree = "<group>"; };
+		4560D3DF172E066E002BCDA6 /* NonKeyboardingAVPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NonKeyboardingAVPlayerView.m; path = Source/Views/NonKeyboardingAVPlayerView.m; sourceTree = "<group>"; };
 		457BFB021EA6816D00E24526 /* Transcribbler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Transcribbler-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		457BFB031EA6816D00E24526 /* AbbrevBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevBase.swift; sourceTree = "<group>"; };
 		457BFB051EA681EC00E24526 /* AbbrevEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevEntry.swift; sourceTree = "<group>"; };
@@ -267,8 +267,8 @@
 				4591D48617232EC200BC713B /* DisclosureView.h */,
 				4591D48717232EC200BC713B /* DisclosureView.m */,
 				4591D4901723834600BC713B /* ViewSizeLimits.h */,
-				4560D3DE172E066E002BCDA6 /* TransQTMovieView.h */,
-				4560D3DF172E066E002BCDA6 /* TransQTMovieView.m */,
+				4560D3DE172E066E002BCDA6 /* NonKeyboardingAVPlayerView.h */,
+				4560D3DF172E066E002BCDA6 /* NonKeyboardingAVPlayerView.m */,
 			);
 			name = Views;
 			path = ..;
@@ -383,7 +383,7 @@
 				457BFB061EA681EC00E24526 /* AbbrevEntry.swift in Sources */,
 				4591D49B17246DF700BC713B /* AbbrevsController.m in Sources */,
 				457BFB041EA6816D00E24526 /* AbbrevBase.swift in Sources */,
-				4560D3E0172E066E002BCDA6 /* TransQTMovieView.m in Sources */,
+				4560D3E0172E066E002BCDA6 /* NonKeyboardingAVPlayerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

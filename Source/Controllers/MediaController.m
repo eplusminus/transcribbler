@@ -299,8 +299,10 @@
     int moviePanelHeight = ([movieDisclosureView frame].size.width * size.height) / size.width;
     [movieDisclosureView setPreferredHeight:moviePanelHeight];
   } else {
-    int barHeight = 20; // [movieView controllerBarHeight]
-    [movieDisclosureView setPreferredHeight:barHeight];
+    // With AVPlayerView, unlike QTMovieView, there doesn't seem to be any way to get the height of
+    // just the controller bar.  So we're getting the minimum height of the overall view instead,
+    // which includes the big useless "Quicktime audio" logo; oh well.
+    [movieDisclosureView setPreferredHeight:[movieView fittingSize].height];
   }
 }
 
