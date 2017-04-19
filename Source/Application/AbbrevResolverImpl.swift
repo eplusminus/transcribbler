@@ -121,7 +121,7 @@ class AbbrevResolverImpl: NSObject {
 
   func isDuplicate(_ abbrev: String) -> Bool {
     if let v = index[abbrev.lowercased()] {
-      if let vs = v as? [AbbrevEntry] {
+      if let _ = v as? [AbbrevEntry] {
         return true
       }
     }
