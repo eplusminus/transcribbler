@@ -19,10 +19,14 @@
  
  */
 
-#import <Cocoa/Cocoa.h>
-#import <AVFoundation/AVFoundation.h>
+#import "NonKeyboardingAVPlayerView.h"
 
 
-@interface TransQTMovieView : AVPlayer
+@implementation NonKeyboardingAVPlayerView
+
+- (BOOL)performKeyEquivalent:(NSEvent*)theEvent
+{
+  return NO;
+}
 
 @end

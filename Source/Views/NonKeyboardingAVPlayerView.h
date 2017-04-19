@@ -19,14 +19,12 @@
  
  */
 
-#import "TransQTMovieView.h"
+#import <Cocoa/Cocoa.h>
+#import <AVKit/AVKit.h>
 
 
-@implementation TransQTMovieView
-
-- (BOOL)performKeyEquivalent:(NSEvent*)theEvent
-{
-  return NO;
-}
+// This specialization of AVPlayerView just removes the view's ability to intercept
+// any keyboard events.
+@interface NonKeyboardingAVPlayerView : AVPlayerView
 
 @end
