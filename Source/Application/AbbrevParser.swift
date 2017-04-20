@@ -82,10 +82,9 @@ class AbbrevParser: NSObject {
           return expansion.uppercased()
         }
         // If the first letter is uppercase, return first letter uppercase
-        let first = abbrev.substring(to: abbrev.index(after: abbrev.startIndex))
+        let first = String(abbrev.characters.prefix(1))
         if (first == first.uppercased()) {
-          let pos = expansion.index(after: expansion.startIndex)
-          return expansion.substring(to: pos).uppercased() + expansion.substring(from: pos)
+          return String(expansion.characters.prefix(1)) + String(expansion.characters.dropFirst())
         }
       }
       return expansion
