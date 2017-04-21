@@ -26,7 +26,6 @@
 #import "AbbrevsController.h"
 #import "HandyTableView.h"
 #import "MediaController.h"
-#import "TransTextView.h"
 
 
 #define kDefaultSidebarWidth 200

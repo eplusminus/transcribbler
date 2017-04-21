@@ -27,7 +27,6 @@
 #import "AppDelegate.h"
 #import "MediaController.h"
 #import "TransTextWindowController.h"
-#import "TransTextView.h"
 
 
 @implementation TransTextDocument

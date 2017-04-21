@@ -44,6 +44,10 @@ public class AbbrevParser: NSObject {
   public func isWordTerminator(_ char: unichar) -> Bool {
     return wordTerminators.contains(UnicodeScalar(char)!)
   }
+  
+  public func isWordTerminator(_ char: Character) -> Bool {
+    return AbbrevParser.charInSet(char, wordTerminators)
+  }
 
   public func findPossibleAbbreviation(inString: String, beforePos: Int) -> String? {
     let before = inString.index(inString.startIndex, offsetBy: beforePos)

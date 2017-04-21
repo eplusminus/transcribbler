@@ -35,6 +35,7 @@
 		457690001EA9B6A80090BBE7 /* StackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FFF1EA9B6A70090BBE7 /* StackingView.swift */; };
 		457690021EA9BDF20090BBE7 /* ViewSizeLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */; };
 		457690041EA9BEE20090BBE7 /* DisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690031EA9BEE20090BBE7 /* DisclosureView.swift */; };
+		457690061EA9C8470090BBE7 /* TransTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690051EA9C8470090BBE7 /* TransTextView.swift */; };
 		457BFB081EA699AD00E24526 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457BFB071EA699AD00E24526 /* AVKit.framework */; };
 		457BFB0A1EA69F0000E24526 /* AbbrevListDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */; };
 		457BFB111EA6AD5800E24526 /* AbbrevArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */; };
@@ -51,7 +52,6 @@
 		636620B60E3BF419001D4B0F /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636620B50E3BF419001D4B0F /* Quartz.framework */; };
 		636620B80E3BF426001D4B0F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636620B70E3BF426001D4B0F /* QuartzCore.framework */; };
 		63C8682C0DDA097500DC3670 /* TransTextDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C8682B0DDA097500DC3670 /* TransTextDocument.m */; };
-		63C868320DDA098500DC3670 /* TransTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C868310DDA098500DC3670 /* TransTextView.m */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -137,6 +137,7 @@
 		45768FFF1EA9B6A70090BBE7 /* StackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StackingView.swift; path = Source/Views/StackingView.swift; sourceTree = "<group>"; };
 		457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewSizeLimits.swift; path = Source/Views/ViewSizeLimits.swift; sourceTree = "<group>"; };
 		457690031EA9BEE20090BBE7 /* DisclosureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DisclosureView.swift; path = Source/Views/DisclosureView.swift; sourceTree = "<group>"; };
+		457690051EA9C8470090BBE7 /* TransTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransTextView.swift; path = Source/Views/TransTextView.swift; sourceTree = "<group>"; };
 		457BFB021EA6816D00E24526 /* Transcribbler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Transcribbler-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		457BFB031EA6816D00E24526 /* AbbrevBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevBase.swift; sourceTree = "<group>"; };
 		457BFB051EA681EC00E24526 /* AbbrevEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevEntry.swift; sourceTree = "<group>"; };
@@ -163,8 +164,6 @@
 		636620B70E3BF426001D4B0F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		63C8682A0DDA097500DC3670 /* TransTextDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransTextDocument.h; sourceTree = "<group>"; };
 		63C8682B0DDA097500DC3670 /* TransTextDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransTextDocument.m; sourceTree = "<group>"; };
-		63C868300DDA098500DC3670 /* TransTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransTextView.h; path = Source/Views/TransTextView.h; sourceTree = "<group>"; };
-		63C868310DDA098500DC3670 /* TransTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransTextView.m; path = Source/Views/TransTextView.m; sourceTree = "<group>"; };
 		63C8684D0DDA0A5300DC3670 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		8D15AC370486D014006FF6A4 /* Transcribbler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transcribbler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -398,8 +397,6 @@
 		639E92AC0E4D0B5C0006FDEE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				63C868300DDA098500DC3670 /* TransTextView.h */,
-				63C868310DDA098500DC3670 /* TransTextView.m */,
 				451579BC1711471F00BC08AA /* AbbrevTableViewDelegate.h */,
 				451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */,
 				457690031EA9BEE20090BBE7 /* DisclosureView.swift */,
@@ -408,6 +405,7 @@
 				45768FFF1EA9B6A70090BBE7 /* StackingView.swift */,
 				4560D3DE172E066E002BCDA6 /* NonKeyboardingAVPlayerView.h */,
 				4560D3DF172E066E002BCDA6 /* NonKeyboardingAVPlayerView.m */,
+				457690051EA9C8470090BBE7 /* TransTextView.swift */,
 				457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */,
 			);
 			name = Views;
@@ -649,8 +647,8 @@
 				63C8682C0DDA097500DC3670 /* TransTextDocument.m in Sources */,
 				457BFB0A1EA69F0000E24526 /* AbbrevListDocument.swift in Sources */,
 				457690021EA9BDF20090BBE7 /* ViewSizeLimits.swift in Sources */,
-				63C868320DDA098500DC3670 /* TransTextView.m in Sources */,
 				451579BE1711471F00BC08AA /* AbbrevTableViewDelegate.m in Sources */,
+				457690061EA9C8470090BBE7 /* TransTextView.swift in Sources */,
 				451579C11711564500BC08AA /* HandyTableView.m in Sources */,
 				457690041EA9BEE20090BBE7 /* DisclosureView.swift in Sources */,
 				455BE40B171259DB00DCAF5F /* AppDelegate.m in Sources */,
