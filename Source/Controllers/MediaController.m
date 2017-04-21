@@ -19,10 +19,11 @@
  
  */
 
+#import "Transcribbler-Swift.h"
+
 #import "MediaController.h"
 
 #import "DisclosureView.h"
-#import "ViewSizeLimits.h"
 
 
 @interface MiniTimecodeView : NSView <ViewSizeLimits> {

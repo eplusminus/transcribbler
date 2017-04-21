@@ -19,7 +19,7 @@
  
  */
 
-#import "ViewSizeLimits.h"
+#import "Transcribbler-Swift.h"
 
 #import <Cocoa/Cocoa.h>
 
