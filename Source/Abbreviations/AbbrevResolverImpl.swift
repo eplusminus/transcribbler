@@ -23,26 +23,29 @@ import Foundation
 
 
 @objc(AbbrevResolverImpl)
-class AbbrevResolverImpl: NSObject {
+public class AbbrevResolverImpl: NSObject, AbbrevResolver {
   private var index = [AnyHashable: Any]()
   private var duplicates = [AnyHashable: Any]()
-  private var documents = [AbbrevListDocument]()
+  private var providers = [AbbrevListProvider]()
   
-  func addedDocument(_ document: AbbrevListDocument) {
-    documents.append(document)
-    NotificationCenter.default.addObserver(self,
-                                           selector: #selector(AbbrevResolverImpl.refresh),
-                                           name: NSNotification.Name(rawValue: AbbrevListDocumentModified),
-                                           object: document)
+  public func addProvider(_ provider: AbbrevListProvider) {
+    providers.append(provider)
     refresh()
   }
   
-  func refresh() {
+//  func addedDocument(_ document: AbbrevListDocument) {
+//    documents.append(document)
+//    NotificationCenter.default.addObserver(self,
+//                                           selector: #selector(AbbrevResolverImpl.refresh),
+//                                           name: NSNotification.Name(rawValue: AbbrevListDocumentModified),
+//                                           object: document)
+//    refresh()
+//  }
+  
+  public func refresh() {
     var items = [AbbrevEntry]()
-    for d: AbbrevListDocument in documents {
-      if let a = d.controller?.arrangedObjects as? [AbbrevEntry] {
-        items.append(contentsOf: a)
-      }
+    for p in providers {
+      items.append(contentsOf: p.getAbbreviations())
     }
     self.setItems(items)
   }
@@ -83,7 +86,7 @@ class AbbrevResolverImpl: NSObject {
   // protocol AbbrevResolver
   //
   
-  func getExpansion(_ abbrev: String) -> String? {
+  public func getExpansion(_ abbrev: String) -> String? {
     let key: String = abbrev.lowercased()
     let found: Any? = index[abbrev.lowercased()]
     if let v = found {
@@ -105,7 +108,7 @@ class AbbrevResolverImpl: NSObject {
     return nil
   }
 
-  func hasDuplicateAbbreviation(_ a: AbbrevEntry) -> Bool {
+  public func hasDuplicateAbbreviation(_ a: AbbrevEntry) -> Bool {
     if isDuplicate(a.abbreviation) {
       return true
     }

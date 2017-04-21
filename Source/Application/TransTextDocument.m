@@ -49,7 +49,7 @@
   self = [super init];
   abbrevListDocument = [[[AbbrevListDocument alloc] init] retain];
   abbrevResolver = [[[AbbrevResolverImpl alloc] init] retain];
-  [abbrevResolver addedDocument:abbrevListDocument];
+  [abbrevResolver addProvider:abbrevListDocument];
   abbrevListDocument.abbrevResolver = abbrevResolver;
   return self;
 }

@@ -19,6 +19,7 @@
  
  */
 
+import Abbreviations
 import Foundation
 
 let AbbreviationsPasteboardType = "AbbreviationsPasteBoardType"
@@ -107,7 +108,9 @@ class AbbrevArrayController: NSArrayController {
             if scan.scanUpToCharacters(from: CharacterSet.newlines, into: &v) {
               let a: AbbrevEntry = newEntry()
               a.abbreviation = (n ?? "") as String
-              a.setExpansionDesc((v ?? "") as String)
+              let (ex, vs) = AbbrevSimpleFormat.parseExpansionAndVariants((v ?? "") as String)
+              a.expansion = ex
+              a.variants = vs
               aa.append(a)
             }
           }

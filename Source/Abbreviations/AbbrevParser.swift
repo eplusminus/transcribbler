@@ -21,11 +21,11 @@
 
 var sAbbrevParser: AbbrevParser? = nil
 
-class AbbrevParser: NSObject {
+public class AbbrevParser: NSObject {
   private var wordTerminators: CharacterSet = CharacterSet(charactersIn: " \r\n\t,.-!?'\"")
   private var nonTerminatorsInsideWord: CharacterSet = CharacterSet(charactersIn: "'")
   
-  class func sharedInstance() -> AbbrevParser {
+  public class func sharedInstance() -> AbbrevParser {
     if let p = sAbbrevParser {
       return p
     }
@@ -41,11 +41,11 @@ class AbbrevParser: NSObject {
     return false
   }
   
-  func isWordTerminator(_ char: unichar) -> Bool {
+  public func isWordTerminator(_ char: unichar) -> Bool {
     return wordTerminators.contains(UnicodeScalar(char)!)
   }
 
-  func findPossibleAbbreviation(inString: String, beforePos: Int) -> String? {
+  public func findPossibleAbbreviation(inString: String, beforePos: Int) -> String? {
     let before = inString.index(inString.startIndex, offsetBy: beforePos)
     if before == inString.startIndex {
       return nil
@@ -67,28 +67,25 @@ class AbbrevParser: NSObject {
             }
           }
         }
+        start = inString.index(after: start)
         break
       }
     } while start != inString.startIndex
-    return inString.substring(with: (inString.index(after: start)..<before))
+    return inString.substring(with: (start..<before))
   }
   
-  func expandAbbreviation(_ abbrev: String, withResolver: AbbrevResolver) -> String? {
-    let expansion: String = withResolver.getExpansion(abbrev)
-    if expansion != "" {
-      if !(abbrev == abbrev.lowercased()) {
-        // If the whole short form is uppercase, return all uppercase
-        if ((abbrev.characters.count > 1) && (abbrev == abbrev.uppercased())) {
-          return expansion.uppercased()
-        }
-        // If the first letter is uppercase, return first letter uppercase
-        let first = String(abbrev.characters.prefix(1))
-        if (first == first.uppercased()) {
-          return String(expansion.characters.prefix(1)) + String(expansion.characters.dropFirst())
-        }
+  public func renderExpansion(_ expansion: String, abbreviation: String) -> String {
+    if !(abbreviation == abbreviation.lowercased()) {
+      // If the whole short form is uppercase, return all uppercase
+      if ((abbreviation.characters.count > 1) && (abbreviation == abbreviation.uppercased())) {
+        return expansion.uppercased()
       }
-      return expansion
+      // If the first letter is uppercase, return first letter uppercase
+      let first = String(abbreviation.characters.prefix(1))
+      if (first == first.uppercased()) {
+        return String(expansion.characters.prefix(1)).uppercased() + String(expansion.characters.dropFirst())
+      }
     }
-    return nil
+    return expansion
   }
 }

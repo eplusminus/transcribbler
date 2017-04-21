@@ -19,6 +19,7 @@
  
  */
 
+#import "Abbreviations/Abbreviations-Swift.h"
 #import "Transcribbler-Swift.h"
 
 #import "AbbrevTableViewDelegate.h"

@@ -55,8 +55,9 @@
         NSString* currentText = [[self textStorage] string];
         NSString* lastWord = [ap findPossibleAbbreviationInString:currentText beforePos:pos];
         if ([lastWord length] > 0) {
-          NSString* expansion = [ap expandAbbreviation:lastWord withResolver:abbrevResolver];
-          if (expansion) {
+          NSString* rawExpansion = [abbrevResolver getExpansion:lastWord];
+          if (rawExpansion) {
+            NSString* expansion = [ap renderExpansion:rawExpansion abbreviation:lastWord];
             [[[self textStorage] mutableString]
                 replaceCharactersInRange: NSMakeRange(pos - [lastWord length], [lastWord length])
                 withString: expansion];

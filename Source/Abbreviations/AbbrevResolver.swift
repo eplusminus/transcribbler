@@ -21,28 +21,8 @@
 
 import Foundation
 
-@objc(AbbrevBase)
-class AbbrevBase: NSObject, NSCoding {
-  var abbreviation: String = ""
-  var expansion: String = ""
+@objc public protocol AbbrevResolver: class {
+  func getExpansion(_ abbrev: String) -> String?
   
-  public init(abbreviation: String, expansion: String) {
-    self.abbreviation = abbreviation
-    self.expansion = expansion
-  }
-
-  //
-  //	NSCoding methods
-  //
-
-  required init?(coder aDecoder: NSCoder) {
-    self.abbreviation = aDecoder.decodeObject(forKey: "short") as! String
-    self.expansion = aDecoder.decodeObject(forKey: "long") as! String
-    // TODO: do we still need behavior of refusing to decode something with empty fields?
-  }
-
-  func encode(with: NSCoder) {
-    with.encode(self.abbreviation, forKey: "short")
-    with.encode(self.expansion, forKey: "long")
-  }
+  func hasDuplicateAbbreviation(_ a: AbbrevEntry) -> Bool
 }

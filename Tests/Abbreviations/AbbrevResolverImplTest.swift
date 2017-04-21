@@ -1,7 +1,7 @@
 /*
  
  Transcribbler, a Mac OS X text editor for audio/video transcription
- Copyright (C) 2013  Eli Bishop
+ Copyright (C) 2013-2017  Eli Bishop
  
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -19,17 +19,32 @@
  
  */
 
-#import "Abbreviations/Abbreviations-Swift.h"
-#import "Transcribbler-Swift.h"
+import Abbreviations
+import XCTest
 
-#import <Cocoa/Cocoa.h>
-
-
-@interface TransTextView : NSTextView {
- @private
-	IBOutlet id<AbbrevResolver> abbrevResolver;
+class SimpleAbbrevListProvider: AbbrevListProvider {
+  var items: [AbbrevEntry]
+  
+  init(_ items: [AbbrevEntry]) {
+    self.items = items
+  }
+  
+  func getAbbreviations() -> [AbbrevEntry] {
+    return items
+  }
 }
 
-@property (retain) id<AbbrevResolver> abbrevResolver;
+class AbbrevResolverImplTest: XCTestCase {
 
-@end
+  var resolver = AbbrevResolverImpl()
+  //var simpleEntry: AbbrevEntry = AbbrevEntry(abbreviation = "dog", expansion = "cat")
+  
+  func testResolverWithNoProvidersFindsNothing() {
+    XCTAssertNil(resolver.getExpansion("dog"))
+  }
+  
+  func testResolverFindsAbbreviationFromSimpleEntry() {
+    //resolver.addProvider(SimpleAbbrevListProvider([simpleEntry]))
+    //XCTAssertEquals("cat", resolver.getExpansion("dog"))
+  }
+}

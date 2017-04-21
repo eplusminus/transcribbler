@@ -19,10 +19,6 @@
  
  */
 
-import Foundation
-
-@objc protocol AbbrevResolver: class {
-  func getExpansion(_ abbrev: String) -> String
-  
-  func hasDuplicateAbbreviation(_ a: AbbrevEntry) -> Bool
+@objc public protocol AbbrevListProvider: class {
+  func getAbbreviations() -> [AbbrevEntry]
 }

@@ -19,15 +19,23 @@
  
  */
 
+import Abbreviations
 import Foundation
 
 let AbbrevListDocumentModified = "AbbrevListDocumentModified"
 
-class AbbrevListDocument: NSDocument {
+class AbbrevListDocument: NSDocument, AbbrevListProvider {
   @IBOutlet private(set) var view: NSView!
   @IBOutlet private(set) var controller: AbbrevArrayController!
   @IBOutlet private(set) var tableView: HandyTableView!
   var abbrevResolver: AbbrevResolverImpl?
+  
+  func getAbbreviations() -> [AbbrevEntry] {
+    if let a = controller?.arrangedObjects as? [AbbrevEntry] {
+      return a
+    }
+    return []
+  }
   
   override var windowNibName: String? {
     get {
