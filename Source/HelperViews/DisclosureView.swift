@@ -34,9 +34,9 @@ public class DisclosureView: NSView, ViewSizeLimits {
   @IBOutlet private(set) var disclosureButton: NSButton!
   @IBOutlet private(set) var label: NSTextField!
 
-  var contentView: NSView?
-  var _title: String?
-  var title: String? {
+  public var contentView: NSView?
+  private var _title: String?
+  public var title: String? {
     get {
       return _title
     }
@@ -45,9 +45,9 @@ public class DisclosureView: NSView, ViewSizeLimits {
       label?.stringValue = t ?? ""
     }
   }
-  var inited: Bool = false
-  var _enabled: Bool = true
-  var enabled: Bool {
+  private var inited: Bool = false
+  private var _enabled: Bool = true
+  public var enabled: Bool {
     get {
       return _enabled
     }
@@ -58,8 +58,8 @@ public class DisclosureView: NSView, ViewSizeLimits {
       }
     }
   }
-  var _expanded: Bool = true
-  var expanded: Bool {
+  private var _expanded: Bool = true
+  public var expanded: Bool {
     get {
       return _expanded
     }
@@ -89,9 +89,9 @@ public class DisclosureView: NSView, ViewSizeLimits {
       }
     }
   }
-  var fixedHeight: Bool = true
-  var _indentContent: Bool = false
-  var indentContent: Bool {
+  public var fixedHeight: Bool = true
+  private var _indentContent: Bool = false
+  public var indentContent: Bool {
     get {
       return _indentContent
     }
@@ -102,9 +102,9 @@ public class DisclosureView: NSView, ViewSizeLimits {
       }
     }
   }
-  var titleHeight: CGFloat = kDefaultTitleHeight
-  var _preferredHeight: CGFloat = 0
-  var preferredHeight: CGFloat {
+  public var titleHeight: CGFloat = kDefaultTitleHeight
+  private var _preferredHeight: CGFloat = 0
+  public var preferredHeight: CGFloat {
     get {
       return _preferredHeight
     }
@@ -118,7 +118,7 @@ public class DisclosureView: NSView, ViewSizeLimits {
       }
     }
   }
-  var preferredWidth: CGFloat = 0
+  public var preferredWidth: CGFloat = 0
   
   override init(frame f: NSRect) {
     super.init(frame: f)
@@ -201,11 +201,11 @@ public class DisclosureView: NSView, ViewSizeLimits {
     expanded = (disclosureButton.state == NSOnState)
   }
 
-  func minimumSize() -> NSSize {
+  public func minimumSize() -> NSSize {
     return NSMakeSize(preferredWidth, expanded ? (preferredHeight + titleHeight) : titleHeight)
   }
   
-  func maximumSize() -> NSSize {
+  public func maximumSize() -> NSSize {
     return expanded ?
       NSMakeSize(preferredWidth, fixedHeight ? (preferredHeight + titleHeight) : CGFloat(FLT_MAX)) :
       minimumSize()

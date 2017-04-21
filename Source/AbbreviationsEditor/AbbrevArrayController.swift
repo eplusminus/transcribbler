@@ -137,7 +137,7 @@ class AbbrevArrayController: NSArrayController {
     persist()
   }
   
-  func newEntry() -> AbbrevEntry {
+  public func newEntry() -> AbbrevEntry {
     let e = AbbrevEntry()
     return e
   }

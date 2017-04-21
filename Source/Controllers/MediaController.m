@@ -20,6 +20,7 @@
  */
 
 #import "Transcribbler-Swift.h"
+#import "HelperViews/HelperViews-Swift.h"
 
 #import "MediaController.h"
 

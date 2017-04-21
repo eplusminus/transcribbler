@@ -21,7 +21,7 @@
 
 import Foundation
 
-@objc protocol ViewSizeLimits {
+@objc public protocol ViewSizeLimits {
   func minimumSize() -> NSSize
   func maximumSize() -> NSSize
 }

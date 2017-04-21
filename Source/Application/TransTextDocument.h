@@ -20,6 +20,8 @@
  */
 
 #import "Transcribbler-Swift.h"
+#import "Abbreviations/Abbreviations-Swift.h"
+#import "AbbreviationsEditor/AbbreviationsEditor-Swift.h"
 
 #import <Cocoa/Cocoa.h>
 

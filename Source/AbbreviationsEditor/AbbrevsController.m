@@ -19,8 +19,6 @@
  
  */
 
-#import "Transcribbler-Swift.h"
-
 #import "AbbrevsController.h"
 
 #import "HandyTableView.h"
@@ -33,7 +31,7 @@
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
   self = [super initWithCoder:aDecoder];
-  [NSBundle loadNibNamed:@"AbbrevDrawerView" owner:self];
+  [[NSBundle mainBundle] loadNibNamed:@"AbbrevDrawerView" owner:self topLevelObjects: nil];
   return self;
 }
 
@@ -55,7 +53,7 @@
     [drawer setMinContentSize:size];
     [drawer setContentView:[self view]];
   }
-  [disclosureView setFixedHeight:NO];
+  disclosureView.fixedHeight = false;
 }
 
 - (void)addAbbrevListDocument:(AbbrevListDocument*)d
@@ -63,14 +61,15 @@
   if (document == nil) {
     document = [d retain];
     if (![document view]) {
-      [NSBundle loadNibNamed:@"AbbrevListView" owner:document];
+      [[NSBundle mainBundle] loadNibNamed:@"AbbrevListView" owner:document topLevelObjects: nil];
     }
     listView = [[document view] retain];
     [listView setFrameOrigin:NSMakePoint(0, 0)];
     [listView setFrameSize:[containerView frame].size];
     [listView setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
     [containerView addSubview:listView];
-    [document tableView].backTabDestination = textView;
+    HandyTableView* htv = (HandyTableView*) [document tableView];
+    htv.backTabDestination = textView;
     [disclosureView retain];
   }
 }
@@ -91,7 +90,8 @@
   if (v != textView) {
     [textView release];
     textView = [v retain];
-    [document tableView].backTabDestination = textView;
+    HandyTableView* htv = (HandyTableView*) [document tableView];
+    htv.backTabDestination = textView;
   }
 }
 

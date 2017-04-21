@@ -95,7 +95,7 @@
 - (void)mouseDown:(NSEvent*)event
 {
 	NSPoint loc;
-	int col, row;
+	NSInteger col, row;
   
   clickedRow = clickedCol = -1;
   if ([event clickCount] > 1 && editing) {
@@ -103,7 +103,7 @@
     [field mouseDown:event];
     return;
   }
-  if ([event modifierFlags] & (NSShiftKeyMask | NSCommandKeyMask)) {
+  if ([event modifierFlags] & (NSEventModifierFlagShift | NSEventModifierFlagCommand)) {
     [super mouseDown:event];
   }
   else {
@@ -131,7 +131,7 @@
 - (void)mouseDragged:(NSEvent *)event
 {
   NSPoint loc;
-  int col, row, rowStart, rowEnd;
+  NSInteger col, row, rowStart, rowEnd;
   
   loc = [self convertPoint:[event locationInWindow] fromView:nil];
   col = [self columnAtPoint:loc];
@@ -153,9 +153,9 @@
 - (void)mouseUp:(NSEvent*)event
 {
   NSPoint loc;
-	int col, row;
+	NSInteger col, row;
 	
-  if (([event modifierFlags] & (NSShiftKeyMask | NSCommandKeyMask)) == 0) {
+  if (([event modifierFlags] & (NSEventModifierFlagShift | NSEventModifierFlagCommand)) == 0) {
     loc = [self convertPoint:[event locationInWindow] fromView:nil];
     col = [self columnAtPoint:loc];
     row = [self rowAtPoint:loc];
@@ -219,8 +219,8 @@
 {
   unichar ch = [[event characters] characterAtIndex:0];
   if (ch == NSTabCharacter) {
-    int row = [tableView editedRow];
-    int col = [tableView editedColumn] + 1;
+    NSInteger row = [tableView editedRow];
+    NSInteger col = [tableView editedColumn] + 1;
     if (col == [tableView numberOfColumns]) {
       if (tableView.forwardTabDestination) {
         [[tableView window] makeFirstResponder:tableView.forwardTabDestination];
@@ -240,8 +240,8 @@
     }
   }
   else if (ch == NSBackTabCharacter) {
-    int row = [tableView editedRow];
-    int col = [tableView editedColumn] - 1;
+    NSInteger row = [tableView editedRow];
+    NSInteger col = [tableView editedColumn] - 1;
     if (col < 0) {
       if (tableView.backTabDestination) {
         [[tableView window] makeFirstResponder:tableView.backTabDestination];
@@ -265,7 +265,7 @@
 - (void)deleteBackward:(id)sender
 {
 	NSRange r;
-	unsigned row, col;
+	NSInteger row, col;
   NSText *editor;
   
 	r = [self selectedRange];
@@ -299,7 +299,7 @@
 - (void)moveLeft:(id)sender
 {
 	NSRange r;
-	int row, col;
+	NSInteger row, col;
 	NSText* editor;
 	
 	r = [self selectedRange];
@@ -331,7 +331,7 @@
 - (void)moveRight:(id)sender
 {
 	NSRange r;
-	int row, col;
+	NSInteger row, col;
 	NSText* editor;
 	
 	r = [self selectedRange];
@@ -361,7 +361,7 @@
 
 - (void)moveUp:(id)sender
 {
-	unsigned row;
+	NSInteger row;
   
 	row = [tableView editedRow];
 	if (row == 0) {
@@ -372,7 +372,7 @@
 
 - (void)moveDown:(id)sender
 {
-	unsigned row;
+	NSInteger row;
 	
 	row = [tableView editedRow];
 	if (row == ([tableView numberOfRows] - 1)) {
@@ -400,7 +400,7 @@
 	return bounds.origin.x;
 }
 
-- (void)selectRow:(int)row
+- (void)selectRow:(NSInteger)row
 {
   [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 }
@@ -411,9 +411,9 @@
   [self setSelectedRange:NSMakeRange(p, 0)];
 }
 
-- (void)moveVerticallyToRow:(unsigned)row
+- (void)moveVerticallyToRow:(NSInteger)row
 {
-	unsigned col;
+	NSInteger col;
   float pos;
 	NSRange r;
   

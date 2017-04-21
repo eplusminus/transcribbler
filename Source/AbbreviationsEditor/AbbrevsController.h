@@ -19,38 +19,34 @@
  
  */
 
+#import "HelperViews/HelperViews-Swift.h"
+
 #import <Cocoa/Cocoa.h>
 
-@class QuickTableTextView;
-@protocol HandyTableViewDelegate;
+@class AbbrevListDocument;
 
 
-@interface HandyTableView : NSTableView {
- @private
-  IBOutlet NSView* backTabDestination;
-  IBOutlet NSView* forwardTabDestination;
-  
-  int clickedCol;
-  int clickedRow;
-  BOOL editing;
-  BOOL tabWrapsForward;
-  BOOL tabWrapsBackward;
-  
-  QuickTableTextView* fieldEditor;
+@interface AbbrevsController : NSViewController {
+@private
+  IBOutlet NSDrawer* drawer;
+  IBOutlet NSView* containerView;
+  IBOutlet NSView* textView;
+  IBOutlet DisclosureView* disclosureView;
+
+  AbbrevListDocument* document;
+  NSView* listView;
 }
 
-@property (retain) NSView* backTabDestination;
-@property (retain) NSView* forwardTabDestination;
+@property (readonly) AbbrevListDocument* document;
 
-+ (id)windowWillReturnFieldEditor:(NSWindow*)sender toObject:(id)anObject;
-- (id<HandyTableViewDelegate>)handyDelegate;
+- (void)addAbbrevListDocument:(AbbrevListDocument*)document;
 
-@end
+- (IBAction)newAbbreviation:(id)sender;
 
+- (NSView*)textView;
+- (void)setTextView:(NSView*)textView;
 
-@protocol HandyTableViewDelegate
-
-- (BOOL)tableView:(HandyTableView*)view canDeleteEmptyRow:(NSUInteger)row;
-- (BOOL)tableView:(HandyTableView*)view clickedBelowLastRowAt:(NSPoint)point;
+- (void)lendViewsTo:(StackingView*)sv;
+- (void)restoreViews;
 
 @end

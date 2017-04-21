@@ -20,7 +20,7 @@
  */
 
 #import "Abbreviations/Abbreviations-Swift.h"
-#import "Transcribbler-Swift.h"
+#import "AbbreviationsEditor/AbbreviationsEditor-Swift.h"
 
 #import "AbbrevTableViewDelegate.h"
 
@@ -161,7 +161,7 @@
   [v validateEditing];
   [v abortEditing];
 
-  int count = [v numberOfRows];
+  NSInteger count = [v numberOfRows];
   if (count > 0) {
     AbbrevEntry* e = [[table arrangedObjects] objectAtIndex:(count - 1)];
     if ([e isEmpty]) {

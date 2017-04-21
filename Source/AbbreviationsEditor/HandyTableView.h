@@ -21,32 +21,36 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class AbbrevListDocument;
-@class DisclosureView;
-@class StackingView;
+@class QuickTableTextView;
+@protocol HandyTableViewDelegate;
 
 
-@interface AbbrevsController : NSViewController {
-@private
-  IBOutlet NSDrawer* drawer;
-  IBOutlet NSView* containerView;
-  IBOutlet NSView* textView;
-  IBOutlet DisclosureView* disclosureView;
-
-  AbbrevListDocument* document;
-  NSView* listView;
+@interface HandyTableView : NSTableView {
+ @private
+  IBOutlet NSView* backTabDestination;
+  IBOutlet NSView* forwardTabDestination;
+  
+  NSInteger clickedCol;
+  NSInteger clickedRow;
+  BOOL editing;
+  BOOL tabWrapsForward;
+  BOOL tabWrapsBackward;
+  
+  QuickTableTextView* fieldEditor;
 }
 
-@property (readonly) AbbrevListDocument* document;
+@property (retain) NSView* backTabDestination;
+@property (retain) NSView* forwardTabDestination;
 
-- (void)addAbbrevListDocument:(AbbrevListDocument*)document;
++ (id)windowWillReturnFieldEditor:(NSWindow*)sender toObject:(id)anObject;
+- (id<HandyTableViewDelegate>)handyDelegate;
 
-- (IBAction)newAbbreviation:(id)sender;
+@end
 
-- (NSView*)textView;
-- (void)setTextView:(NSView*)textView;
 
-- (void)lendViewsTo:(StackingView*)sv;
-- (void)restoreViews;
+@protocol HandyTableViewDelegate
+
+- (BOOL)tableView:(HandyTableView*)view canDeleteEmptyRow:(NSUInteger)row;
+- (BOOL)tableView:(HandyTableView*)view clickedBelowLastRowAt:(NSPoint)point;
 
 @end

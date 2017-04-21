@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		451579BE1711471F00BC08AA /* AbbrevTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */; };
-		451579C11711564500BC08AA /* HandyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451579C01711564500BC08AA /* HandyTableView.m */; };
 		4525340F1724A5BB00E6D805 /* TransTextDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4525340D1724A5BB00E6D805 /* TransTextDocument.xib */; };
 		455BE3DB1712467C00DCAF5F /* AbbrevListDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */; };
 		455BE3DD1712467C00DCAF5F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BF1712467C00DCAF5F /* Credits.rtf */; };
@@ -32,16 +30,31 @@
 		45768FF81EA99E230090BBE7 /* AbbrevBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FF71EA99E230090BBE7 /* AbbrevBaseTest.swift */; };
 		45768FFA1EA9A3A90090BBE7 /* AbbrevSimpleFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FF91EA9A3A90090BBE7 /* AbbrevSimpleFormat.swift */; };
 		45768FFC1EA9A41F0090BBE7 /* AbbrevSimpleFormatTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FFB1EA9A41F0090BBE7 /* AbbrevSimpleFormatTest.swift */; };
-		457690001EA9B6A80090BBE7 /* StackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FFF1EA9B6A70090BBE7 /* StackingView.swift */; };
-		457690021EA9BDF20090BBE7 /* ViewSizeLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */; };
-		457690041EA9BEE20090BBE7 /* DisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690031EA9BEE20090BBE7 /* DisclosureView.swift */; };
 		457690061EA9C8470090BBE7 /* TransTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690051EA9C8470090BBE7 /* TransTextView.swift */; };
+		457690161EA9CD1C0090BBE7 /* AbbreviationsEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4576900D1EA9CD1C0090BBE7 /* AbbreviationsEditor.framework */; };
+		4576901D1EA9CD1C0090BBE7 /* AbbreviationsEditorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576901C1EA9CD1C0090BBE7 /* AbbreviationsEditorTests.swift */; };
+		457690221EA9CD1C0090BBE7 /* AbbreviationsEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4576900D1EA9CD1C0090BBE7 /* AbbreviationsEditor.framework */; };
+		457690231EA9CD1C0090BBE7 /* AbbreviationsEditor.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4576900D1EA9CD1C0090BBE7 /* AbbreviationsEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4576902A1EA9CD310090BBE7 /* Abbreviations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45768FC91EA98DF40090BBE7 /* Abbreviations.framework */; };
+		4576902B1EA9CD310090BBE7 /* Abbreviations.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45768FC91EA98DF40090BBE7 /* Abbreviations.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4576902C1EA9CD510090BBE7 /* AbbrevListDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */; };
+		4576902D1EA9CD5E0090BBE7 /* AbbrevArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */; };
+		4576902F1EA9CD820090BBE7 /* AbbrevsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4591D49A17246DF700BC713B /* AbbrevsController.m */; };
+		4576903F1EA9CDA70090BBE7 /* HelperViews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457690361EA9CDA70090BBE7 /* HelperViews.framework */; };
+		457690461EA9CDA70090BBE7 /* HelperViewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690451EA9CDA70090BBE7 /* HelperViewsTests.swift */; };
+		457690481EA9CDA70090BBE7 /* HelperViews.h in Headers */ = {isa = PBXBuildFile; fileRef = 457690381EA9CDA70090BBE7 /* HelperViews.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4576904B1EA9CDA70090BBE7 /* HelperViews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457690361EA9CDA70090BBE7 /* HelperViews.framework */; };
+		4576904C1EA9CDA70090BBE7 /* HelperViews.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 457690361EA9CDA70090BBE7 /* HelperViews.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		457690531EA9CDB20090BBE7 /* StackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FFF1EA9B6A70090BBE7 /* StackingView.swift */; };
+		457690541EA9CDB90090BBE7 /* DisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690031EA9BEE20090BBE7 /* DisclosureView.swift */; };
+		457690551EA9CDC20090BBE7 /* ViewSizeLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */; };
+		457690571EA9CE090090BBE7 /* HandyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451579C01711564500BC08AA /* HandyTableView.m */; };
+		457690591EA9CFAE0090BBE7 /* Abbreviations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45768FC91EA98DF40090BBE7 /* Abbreviations.framework */; };
+		4576905A1EA9CFB10090BBE7 /* HelperViews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457690361EA9CDA70090BBE7 /* HelperViews.framework */; };
+		4576905C1EA9D3050090BBE7 /* AbbrevTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */; };
 		457BFB081EA699AD00E24526 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457BFB071EA699AD00E24526 /* AVKit.framework */; };
-		457BFB0A1EA69F0000E24526 /* AbbrevListDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */; };
-		457BFB111EA6AD5800E24526 /* AbbrevArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */; };
 		4591D48C172345D100BC713B /* MediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4591D48B172345D100BC713B /* MediaController.m */; };
 		4591D48F1723482100BC713B /* MediaDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4591D48D1723482100BC713B /* MediaDrawerView.xib */; };
-		4591D49B17246DF700BC713B /* AbbrevsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4591D49A17246DF700BC713B /* AbbrevsController.m */; };
 		4591D49E17246EB100BC713B /* AbbrevDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4591D49C17246EB100BC713B /* AbbrevDrawerView.xib */; };
 		45E95DC9171B4DBD008FEEE4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 45E95DC8171B4DBD008FEEE4 /* LICENSE */; };
 		45E95DE4171B65B5008FEEE4 /* TransTextWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E95DE3171B65B5008FEEE4 /* TransTextWindowController.m */; };
@@ -85,6 +98,48 @@
 			remoteGlobalIDString = 45768FC81EA98DF40090BBE7;
 			remoteInfo = Abbreviations;
 		};
+		457690171EA9CD1C0090BBE7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4576900C1EA9CD1C0090BBE7;
+			remoteInfo = AbbreviationsEditor;
+		};
+		457690191EA9CD1C0090BBE7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D15AC270486D014006FF6A4;
+			remoteInfo = Transcribbler;
+		};
+		457690201EA9CD1C0090BBE7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4576900C1EA9CD1C0090BBE7;
+			remoteInfo = AbbreviationsEditor;
+		};
+		457690401EA9CDA70090BBE7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 457690351EA9CDA70090BBE7;
+			remoteInfo = HelperViews;
+		};
+		457690421EA9CDA70090BBE7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D15AC270486D014006FF6A4;
+			remoteInfo = Transcribbler;
+		};
+		457690491EA9CDA70090BBE7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 457690351EA9CDA70090BBE7;
+			remoteInfo = HelperViews;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -94,6 +149,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4576904C1EA9CDA70090BBE7 /* HelperViews.framework in CopyFiles */,
+				4576902B1EA9CD310090BBE7 /* Abbreviations.framework in CopyFiles */,
+				457690231EA9CD1C0090BBE7 /* AbbreviationsEditor.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,10 +163,10 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32DBCF750370BD2300C91783 /* Transcribbler_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transcribbler_Prefix.pch; sourceTree = "<group>"; };
-		451579BC1711471F00BC08AA /* AbbrevTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbbrevTableViewDelegate.h; path = Source/Views/AbbrevTableViewDelegate.h; sourceTree = "<group>"; };
-		451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbbrevTableViewDelegate.m; path = Source/Views/AbbrevTableViewDelegate.m; sourceTree = "<group>"; };
-		451579BF1711564500BC08AA /* HandyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HandyTableView.h; path = Source/Views/HandyTableView.h; sourceTree = "<group>"; };
-		451579C01711564500BC08AA /* HandyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HandyTableView.m; path = Source/Views/HandyTableView.m; sourceTree = "<group>"; };
+		451579BC1711471F00BC08AA /* AbbrevTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbbrevTableViewDelegate.h; path = AbbreviationsEditor/AbbrevTableViewDelegate.h; sourceTree = "<group>"; };
+		451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbbrevTableViewDelegate.m; path = AbbreviationsEditor/AbbrevTableViewDelegate.m; sourceTree = "<group>"; };
+		451579BF1711564500BC08AA /* HandyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HandyTableView.h; path = AbbreviationsEditor/HandyTableView.h; sourceTree = "<group>"; };
+		451579C01711564500BC08AA /* HandyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HandyTableView.m; path = AbbreviationsEditor/HandyTableView.m; sourceTree = "<group>"; };
 		4525340E1724A5BB00E6D805 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = TransTextDocument.xib; sourceTree = "<group>"; };
 		455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbrevListDocument.xib; sourceTree = "<group>"; };
 		455BE3C01712467C00DCAF5F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
@@ -134,24 +192,36 @@
 		45768FF71EA99E230090BBE7 /* AbbrevBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevBaseTest.swift; path = Tests/Abbreviations/AbbrevBaseTest.swift; sourceTree = "<group>"; };
 		45768FF91EA9A3A90090BBE7 /* AbbrevSimpleFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevSimpleFormat.swift; sourceTree = "<group>"; };
 		45768FFB1EA9A41F0090BBE7 /* AbbrevSimpleFormatTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevSimpleFormatTest.swift; path = Tests/Abbreviations/AbbrevSimpleFormatTest.swift; sourceTree = "<group>"; };
-		45768FFF1EA9B6A70090BBE7 /* StackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StackingView.swift; path = Source/Views/StackingView.swift; sourceTree = "<group>"; };
-		457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewSizeLimits.swift; path = Source/Views/ViewSizeLimits.swift; sourceTree = "<group>"; };
-		457690031EA9BEE20090BBE7 /* DisclosureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DisclosureView.swift; path = Source/Views/DisclosureView.swift; sourceTree = "<group>"; };
+		45768FFF1EA9B6A70090BBE7 /* StackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StackingView.swift; path = HelperViews/StackingView.swift; sourceTree = "<group>"; };
+		457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewSizeLimits.swift; path = HelperViews/ViewSizeLimits.swift; sourceTree = "<group>"; };
+		457690031EA9BEE20090BBE7 /* DisclosureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DisclosureView.swift; path = HelperViews/DisclosureView.swift; sourceTree = "<group>"; };
 		457690051EA9C8470090BBE7 /* TransTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransTextView.swift; path = Source/Views/TransTextView.swift; sourceTree = "<group>"; };
+		4576900D1EA9CD1C0090BBE7 /* AbbreviationsEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AbbreviationsEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		457690101EA9CD1C0090BBE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		457690151EA9CD1C0090BBE7 /* AbbreviationsEditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AbbreviationsEditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4576901C1EA9CD1C0090BBE7 /* AbbreviationsEditorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbbreviationsEditorTests.swift; sourceTree = "<group>"; };
+		4576901E1EA9CD1C0090BBE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		457690361EA9CDA70090BBE7 /* HelperViews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HelperViews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		457690381EA9CDA70090BBE7 /* HelperViews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelperViews.h; sourceTree = "<group>"; };
+		457690391EA9CDA70090BBE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4576903E1EA9CDA70090BBE7 /* HelperViewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelperViewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		457690451EA9CDA70090BBE7 /* HelperViewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperViewsTests.swift; sourceTree = "<group>"; };
+		457690471EA9CDA70090BBE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		457690581EA9CE6E0090BBE7 /* AbbreviationsEditor-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AbbreviationsEditor-Bridging-Header.h"; sourceTree = "<group>"; };
 		457BFB021EA6816D00E24526 /* Transcribbler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Transcribbler-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		457BFB031EA6816D00E24526 /* AbbrevBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevBase.swift; sourceTree = "<group>"; };
 		457BFB051EA681EC00E24526 /* AbbrevEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevEntry.swift; sourceTree = "<group>"; };
 		457BFB071EA699AD00E24526 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
-		457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevListDocument.swift; sourceTree = "<group>"; };
+		457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevListDocument.swift; path = AbbreviationsEditor/AbbrevListDocument.swift; sourceTree = "<group>"; };
 		457BFB0B1EA69F3900E24526 /* AbbrevResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevResolver.swift; sourceTree = "<group>"; };
 		457BFB0D1EA69F6C00E24526 /* AbbrevResolverImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevResolverImpl.swift; sourceTree = "<group>"; };
-		457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevArrayController.swift; sourceTree = "<group>"; };
+		457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevArrayController.swift; path = AbbreviationsEditor/AbbrevArrayController.swift; sourceTree = "<group>"; };
 		457BFB121EA6B12800E24526 /* AbbrevParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevParser.swift; sourceTree = "<group>"; };
 		4591D48A172345D100BC713B /* MediaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaController.h; sourceTree = "<group>"; };
 		4591D48B172345D100BC713B /* MediaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaController.m; sourceTree = "<group>"; };
 		4591D48E1723482100BC713B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = MediaDrawerView.xib; sourceTree = "<group>"; };
-		4591D49917246DF700BC713B /* AbbrevsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbrevsController.h; sourceTree = "<group>"; };
-		4591D49A17246DF700BC713B /* AbbrevsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbrevsController.m; sourceTree = "<group>"; };
+		4591D49917246DF700BC713B /* AbbrevsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbbrevsController.h; path = AbbreviationsEditor/AbbrevsController.h; sourceTree = "<group>"; };
+		4591D49A17246DF700BC713B /* AbbrevsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbbrevsController.m; path = AbbreviationsEditor/AbbrevsController.m; sourceTree = "<group>"; };
 		4591D49D17246EB100BC713B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = AbbrevDrawerView.xib; sourceTree = "<group>"; };
 		45E95DC8171B4DBD008FEEE4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		45E95DE2171B65B5008FEEE4 /* TransTextWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransTextWindowController.h; sourceTree = "<group>"; };
@@ -191,11 +261,46 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		457690091EA9CD1C0090BBE7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4576905A1EA9CFB10090BBE7 /* HelperViews.framework in Frameworks */,
+				457690591EA9CFAE0090BBE7 /* Abbreviations.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		457690121EA9CD1C0090BBE7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				457690161EA9CD1C0090BBE7 /* AbbreviationsEditor.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		457690321EA9CDA70090BBE7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4576903B1EA9CDA70090BBE7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4576903F1EA9CDA70090BBE7 /* HelperViews.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D15AC330486D014006FF6A4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				457BFB081EA699AD00E24526 /* AVKit.framework in Frameworks */,
+				457690221EA9CD1C0090BBE7 /* AbbreviationsEditor.framework in Frameworks */,
+				4576902A1EA9CD310090BBE7 /* Abbreviations.framework in Frameworks */,
+				4576904B1EA9CDA70090BBE7 /* HelperViews.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				636620B60E3BF419001D4B0F /* Quartz.framework in Frameworks */,
 				636620B80E3BF426001D4B0F /* QuartzCore.framework in Frameworks */,
@@ -237,6 +342,10 @@
 				45768FA51EA982660090BBE7 /* TranscribblerTests.xctest */,
 				45768FC91EA98DF40090BBE7 /* Abbreviations.framework */,
 				45768FD11EA98DF40090BBE7 /* AbbreviationsTests.xctest */,
+				4576900D1EA9CD1C0090BBE7 /* AbbreviationsEditor.framework */,
+				457690151EA9CD1C0090BBE7 /* AbbreviationsEditorTests.xctest */,
+				457690361EA9CDA70090BBE7 /* HelperViews.framework */,
+				4576903E1EA9CDA70090BBE7 /* HelperViewsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,6 +360,10 @@
 				45768FA61EA982660090BBE7 /* TranscribblerTests */,
 				45768FCA1EA98DF40090BBE7 /* Abbreviations */,
 				45768FD71EA98DF40090BBE7 /* AbbreviationsTests */,
+				4576900E1EA9CD1C0090BBE7 /* AbbreviationsEditor */,
+				4576901B1EA9CD1C0090BBE7 /* AbbreviationsEditorTests */,
+				457690371EA9CDA70090BBE7 /* HelperViews */,
+				457690441EA9CDA70090BBE7 /* HelperViewsTests */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 			);
@@ -263,6 +376,7 @@
 				457BFB021EA6816D00E24526 /* Transcribbler-Bridging-Header.h */,
 				32DBCF750370BD2300C91783 /* Transcribbler_Prefix.pch */,
 				45E95DC8171B4DBD008FEEE4 /* LICENSE */,
+				457690581EA9CE6E0090BBE7 /* AbbreviationsEditor-Bridging-Header.h */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -277,20 +391,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		455BE3A21712426A00DCAF5F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		455BE3A31712430300DCAF5F /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				45768FB61EA98BD40090BBE7 /* Abbreviations */,
+				457690071EA9CCFD0090BBE7 /* AbbreviationsEditor */,
+				457690301EA9CD920090BBE7 /* HelperViews */,
 				455BE3A41712452000DCAF5F /* Application */,
-				455BE3A21712426A00DCAF5F /* Model */,
 				639E92AD0E4D0B7F0006FDEE /* Controllers */,
 				639E92AC0E4D0B5C0006FDEE /* Views */,
 			);
@@ -394,19 +501,72 @@
 			name = Abbreviations;
 			sourceTree = "<group>";
 		};
+		457690071EA9CCFD0090BBE7 /* AbbreviationsEditor */ = {
+			isa = PBXGroup;
+			children = (
+				457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */,
+				457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */,
+				451579BC1711471F00BC08AA /* AbbrevTableViewDelegate.h */,
+				451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */,
+				4591D49917246DF700BC713B /* AbbrevsController.h */,
+				4591D49A17246DF700BC713B /* AbbrevsController.m */,
+				451579BF1711564500BC08AA /* HandyTableView.h */,
+				451579C01711564500BC08AA /* HandyTableView.m */,
+			);
+			name = AbbreviationsEditor;
+			sourceTree = "<group>";
+		};
+		4576900E1EA9CD1C0090BBE7 /* AbbreviationsEditor */ = {
+			isa = PBXGroup;
+			children = (
+				457690101EA9CD1C0090BBE7 /* Info.plist */,
+			);
+			path = AbbreviationsEditor;
+			sourceTree = "<group>";
+		};
+		4576901B1EA9CD1C0090BBE7 /* AbbreviationsEditorTests */ = {
+			isa = PBXGroup;
+			children = (
+				4576901C1EA9CD1C0090BBE7 /* AbbreviationsEditorTests.swift */,
+				4576901E1EA9CD1C0090BBE7 /* Info.plist */,
+			);
+			path = AbbreviationsEditorTests;
+			sourceTree = "<group>";
+		};
+		457690301EA9CD920090BBE7 /* HelperViews */ = {
+			isa = PBXGroup;
+			children = (
+				457690031EA9BEE20090BBE7 /* DisclosureView.swift */,
+				45768FFF1EA9B6A70090BBE7 /* StackingView.swift */,
+				457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */,
+			);
+			name = HelperViews;
+			sourceTree = "<group>";
+		};
+		457690371EA9CDA70090BBE7 /* HelperViews */ = {
+			isa = PBXGroup;
+			children = (
+				457690381EA9CDA70090BBE7 /* HelperViews.h */,
+				457690391EA9CDA70090BBE7 /* Info.plist */,
+			);
+			path = HelperViews;
+			sourceTree = "<group>";
+		};
+		457690441EA9CDA70090BBE7 /* HelperViewsTests */ = {
+			isa = PBXGroup;
+			children = (
+				457690451EA9CDA70090BBE7 /* HelperViewsTests.swift */,
+				457690471EA9CDA70090BBE7 /* Info.plist */,
+			);
+			path = HelperViewsTests;
+			sourceTree = "<group>";
+		};
 		639E92AC0E4D0B5C0006FDEE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				451579BC1711471F00BC08AA /* AbbrevTableViewDelegate.h */,
-				451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */,
-				457690031EA9BEE20090BBE7 /* DisclosureView.swift */,
-				451579BF1711564500BC08AA /* HandyTableView.h */,
-				451579C01711564500BC08AA /* HandyTableView.m */,
-				45768FFF1EA9B6A70090BBE7 /* StackingView.swift */,
 				4560D3DE172E066E002BCDA6 /* NonKeyboardingAVPlayerView.h */,
 				4560D3DF172E066E002BCDA6 /* NonKeyboardingAVPlayerView.m */,
 				457690051EA9C8470090BBE7 /* TransTextView.swift */,
-				457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */,
 			);
 			name = Views;
 			path = ..;
@@ -415,9 +575,6 @@
 		639E92AD0E4D0B7F0006FDEE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */,
-				4591D49917246DF700BC713B /* AbbrevsController.h */,
-				4591D49A17246DF700BC713B /* AbbrevsController.m */,
 				4591D48A172345D100BC713B /* MediaController.h */,
 				4591D48B172345D100BC713B /* MediaController.m */,
 				45E95DE2171B65B5008FEEE4 /* TransTextWindowController.h */,
@@ -434,6 +591,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				45768FDB1EA98DF40090BBE7 /* Abbreviations.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4576900A1EA9CD1C0090BBE7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		457690331EA9CDA70090BBE7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				457690481EA9CDA70090BBE7 /* HelperViews.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +667,80 @@
 			productReference = 45768FD11EA98DF40090BBE7 /* AbbreviationsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		4576900C1EA9CD1C0090BBE7 /* AbbreviationsEditor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 457690241EA9CD1C0090BBE7 /* Build configuration list for PBXNativeTarget "AbbreviationsEditor" */;
+			buildPhases = (
+				457690081EA9CD1C0090BBE7 /* Sources */,
+				457690091EA9CD1C0090BBE7 /* Frameworks */,
+				4576900A1EA9CD1C0090BBE7 /* Headers */,
+				4576900B1EA9CD1C0090BBE7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AbbreviationsEditor;
+			productName = AbbreviationsEditor;
+			productReference = 4576900D1EA9CD1C0090BBE7 /* AbbreviationsEditor.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		457690141EA9CD1C0090BBE7 /* AbbreviationsEditorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 457690271EA9CD1C0090BBE7 /* Build configuration list for PBXNativeTarget "AbbreviationsEditorTests" */;
+			buildPhases = (
+				457690111EA9CD1C0090BBE7 /* Sources */,
+				457690121EA9CD1C0090BBE7 /* Frameworks */,
+				457690131EA9CD1C0090BBE7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				457690181EA9CD1C0090BBE7 /* PBXTargetDependency */,
+				4576901A1EA9CD1C0090BBE7 /* PBXTargetDependency */,
+			);
+			name = AbbreviationsEditorTests;
+			productName = AbbreviationsEditorTests;
+			productReference = 457690151EA9CD1C0090BBE7 /* AbbreviationsEditorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		457690351EA9CDA70090BBE7 /* HelperViews */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4576904D1EA9CDA70090BBE7 /* Build configuration list for PBXNativeTarget "HelperViews" */;
+			buildPhases = (
+				457690311EA9CDA70090BBE7 /* Sources */,
+				457690321EA9CDA70090BBE7 /* Frameworks */,
+				457690331EA9CDA70090BBE7 /* Headers */,
+				457690341EA9CDA70090BBE7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HelperViews;
+			productName = HelperViews;
+			productReference = 457690361EA9CDA70090BBE7 /* HelperViews.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4576903D1EA9CDA70090BBE7 /* HelperViewsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 457690501EA9CDA70090BBE7 /* Build configuration list for PBXNativeTarget "HelperViewsTests" */;
+			buildPhases = (
+				4576903A1EA9CDA70090BBE7 /* Sources */,
+				4576903B1EA9CDA70090BBE7 /* Frameworks */,
+				4576903C1EA9CDA70090BBE7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				457690411EA9CDA70090BBE7 /* PBXTargetDependency */,
+				457690431EA9CDA70090BBE7 /* PBXTargetDependency */,
+			);
+			name = HelperViewsTests;
+			productName = HelperViewsTests;
+			productReference = 4576903E1EA9CDA70090BBE7 /* HelperViewsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8D15AC270486D014006FF6A4 /* Transcribbler */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Transcribbler" */;
@@ -508,6 +754,8 @@
 			);
 			dependencies = (
 				45768FDD1EA98DF40090BBE7 /* PBXTargetDependency */,
+				457690211EA9CD1C0090BBE7 /* PBXTargetDependency */,
+				4576904A1EA9CDA70090BBE7 /* PBXTargetDependency */,
 			);
 			name = Transcribbler;
 			productInstallPath = "$(HOME)/Applications";
@@ -538,6 +786,24 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 8D15AC270486D014006FF6A4;
 					};
+					4576900C1EA9CD1C0090BBE7 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+					457690141EA9CD1C0090BBE7 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8D15AC270486D014006FF6A4;
+					};
+					457690351EA9CDA70090BBE7 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+					4576903D1EA9CDA70090BBE7 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8D15AC270486D014006FF6A4;
+					};
 					8D15AC270486D014006FF6A4 = {
 						LastSwiftMigration = 0800;
 					};
@@ -559,6 +825,10 @@
 				45768FA41EA982660090BBE7 /* TranscribblerTests */,
 				45768FC81EA98DF40090BBE7 /* Abbreviations */,
 				45768FD01EA98DF40090BBE7 /* AbbreviationsTests */,
+				4576900C1EA9CD1C0090BBE7 /* AbbreviationsEditor */,
+				457690141EA9CD1C0090BBE7 /* AbbreviationsEditorTests */,
+				457690351EA9CDA70090BBE7 /* HelperViews */,
+				4576903D1EA9CDA70090BBE7 /* HelperViewsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -579,6 +849,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		45768FCF1EA98DF40090BBE7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4576900B1EA9CD1C0090BBE7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		457690131EA9CD1C0090BBE7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		457690341EA9CDA70090BBE7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4576903C1EA9CDA70090BBE7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -639,25 +937,55 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		457690081EA9CD1C0090BBE7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4576905C1EA9D3050090BBE7 /* AbbrevTableViewDelegate.m in Sources */,
+				4576902C1EA9CD510090BBE7 /* AbbrevListDocument.swift in Sources */,
+				4576902D1EA9CD5E0090BBE7 /* AbbrevArrayController.swift in Sources */,
+				457690571EA9CE090090BBE7 /* HandyTableView.m in Sources */,
+				4576902F1EA9CD820090BBE7 /* AbbrevsController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		457690111EA9CD1C0090BBE7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4576901D1EA9CD1C0090BBE7 /* AbbreviationsEditorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		457690311EA9CDA70090BBE7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				457690551EA9CDC20090BBE7 /* ViewSizeLimits.swift in Sources */,
+				457690531EA9CDB20090BBE7 /* StackingView.swift in Sources */,
+				457690541EA9CDB90090BBE7 /* DisclosureView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4576903A1EA9CDA70090BBE7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				457690461EA9CDA70090BBE7 /* HelperViewsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D15AC300486D014006FF6A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				63C8682C0DDA097500DC3670 /* TransTextDocument.m in Sources */,
-				457BFB0A1EA69F0000E24526 /* AbbrevListDocument.swift in Sources */,
-				457690021EA9BDF20090BBE7 /* ViewSizeLimits.swift in Sources */,
-				451579BE1711471F00BC08AA /* AbbrevTableViewDelegate.m in Sources */,
 				457690061EA9C8470090BBE7 /* TransTextView.swift in Sources */,
-				451579C11711564500BC08AA /* HandyTableView.m in Sources */,
-				457690041EA9BEE20090BBE7 /* DisclosureView.swift in Sources */,
 				455BE40B171259DB00DCAF5F /* AppDelegate.m in Sources */,
 				45E95DE4171B65B5008FEEE4 /* TransTextWindowController.m in Sources */,
-				457BFB111EA6AD5800E24526 /* AbbrevArrayController.swift in Sources */,
 				4591D48C172345D100BC713B /* MediaController.m in Sources */,
-				4591D49B17246DF700BC713B /* AbbrevsController.m in Sources */,
 				4560D3E0172E066E002BCDA6 /* NonKeyboardingAVPlayerView.m in Sources */,
-				457690001EA9B6A80090BBE7 /* StackingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,6 +1011,36 @@
 			isa = PBXTargetDependency;
 			target = 45768FC81EA98DF40090BBE7 /* Abbreviations */;
 			targetProxy = 45768FDC1EA98DF40090BBE7 /* PBXContainerItemProxy */;
+		};
+		457690181EA9CD1C0090BBE7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4576900C1EA9CD1C0090BBE7 /* AbbreviationsEditor */;
+			targetProxy = 457690171EA9CD1C0090BBE7 /* PBXContainerItemProxy */;
+		};
+		4576901A1EA9CD1C0090BBE7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D15AC270486D014006FF6A4 /* Transcribbler */;
+			targetProxy = 457690191EA9CD1C0090BBE7 /* PBXContainerItemProxy */;
+		};
+		457690211EA9CD1C0090BBE7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4576900C1EA9CD1C0090BBE7 /* AbbreviationsEditor */;
+			targetProxy = 457690201EA9CD1C0090BBE7 /* PBXContainerItemProxy */;
+		};
+		457690411EA9CDA70090BBE7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 457690351EA9CDA70090BBE7 /* HelperViews */;
+			targetProxy = 457690401EA9CDA70090BBE7 /* PBXContainerItemProxy */;
+		};
+		457690431EA9CDA70090BBE7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D15AC270486D014006FF6A4 /* Transcribbler */;
+			targetProxy = 457690421EA9CDA70090BBE7 /* PBXContainerItemProxy */;
+		};
+		4576904A1EA9CDA70090BBE7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 457690351EA9CDA70090BBE7 /* HelperViews */;
+			targetProxy = 457690491EA9CDA70090BBE7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -980,6 +1338,322 @@
 			};
 			name = Release;
 		};
+		457690251EA9CD1C0090BBE7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Source/AbbreviationsEditor";
+				INFOPLIST_FILE = AbbreviationsEditor/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.AbbreviationsEditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "AbbreviationsEditor-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		457690261EA9CD1C0090BBE7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Source/AbbreviationsEditor";
+				INFOPLIST_FILE = AbbreviationsEditor/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.AbbreviationsEditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "AbbreviationsEditor-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		457690281EA9CD1C0090BBE7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = AbbreviationsEditorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.AbbreviationsEditorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transcribbler.app/Contents/MacOS/Transcribbler";
+			};
+			name = Debug;
+		};
+		457690291EA9CD1C0090BBE7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = AbbreviationsEditorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.AbbreviationsEditorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transcribbler.app/Contents/MacOS/Transcribbler";
+			};
+			name = Release;
+		};
+		4576904E1EA9CDA70090BBE7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = HelperViews/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.HelperViews;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4576904F1EA9CDA70090BBE7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = HelperViews/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.HelperViews;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		457690511EA9CDA70090BBE7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = HelperViewsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.HelperViewsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transcribbler.app/Contents/MacOS/Transcribbler";
+			};
+			name = Debug;
+		};
+		457690521EA9CDA70090BBE7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = HelperViewsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.HelperViewsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transcribbler.app/Contents/MacOS/Transcribbler";
+			};
+			name = Release;
+		};
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1123,6 +1797,42 @@
 			buildConfigurations = (
 				45768FE41EA98DF40090BBE7 /* Debug */,
 				45768FE51EA98DF40090BBE7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		457690241EA9CD1C0090BBE7 /* Build configuration list for PBXNativeTarget "AbbreviationsEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				457690251EA9CD1C0090BBE7 /* Debug */,
+				457690261EA9CD1C0090BBE7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		457690271EA9CD1C0090BBE7 /* Build configuration list for PBXNativeTarget "AbbreviationsEditorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				457690281EA9CD1C0090BBE7 /* Debug */,
+				457690291EA9CD1C0090BBE7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4576904D1EA9CDA70090BBE7 /* Build configuration list for PBXNativeTarget "HelperViews" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4576904E1EA9CDA70090BBE7 /* Debug */,
+				4576904F1EA9CDA70090BBE7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		457690501EA9CDA70090BBE7 /* Build configuration list for PBXNativeTarget "HelperViewsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				457690511EA9CDA70090BBE7 /* Debug */,
+				457690521EA9CDA70090BBE7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
