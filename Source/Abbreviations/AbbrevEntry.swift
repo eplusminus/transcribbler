@@ -33,8 +33,16 @@ public class AbbrevEntry: AbbrevBase {
     super.init(abbreviation: abbreviation, expansion: expansion)
   }
 
-  public func expansionDesc() -> String {
-    return AbbrevSimpleFormat.formatExpansion(expansion, variants)
+  // expansionDesc property is there only to support KVC for the table editor
+  public var expansionDesc: String {
+    get {
+      return AbbrevSimpleFormat.formatExpansion(expansion, variants)
+    }
+    set(desc) {
+      let (ex, vs) = AbbrevSimpleFormat.parseExpansionAndVariants(desc)
+      expansion = ex
+      variants = vs
+    }
   }
   
   public func variantAbbreviation(_ variant: AbbrevBase) -> String {
