@@ -25,7 +25,6 @@
 
 #import "DisclosureView.h"
 #import "HandyTableView.h"
-#import "StackingView.h"
 
 
 @implementation AbbrevsController

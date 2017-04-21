@@ -3,3 +3,4 @@
 //
 
 #import "HandyTableView.h"
+#import "ViewSizeLimits.h"
