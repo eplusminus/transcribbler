@@ -23,8 +23,6 @@
 
 #import "MediaController.h"
 
-#import "DisclosureView.h"
-
 
 @interface MiniTimecodeView : NSView <ViewSizeLimits> {
  @private
@@ -297,12 +295,12 @@
   if (hasVideo) {
     NSSize size = [[[movie tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] naturalSize];
     int moviePanelHeight = ([movieDisclosureView frame].size.width * size.height) / size.width;
-    [movieDisclosureView setPreferredHeight:moviePanelHeight];
+    movieDisclosureView.preferredHeight = moviePanelHeight;
   } else {
     // With AVPlayerView, unlike QTMovieView, there doesn't seem to be any way to get the height of
     // just the controller bar.  So we're getting the minimum height of the overall view instead,
     // which includes the big useless "Quicktime audio" logo; oh well.
-    [movieDisclosureView setPreferredHeight:[movieView fittingSize].height];
+    movieDisclosureView.preferredHeight = [movieView fittingSize].height;
   }
 }
 

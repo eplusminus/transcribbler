@@ -34,10 +34,10 @@
 		45768FFC1EA9A41F0090BBE7 /* AbbrevSimpleFormatTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FFB1EA9A41F0090BBE7 /* AbbrevSimpleFormatTest.swift */; };
 		457690001EA9B6A80090BBE7 /* StackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FFF1EA9B6A70090BBE7 /* StackingView.swift */; };
 		457690021EA9BDF20090BBE7 /* ViewSizeLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */; };
+		457690041EA9BEE20090BBE7 /* DisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690031EA9BEE20090BBE7 /* DisclosureView.swift */; };
 		457BFB081EA699AD00E24526 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457BFB071EA699AD00E24526 /* AVKit.framework */; };
 		457BFB0A1EA69F0000E24526 /* AbbrevListDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */; };
 		457BFB111EA6AD5800E24526 /* AbbrevArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */; };
-		4591D48817232EC200BC713B /* DisclosureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4591D48717232EC200BC713B /* DisclosureView.m */; };
 		4591D48C172345D100BC713B /* MediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4591D48B172345D100BC713B /* MediaController.m */; };
 		4591D48F1723482100BC713B /* MediaDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4591D48D1723482100BC713B /* MediaDrawerView.xib */; };
 		4591D49B17246DF700BC713B /* AbbrevsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4591D49A17246DF700BC713B /* AbbrevsController.m */; };
@@ -136,6 +136,7 @@
 		45768FFB1EA9A41F0090BBE7 /* AbbrevSimpleFormatTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevSimpleFormatTest.swift; path = Tests/Abbreviations/AbbrevSimpleFormatTest.swift; sourceTree = "<group>"; };
 		45768FFF1EA9B6A70090BBE7 /* StackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StackingView.swift; path = Source/Views/StackingView.swift; sourceTree = "<group>"; };
 		457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewSizeLimits.swift; path = Source/Views/ViewSizeLimits.swift; sourceTree = "<group>"; };
+		457690031EA9BEE20090BBE7 /* DisclosureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DisclosureView.swift; path = Source/Views/DisclosureView.swift; sourceTree = "<group>"; };
 		457BFB021EA6816D00E24526 /* Transcribbler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Transcribbler-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		457BFB031EA6816D00E24526 /* AbbrevBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevBase.swift; sourceTree = "<group>"; };
 		457BFB051EA681EC00E24526 /* AbbrevEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevEntry.swift; sourceTree = "<group>"; };
@@ -145,8 +146,6 @@
 		457BFB0D1EA69F6C00E24526 /* AbbrevResolverImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevResolverImpl.swift; sourceTree = "<group>"; };
 		457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevArrayController.swift; sourceTree = "<group>"; };
 		457BFB121EA6B12800E24526 /* AbbrevParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevParser.swift; sourceTree = "<group>"; };
-		4591D48617232EC200BC713B /* DisclosureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DisclosureView.h; path = Source/Views/DisclosureView.h; sourceTree = "<group>"; };
-		4591D48717232EC200BC713B /* DisclosureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DisclosureView.m; path = Source/Views/DisclosureView.m; sourceTree = "<group>"; };
 		4591D48A172345D100BC713B /* MediaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaController.h; sourceTree = "<group>"; };
 		4591D48B172345D100BC713B /* MediaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaController.m; sourceTree = "<group>"; };
 		4591D48E1723482100BC713B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = MediaDrawerView.xib; sourceTree = "<group>"; };
@@ -403,11 +402,10 @@
 				63C868310DDA098500DC3670 /* TransTextView.m */,
 				451579BC1711471F00BC08AA /* AbbrevTableViewDelegate.h */,
 				451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */,
+				457690031EA9BEE20090BBE7 /* DisclosureView.swift */,
 				451579BF1711564500BC08AA /* HandyTableView.h */,
 				451579C01711564500BC08AA /* HandyTableView.m */,
 				45768FFF1EA9B6A70090BBE7 /* StackingView.swift */,
-				4591D48617232EC200BC713B /* DisclosureView.h */,
-				4591D48717232EC200BC713B /* DisclosureView.m */,
 				4560D3DE172E066E002BCDA6 /* NonKeyboardingAVPlayerView.h */,
 				4560D3DF172E066E002BCDA6 /* NonKeyboardingAVPlayerView.m */,
 				457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */,
@@ -654,10 +652,10 @@
 				63C868320DDA098500DC3670 /* TransTextView.m in Sources */,
 				451579BE1711471F00BC08AA /* AbbrevTableViewDelegate.m in Sources */,
 				451579C11711564500BC08AA /* HandyTableView.m in Sources */,
+				457690041EA9BEE20090BBE7 /* DisclosureView.swift in Sources */,
 				455BE40B171259DB00DCAF5F /* AppDelegate.m in Sources */,
 				45E95DE4171B65B5008FEEE4 /* TransTextWindowController.m in Sources */,
 				457BFB111EA6AD5800E24526 /* AbbrevArrayController.swift in Sources */,
-				4591D48817232EC200BC713B /* DisclosureView.m in Sources */,
 				4591D48C172345D100BC713B /* MediaController.m in Sources */,
 				4591D49B17246DF700BC713B /* AbbrevsController.m in Sources */,
 				4560D3E0172E066E002BCDA6 /* NonKeyboardingAVPlayerView.m in Sources */,

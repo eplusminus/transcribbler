@@ -24,7 +24,6 @@
 #import "TransTextWindowController.h"
 
 #import "AbbrevsController.h"
-#import "DisclosureView.h"
 #import "HandyTableView.h"
 #import "MediaController.h"
 #import "TransTextView.h"
