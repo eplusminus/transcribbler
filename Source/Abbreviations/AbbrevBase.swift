@@ -44,8 +44,8 @@ public class AbbrevBase: NSObject, NSCoding {
   //
 
   required public init?(coder aDecoder: NSCoder) {
-    self.abbreviation = aDecoder.decodeObject(forKey: "short") as! String
-    self.expansion = aDecoder.decodeObject(forKey: "long") as! String
+    self.abbreviation = (aDecoder.decodeObject(forKey: "short") as? String) ?? ""
+    self.expansion = (aDecoder.decodeObject(forKey: "long") as? String) ?? ""
     // TODO: do we still need behavior of refusing to decode something with empty fields?
   }
 
