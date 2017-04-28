@@ -92,9 +92,7 @@
       [self updateMovieViewSize];
       
       CMTime totalTime = [movie duration];
-      long long fileSize = 0; // [[movie attributeForKey:QTMovieDataSizeAttribute] longLongValue];
       [totalTimeLabel setStringValue:[MediaController timeString: totalTime withTenths:NO]];
-      [fileSizeLabel setStringValue:[MediaController fileSizeString:fileSize]];
       [propertiesDisclosureView setHidden:NO];
       [miniTimecodeView setHidden:NO];
       
@@ -135,9 +133,14 @@
   }
   
   movieFilePath = filePath;
-
   [self showMovieFileName];
   [self setMovie:m];
+
+  NSDictionary* d = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+  NSNumber* n = [d objectForKey:NSFileSize];
+  long long fileSize = [n longLongValue];
+  [fileSizeLabel setStringValue:[NSByteCountFormatter stringFromByteCount:fileSize
+                                                               countStyle:NSByteCountFormatterCountStyleFile]];
   
   return YES;
 }
@@ -333,17 +336,6 @@
     }
   }
   return CMTimeMake(0, 10);
-}
-
-+ (NSString*)fileSizeString:(long long)bytes
-{
-  long long k = bytes / 1024;
-  if (k < 1024) {
-    return [NSString stringWithFormat:@"%lldK", k];
-  }
-  else {
-    return [NSString stringWithFormat:@"%lldM", k / 1024];
-  }
 }
 
 @end
