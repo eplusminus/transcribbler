@@ -20,10 +20,10 @@
  */
 
 #import "Transcribbler-Swift.h"
+#import "AbbreviationsEditor/AbbreviationsEditor-Swift.h"
 
 #import "TransTextDocument.h"
 
-#import "AbbrevsController.h"
 #import "AppDelegate.h"
 #import "MediaController.h"
 #import "TransTextWindowController.h"

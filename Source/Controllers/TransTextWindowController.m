@@ -20,10 +20,11 @@
  */
 
 #import "Transcribbler-Swift.h"
+#import "AbbreviationsEditor/AbbreviationsEditor-Swift.h"
+#import "HelperViews/HelperViews-Swift.h"
 
 #import "TransTextWindowController.h"
 
-#import "AbbrevsController.h"
 #import "HandyTableView.h"
 #import "MediaController.h"
 
@@ -145,7 +146,7 @@
   [[[self window] contentView] addSubview:splitter];
   
   [mediaController lendViewsTo:stackingView];
-  [abbrevsController lendViewsTo:stackingView];
+  [abbrevsController lendViewsToStackingView:stackingView];
   
   [textView setTextContainerInset:NSMakeSize(100, 30)];
 }
