@@ -72,6 +72,7 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDelegate, HandyTab
     }
     let cell = aCell as! NSTextFieldCell
     cell.backgroundColor = dup ? NSColor.yellow : NSColor.textBackgroundColor
+    cell.textColor = dup ? NSColor.red : nil
     cell.drawsBackground = dup
   }
   
