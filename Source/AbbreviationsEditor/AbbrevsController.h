@@ -19,6 +19,7 @@
  
  */
 
+#import "AbbreviationsEditor/AbbreviationsEditor-Swift.h"
 #import "HelperViews/HelperViews-Swift.h"
 
 #import <Cocoa/Cocoa.h>
@@ -34,6 +35,7 @@
   IBOutlet DisclosureView* disclosureView;
 
   AbbrevListDocument* document;
+  AbbrevTableViewDelegate* tableViewDelegate;
   NSView* listView;
 }
 

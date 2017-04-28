@@ -43,15 +43,6 @@
 
 @synthesize abbrevsController, mediaController, textView;
 
-- (void)dealloc
-{
-  [mainContentView release];
-  [fullScreenSidebarView release];
-  [toolbar release];
-  [splitter release];
-  [super dealloc];
-}
-
 - (void)windowDidLoad
 {
   [super windowDidLoad];
@@ -82,8 +73,6 @@
   [stackingView setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
   [fullScreenSidebarView addSubview:stackingView];
   [splitter addSubview:fullScreenSidebarView];
-  
-  [mainContentView retain];
   
   [[self document] windowControllerDidLoadNib:self];
 }
@@ -140,7 +129,7 @@
 
 - (void)windowWillEnterFullScreen:(NSNotification*)notification
 {
-  toolbar = [[[self window] toolbar] retain];
+  toolbar = [[self window] toolbar];
   toolbarVisibleDefault = [toolbar isVisible];
   [[self window] setToolbar:nil];
 
@@ -190,7 +179,6 @@
 {
   [[self window] setToolbar:toolbar];
   [toolbar setVisible:toolbarVisibleDefault];
-  [toolbar release];
   toolbar = nil;
 }
 

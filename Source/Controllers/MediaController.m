@@ -39,22 +39,14 @@
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
   self = [super initWithCoder:aDecoder];
-  [NSBundle loadNibNamed:@"MediaDrawerView" owner:self];
+  [[NSBundle mainBundle] loadNibNamed:@"MediaDrawerView" owner:self topLevelObjects:nil];
   return self;
 }
 
 - (void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:movieDisclosureView];
-  [movie release];
   [timer invalidate];
-  [timer release];
-  
-  if ([miniTimecodeView superview] == nil) {
-    [miniTimecodeView release];
-  }
-  
-  [super dealloc];
 }
 
 - (void)awakeFromNib
@@ -75,7 +67,7 @@
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewResized:) name:NSViewFrameDidChangeNotification object:movieDisclosureView];
   
   if (!timer){
-    timer = [[NSTimer timerWithTimeInterval:0.1 target:self selector:@selector(timerTask:) userInfo:nil repeats:YES] retain];
+    timer = [NSTimer timerWithTimeInterval:0.1 target:self selector:@selector(timerTask:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
   }
 }
@@ -88,9 +80,7 @@
 - (void)setMovie:(AVAsset*)m
 {
   if (movie != m) {
-    [movie release];
-    movie = [m retain];
-    [player release];
+    movie = m;
     AVPlayerItem* playerItem = [AVPlayerItem playerItemWithAsset:movie];
     player = [AVPlayer playerWithPlayerItem: playerItem];
     [movieView setPlayer:player];
@@ -144,8 +134,7 @@
     return NO;
   }
   
-  [movieFilePath release];
-  movieFilePath = [filePath retain];
+  movieFilePath = filePath;
 
   [self showMovieFileName];
   [self setMovie:m];
@@ -157,7 +146,6 @@
 {
   if (movie) {
     [self setMovie:nil];
-    [movieFilePath release];
     movieFilePath = nil;
   }
 }

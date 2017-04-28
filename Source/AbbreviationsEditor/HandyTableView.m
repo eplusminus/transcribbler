@@ -41,23 +41,21 @@
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
   self = [super initWithCoder:aDecoder];
-  fieldEditor = [[[QuickTableTextView alloc] initWithTableView:self] retain];
+  fieldEditor = [[QuickTableTextView alloc] initWithTableView:self];
   return self;
 }
 
 - (id)initWithFrame:(NSRect)frameRect
 {
   self = [super initWithFrame:frameRect];
-  fieldEditor = [[[QuickTableTextView alloc] initWithTableView:self] retain];
+  fieldEditor = [[QuickTableTextView alloc] initWithTableView:self];
   return self;
 }
 
 - (void)dealloc
 {
-  [fieldEditor release];
   self.backTabDestination = nil;
   self.forwardTabDestination = nil;
-  [super dealloc];
 }
 
 - (id<HandyTableViewDelegate>)handyDelegate
@@ -190,14 +188,8 @@
 - (id)initWithTableView:(HandyTableView*)owner
 {
   self = [super init];
-  tableView = [owner retain];
+  tableView = owner;
   return self;
-}
-
-- (void)dealloc
-{
-  [tableView release];
-  [super dealloc];
 }
 
 //

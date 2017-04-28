@@ -51,7 +51,9 @@
 		457690571EA9CE090090BBE7 /* HandyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451579C01711564500BC08AA /* HandyTableView.m */; };
 		457690591EA9CFAE0090BBE7 /* Abbreviations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45768FC91EA98DF40090BBE7 /* Abbreviations.framework */; };
 		4576905A1EA9CFB10090BBE7 /* HelperViews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457690361EA9CDA70090BBE7 /* HelperViews.framework */; };
-		4576905C1EA9D3050090BBE7 /* AbbrevTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */; };
+		4576905E1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576905D1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift */; };
+		4576905F1EA9E2CD0090BBE7 /* AbbreviationsEditor-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 457690581EA9CE6E0090BBE7 /* AbbreviationsEditor-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		457690611EA9E4F60090BBE7 /* AbbrevFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690601EA9E4F60090BBE7 /* AbbrevFormatter.swift */; };
 		457BFB081EA699AD00E24526 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457BFB071EA699AD00E24526 /* AVKit.framework */; };
 		4591D48C172345D100BC713B /* MediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4591D48B172345D100BC713B /* MediaController.m */; };
 		4591D48F1723482100BC713B /* MediaDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4591D48D1723482100BC713B /* MediaDrawerView.xib */; };
@@ -163,8 +165,6 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32DBCF750370BD2300C91783 /* Transcribbler_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transcribbler_Prefix.pch; sourceTree = "<group>"; };
-		451579BC1711471F00BC08AA /* AbbrevTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbbrevTableViewDelegate.h; path = AbbreviationsEditor/AbbrevTableViewDelegate.h; sourceTree = "<group>"; };
-		451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbbrevTableViewDelegate.m; path = AbbreviationsEditor/AbbrevTableViewDelegate.m; sourceTree = "<group>"; };
 		451579BF1711564500BC08AA /* HandyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HandyTableView.h; path = AbbreviationsEditor/HandyTableView.h; sourceTree = "<group>"; };
 		451579C01711564500BC08AA /* HandyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HandyTableView.m; path = AbbreviationsEditor/HandyTableView.m; sourceTree = "<group>"; };
 		4525340E1724A5BB00E6D805 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = TransTextDocument.xib; sourceTree = "<group>"; };
@@ -208,6 +208,8 @@
 		457690451EA9CDA70090BBE7 /* HelperViewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperViewsTests.swift; sourceTree = "<group>"; };
 		457690471EA9CDA70090BBE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		457690581EA9CE6E0090BBE7 /* AbbreviationsEditor-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AbbreviationsEditor-Bridging-Header.h"; sourceTree = "<group>"; };
+		4576905D1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevTableViewDelegate.swift; path = AbbreviationsEditor/AbbrevTableViewDelegate.swift; sourceTree = "<group>"; };
+		457690601EA9E4F60090BBE7 /* AbbrevFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevFormatter.swift; path = AbbreviationsEditor/AbbrevFormatter.swift; sourceTree = "<group>"; };
 		457BFB021EA6816D00E24526 /* Transcribbler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Transcribbler-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		457BFB031EA6816D00E24526 /* AbbrevBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevBase.swift; sourceTree = "<group>"; };
 		457BFB051EA681EC00E24526 /* AbbrevEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevEntry.swift; sourceTree = "<group>"; };
@@ -505,9 +507,9 @@
 			isa = PBXGroup;
 			children = (
 				457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */,
+				457690601EA9E4F60090BBE7 /* AbbrevFormatter.swift */,
 				457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */,
-				451579BC1711471F00BC08AA /* AbbrevTableViewDelegate.h */,
-				451579BD1711471F00BC08AA /* AbbrevTableViewDelegate.m */,
+				4576905D1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift */,
 				4591D49917246DF700BC713B /* AbbrevsController.h */,
 				4591D49A17246DF700BC713B /* AbbrevsController.m */,
 				451579BF1711564500BC08AA /* HandyTableView.h */,
@@ -598,6 +600,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4576905F1EA9E2CD0090BBE7 /* AbbreviationsEditor-Bridging-Header.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -941,10 +944,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4576905C1EA9D3050090BBE7 /* AbbrevTableViewDelegate.m in Sources */,
 				4576902C1EA9CD510090BBE7 /* AbbrevListDocument.swift in Sources */,
 				4576902D1EA9CD5E0090BBE7 /* AbbrevArrayController.swift in Sources */,
 				457690571EA9CE090090BBE7 /* HandyTableView.m in Sources */,
+				4576905E1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift in Sources */,
+				457690611EA9E4F60090BBE7 /* AbbrevFormatter.swift in Sources */,
 				4576902F1EA9CD820090BBE7 /* AbbrevsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1341,11 +1345,12 @@
 		457690251EA9CD1C0090BBE7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
@@ -1389,11 +1394,12 @@
 		457690261EA9CD1C0090BBE7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
@@ -1659,7 +1665,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -1688,7 +1696,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

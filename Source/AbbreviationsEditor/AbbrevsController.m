@@ -35,15 +35,6 @@
   return self;
 }
 
-- (void)dealloc
-{
-  [document release];
-  [listView release];
-  [textView release];
-  [disclosureView release];
-  [super dealloc];
-}
-
 - (void)awakeFromNib
 {
   if (drawer && [drawer contentView] != [self view]) {
@@ -59,18 +50,19 @@
 - (void)addAbbrevListDocument:(AbbrevListDocument*)d
 {
   if (document == nil) {
-    document = [d retain];
+    document = d;
     if (![document view]) {
       [[NSBundle mainBundle] loadNibNamed:@"AbbrevListView" owner:document topLevelObjects: nil];
     }
-    listView = [[document view] retain];
+    listView = [document view];
     [listView setFrameOrigin:NSMakePoint(0, 0)];
     [listView setFrameSize:[containerView frame].size];
     [listView setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
     [containerView addSubview:listView];
     HandyTableView* htv = (HandyTableView*) [document tableView];
     htv.backTabDestination = textView;
-    [disclosureView retain];
+    tableViewDelegate = (AbbrevTableViewDelegate*)htv.delegate;  // to keep it alive, since the table view stores only a weak reference
+    tableViewDelegate.resolver = [d abbrevResolver];
   }
 }
 
@@ -88,8 +80,7 @@
 - (void)setTextView:(NSView *)v
 {
   if (v != textView) {
-    [textView release];
-    textView = [v retain];
+    textView = v;
     HandyTableView* htv = (HandyTableView*) [document tableView];
     htv.backTabDestination = textView;
   }

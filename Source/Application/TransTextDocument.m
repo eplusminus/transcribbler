@@ -46,24 +46,16 @@
 - (id)init
 {
   self = [super init];
-  abbrevListDocument = [[[AbbrevListDocument alloc] init] retain];
-  abbrevResolver = [[[AbbrevResolverImpl alloc] init] retain];
+  abbrevListDocument = [[AbbrevListDocument alloc] init];
+  abbrevResolver = [[AbbrevResolverImpl alloc] init];
   [abbrevResolver addProvider:abbrevListDocument];
   abbrevListDocument.abbrevResolver = abbrevResolver;
   return self;
 }
 
-- (void)dealloc
-{
-  [windowController release];
-  [abbrevListDocument release];
-  [abbrevResolver release];
-  [super dealloc];
-}
-
 - (void)makeWindowControllers
 {
-  windowController = [[[TransTextWindowController alloc] initWithWindowNibName:@"TransTextDocument"] retain];
+  windowController = [[TransTextWindowController alloc] initWithWindowNibName:@"TransTextDocument"];
   [self addWindowController:windowController];
 }
 
@@ -82,8 +74,8 @@
 - (BOOL)readFromFileWrapper:(NSFileWrapper*)file ofType:(NSString*)type error:(NSError**)error
 {
   NSDictionary* docAttrs;
-	loadedText = [[[NSAttributedString alloc] initWithRTF:[file regularFileContents] documentAttributes:&docAttrs] retain];
-  loadedDocAttributes = [docAttrs retain];
+	loadedText = [[NSAttributedString alloc] initWithRTF:[file regularFileContents] documentAttributes:&docAttrs];
+  loadedDocAttributes = docAttrs;
   
   if (loadedText) {
     [self useLoadedText];
@@ -98,7 +90,7 @@
   NSData* data = [textStorage RTFFromRange:NSMakeRange(0, [[textStorage string] length])  documentAttributes:attrs];
 	NSFileWrapper* file = [[NSFileWrapper alloc] initRegularFileWithContents:data];
 	
-  return [file autorelease];
+  return file;
 }
 
 //
@@ -109,13 +101,11 @@
 {
   if (loadedText && textStorage) {
     [textStorage replaceCharactersInRange:NSMakeRange(0, [textStorage length]) withAttributedString:loadedText];
-    [loadedText release];
     loadedText = nil;
   }
 
   if (loadedDocAttributes && windowController) {
     [self readDocAttributes:loadedDocAttributes];
-    [loadedDocAttributes release];
     loadedDocAttributes = nil;
   }
 }
