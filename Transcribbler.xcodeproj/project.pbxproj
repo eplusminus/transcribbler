@@ -47,7 +47,6 @@
 		457690531EA9CDB20090BBE7 /* StackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FFF1EA9B6A70090BBE7 /* StackingView.swift */; };
 		457690541EA9CDB90090BBE7 /* DisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690031EA9BEE20090BBE7 /* DisclosureView.swift */; };
 		457690551EA9CDC20090BBE7 /* ViewSizeLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */; };
-		457690571EA9CE090090BBE7 /* HandyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451579C01711564500BC08AA /* HandyTableView.m */; };
 		457690591EA9CFAE0090BBE7 /* Abbreviations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45768FC91EA98DF40090BBE7 /* Abbreviations.framework */; };
 		4576905A1EA9CFB10090BBE7 /* HelperViews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457690361EA9CDA70090BBE7 /* HelperViews.framework */; };
 		4576905E1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576905D1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift */; };
@@ -60,6 +59,7 @@
 		45E95DC9171B4DBD008FEEE4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 45E95DC8171B4DBD008FEEE4 /* LICENSE */; };
 		45E95DE4171B65B5008FEEE4 /* TransTextWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E95DE3171B65B5008FEEE4 /* TransTextWindowController.m */; };
 		45F521B61EB40ABD00BF77B1 /* AbbrevsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B51EB40ABD00BF77B1 /* AbbrevsController.swift */; };
+		45F521B81EB40CE100BF77B1 /* HandyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B71EB40CE100BF77B1 /* HandyTableView.swift */; };
 		45FD2E8E1719E1D400D0204F /* AbbrevListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45FD2E8C1719E1D400D0204F /* AbbrevListView.xib */; };
 		45FD2E95171A1F6700D0204F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45FD2E93171A1F6700D0204F /* Localizable.strings */; };
 		633A4FD30E4F0E0400B4D45A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 633A4FD20E4F0E0400B4D45A /* Carbon.framework */; };
@@ -165,8 +165,6 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32DBCF750370BD2300C91783 /* Transcribbler_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transcribbler_Prefix.pch; sourceTree = "<group>"; };
-		451579BF1711564500BC08AA /* HandyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HandyTableView.h; path = AbbreviationsEditor/HandyTableView.h; sourceTree = "<group>"; };
-		451579C01711564500BC08AA /* HandyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HandyTableView.m; path = AbbreviationsEditor/HandyTableView.m; sourceTree = "<group>"; };
 		4525340E1724A5BB00E6D805 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = TransTextDocument.xib; sourceTree = "<group>"; };
 		455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbrevListDocument.xib; sourceTree = "<group>"; };
 		455BE3C01712467C00DCAF5F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
@@ -227,6 +225,7 @@
 		45E95DE2171B65B5008FEEE4 /* TransTextWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransTextWindowController.h; sourceTree = "<group>"; };
 		45E95DE3171B65B5008FEEE4 /* TransTextWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransTextWindowController.m; sourceTree = "<group>"; };
 		45F521B51EB40ABD00BF77B1 /* AbbrevsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevsController.swift; path = AbbreviationsEditor/AbbrevsController.swift; sourceTree = "<group>"; };
+		45F521B71EB40CE100BF77B1 /* HandyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandyTableView.swift; sourceTree = "<group>"; };
 		45FD2E8D1719E1D400D0204F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = AbbrevListView.xib; sourceTree = "<group>"; };
 		45FD2E94171A1F6700D0204F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = Localizable.strings; sourceTree = "<group>"; };
 		633A4FD20E4F0E0400B4D45A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -510,8 +509,6 @@
 				457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */,
 				4576905D1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift */,
 				45F521B51EB40ABD00BF77B1 /* AbbrevsController.swift */,
-				451579BF1711564500BC08AA /* HandyTableView.h */,
-				451579C01711564500BC08AA /* HandyTableView.m */,
 			);
 			name = AbbreviationsEditor;
 			sourceTree = "<group>";
@@ -539,6 +536,7 @@
 				457690031EA9BEE20090BBE7 /* DisclosureView.swift */,
 				45768FFF1EA9B6A70090BBE7 /* StackingView.swift */,
 				457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */,
+				45F521B71EB40CE100BF77B1 /* HandyTableView.swift */,
 			);
 			name = HelperViews;
 			sourceTree = "<group>";
@@ -945,7 +943,6 @@
 				4576902C1EA9CD510090BBE7 /* AbbrevListDocument.swift in Sources */,
 				4576902D1EA9CD5E0090BBE7 /* AbbrevArrayController.swift in Sources */,
 				45F521B61EB40ABD00BF77B1 /* AbbrevsController.swift in Sources */,
-				457690571EA9CE090090BBE7 /* HandyTableView.m in Sources */,
 				4576905E1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift in Sources */,
 				457690611EA9E4F60090BBE7 /* AbbrevFormatter.swift in Sources */,
 			);
@@ -965,6 +962,7 @@
 			files = (
 				457690551EA9CDC20090BBE7 /* ViewSizeLimits.swift in Sources */,
 				457690531EA9CDB20090BBE7 /* StackingView.swift in Sources */,
+				45F521B81EB40CE100BF77B1 /* HandyTableView.swift in Sources */,
 				457690541EA9CDB90090BBE7 /* DisclosureView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

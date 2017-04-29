@@ -21,6 +21,7 @@
 
 import Abbreviations
 import Foundation
+import HelperViews
 
 @objc(AbbrevTableViewDelegate)
 public class AbbrevTableViewDelegate: NSResponder, NSTableViewDelegate, HandyTableViewDelegate {
@@ -126,11 +127,11 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDelegate, HandyTab
   //
   // HandyTableViewDelegate
   //
-  public func tableView(_ v: HandyTableView!, canDeleteEmptyRow row: UInt) -> Bool {
-    return entryAtIndex(Int(row))?.isEmpty() ?? false
+  public func tableViewCanDeleteEmptyRow(_ v: HandyTableView, row: NSInteger) -> Bool {
+    return entryAtIndex(row)?.isEmpty() ?? false
   }
   
-  public func tableView(_ v: HandyTableView!, clickedBelowLastRowAt point: NSPoint) -> Bool {
+  public func tableViewClickedBelowLastRow(_ v: HandyTableView, point: NSPoint) -> Bool {
     v.validateEditing()
     v.abortEditing()
     

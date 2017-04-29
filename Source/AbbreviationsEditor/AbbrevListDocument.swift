@@ -21,6 +21,7 @@
 
 import Abbreviations
 import Foundation
+import HelperViews
 
 let AbbrevListDocumentModified = "AbbrevListDocumentModified"
 
