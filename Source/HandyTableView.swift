@@ -59,7 +59,7 @@ public class HandyTableView: NSTableView {
   // to be used from a NSWindowDelegate implementation
   //
   
-  public class func windowWillReturnFieldEditor(_ sender: NSWindow, toObject: AnyObject) -> AnyObject? {
+  public class func windowWillReturnFieldEditor(_ sender: NSWindow, toObject: Any) -> Any? {
     if let htv = toObject as? HandyTableView {
       return htv.fieldEditor
     }

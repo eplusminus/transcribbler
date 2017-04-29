@@ -84,7 +84,7 @@ public class AbbrevsController: NSViewController {
     }
   }
   
-  @IBAction func newAbbreviation(_ sender: Any) {
+  @IBAction public func newAbbreviation(_ sender: Any) {
     drawer?.open()
     NSApp.sendAction(#selector(AbbrevTableViewDelegate.add), to: document?.tableView.delegate, from: self)
   }

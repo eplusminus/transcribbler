@@ -48,14 +48,12 @@
 		457690591EA9CFAE0090BBE7 /* Abbreviations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45768FC91EA98DF40090BBE7 /* Abbreviations.framework */; };
 		4576905A1EA9CFB10090BBE7 /* HelperViews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457690361EA9CDA70090BBE7 /* HelperViews.framework */; };
 		4576905E1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576905D1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift */; };
-		4576905F1EA9E2CD0090BBE7 /* AbbreviationsEditor-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 457690581EA9CE6E0090BBE7 /* AbbreviationsEditor-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		457690611EA9E4F60090BBE7 /* AbbrevFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690601EA9E4F60090BBE7 /* AbbrevFormatter.swift */; };
 		457BFB081EA699AD00E24526 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457BFB071EA699AD00E24526 /* AVKit.framework */; };
 		458665621EB468C2002616F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458665611EB468C2002616F0 /* AppDelegate.swift */; };
 		4591D48F1723482100BC713B /* MediaDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4591D48D1723482100BC713B /* MediaDrawerView.xib */; };
 		4591D49E17246EB100BC713B /* AbbrevDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4591D49C17246EB100BC713B /* AbbrevDrawerView.xib */; };
 		45E95DC9171B4DBD008FEEE4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 45E95DC8171B4DBD008FEEE4 /* LICENSE */; };
-		45E95DE4171B65B5008FEEE4 /* TransTextWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E95DE3171B65B5008FEEE4 /* TransTextWindowController.m */; };
 		45F521B61EB40ABD00BF77B1 /* AbbrevsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B51EB40ABD00BF77B1 /* AbbrevsController.swift */; };
 		45F521B81EB40CE100BF77B1 /* HandyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B71EB40CE100BF77B1 /* HandyTableView.swift */; };
 		45F521BA1EB4221E00BF77B1 /* MediaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B91EB4221E00BF77B1 /* MediaController.swift */; };
@@ -63,6 +61,7 @@
 		45F521C01EB45B6000BF77B1 /* TransTextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521BF1EB45B6000BF77B1 /* TransTextDocument.swift */; };
 		45FD2E8E1719E1D400D0204F /* AbbrevListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45FD2E8C1719E1D400D0204F /* AbbrevListView.xib */; };
 		45FD2E95171A1F6700D0204F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45FD2E93171A1F6700D0204F /* Localizable.strings */; };
+		45FFE0101EB501260055271E /* TransTextWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FFE00F1EB501260055271E /* TransTextWindowController.swift */; };
 		633A4FD30E4F0E0400B4D45A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 633A4FD20E4F0E0400B4D45A /* Carbon.framework */; };
 		633A4FD50E4F0E1700B4D45A /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 633A4FD40E4F0E1700B4D45A /* CoreServices.framework */; };
 		636620B60E3BF419001D4B0F /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636620B50E3BF419001D4B0F /* Quartz.framework */; };
@@ -162,7 +161,6 @@
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		32DBCF750370BD2300C91783 /* Transcribbler_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transcribbler_Prefix.pch; sourceTree = "<group>"; };
 		4525340E1724A5BB00E6D805 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = TransTextDocument.xib; sourceTree = "<group>"; };
 		455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbrevListDocument.xib; sourceTree = "<group>"; };
 		455BE3C01712467C00DCAF5F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
@@ -199,10 +197,8 @@
 		4576903E1EA9CDA70090BBE7 /* HelperViewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelperViewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		457690451EA9CDA70090BBE7 /* HelperViewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperViewsTests.swift; sourceTree = "<group>"; };
 		457690471EA9CDA70090BBE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		457690581EA9CE6E0090BBE7 /* AbbreviationsEditor-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AbbreviationsEditor-Bridging-Header.h"; sourceTree = "<group>"; };
 		4576905D1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevTableViewDelegate.swift; path = AbbreviationsEditor/AbbrevTableViewDelegate.swift; sourceTree = "<group>"; };
 		457690601EA9E4F60090BBE7 /* AbbrevFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevFormatter.swift; path = AbbreviationsEditor/AbbrevFormatter.swift; sourceTree = "<group>"; };
-		457BFB021EA6816D00E24526 /* Transcribbler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Transcribbler-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		457BFB031EA6816D00E24526 /* AbbrevBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevBase.swift; sourceTree = "<group>"; };
 		457BFB051EA681EC00E24526 /* AbbrevEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevEntry.swift; sourceTree = "<group>"; };
 		457BFB071EA699AD00E24526 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
@@ -215,8 +211,6 @@
 		4591D48E1723482100BC713B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = MediaDrawerView.xib; sourceTree = "<group>"; };
 		4591D49D17246EB100BC713B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = AbbrevDrawerView.xib; sourceTree = "<group>"; };
 		45E95DC8171B4DBD008FEEE4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		45E95DE2171B65B5008FEEE4 /* TransTextWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransTextWindowController.h; sourceTree = "<group>"; };
-		45E95DE3171B65B5008FEEE4 /* TransTextWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransTextWindowController.m; sourceTree = "<group>"; };
 		45F521B51EB40ABD00BF77B1 /* AbbrevsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevsController.swift; path = AbbreviationsEditor/AbbrevsController.swift; sourceTree = "<group>"; };
 		45F521B71EB40CE100BF77B1 /* HandyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandyTableView.swift; sourceTree = "<group>"; };
 		45F521B91EB4221E00BF77B1 /* MediaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaController.swift; sourceTree = "<group>"; };
@@ -224,6 +218,7 @@
 		45F521BF1EB45B6000BF77B1 /* TransTextDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransTextDocument.swift; sourceTree = "<group>"; };
 		45FD2E8D1719E1D400D0204F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = AbbrevListView.xib; sourceTree = "<group>"; };
 		45FD2E94171A1F6700D0204F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = Localizable.strings; sourceTree = "<group>"; };
+		45FFE00F1EB501260055271E /* TransTextWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransTextWindowController.swift; sourceTree = "<group>"; };
 		633A4FD20E4F0E0400B4D45A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		633A4FD40E4F0E1700B4D45A /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		636620B50E3BF419001D4B0F /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
@@ -367,10 +362,7 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				457BFB021EA6816D00E24526 /* Transcribbler-Bridging-Header.h */,
-				32DBCF750370BD2300C91783 /* Transcribbler_Prefix.pch */,
 				45E95DC8171B4DBD008FEEE4 /* LICENSE */,
-				457690581EA9CE6E0090BBE7 /* AbbreviationsEditor-Bridging-Header.h */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -564,8 +556,7 @@
 			isa = PBXGroup;
 			children = (
 				45F521B91EB4221E00BF77B1 /* MediaController.swift */,
-				45E95DE2171B65B5008FEEE4 /* TransTextWindowController.h */,
-				45E95DE3171B65B5008FEEE4 /* TransTextWindowController.m */,
+				45FFE00F1EB501260055271E /* TransTextWindowController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -585,7 +576,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4576905F1EA9E2CD0090BBE7 /* AbbreviationsEditor-Bridging-Header.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -969,11 +959,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				45F521C01EB45B6000BF77B1 /* TransTextDocument.swift in Sources */,
+				45FFE0101EB501260055271E /* TransTextWindowController.swift in Sources */,
 				457690061EA9C8470090BBE7 /* TransTextView.swift in Sources */,
 				458665621EB468C2002616F0 /* AppDelegate.swift in Sources */,
 				45F521BA1EB4221E00BF77B1 /* MediaController.swift in Sources */,
 				45F521BD1EB44EE500BF77B1 /* CommentStringFields.swift in Sources */,
-				45E95DE4171B65B5008FEEE4 /* TransTextWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1367,7 +1357,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "AbbreviationsEditor-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1411,7 +1401,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.AbbreviationsEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "AbbreviationsEditor-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1669,7 +1659,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler;
 				PRODUCT_NAME = Transcribbler;
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "Transcribbler-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -1698,7 +1688,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler;
 				PRODUCT_NAME = Transcribbler;
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "Transcribbler-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
