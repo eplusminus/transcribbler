@@ -8,12 +8,13 @@
         <customObject id="-2" userLabel="File's Owner" customClass="AbbrevListDocument">
             <connections>
                 <outlet property="controller" destination="77" id="94"/>
+                <outlet property="suffixEditor" destination="yto-cL-07d" id="ZBY-CS-QIL"/>
                 <outlet property="tableView" destination="9" id="102"/>
                 <outlet property="view" destination="1" id="89"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1">
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask"/>
@@ -22,7 +23,7 @@
                     <rect key="frame" x="0.0" y="23" width="480" height="249"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="JGS-x4-JoF">
-                        <rect key="frame" x="1" y="23" width="463" height="225"/>
+                        <rect key="frame" x="1" y="0.0" width="463" height="248"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveColumns="NO" headerView="8" id="9" customClass="HandyTableView">
@@ -78,7 +79,7 @@
                         <rect key="frame" x="-100" y="-100" width="463" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="37" horizontal="NO" id="11">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="11">
                         <rect key="frame" x="464" y="23" width="15" height="225"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -123,6 +124,7 @@
             </connections>
         </customObject>
         <customFormatter id="103" customClass="AbbrevFormatter"/>
+        <customObject id="yto-cL-07d" customClass="AbbrevSuffixEditor"/>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>

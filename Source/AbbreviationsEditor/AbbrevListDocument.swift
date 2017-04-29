@@ -29,6 +29,7 @@ public class AbbrevListDocument: NSDocument, AbbrevListProvider {
   @IBOutlet private(set) var view: NSView!
   @IBOutlet private(set) var controller: AbbrevArrayController!
   @IBOutlet private(set) var tableView: HandyTableView!
+  @IBOutlet private(set) var suffixEditor: AbbrevSuffixEditor!
   public var abbrevResolver: AbbrevResolverImpl?
   
   public func getAbbreviations() -> [AbbrevEntry] {

@@ -89,6 +89,25 @@ public class AbbrevsController: NSViewController {
     NSApp.sendAction(#selector(AbbrevTableViewDelegate.add), to: document?.tableView.delegate, from: self)
   }
   
+  @IBAction public func toggleSuffixes(_ sender: Any) {
+    let se = document!.suffixEditor!
+    if se.isPopoverOpen {
+      se.popover.close()
+    }
+    else {
+      let tv = document!.tableView!
+      let sri = tv.selectedRowIndexes
+      if sri.count == 1 {
+        let sr = tv.selectedRow
+        if let ae = tableViewDelegate?.entryAtIndex(sr) {
+          se.setAbbrevEntry(ae)
+          let selectionFrame = tv.frameOfCell(atColumn: 1, row: tv.selectedRow)
+          se.popover.show(relativeTo: selectionFrame, of: tv, preferredEdge: NSRectEdge.maxY)
+        }
+      }
+    }
+  }
+  
   public func lendViewsTo(stackingView: StackingView) {
     if let lv = listView {
       lv.removeFromSuperview();
@@ -116,6 +135,10 @@ public class AbbrevsController: NSViewController {
   override public func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
     if menuItem.action == #selector(newAbbreviation) {
       return true;
+    }
+    if menuItem.action == #selector(toggleSuffixes(_:)) {
+      menuItem.state = (document?.suffixEditor.isPopoverOpen ?? false) ? NSOnState : NSOffState
+      return (document?.tableView.selectedRowIndexes.count ?? 0) == 1;
     }
     return false;
   }
