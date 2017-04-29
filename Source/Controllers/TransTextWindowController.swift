@@ -95,18 +95,18 @@ public class TransTextWindowController: NSWindowController,
   }
 
   @IBAction public func toggleMediaDrawer(_ sender: Any) {
-    mediaDrawerOpen = !mediaDrawerOpen
+    isMediaDrawerOpen = !isMediaDrawerOpen
   }
 
   @IBAction public func toggleAbbrevDrawer(_ sender: Any) {
-    abbrevDrawerOpen = !abbrevDrawerOpen
+    isAbbrevDrawerOpen = !isAbbrevDrawerOpen
   }
 
   @IBAction public func toggleRuler(_ sender: Any) {
     textView.isRulerVisible = !textView.isRulerVisible
   }
 
-  public var mediaDrawerOpen: Bool {
+  public var isMediaDrawerOpen: Bool {
     get {
       return mediaDrawer.state == Int(NSDrawerState.openState.rawValue)
     }
@@ -115,7 +115,7 @@ public class TransTextWindowController: NSWindowController,
     }
   }
   
-  public var abbrevDrawerOpen: Bool {
+  public var isAbbrevDrawerOpen: Bool {
     get {
       return abbrevDrawer.state == Int(NSDrawerState.openState.rawValue)
     }

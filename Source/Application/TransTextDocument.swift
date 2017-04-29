@@ -124,11 +124,11 @@ public class TransTextDocument: NSDocument {
     }
     
     if let _ = commentParams[mediaDrawerOpenCommentParam] {
-      windowController.mediaDrawerOpen = true
+      windowController.isMediaDrawerOpen = true
     }
     
     if let _ = commentParams[abbrevDrawerOpenCommentParam] {
-      windowController.abbrevDrawerOpen = true
+      windowController.isAbbrevDrawerOpen = true
     }
   }
   
@@ -146,10 +146,10 @@ public class TransTextDocument: NSDocument {
     if let tc = mc?.timeCodeString {
       commentParams[timeCodeCommentParam] = tc
     }
-    if windowController.mediaDrawerOpen {
+    if windowController.isMediaDrawerOpen {
       commentParams[mediaDrawerOpenCommentParam] = ""
     }
-    if windowController.abbrevDrawerOpen {
+    if windowController.isAbbrevDrawerOpen {
       commentParams[abbrevDrawerOpenCommentParam] = ""
     }
     
