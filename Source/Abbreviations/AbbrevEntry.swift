@@ -33,15 +33,9 @@ public class AbbrevEntry: AbbrevBase {
     super.init(abbreviation: abbreviation, expansion: expansion)
   }
 
-  // expansionDesc property is there only to support KVC for the table editor
-  public var expansionDesc: String {
+  public var hasVariants: Bool {
     get {
-      return AbbrevSimpleFormat.formatExpansion(expansion, variants)
-    }
-    set(desc) {
-      let (ex, vs) = AbbrevSimpleFormat.parseExpansionAndVariants(desc)
-      expansion = ex
-      variants = vs
+      return (variants?.count ?? 0) > 0
     }
   }
   
