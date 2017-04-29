@@ -24,11 +24,16 @@ import Foundation
 import HelperViews
 
 @objc(AbbrevTableViewDelegate)
-public class AbbrevTableViewDelegate: NSResponder, NSTableViewDelegate, HandyTableViewDelegate {
+public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTableViewDelegate, HandyTableViewDelegate {
   @IBOutlet private(set) var table: AbbrevArrayController!
   @IBOutlet private(set) var view: NSTableView!
+  @IBOutlet private(set) var statusColumn: NSTableColumn!
+  @IBOutlet private(set) var abbreviationColumn: NSTableColumn!
+  @IBOutlet private(set) var expansionColumn: NSTableColumn!
   
   var resolver: AbbrevResolver? = nil
+  private var errorImage: NSImage?
+  private var suffixImage: NSImage?
   
   func entryAtIndex(_ i: Int) -> AbbrevEntry? {
     if i >= 0 {
@@ -43,6 +48,8 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDelegate, HandyTab
   override public func awakeFromNib() {
     self.nextResponder = view.nextResponder
     view.nextResponder = self
+    errorImage = NSImage(named: "ErrorFlag")
+    suffixImage = NSImage(named: "SuffixFlag")
   }
 
   @IBAction public func delete(_ sender: Any) {
@@ -62,19 +69,65 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDelegate, HandyTab
     table.paste(self)
   }
   
+  //
+  // NSTableViewDataSource
+  //
+  
+  public func numberOfRows(in tableView: NSTableView) -> Int {
+    return (table.arrangedObjects as! [AnyObject]).count
+  }
+  
+  public func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+    if let a = entryAtIndex(row) {
+      switch tableColumn! {
+      case statusColumn:
+        let dup = resolver?.hasDuplicateAbbreviation(a) ?? false
+        let suff = a.hasVariants
+        return suff ? suffixImage : (dup ? errorImage : nil)
+      case abbreviationColumn:
+        return a.abbreviation
+      case expansionColumn:
+        return AbbrevSimpleFormat.formatExpansion(a.expansion, a.variants)
+      default:
+          return nil
+      }
+    }
+    return nil
+  }
+  
+  public func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
+    if let a = entryAtIndex(row) {
+      switch tableColumn! {
+      case abbreviationColumn:
+        a.abbreviation = (object as? String) ?? ""
+      case expansionColumn:
+        let (ex, vs) = AbbrevSimpleFormat.parseExpansionAndVariants((object as? String) ?? "")
+        a.expansion = ex
+        a.variants = vs
+      default:
+        break;
+      }
+      table.persist()
+    }
+  }
+  
+  //
+  // NSTableViewDelegate
+  //
+  
   public func tableView(_ aTableView: NSTableView, willDisplayCell aCell: Any, for aTableColumn: NSTableColumn?, row: Int) {
     var dup = false
     if let a = entryAtIndex(row) {
       if let r = resolver {
-        if aTableColumn?.identifier == "abbreviation" && r.hasDuplicateAbbreviation(a) {
-          dup = true
-        }
+        dup = r.hasDuplicateAbbreviation(a)
       }
     }
-    let cell = aCell as! NSTextFieldCell
-    cell.backgroundColor = dup ? NSColor.yellow : NSColor.textBackgroundColor
-    cell.textColor = dup ? NSColor.red : nil
-    cell.drawsBackground = dup
+    if aTableColumn != statusColumn {
+      let cell = aCell as! NSTextFieldCell
+      cell.backgroundColor = dup ? NSColor.yellow : NSColor.textBackgroundColor
+      cell.textColor = dup ? NSColor.red : nil
+      cell.drawsBackground = dup
+    }
   }
   
   @IBAction public func newAbbreviation(_ sender: Any) {
@@ -83,20 +136,21 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDelegate, HandyTab
 
   @IBAction public func add(_ sender: Any?) {
     var row = view.selectedRow
+    let col = view.column(withIdentifier: abbreviationColumn.identifier)
     if row < 0 {
       row = view.numberOfRows
     }
     else {
       let e = entryAtIndex(row)
       if e == nil {
-        view.editColumn(0, row: row, with: nil, select: false)
+        view.editColumn(col, row: row, with: nil, select: false)
         return;
       }
       row += 1
     }
     table.insert(table.newEntry(), atArrangedObjectIndex: row)
     view.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
-    view.editColumn(0, row: row, with: nil, select: false)
+    view.editColumn(col, row: row, with: nil, select: false)
   }
   
   override public func keyDown(with event: NSEvent) {
@@ -139,7 +193,7 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDelegate, HandyTab
     if count > 0 {
       if entryAtIndex(count - 1)?.isEmpty() ?? false {
         v.selectRowIndexes(IndexSet(integer: count - 1), byExtendingSelection: false)
-        v.editColumn(0, row: count - 1, with: nil, select: false)
+        v.editColumn(view.column(withIdentifier: abbreviationColumn.identifier), row: count - 1, with: nil, select: false)
         return true
       }
     }

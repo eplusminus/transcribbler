@@ -26,13 +26,21 @@
                         <rect key="frame" x="1" y="0.0" width="463" height="248"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveColumns="NO" headerView="8" id="9" customClass="HandyTableView">
+                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" autosaveColumns="NO" headerView="8" id="9" customClass="HandyTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="463" height="225"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
+                                    <tableColumn identifier="status" editable="NO" width="20" minWidth="20" maxWidth="20" headerToolTip="status" id="1Pm-YH-Mgu">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
+                                        </tableHeaderCell>
+                                        <imageCell key="dataCell" controlSize="mini" refusesFirstResponder="YES" alignment="left" image="ErrorFlag" id="9Ed-ww-ViE"/>
+                                    </tableColumn>
                                     <tableColumn identifier="abbreviation" width="76.98828125" minWidth="40" maxWidth="1000" headerToolTip="Abbreviation" id="12">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Abbreviation">
                                             <font key="font" metaFont="smallSystem"/>
@@ -48,11 +56,8 @@
                                             </connections>
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        <connections>
-                                            <binding destination="77" name="value" keyPath="arrangedObjects.abbreviation" id="92"/>
-                                        </connections>
                                     </tableColumn>
-                                    <tableColumn identifier="expansion" width="380" minWidth="40" maxWidth="1000" headerToolTip="Text to insert" id="13">
+                                    <tableColumn identifier="expansion" width="337" minWidth="40" maxWidth="1000" headerToolTip="Text to insert" id="13">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Expansion">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -64,12 +69,10 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        <connections>
-                                            <binding destination="77" name="value" keyPath="arrangedObjects.expansionDesc" id="100"/>
-                                        </connections>
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <outlet property="dataSource" destination="96" id="u1o-6l-GGX"/>
                                     <outlet property="delegate" destination="96" id="97"/>
                                 </connections>
                             </tableView>
@@ -119,6 +122,9 @@
         </arrayController>
         <customObject id="96" customClass="AbbrevTableViewDelegate">
             <connections>
+                <outlet property="abbreviationColumn" destination="12" id="ufr-P8-lYm"/>
+                <outlet property="expansionColumn" destination="13" id="L23-Xc-wSe"/>
+                <outlet property="statusColumn" destination="1Pm-YH-Mgu" id="H3P-oZ-Isy"/>
                 <outlet property="table" destination="77" id="99"/>
                 <outlet property="view" destination="9" id="98"/>
             </connections>
@@ -127,6 +133,7 @@
         <customObject id="yto-cL-07d" customClass="AbbrevSuffixEditor"/>
     </objects>
     <resources>
+        <image name="ErrorFlag" width="9" height="9"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
     </resources>
