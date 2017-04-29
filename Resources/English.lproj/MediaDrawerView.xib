@@ -54,7 +54,7 @@
                             <rect key="frame" x="0.0" y="258" width="192" height="116"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                             <subviews>
-                                <avPlayerView misplaced="YES" controlsStyle="inline" id="vvd-t4-lRK" customClass="NonKeyboardingAVPlayerView">
+                                <avPlayerView misplaced="YES" controlsStyle="inline" id="vvd-t4-lRK">
                                     <rect key="frame" x="0.0" y="0.0" width="192" height="116"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 </avPlayerView>
