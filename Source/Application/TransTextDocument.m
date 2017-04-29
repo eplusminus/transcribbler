@@ -25,7 +25,6 @@
 #import "TransTextDocument.h"
 
 #import "AppDelegate.h"
-#import "MediaController.h"
 #import "TransTextWindowController.h"
 
 
@@ -126,7 +125,7 @@
 
   NSString* mfp = [commentParams objectForKey:kMediaFilePathCommentParam];
   if (mfp) {
-    [mc openMediaFile:mfp];
+    [mc openMediaFileWithFilePath:mfp error:nil];
   }
   
   NSString* tc = [commentParams objectForKey:kTimeCodeCommentParam];

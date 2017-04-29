@@ -25,8 +25,6 @@
 
 #import "TransTextWindowController.h"
 
-#import "MediaController.h"
-
 
 #define kDefaultSidebarWidth 200
 #define kMinimumSidebarWidth 126  // width of MiniTimecodeView + insets
@@ -144,7 +142,7 @@
   
   [[[self window] contentView] addSubview:splitter];
   
-  [mediaController lendViewsTo:stackingView];
+  [mediaController lendViewsToStackingView:stackingView];
   [abbrevsController lendViewsToStackingView:stackingView];
   
   [textView setTextContainerInset:NSMakeSize(100, 30)];

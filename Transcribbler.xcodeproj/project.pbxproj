@@ -53,13 +53,13 @@
 		4576905F1EA9E2CD0090BBE7 /* AbbreviationsEditor-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 457690581EA9CE6E0090BBE7 /* AbbreviationsEditor-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		457690611EA9E4F60090BBE7 /* AbbrevFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690601EA9E4F60090BBE7 /* AbbrevFormatter.swift */; };
 		457BFB081EA699AD00E24526 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457BFB071EA699AD00E24526 /* AVKit.framework */; };
-		4591D48C172345D100BC713B /* MediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4591D48B172345D100BC713B /* MediaController.m */; };
 		4591D48F1723482100BC713B /* MediaDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4591D48D1723482100BC713B /* MediaDrawerView.xib */; };
 		4591D49E17246EB100BC713B /* AbbrevDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4591D49C17246EB100BC713B /* AbbrevDrawerView.xib */; };
 		45E95DC9171B4DBD008FEEE4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 45E95DC8171B4DBD008FEEE4 /* LICENSE */; };
 		45E95DE4171B65B5008FEEE4 /* TransTextWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E95DE3171B65B5008FEEE4 /* TransTextWindowController.m */; };
 		45F521B61EB40ABD00BF77B1 /* AbbrevsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B51EB40ABD00BF77B1 /* AbbrevsController.swift */; };
 		45F521B81EB40CE100BF77B1 /* HandyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B71EB40CE100BF77B1 /* HandyTableView.swift */; };
+		45F521BA1EB4221E00BF77B1 /* MediaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B91EB4221E00BF77B1 /* MediaController.swift */; };
 		45FD2E8E1719E1D400D0204F /* AbbrevListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45FD2E8C1719E1D400D0204F /* AbbrevListView.xib */; };
 		45FD2E95171A1F6700D0204F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45FD2E93171A1F6700D0204F /* Localizable.strings */; };
 		633A4FD30E4F0E0400B4D45A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 633A4FD20E4F0E0400B4D45A /* Carbon.framework */; };
@@ -217,8 +217,6 @@
 		457BFB0D1EA69F6C00E24526 /* AbbrevResolverImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevResolverImpl.swift; sourceTree = "<group>"; };
 		457BFB101EA6AD5800E24526 /* AbbrevArrayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevArrayController.swift; path = AbbreviationsEditor/AbbrevArrayController.swift; sourceTree = "<group>"; };
 		457BFB121EA6B12800E24526 /* AbbrevParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevParser.swift; sourceTree = "<group>"; };
-		4591D48A172345D100BC713B /* MediaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaController.h; sourceTree = "<group>"; };
-		4591D48B172345D100BC713B /* MediaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaController.m; sourceTree = "<group>"; };
 		4591D48E1723482100BC713B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = MediaDrawerView.xib; sourceTree = "<group>"; };
 		4591D49D17246EB100BC713B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = AbbrevDrawerView.xib; sourceTree = "<group>"; };
 		45E95DC8171B4DBD008FEEE4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -226,6 +224,7 @@
 		45E95DE3171B65B5008FEEE4 /* TransTextWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransTextWindowController.m; sourceTree = "<group>"; };
 		45F521B51EB40ABD00BF77B1 /* AbbrevsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevsController.swift; path = AbbreviationsEditor/AbbrevsController.swift; sourceTree = "<group>"; };
 		45F521B71EB40CE100BF77B1 /* HandyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandyTableView.swift; sourceTree = "<group>"; };
+		45F521B91EB4221E00BF77B1 /* MediaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaController.swift; sourceTree = "<group>"; };
 		45FD2E8D1719E1D400D0204F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = AbbrevListView.xib; sourceTree = "<group>"; };
 		45FD2E94171A1F6700D0204F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = Localizable.strings; sourceTree = "<group>"; };
 		633A4FD20E4F0E0400B4D45A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -573,8 +572,7 @@
 		639E92AD0E4D0B7F0006FDEE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4591D48A172345D100BC713B /* MediaController.h */,
-				4591D48B172345D100BC713B /* MediaController.m */,
+				45F521B91EB4221E00BF77B1 /* MediaController.swift */,
 				45E95DE2171B65B5008FEEE4 /* TransTextWindowController.h */,
 				45E95DE3171B65B5008FEEE4 /* TransTextWindowController.m */,
 			);
@@ -983,8 +981,8 @@
 				63C8682C0DDA097500DC3670 /* TransTextDocument.m in Sources */,
 				457690061EA9C8470090BBE7 /* TransTextView.swift in Sources */,
 				455BE40B171259DB00DCAF5F /* AppDelegate.m in Sources */,
+				45F521BA1EB4221E00BF77B1 /* MediaController.swift in Sources */,
 				45E95DE4171B65B5008FEEE4 /* TransTextWindowController.m in Sources */,
-				4591D48C172345D100BC713B /* MediaController.m in Sources */,
 				4560D3E0172E066E002BCDA6 /* NonKeyboardingAVPlayerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1139,7 +1137,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TranscribblerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.TranscribblerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1173,7 +1171,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = TranscribblerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.TranscribblerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1373,7 +1371,7 @@
 				INFOPLIST_FILE = AbbreviationsEditor/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.AbbreviationsEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1418,7 +1416,7 @@
 				INFOPLIST_FILE = AbbreviationsEditor/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.AbbreviationsEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1457,7 +1455,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = AbbreviationsEditorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.AbbreviationsEditorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1491,7 +1489,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = AbbreviationsEditorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.AbbreviationsEditorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1533,7 +1531,7 @@
 				INFOPLIST_FILE = HelperViews/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.HelperViews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1575,7 +1573,7 @@
 				INFOPLIST_FILE = HelperViews/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.HelperViews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1613,7 +1611,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = HelperViewsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.HelperViewsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1647,7 +1645,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = HelperViewsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.HelperViewsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
