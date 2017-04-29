@@ -124,13 +124,14 @@ public class HandyTableView: NSTableView {
       let row = self.row(at: loc)
       if row >= 0 {
         if selectedRowIndexes.count == 1 && myClickedRow == row && myClickedCol == col {
-          editColumn(col, row: row, with: nil, select: false)
-          if let field = currentEditor() as? NSTextView {
-            let fieldLoc = field.convert(event.locationInWindow, from: nil)
-            let pos = field.characterIndexForInsertion(at: fieldLoc)
-            field.setSelectedRange(NSMakeRange(pos, 0))
-            editing = true
-            return
+          if tryEditingColumn(col, row: row) {
+            if let field = currentEditor() as? NSTextView {
+              let fieldLoc = field.convert(event.locationInWindow, from: nil)
+              let pos = field.characterIndexForInsertion(at: fieldLoc)
+              field.setSelectedRange(NSMakeRange(pos, 0))
+              editing = true
+              return
+            }
           }
         }
       }
@@ -144,6 +145,19 @@ public class HandyTableView: NSTableView {
   
   internal func selectRow(_ row: NSInteger) {
     selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
+  }
+  
+  internal func canEditColumn(_ col: NSInteger, row: NSInteger) -> Bool {
+    return (col >= 0) && (col < numberOfColumns) &&
+      delegate?.tableView?(self, shouldEdit: self.tableColumns[col], row: row) ?? true
+  }
+  
+  internal func tryEditingColumn(_ col: NSInteger, row: NSInteger) -> Bool {
+    if canEditColumn(col, row: row) {
+      editColumn(col, row: row, with: nil, select: false)
+      return true
+    }
+    return false
   }
 }
 
@@ -177,48 +191,78 @@ internal class QuickTableTextView: NSTextView {
   override public func keyDown(with event: NSEvent) {
     if let ch = event.characters?.unicodeScalars.first {
       let ci = Int(ch.value)
-      let row = tableView.editedRow
       if ci == NSTabCharacter {
-        let col = tableView.editedColumn + 1
-        if col == tableView.numberOfColumns {
-          if let ftd = tableView.forwardTabDestination {
-            tableView.window?.makeFirstResponder(ftd)
-          }
-          else {
-            if row == tableView.numberOfRows - 1 {
-              insertNewline(nil)
-            }
-            else {
-              tableView.selectRow(row + 1)
-              tableView.editColumn(0, row: row + 1, with: nil, select: false)
-            }
-          }
-        }
-        else {
-          tableView.editColumn(col, row: row, with: nil, select: false)
-        }
+        moveToNextColumn(canAddNewRow: true);
       }
       else if ci == NSBackTabCharacter {
-        let col = tableView.editedColumn - 1
-        if col < 0 {
-          if let btd = tableView.backTabDestination {
-            tableView.window?.makeFirstResponder(btd)
-          }
-          else {
-            if row > 0 {
-              tableView.selectRow(row - 1)
-              tableView.editColumn(tableView.numberOfColumns - 1, row: row - 1, with: nil, select: false)
-            }
-          }
-        }
-        else {
-          tableView.editColumn(col, row: row, with: nil, select: false)
-        }
+        moveToPreviousColumn()
       }
       else {
         super.keyDown(with: event)
       }
     }
+  }
+  
+  private func moveToNextColumn(canAddNewRow: Bool) {
+    let row = tableView.editedRow
+    let col = findEditableColumnFrom(tableView.editedColumn + 1, row: row, inc: 1)
+    if col == tableView.numberOfColumns {
+      if let ftd = tableView.forwardTabDestination {
+        tableView.window?.makeFirstResponder(ftd)
+        return
+      }
+      else {
+        if row == tableView.numberOfRows - 1 {
+          if (canAddNewRow) {
+            insertNewline(self)
+          }
+          else {
+            return
+          }
+        }
+        else {
+          tableView.selectRow(row + 1)
+          let firstCol = findEditableColumnFrom(0, row: row + 1, inc: 1)
+          let _ = tableView.tryEditingColumn(firstCol, row: row + 1)
+        }
+      }
+    }
+    else {
+      let _ = tableView.tryEditingColumn(col, row: row)
+    }
+    moveInsertionPointToStartOrEnd(end: false)
+    movedVerticallyAtCharPos = NSNotFound
+  }
+  
+  private func moveToPreviousColumn() {
+    let row = tableView.editedRow
+    let col = findEditableColumnFrom(tableView.editedColumn - 1, row: row, inc: -1)
+    if col < 0 {
+      if let btd = tableView.backTabDestination {
+        tableView.window?.makeFirstResponder(btd)
+        return
+      }
+      else {
+        if row > 0 {
+          tableView.selectRow(row - 1)
+          let lastCol = findEditableColumnFrom(tableView.numberOfColumns - 1, row: row - 1, inc: -1)
+          let _ = tableView.tryEditingColumn(lastCol, row: row - 1)
+        }
+      }
+    }
+    else {
+      let _ = tableView.tryEditingColumn(col, row: row)
+    }
+    moveInsertionPointToStartOrEnd(end: true)
+    movedVerticallyAtCharPos = NSNotFound
+  }
+  
+  private func findEditableColumnFrom(_ col: NSInteger, row: NSInteger, inc: Int) -> NSInteger {
+    var ret = col
+    while (ret >= 0 && ret < tableView.numberOfColumns && !tableView.canEditColumn(ret, row: row)) {
+      ret = ret + inc
+    }
+    return ret
   }
   
   override public func deleteBackward(_ sender: Any?) {
@@ -255,48 +299,19 @@ internal class QuickTableTextView: NSTextView {
       super.moveLeft(sender)
       return
     }
-    let row = tableView.editedRow
-    let col = tableView.editedColumn
-    if col == 0 {
-      if row == 0 {
-        return
-      }
-      tableView.deselectAll(self)
-      tableView.selectRow(row - 1)
-      tableView.editColumn(tableView.numberOfColumns - 1, row: row - 1, with: nil, select: false)
-    }
     else {
-      tableView.deselectAll(self)
-      tableView.selectRow(row)
-      tableView.editColumn(col - 1, row: row, with: nil, select: false)
+      moveToPreviousColumn()
     }
-    moveInsertionPointToStartOrEnd(end: true)
-    movedVerticallyAtCharPos = NSNotFound
   }
 
   override public func moveRight(_ sender: Any?) {
     let r = selectedRange()
     if r.location < (string?.characters.count ?? 0) || r.length > 0 {
       super.moveRight(sender)
-      return
-    }
-    let row = tableView.editedRow
-    let col = tableView.editedColumn + 1
-    if col == tableView.numberOfColumns {
-      if row == tableView.numberOfRows - 1 {
-        return
-      }
-      tableView.deselectAll(self)
-      tableView.selectRow(row + 1)
-      tableView.editColumn(0, row: row + 1, with: nil, select: false)
     }
     else {
-      tableView.deselectAll(self)
-      tableView.selectRow(row)
-      tableView.editColumn(col, row: row, with: nil, select: false)
+      moveToNextColumn(canAddNewRow: false)
     }
-    moveInsertionPointToStartOrEnd(end: false)
-    movedVerticallyAtCharPos = NSNotFound
   }
   
   override public func moveUp(_ sender: Any?) {
