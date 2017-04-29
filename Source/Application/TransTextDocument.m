@@ -36,10 +36,6 @@
 #define kMediaDrawerOpenCommentParam @"MediaDrawerOpen"
 #define kAbbrevDrawerOpenCommentParam @"AbbrevDrawerOpen"
 
-#define kCommentParamFieldStart @"{$$"
-#define kCommentParamFieldEnd @"$$}"
-#define kCommentParamFieldDelim @"="
-
 @synthesize abbrevListDocument, abbrevResolver;
 
 - (id)init
@@ -111,7 +107,9 @@
 
 - (void)readDocAttributes:(NSDictionary*)attrs
 {
-  NSDictionary* commentParams = [TransTextDocument parseCommentParams:[attrs objectForKey:NSCommentDocumentAttribute] remainingComment:nil];
+  NSString* paramsString = [[attrs objectForKey: NSCommentDocumentAttribute] string];
+  NSString* leftover;
+  NSDictionary* commentParams = [CommentStringFields paramsFromString: paramsString remainingString: &leftover];
   
   NSString* wp = [commentParams objectForKey:kWindowPosCommentParam];
   if (wp) {
@@ -169,55 +167,11 @@
     [commentParams setObject:@"" forKey:kAbbrevDrawerOpenCommentParam];
   }
   
-  NSMutableString* comment = [NSMutableString stringWithCapacity:200];
-  for (NSString* name in [commentParams keyEnumerator]) {
-    [comment appendString:kCommentParamFieldStart];
-    [comment appendString:name];
-    [comment appendString:kCommentParamFieldDelim];
-    [comment appendString:[commentParams objectForKey:name]];
-    [comment appendString:kCommentParamFieldEnd];
-  }
+  NSString* comment = [CommentStringFields stringFromParams:commentParams];
   if ([comment length]) {
     [attrs setObject:[NSString stringWithString:comment] forKey:NSCommentDocumentAttribute];
   }
   return [NSDictionary dictionaryWithDictionary:attrs];
-}
-
-+ (NSDictionary*)parseCommentParams:(NSString*)comment remainingComment:(NSString**)commentOut
-{
-  if (!comment) {
-    if (commentOut) {
-      *commentOut = nil;
-    }
-    return [NSDictionary dictionary];
-  }
-  
-  NSMutableDictionary* params = [NSMutableDictionary dictionaryWithCapacity:10];
-  NSMutableString* commentBuf = [NSMutableString stringWithCapacity:[comment length]];
-  NSScanner* scan = [NSScanner scannerWithString:comment];
-  [scan setCharactersToBeSkipped:nil];
-  NSCharacterSet* fieldDelim = [NSCharacterSet characterSetWithCharactersInString:kCommentParamFieldDelim];
-  while (![scan isAtEnd]) {
-    NSString* s;
-    if ([scan scanUpToString:kCommentParamFieldStart intoString:&s]) {
-      [commentBuf appendString:s];
-    }
-    if ([scan scanString:kCommentParamFieldStart intoString:nil]) {
-      NSString* name;
-      if ([scan scanUpToCharactersFromSet:fieldDelim intoString:&name] &&
-          [scan scanCharactersFromSet:fieldDelim intoString:nil]) {
-        NSString* value = @"";
-        [scan scanUpToString:kCommentParamFieldEnd intoString:&value];
-        if ([scan scanString:kCommentParamFieldEnd intoString:nil]) {
-          [params setObject:value forKey:name];
-        }
-      }
-    }
-  }
-  if (commentOut) {
-    *commentOut = [NSString stringWithString:commentBuf];
-  }
-  return [NSDictionary dictionaryWithDictionary:params];
 }
 
 @end
