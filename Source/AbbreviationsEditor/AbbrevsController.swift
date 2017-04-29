@@ -64,7 +64,7 @@ public class AbbrevsController: NSViewController {
     disclosureView.fixedHeight = false
   }
   
-  func addAbbrevListDocument(_ document: AbbrevListDocument) {
+  public func addAbbrevListDocument(_ document: AbbrevListDocument) {
     if (self.document == nil) {
       self.document = document
       if (document.view == nil) {

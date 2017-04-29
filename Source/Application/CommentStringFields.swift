@@ -41,16 +41,16 @@ let paramFieldDelim = "="
     return buf
   }
   
-  public class func paramsFromString(_ str: String, remainingString: UnsafeMutablePointer<NSString>) -> [NSObject: NSObject] {
-    var params: [NSObject: NSObject] = [:]  // change this to [String: String] once we're no longer using ObjC
-    let leftoverBuf = NSMutableString()
+  public class func paramsFromString(_ str: String) -> ([String: String], String) {
+    var params: [String: String] = [:]
+    var leftoverBuf = ""
     let scan = Scanner(string: str)
     scan.charactersToBeSkipped = nil
     let fieldDelim = CharacterSet(charactersIn: paramFieldDelim)
     while !scan.isAtEnd {
       var s: NSString?
       if scan.scanUpTo(paramFieldStart, into: &s) {
-        leftoverBuf.append((s ?? "") as String)
+        leftoverBuf += ((s ?? "") as String)
       }
       if scan.scanString(paramFieldStart, into: nil) {
         var name: NSString?
@@ -59,12 +59,11 @@ let paramFieldDelim = "="
           var value: NSString?
           scan.scanUpTo(paramFieldEnd, into: &value)
           if scan.scanString(paramFieldEnd, into: nil) {
-            params[(name ?? "") as NSString] = (value ?? "") as NSString
+            params[(name ?? "") as String] = (value ?? "") as String
           }
         }
       }
     }
-    remainingString.pointee = leftoverBuf
-    return params
+    return (params, leftoverBuf)
   }
 }

@@ -319,7 +319,7 @@ public class MediaController: NSViewController {
         let mm = Int64(fields[1]) ?? 0
         let ss = Int64(fields[2]) ?? 0
         let t = Int64(fields[3]) ?? 0
-        let value = (((((hh * 60) + mm) * 60) + ss) * 1000) + t
+        let value = (((((hh * 60) + mm) * 60) + ss) * 10) + t
         return CMTimeMake(value, 10)
       }
     }

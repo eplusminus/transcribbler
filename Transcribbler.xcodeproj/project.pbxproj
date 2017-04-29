@@ -61,13 +61,13 @@
 		45F521B81EB40CE100BF77B1 /* HandyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B71EB40CE100BF77B1 /* HandyTableView.swift */; };
 		45F521BA1EB4221E00BF77B1 /* MediaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B91EB4221E00BF77B1 /* MediaController.swift */; };
 		45F521BD1EB44EE500BF77B1 /* CommentStringFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521BC1EB44EE500BF77B1 /* CommentStringFields.swift */; };
+		45F521C01EB45B6000BF77B1 /* TransTextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521BF1EB45B6000BF77B1 /* TransTextDocument.swift */; };
 		45FD2E8E1719E1D400D0204F /* AbbrevListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45FD2E8C1719E1D400D0204F /* AbbrevListView.xib */; };
 		45FD2E95171A1F6700D0204F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45FD2E93171A1F6700D0204F /* Localizable.strings */; };
 		633A4FD30E4F0E0400B4D45A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 633A4FD20E4F0E0400B4D45A /* Carbon.framework */; };
 		633A4FD50E4F0E1700B4D45A /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 633A4FD40E4F0E1700B4D45A /* CoreServices.framework */; };
 		636620B60E3BF419001D4B0F /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636620B50E3BF419001D4B0F /* Quartz.framework */; };
 		636620B80E3BF426001D4B0F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636620B70E3BF426001D4B0F /* QuartzCore.framework */; };
-		63C8682C0DDA097500DC3670 /* TransTextDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C8682B0DDA097500DC3670 /* TransTextDocument.m */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -227,14 +227,13 @@
 		45F521B71EB40CE100BF77B1 /* HandyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandyTableView.swift; sourceTree = "<group>"; };
 		45F521B91EB4221E00BF77B1 /* MediaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaController.swift; sourceTree = "<group>"; };
 		45F521BC1EB44EE500BF77B1 /* CommentStringFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentStringFields.swift; sourceTree = "<group>"; };
+		45F521BF1EB45B6000BF77B1 /* TransTextDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransTextDocument.swift; sourceTree = "<group>"; };
 		45FD2E8D1719E1D400D0204F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = AbbrevListView.xib; sourceTree = "<group>"; };
 		45FD2E94171A1F6700D0204F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = Localizable.strings; sourceTree = "<group>"; };
 		633A4FD20E4F0E0400B4D45A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		633A4FD40E4F0E1700B4D45A /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		636620B50E3BF419001D4B0F /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		636620B70E3BF426001D4B0F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
-		63C8682A0DDA097500DC3670 /* TransTextDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransTextDocument.h; sourceTree = "<group>"; };
-		63C8682B0DDA097500DC3670 /* TransTextDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransTextDocument.m; sourceTree = "<group>"; };
 		63C8684D0DDA0A5300DC3670 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		8D15AC370486D014006FF6A4 /* Transcribbler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transcribbler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -409,11 +408,10 @@
 			isa = PBXGroup;
 			children = (
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
-				63C8682A0DDA097500DC3670 /* TransTextDocument.h */,
-				63C8682B0DDA097500DC3670 /* TransTextDocument.m */,
 				455BE409171259DB00DCAF5F /* AppDelegate.h */,
 				455BE40A171259DB00DCAF5F /* AppDelegate.m */,
 				45F521BC1EB44EE500BF77B1 /* CommentStringFields.swift */,
+				45F521BF1EB45B6000BF77B1 /* TransTextDocument.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -981,7 +979,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
-				63C8682C0DDA097500DC3670 /* TransTextDocument.m in Sources */,
+				45F521C01EB45B6000BF77B1 /* TransTextDocument.swift in Sources */,
 				457690061EA9C8470090BBE7 /* TransTextView.swift in Sources */,
 				455BE40B171259DB00DCAF5F /* AppDelegate.m in Sources */,
 				45F521BA1EB4221E00BF77B1 /* MediaController.swift in Sources */,
