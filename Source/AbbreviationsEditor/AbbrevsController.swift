@@ -93,6 +93,7 @@ public class AbbrevsController: NSViewController {
     let se = document!.suffixEditor!
     if se.isPopoverOpen {
       se.popover.close()
+      document?.tableView?.window?.makeFirstResponder(document?.tableView)
     }
     else {
       let tv = document!.tableView!
