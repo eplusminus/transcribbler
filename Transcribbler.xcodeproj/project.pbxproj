@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4525340F1724A5BB00E6D805 /* TransTextDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4525340D1724A5BB00E6D805 /* TransTextDocument.xib */; };
+		453012371EB56C8000AAB6A6 /* AbbrevsEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453012361EB56C8000AAB6A6 /* AbbrevsEncoding.swift */; };
+		453012391EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453012381EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift */; };
 		455BE3DB1712467C00DCAF5F /* AbbrevListDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */; };
 		455BE3DD1712467C00DCAF5F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BF1712467C00DCAF5F /* Credits.rtf */; };
 		455BE3DE1712467C00DCAF5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3C11712467C00DCAF5F /* InfoPlist.strings */; };
@@ -26,7 +28,7 @@
 		45768FF41EA99B5C0090BBE7 /* AbbrevResolverImplTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FF31EA99B5C0090BBE7 /* AbbrevResolverImplTest.swift */; };
 		45768FF61EA99D230090BBE7 /* AbbrevEntryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FF51EA99D230090BBE7 /* AbbrevEntryTest.swift */; };
 		45768FF81EA99E230090BBE7 /* AbbrevBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FF71EA99E230090BBE7 /* AbbrevBaseTest.swift */; };
-		45768FFA1EA9A3A90090BBE7 /* AbbrevSimpleFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FF91EA9A3A90090BBE7 /* AbbrevSimpleFormat.swift */; };
+		45768FFA1EA9A3A90090BBE7 /* AbbrevsTextEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FF91EA9A3A90090BBE7 /* AbbrevsTextEncoding.swift */; };
 		45768FFC1EA9A41F0090BBE7 /* AbbrevSimpleFormatTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FFB1EA9A41F0090BBE7 /* AbbrevSimpleFormatTest.swift */; };
 		457690061EA9C8470090BBE7 /* TransTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690051EA9C8470090BBE7 /* TransTextView.swift */; };
 		457690161EA9CD1C0090BBE7 /* AbbreviationsEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4576900D1EA9CD1C0090BBE7 /* AbbreviationsEditor.framework */; };
@@ -166,6 +168,8 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		4525340E1724A5BB00E6D805 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = TransTextDocument.xib; sourceTree = "<group>"; };
+		453012361EB56C8000AAB6A6 /* AbbrevsEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevsEncoding.swift; sourceTree = "<group>"; };
+		453012381EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevsPlatformEncoding.swift; sourceTree = "<group>"; };
 		455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbrevListDocument.xib; sourceTree = "<group>"; };
 		455BE3C01712467C00DCAF5F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
 		455BE3C21712467C00DCAF5F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -184,7 +188,7 @@
 		45768FF31EA99B5C0090BBE7 /* AbbrevResolverImplTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevResolverImplTest.swift; path = Tests/Abbreviations/AbbrevResolverImplTest.swift; sourceTree = "<group>"; };
 		45768FF51EA99D230090BBE7 /* AbbrevEntryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevEntryTest.swift; path = Tests/Abbreviations/AbbrevEntryTest.swift; sourceTree = "<group>"; };
 		45768FF71EA99E230090BBE7 /* AbbrevBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevBaseTest.swift; path = Tests/Abbreviations/AbbrevBaseTest.swift; sourceTree = "<group>"; };
-		45768FF91EA9A3A90090BBE7 /* AbbrevSimpleFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevSimpleFormat.swift; sourceTree = "<group>"; };
+		45768FF91EA9A3A90090BBE7 /* AbbrevsTextEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevsTextEncoding.swift; sourceTree = "<group>"; };
 		45768FFB1EA9A41F0090BBE7 /* AbbrevSimpleFormatTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevSimpleFormatTest.swift; path = Tests/Abbreviations/AbbrevSimpleFormatTest.swift; sourceTree = "<group>"; };
 		45768FFF1EA9B6A70090BBE7 /* StackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StackingView.swift; path = HelperViews/StackingView.swift; sourceTree = "<group>"; };
 		457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewSizeLimits.swift; path = HelperViews/ViewSizeLimits.swift; sourceTree = "<group>"; };
@@ -454,7 +458,9 @@
 				457BFB121EA6B12800E24526 /* AbbrevParser.swift */,
 				457BFB0B1EA69F3900E24526 /* AbbrevResolver.swift */,
 				457BFB0D1EA69F6C00E24526 /* AbbrevResolverImpl.swift */,
-				45768FF91EA9A3A90090BBE7 /* AbbrevSimpleFormat.swift */,
+				453012361EB56C8000AAB6A6 /* AbbrevsEncoding.swift */,
+				453012381EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift */,
+				45768FF91EA9A3A90090BBE7 /* AbbrevsTextEncoding.swift */,
 			);
 			path = Abbreviations;
 			sourceTree = "<group>";
@@ -911,10 +917,12 @@
 				45768FEE1EA98F430090BBE7 /* AbbrevParser.swift in Sources */,
 				45768FED1EA98F430090BBE7 /* AbbrevEntry.swift in Sources */,
 				45768FF01EA98F430090BBE7 /* AbbrevResolverImpl.swift in Sources */,
-				45768FFA1EA9A3A90090BBE7 /* AbbrevSimpleFormat.swift in Sources */,
+				45768FFA1EA9A3A90090BBE7 /* AbbrevsTextEncoding.swift in Sources */,
+				453012371EB56C8000AAB6A6 /* AbbrevsEncoding.swift in Sources */,
 				45768FEC1EA98F430090BBE7 /* AbbrevBase.swift in Sources */,
 				45768FF21EA98FA50090BBE7 /* AbbrevListProvider.swift in Sources */,
 				45768FEF1EA98F430090BBE7 /* AbbrevResolver.swift in Sources */,
+				453012391EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -87,7 +87,7 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
       case abbreviationColumn:
         return a.abbreviation
       case expansionColumn:
-        return AbbrevSimpleFormat.formatExpansion(a.expansion, a.variants)
+        return AbbrevsTextEncoding.formatExpansion(a.expansion, a.variants)
       default:
           return nil
       }
@@ -101,7 +101,7 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
       case abbreviationColumn:
         a.abbreviation = (object as? String) ?? ""
       case expansionColumn:
-        let (ex, vs) = AbbrevSimpleFormat.parseExpansionAndVariants((object as? String) ?? "")
+        let (ex, vs) = AbbrevsTextEncoding.parseExpansionAndVariants((object as? String) ?? "")
         a.expansion = ex
         a.variants = vs
       default:
@@ -172,7 +172,7 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
       
       if theAction == #selector(paste) {
         let pb = NSPasteboard.general()
-        return (pb.data(forType: AbbrevArrayController.pasteboardType()) != nil)
+        return AbbrevArrayController.pasteboardTypes().contains { t in pb.data(forType: t) != nil }
       }
     }
     return false

@@ -72,6 +72,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <binding destination="77" name="selectionIndexes" keyPath="selectionIndexes" id="Mu4-vv-9Mo"/>
                                     <outlet property="dataSource" destination="96" id="u1o-6l-GGX"/>
                                     <outlet property="delegate" destination="96" id="97"/>
                                 </connections>

@@ -33,6 +33,11 @@ public class AbbrevEntry: AbbrevBase {
     super.init(abbreviation: abbreviation, expansion: expansion)
   }
 
+  public init(abbreviation: String, expansion: String, variants: [AbbrevBase]?) {
+    super.init(abbreviation: abbreviation, expansion: expansion)
+    self.variants = variants
+  }
+  
   public var hasVariants: Bool {
     get {
       return (variants?.count ?? 0) > 0
