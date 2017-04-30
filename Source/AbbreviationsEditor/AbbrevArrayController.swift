@@ -22,26 +22,28 @@
 import Abbreviations
 import Foundation
 
-let AbbreviationsPasteboardType = "AbbreviationsPasteBoardType"
 let DefaultAbbrevsKey = "DefaultAbbrevations"
 
+let supportedEncodings: [AbbrevsEncoding] = [AbbrevsPlatformEncoding(), AbbrevsTextEncoding()]
 
 @objc(AbbrevArrayController)
 class AbbrevArrayController: NSArrayController {
   @IBOutlet private(set) var document: AbbrevListDocument!
   
-  class func pasteboardType() -> String {
-    return AbbreviationsPasteboardType
+  class func pasteboardTypes() -> [String] {
+    return supportedEncodings.map { e in e.pasteboardType() }
   }
   
   override func awakeFromNib() {
-    let data: Data? = UserDefaults.standard.data(forKey: DefaultAbbrevsKey)
-    if data != nil {
-      if let es = NSKeyedUnarchiver.unarchiveObject(with: data!) as? [Any] {
+    if let data = UserDefaults.standard.data(forKey: DefaultAbbrevsKey) {
+      do {
+        let es = try AbbrevsPlatformEncoding().readAbbrevsFromData(data)
         add(contentsOf: es)
+        self.setSelectionIndexes(IndexSet())
+        document.modified()
       }
-      self.setSelectionIndexes(IndexSet())
-      document.modified()
+      catch {
+      }
     }
   }
 
@@ -63,59 +65,32 @@ class AbbrevArrayController: NSArrayController {
   }
 
   @IBAction func copy(_ sender: Any) {
-    let selectedObjects: [Any] = self.selectedObjects
-    let count: Int = selectedObjects.count
-    if count == 0 {
+    let selectedEntries: [AbbrevEntry] = (self.selectedObjects as? [AbbrevEntry]) ?? []
+    if selectedEntries.count == 0 {
       return
     }
-    var copyObjectsArray = [Any]() /* capacity: count */
-    let textBuffer = NSMutableString(capacity: 2000)
-    if let sos = selectedObjects as? [AbbrevEntry] {
-      for a in sos {
-        copyObjectsArray.append(a)
-        if !a.isEmpty() {
-          textBuffer.append(a.abbreviation)
-          textBuffer.append("\t")
-          textBuffer.append(a.expansion)
-          textBuffer.append("\n")
-        }
+    
+    let pb = NSPasteboard.general()
+    pb.declareTypes(AbbrevArrayController.pasteboardTypes(), owner: self)
+    for e in supportedEncodings {
+      if let data = e.writeAbbrevsToData(selectedEntries) {
+        pb.setData(data, forType: e.pasteboardType())
       }
     }
- 
-    let pb = NSPasteboard.general()
-    pb.declareTypes([AbbreviationsPasteboardType, NSPasteboardTypeString], owner: self)
-    let copyData = NSKeyedArchiver.archivedData(withRootObject: copyObjectsArray)
-    pb.setData(copyData, forType: AbbreviationsPasteboardType)
-    pb.setString(textBuffer as String, forType: NSPasteboardTypeString)
   }
   
   @IBAction func paste(_ sender: Any) {
     let pb = NSPasteboard.general()
-    let data: Data? = pb.data(forType: AbbreviationsPasteboardType)
     var items: [Any] = [Any]()
-    if data != nil {
-      items = (NSKeyedUnarchiver.unarchiveObject(with: data!) as? [Any]) ?? ([Any]())
-    }
-    else {
-      if let s: String = pb.string(forType: NSPasteboardTypeString) {
-        let scan = Scanner(string: s)
-        var aa = [Any]()
-        while !scan.isAtEnd {
-          scan.scanCharacters(from: CharacterSet.whitespacesAndNewlines, into: nil)
-          var n: NSString?
-          if scan.scanUpToCharacters(from: CharacterSet.whitespacesAndNewlines, into: &n) {
-            var v: NSString?
-            if scan.scanUpToCharacters(from: CharacterSet.newlines, into: &v) {
-              let a: AbbrevEntry = newEntry()
-              a.abbreviation = (n ?? "") as String
-              let (ex, vs) = AbbrevSimpleFormat.parseExpansionAndVariants((v ?? "") as String)
-              a.expansion = ex
-              a.variants = vs
-              aa.append(a)
-            }
-          }
+    
+    for e in supportedEncodings {
+      if let data = pb.data(forType: e.pasteboardType()) {
+        do {
+          try items = e.readAbbrevsFromData(data)
         }
-        items = aa
+        catch {
+        }
+        break
       }
     }
     
@@ -144,7 +119,10 @@ class AbbrevArrayController: NSArrayController {
   
   func persist() {
     document.modified()
-    let data = NSKeyedArchiver.archivedData(withRootObject: arrangedObjects)
-    UserDefaults.standard.set(data, forKey: DefaultAbbrevsKey)
+    if let es = arrangedObjects as? [AbbrevEntry] {
+      if let data = AbbrevsPlatformEncoding().writeAbbrevsToData(es) {
+        UserDefaults.standard.set(data, forKey: DefaultAbbrevsKey)
+      }
+    }
   }
 }
