@@ -22,84 +22,107 @@
 import Abbreviations
 import XCTest
 
-class AbbrevSimpleFormatTest: XCTestCase {
-  
+class AbbrevsTextEncodingTest: XCTestCase {
+
   let sVariant = AbbrevBase(abbreviation: "s", expansion: "s")
   let sesVariant = AbbrevBase(abbreviation: "s", expansion: "es")
   let ingVariantDoubling = AbbrevBase(abbreviation: "g", expansion: ">ing")
-
+  
+  let encoding = AbbrevsTextEncoding()
+  
+  private func makeTestAbbrevs() -> [AbbrevEntry] {
+    return [AbbrevEntry(abbreviation: "c", expansion: "cat", variants: [sVariant]),
+      AbbrevEntry(abbreviation: "d", expansion: "dog")]
+  }
+  
+  func testPasteboardType() {
+    XCTAssertEqual("public.utf8-plain-text", encoding.pasteboardType())
+  }
+  
+  func testSerialization() {
+    let d = encoding.writeAbbrevsToData(makeTestAbbrevs())
+    let s = String(data: d!, encoding: String.Encoding.utf8)
+    XCTAssertEqual("c\tcat~s\nd\tdog\n", s)
+  }
+  
+  func testDeserialization() throws {
+    let d = "c\tcat~s\nd\tdog\n".data(using: String.Encoding.utf8)!
+    let abs = try encoding.readAbbrevsFromData(d)
+    XCTAssertEqual(makeTestAbbrevs(), abs)
+  }
+  
   func testFormatExpansionNoVariants() {
-    XCTAssertEqual("dog", AbbrevSimpleFormat.formatExpansion("dog", nil))
+    XCTAssertEqual("dog", AbbrevsTextEncoding.formatExpansion("dog", nil))
   }
 
   func testFormatExpansionEmptyVariants() {
-    XCTAssertEqual("dog", AbbrevSimpleFormat.formatExpansion("dog", []))
+    XCTAssertEqual("dog", AbbrevsTextEncoding.formatExpansion("dog", []))
   }
 
   func testFormatExpansionMinimalVariant() {
-    XCTAssertEqual("dog~s", AbbrevSimpleFormat.formatExpansion("dog", [sVariant]))
+    XCTAssertEqual("dog~s", AbbrevsTextEncoding.formatExpansion("dog", [sVariant]))
   }
   
   func testFormatExpansionBasicVariant() {
-    XCTAssertEqual("dog~s=es", AbbrevSimpleFormat.formatExpansion("dog", [sesVariant]))
+    XCTAssertEqual("dog~s=es", AbbrevsTextEncoding.formatExpansion("dog", [sesVariant]))
   }
   
   func testFormatExpansionMultiVariants() {
-    XCTAssertEqual("dog~s=es g=>ing", AbbrevSimpleFormat.formatExpansion("dog", [sesVariant, ingVariantDoubling]))
+    XCTAssertEqual("dog~s=es g=>ing", AbbrevsTextEncoding.formatExpansion("dog", [sesVariant, ingVariantDoubling]))
   }
 
   func testParseExpansionNoVariantsReturnsExpansion() {
-    let (ex, _) = AbbrevSimpleFormat.parseExpansionAndVariants("dog")
+    let (ex, _) = AbbrevsTextEncoding.parseExpansionAndVariants("dog")
     XCTAssertEqual("dog", ex)
   }
 
   func testParseExpansionNoVariantsReturnsNoVariants() {
-    let (_, vs) = AbbrevSimpleFormat.parseExpansionAndVariants("dog")
+    let (_, vs) = AbbrevsTextEncoding.parseExpansionAndVariants("dog")
     XCTAssertNil(vs)
   }
   
   func testParseExpansionWithMinimalVariantReturnsExpansion() {
-    let (ex, _) = AbbrevSimpleFormat.parseExpansionAndVariants("dog~s")
+    let (ex, _) = AbbrevsTextEncoding.parseExpansionAndVariants("dog~s")
     XCTAssertEqual("dog", ex)
   }
   
   func testParseExpansionWithMinimalVariantReturnsVariantWithAbbreviation() {
-    let (_, vs) = AbbrevSimpleFormat.parseExpansionAndVariants("dog~s")
+    let (_, vs) = AbbrevsTextEncoding.parseExpansionAndVariants("dog~s")
     XCTAssertEqual("s", vs![0].abbreviation)
   }
 
   func testParseExpansionWithMinimalVariantReturnsVariantWithExpansion() {
-    let (_, vs) = AbbrevSimpleFormat.parseExpansionAndVariants("dog~s")
+    let (_, vs) = AbbrevsTextEncoding.parseExpansionAndVariants("dog~s")
     XCTAssertEqual("s", vs![0].expansion)
   }
   
   func testParseExpansionWithBasicVariantReturnsExpansion() {
-    let (ex, _) = AbbrevSimpleFormat.parseExpansionAndVariants("dog~s=es")
+    let (ex, _) = AbbrevsTextEncoding.parseExpansionAndVariants("dog~s=es")
     XCTAssertEqual("dog", ex)
   }
   
   func testParseExpansionWithBasicVariantReturnsVariantWithAbbreviation() {
-    let (_, vs) = AbbrevSimpleFormat.parseExpansionAndVariants("dog~s=es")
+    let (_, vs) = AbbrevsTextEncoding.parseExpansionAndVariants("dog~s=es")
     XCTAssertEqual("s", vs![0].abbreviation)
   }
   
   func testParseExpansionWithBasicVariantReturnsVariantWithExpansion() {
-    let (_, vs) = AbbrevSimpleFormat.parseExpansionAndVariants("dog~s=es")
+    let (_, vs) = AbbrevsTextEncoding.parseExpansionAndVariants("dog~s=es")
     XCTAssertEqual("es", vs![0].expansion)
   }
   
   func testParseExpansionWithTwoVariantsReturnsExpansion() {
-    let (ex, _) = AbbrevSimpleFormat.parseExpansionAndVariants("dog~s=es g=ing")
+    let (ex, _) = AbbrevsTextEncoding.parseExpansionAndVariants("dog~s=es g=ing")
     XCTAssertEqual("dog", ex)
   }
   
   func testParseExpansionWithTwoVariantsReturnsVariantWithAbbreviation() {
-    let (_, vs) = AbbrevSimpleFormat.parseExpansionAndVariants("dog~s=es g=ing")
+    let (_, vs) = AbbrevsTextEncoding.parseExpansionAndVariants("dog~s=es g=ing")
     XCTAssertEqual("g", vs![1].abbreviation)
   }
   
   func testParseExpansionWithTwoVariantsReturnsVariantWithExpansion() {
-    let (_, vs) = AbbrevSimpleFormat.parseExpansionAndVariants("dog~s=es g=ing")
+    let (_, vs) = AbbrevsTextEncoding.parseExpansionAndVariants("dog~s=es g=ing")
     XCTAssertEqual("ing", vs![1].expansion)
   }
 }
