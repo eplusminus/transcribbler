@@ -39,6 +39,11 @@ public class AbbrevBase: NSObject, NSCoding {
     return (abbreviation == "") && (expansion == "")
   }
 
+  override public func isEqual(_ object: Any?) -> Bool {
+    guard let other = object as? AbbrevBase else { return false }
+    return self.abbreviation == other.abbreviation && self.expansion == other.expansion
+  }
+  
   //
   //	NSCoding methods
   //

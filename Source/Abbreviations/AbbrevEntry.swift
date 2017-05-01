@@ -38,6 +38,11 @@ public class AbbrevEntry: AbbrevBase {
     self.variants = variants
   }
   
+  override public func isEqual(_ object: Any?) -> Bool {
+    guard let other = object as? AbbrevEntry else { return false }
+    return super.isEqual(object) && ((self.variants ?? []) == (other.variants ?? []))
+  }
+
   public var hasVariants: Bool {
     get {
       return (variants?.count ?? 0) > 0

@@ -37,14 +37,21 @@ class SimpleAbbrevListProvider: AbbrevListProvider {
 class AbbrevResolverImplTest: XCTestCase {
 
   var resolver = AbbrevResolverImpl()
-  //var simpleEntry: AbbrevEntry = AbbrevEntry(abbreviation = "dog", expansion = "cat")
+  var simpleEntry = AbbrevEntry(abbreviation: "dog", expansion: "cat")
+  var suffixEntry = AbbrevEntry(abbreviation: "d", expansion: "dog",
+                                variants: [AbbrevBase(abbreviation: "s", expansion: "es")])
   
   func testResolverWithNoProvidersFindsNothing() {
     XCTAssertNil(resolver.getExpansion("dog"))
   }
   
   func testResolverFindsAbbreviationFromSimpleEntry() {
-    //resolver.addProvider(SimpleAbbrevListProvider([simpleEntry]))
-    //XCTAssertEquals("cat", resolver.getExpansion("dog"))
+    resolver.addProvider(SimpleAbbrevListProvider([simpleEntry]))
+    XCTAssertEqual("cat", resolver.getExpansion("dog"))
+  }
+  
+  func testResolverFindsAbbreviationFromEntryWithSuffix() {
+    resolver.addProvider(SimpleAbbrevListProvider([suffixEntry]))
+    XCTAssertEqual("doges", resolver.getExpansion("ds"))
   }
 }
