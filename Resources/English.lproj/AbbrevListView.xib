@@ -7,9 +7,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AbbrevsController">
             <connections>
+                <outlet property="listView" destination="1" id="PnM-mS-xJN"/>
                 <outlet property="tableView" destination="9" id="102"/>
                 <outlet property="tableViewDelegate" destination="96" id="DLZ-p6-gFh"/>
-                <outlet property="view" destination="1" id="89"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
