@@ -24,11 +24,12 @@ import Foundation
 import HelperViews
 
 let AbbrevListDocumentModified = "AbbrevListDocumentModified"
+let DefaultAbbrevsKey = "DefaultAbbrevations"
 
 public class AbbrevListDocument: NSDocument, AbbrevListProvider {
   private static var _default: AbbrevListDocument? = nil
   
-  @IBOutlet private(set) var controller: AbbrevArrayController!
+  @IBOutlet private(set) var controller: NSArrayController!
   public var abbrevResolver: AbbrevResolverImpl?
   
   private var dirty: Bool = false
@@ -38,7 +39,7 @@ public class AbbrevListDocument: NSDocument, AbbrevListProvider {
       if let d = _default {
         return d
       }
-      let ac = AbbrevArrayController()
+      let ac = NSArrayController()
       if let data = UserDefaults.standard.data(forKey: DefaultAbbrevsKey) {
         do {
           let es = try AbbrevsPlatformEncoding().readAbbrevsFromData(data)
@@ -56,7 +57,7 @@ public class AbbrevListDocument: NSDocument, AbbrevListProvider {
     }
   }
 
-  private init(controller: AbbrevArrayController, resolver: AbbrevResolverImpl) {
+  private init(controller: NSArrayController, resolver: AbbrevResolverImpl) {
     super.init()
     self.controller = controller
     self.abbrevResolver = resolver

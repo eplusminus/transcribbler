@@ -28,7 +28,7 @@ let pasteboardTypes: [String] = supportedEncodings.map { e in e.pasteboardType()
 
 @objc(AbbrevTableViewDelegate)
 public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTableViewDelegate, HandyTableViewDelegate {
-  @IBOutlet var table: AbbrevArrayController?
+  @IBOutlet var table: NSArrayController?
   @IBOutlet private(set) var view: NSTableView!
   @IBOutlet private(set) var statusColumn: NSTableColumn!
   @IBOutlet private(set) var abbreviationColumn: NSTableColumn!
