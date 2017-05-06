@@ -26,7 +26,7 @@ import HelperViews
 @objc(AbbrevsController)
 public class AbbrevsController: NSViewController {
   @IBOutlet private(set) var drawer: NSDrawer?
-  @IBOutlet private(set) var stackingView: NSView? = nil
+  @IBOutlet private(set) var stackingView: NSStackView? = nil
   @IBOutlet var textView: NSView? {
     get {
       return _textView
@@ -65,7 +65,7 @@ public class AbbrevsController: NSViewController {
     let alc = AbbrevListController()
     let alcv = alc.view
     alc.document = document
-    stackingView?.addSubview(alcv)
+    stackingView?.addView(alcv, in: .bottom)
     NotificationCenter.default.addObserver(self, selector: #selector(abbrevListClosed(_:)), name: AbbrevListController.ClosedNotification, object: alc)
     listControllers.append(alc)
   }

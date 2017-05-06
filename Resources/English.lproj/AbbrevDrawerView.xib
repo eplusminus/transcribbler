@@ -3,11 +3,12 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AbbrevsController">
             <connections>
-                <outlet property="stackingView" destination="NNA-Xt-69A" id="EIX-z4-j2I"/>
+                <outlet property="stackingView" destination="dvc-n6-FqL" id="d8b-dQ-em0"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
         </customObject>
@@ -17,15 +18,10 @@
             <rect key="frame" x="0.0" y="0.0" width="252" height="309"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <customView misplaced="YES" id="NNA-Xt-69A" customClass="StackingView">
-                    <rect key="frame" x="6" y="3" width="243" height="303"/>
+                <stackView distribution="fillEqually" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" detachesHiddenViews="YES" id="dvc-n6-FqL">
+                    <rect key="frame" x="6" y="5" width="241" height="299"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="margin">
-                            <real key="value" value="4"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </customView>
+                </stackView>
             </subviews>
             <point key="canvasLocation" x="122" y="153.5"/>
         </customView>
