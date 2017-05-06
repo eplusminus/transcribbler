@@ -30,7 +30,6 @@ public class AbbrevListController: NSViewController {
   @IBOutlet private(set) var tableView: HandyTableView!
   @IBOutlet private(set) var tableViewDelegate: AbbrevTableViewDelegate!
   @IBOutlet private(set) var disclosureView: DisclosureView!
-  @IBOutlet private(set) var actionButton: NSButton!
   
   public private(set) var document: AbbrevListDocument
   public var displayName: String {
@@ -49,11 +48,6 @@ public class AbbrevListController: NSViewController {
   }
   
   override public func awakeFromNib() {
-    actionButton.removeFromSuperview()
-    disclosureView.addSubview(actionButton)
-    actionButton.frame.origin = NSMakePoint(disclosureView.frame.size.width - actionButton.frame.size.width,
-      disclosureView.frame.size.height - actionButton.frame.size.height)
-    
     tableViewDelegate.table = document.controller
     tableViewDelegate.resolver = document.abbrevResolver
     tableView?.reloadData()
