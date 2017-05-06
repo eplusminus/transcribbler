@@ -26,8 +26,4 @@ let DefaultAbbrevsKey = "DefaultAbbrevations"
 
 @objc(AbbrevArrayController)
 class AbbrevArrayController: NSArrayController {
-  public func newEntry() -> AbbrevEntry {
-    let e = AbbrevEntry()
-    return e
-  }
 }

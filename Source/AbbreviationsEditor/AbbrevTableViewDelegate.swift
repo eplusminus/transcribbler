@@ -64,8 +64,9 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
   @IBAction public func add(_ sender: AnyObject?) {
     var row = view.selectedRow
     let col = view.column(withIdentifier: abbreviationColumn.identifier)
+    let max = view.numberOfRows
     if row < 0 {
-      row = view.numberOfRows
+      row = max
     }
     else {
       let e = entryAtIndex(row)
@@ -78,14 +79,22 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
     view.validateEditing()
     view.abortEditing()
     table?.insert(AbbrevEntry(), atArrangedObjectIndex: row)
+    view.beginUpdates()
+    view.insertRows(at: IndexSet(integer: row), withAnimation: [])
+    view.endUpdates()
     view.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
+    view.scrollRowToVisible(row)
     view.editColumn(col, row: row, with: nil, select: false)
   }
   
   @IBAction public func delete(_ sender: AnyObject) {
     if !view.selectedRowIndexes.isEmpty {
+      let rows = view.selectedRowIndexes
       view.abortEditing()
-      table?.remove(atArrangedObjectIndexes: view.selectedRowIndexes)
+      table?.remove(atArrangedObjectIndexes: rows)
+      view.beginUpdates()
+      view.removeRows(at: rows, withAnimation: [])
+      view.endUpdates()
       view.deselectAll(nil)
     }
   }
