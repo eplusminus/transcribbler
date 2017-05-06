@@ -140,21 +140,20 @@ public class DisclosureView: NSView, ViewSizeLimits {
     if title == nil {
       title = toolTip
     }
-
-    if !fixedHeight {
-      _preferredHeight -= titleHeight
-    }
     
-    let cvf = makeContentViewFrame()
-    let cv = NSView(frame: cvf)
+    let cv = NSView(frame: self.frame)
     contentView = cv
-    cv.autoresizesSubviews = true
     for v in subviews {
       v.removeFromSuperview()
       cv.addSubview(v)
     }
+    cv.autoresizesSubviews = true
     cv.autoresizingMask = [NSAutoresizingMaskOptions.viewWidthSizable,
       NSAutoresizingMaskOptions.viewHeightSizable]
+    if !fixedHeight {
+      _preferredHeight -= titleHeight
+    }
+    cv.frame = makeContentViewFrame()
     
     super.autoresizesSubviews = true
     setFrameSize(NSMakeSize(preferredWidth, preferredHeight + titleHeight))
