@@ -42,6 +42,12 @@ public class TransTextDocument: NSDocument {
   var loadedText: NSAttributedString?
   var loadedDocAttributes: NSDictionary?
   
+  public static var preferredFileType: String {
+    get {
+      return "net.errorbar.transcribbler.rtf"
+    }
+  }
+  
   public override init() {
     abbrevListDocument = AbbrevListDocument.default
     abbrevResolver = abbrevListDocument.abbrevResolver!
@@ -64,19 +70,28 @@ public class TransTextDocument: NSDocument {
     useLoadedText()
   }
   
-  override public func read(from file: FileWrapper, ofType typeName: String) throws {
-    if let rtf = file.regularFileContents {
-      loadedText = NSAttributedString(rtf: rtf, documentAttributes: &loadedDocAttributes)
-//      if loadedText != nil {
-//        useLoadedText()
-//      }
+  override public func read(from data: Data, ofType typeName: String) throws {
+    if typeName == "public.plain-text" {
+      if let s = String(data: data, encoding: .utf8) {
+        loadedText = NSAttributedString(string: s)
+      }
+    }
+    else {
+      if let rtf = NSAttributedString(rtf: data, documentAttributes: &loadedDocAttributes) {
+        loadedText = rtf
+      }
     }
   }
   
-  override public func fileWrapper(ofType typeName: String) throws -> FileWrapper {
-    let attrs = makeDocAttributes()
-    let data = textStorage!.rtf(from: NSMakeRange(0, textStorage!.string.characters.count), documentAttributes: attrs)
-    return FileWrapper(regularFileWithContents: data!)
+  override public func data(ofType typeName: String) throws -> Data {
+    if typeName == "public.plain-text" {
+      return textStorage!.string.data(using: .utf8)!
+    }
+    else {
+      let attrs = makeDocAttributes()
+      let data = textStorage!.rtf(from: NSMakeRange(0, textStorage!.string.characters.count), documentAttributes: attrs)
+      return data!
+    }
   }
 
   //
@@ -131,7 +146,7 @@ public class TransTextDocument: NSDocument {
   }
   
   private func makeDocAttributes() -> [String: String] {
-    var attrs: [String: String] = [NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType]
+    var attrs: [String: String] = [NSDocumentTypeDocumentAttribute: TransTextDocument.preferredFileType]
     var commentParams: [String: String] = [:]
     let mc = windowController.mediaController
     

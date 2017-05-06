@@ -11,11 +11,12 @@
 		453012371EB56C8000AAB6A6 /* AbbrevsEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453012361EB56C8000AAB6A6 /* AbbrevsEncoding.swift */; };
 		453012391EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453012381EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift */; };
 		4530123B1EB7A40E00AAB6A6 /* AbbrevsPlatformEncodingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4530123A1EB7A40E00AAB6A6 /* AbbrevsPlatformEncodingTest.swift */; };
-		455BE3DB1712467C00DCAF5F /* AbbrevListDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */; };
 		455BE3DD1712467C00DCAF5F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BF1712467C00DCAF5F /* Credits.rtf */; };
 		455BE3DE1712467C00DCAF5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3C11712467C00DCAF5F /* InfoPlist.strings */; };
 		455BE40817124D5400DCAF5F /* Menus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455BE40617124D5400DCAF5F /* Menus.xib */; };
 		457121A81EBD7D14006308C2 /* AbbrevListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457121A71EBD7D14006308C2 /* AbbrevListController.swift */; };
+		457121AA1EBE425E006308C2 /* TransDocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457121A91EBE425E006308C2 /* TransDocumentController.swift */; };
+		457121AC1EBE7773006308C2 /* table.icns in Resources */ = {isa = PBXBuildFile; fileRef = 457121AB1EBE7773006308C2 /* table.icns */; };
 		45768FA81EA982660090BBE7 /* TranscribblerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FA71EA982660090BBE7 /* TranscribblerTests.swift */; };
 		45768FD21EA98DF40090BBE7 /* Abbreviations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45768FC91EA98DF40090BBE7 /* Abbreviations.framework */; };
 		45768FDB1EA98DF40090BBE7 /* Abbreviations.h in Headers */ = {isa = PBXBuildFile; fileRef = 45768FCB1EA98DF40090BBE7 /* Abbreviations.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -170,12 +171,13 @@
 		453012361EB56C8000AAB6A6 /* AbbrevsEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevsEncoding.swift; sourceTree = "<group>"; };
 		453012381EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevsPlatformEncoding.swift; sourceTree = "<group>"; };
 		4530123A1EB7A40E00AAB6A6 /* AbbrevsPlatformEncodingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevsPlatformEncodingTest.swift; path = Tests/Abbreviations/AbbrevsPlatformEncodingTest.swift; sourceTree = "<group>"; };
-		455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbrevListDocument.xib; sourceTree = "<group>"; };
 		455BE3C01712467C00DCAF5F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
 		455BE3C21712467C00DCAF5F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		455BE3C71712467C00DCAF5F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		455BE40717124D5400DCAF5F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Menus.xib; sourceTree = "<group>"; };
 		457121A71EBD7D14006308C2 /* AbbrevListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevListController.swift; path = AbbreviationsEditor/AbbrevListController.swift; sourceTree = "<group>"; };
+		457121A91EBE425E006308C2 /* TransDocumentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransDocumentController.swift; sourceTree = "<group>"; };
+		457121AB1EBE7773006308C2 /* table.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = table.icns; sourceTree = "<group>"; };
 		45768FA51EA982660090BBE7 /* TranscribblerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TranscribblerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		45768FA71EA982660090BBE7 /* TranscribblerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscribblerTests.swift; sourceTree = "<group>"; };
 		45768FA91EA982660090BBE7 /* TranscribblerTests */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TranscribblerTests; path = ../TranscribblerTests; sourceTree = "<group>"; };
@@ -413,9 +415,9 @@
 		455BE3A51712461E00DCAF5F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				457121AB1EBE7773006308C2 /* table.icns */,
 				45FFE0171EB539120055271E /* ErrorFlag.tiff */,
 				45FFE0181EB539120055271E /* SuffixFlag.tiff */,
-				455BE3BC1712467C00DCAF5F /* AbbrevListDocument.xib */,
 				455BE3BE1712467C00DCAF5F /* English.lproj */,
 				455BE3C71712467C00DCAF5F /* Info.plist */,
 			);
@@ -571,6 +573,7 @@
 			isa = PBXGroup;
 			children = (
 				45F521B91EB4221E00BF77B1 /* MediaController.swift */,
+				457121A91EBE425E006308C2 /* TransDocumentController.swift */,
 				45FFE00F1EB501260055271E /* TransTextWindowController.swift */,
 			);
 			path = Controllers;
@@ -880,7 +883,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				455BE3DB1712467C00DCAF5F /* AbbrevListDocument.xib in Resources */,
 				45FFE01A1EB539120055271E /* SuffixFlag.tiff in Resources */,
 				455BE3DD1712467C00DCAF5F /* Credits.rtf in Resources */,
 				455BE3DE1712467C00DCAF5F /* InfoPlist.strings in Resources */,
@@ -891,6 +893,7 @@
 				45E95DC9171B4DBD008FEEE4 /* LICENSE in Resources */,
 				4591D48F1723482100BC713B /* MediaDrawerView.xib in Resources */,
 				4591D49E17246EB100BC713B /* AbbrevDrawerView.xib in Resources */,
+				457121AC1EBE7773006308C2 /* table.icns in Resources */,
 				4525340F1724A5BB00E6D805 /* TransTextDocument.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -979,6 +982,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45F521C01EB45B6000BF77B1 /* TransTextDocument.swift in Sources */,
+				457121AA1EBE425E006308C2 /* TransDocumentController.swift in Sources */,
 				45FFE0101EB501260055271E /* TransTextWindowController.swift in Sources */,
 				457690061EA9C8470090BBE7 /* TransTextView.swift in Sources */,
 				458665621EB468C2002616F0 /* AppDelegate.swift in Sources */,
@@ -1739,7 +1743,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -1769,7 +1773,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};

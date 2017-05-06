@@ -27,33 +27,25 @@ import HelperViews
 public class AbbrevListController: NSViewController {
   static let ClosedNotification = NSNotification.Name("AbbrevListClosed")
   
-  @IBOutlet private(set) var tableView: HandyTableView? = nil
-  @IBOutlet private(set) var tableViewDelegate: AbbrevTableViewDelegate? = nil
+  @IBOutlet private(set) var tableView: HandyTableView!
+  @IBOutlet private(set) var tableViewDelegate: AbbrevTableViewDelegate!
   @IBOutlet private(set) var disclosureView: DisclosureView!
   @IBOutlet private(set) var actionButton: NSButton!
   
-  private var _document: AbbrevListDocument? = nil
-  public var document: AbbrevListDocument? {
+  public private(set) var document: AbbrevListDocument
+  public var displayName: String {
     get {
-      return _document
-    }
-    set(newDoc) {
-      self._document = newDoc
-      if let d = newDoc {
-        disclosureView.title = NSLocalizedString(d.isDefaultList ? "MainAbbrevList" : "NewAbbrevList", comment: "")
-        tableViewDelegate?.table = d.controller
-        tableViewDelegate?.resolver = d.abbrevResolver
-        tableView?.reloadData()
-      }
+      return document.displayName
     }
   }
   
-  public init() {
+  public init(_ document: AbbrevListDocument) {
+    self.document = document
     super.init(nibName: "AbbrevListView", bundle: Bundle.main)!
   }
   
   required public init?(coder aDecoder: NSCoder) {
-    super.init(nibName: "AbbrevListView", bundle: Bundle.main)!
+    return nil
   }
   
   override public func awakeFromNib() {
@@ -61,19 +53,23 @@ public class AbbrevListController: NSViewController {
     disclosureView.addSubview(actionButton)
     actionButton.frame.origin = NSMakePoint(disclosureView.frame.size.width - actionButton.frame.size.width,
       disclosureView.frame.size.height - actionButton.frame.size.height)
+    
+    tableViewDelegate.table = document.controller
+    tableViewDelegate.resolver = document.abbrevResolver
+    tableView?.reloadData()
+
+    disclosureView.bind("title", to: document, withKeyPath: "displayName", options: nil)
   }
   
   @IBAction public func closeAbbreviationList(_ sender: AnyObject?) {
-    if let d = document {
-      if !d.isDefaultList {
-        d.abbrevResolver?.removeProvider(d)
-        NotificationCenter.default.post(name: AbbrevListController.ClosedNotification, object: self)
-      }
+    if !document.isDefaultList {
+      document.abbrevResolver?.removeProvider(document)
+      NotificationCenter.default.post(name: AbbrevListController.ClosedNotification, object: self)
     }
   }
   
   @IBAction public func saveAbbreviationListAs(_ sender: AnyObject?) {
-    
+    document.runModalSavePanel(for: .saveAsOperation, delegate: nil, didSave: nil, contextInfo: nil)
   }
   
   //
@@ -85,7 +81,7 @@ public class AbbrevListController: NSViewController {
       switch a {
       case #selector(closeAbbreviationList),
            #selector(saveAbbreviationListAs):
-        return !(document?.isDefaultList ?? true)
+        return !document.isDefaultList
       default:
         return false
       }

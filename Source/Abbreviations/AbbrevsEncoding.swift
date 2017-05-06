@@ -24,5 +24,5 @@ import Foundation
 public protocol AbbrevsEncoding {
   func pasteboardType() -> String
   func readAbbrevsFromData(_ data: Data) throws -> [AbbrevEntry]
-  func writeAbbrevsToData(_ abbrevs: [AbbrevEntry]) -> Data?
+  func writeAbbrevsToData(_ abbrevs: [AbbrevEntry]) -> Data
 }

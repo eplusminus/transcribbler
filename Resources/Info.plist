@@ -14,17 +14,77 @@
 			<key>CFBundleTypeIconFile</key>
 			<string></string>
 			<key>CFBundleTypeName</key>
-			<string>RICH TEXT</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>RTF</string>
-			</array>
+			<string>Transcript Rich Text File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>net.errorbar.transcribbler.rtf</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 			<key>NSDocumentClass</key>
 			<string>TransTextDocument</string>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>tsabbrevs</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>table</string>
+			<key>CFBundleTypeName</key>
+			<string>Abbreviations Table</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>net.errorbar.transcribbler.table</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
+			<key>NSDocumentClass</key>
+			<string>AbbrevListDocument</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>rtf</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Rich Text File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.rtf</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
+			<key>NSDocumentClass</key>
+			<string>TransTextDocument</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>txt</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Text File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.plain-text</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
+			<key>NSDocumentClass</key>
+			<string>TransTextDocument</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -47,5 +107,48 @@
 	<string>Menus</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Abbreviations Table</string>
+			<key>UTTypeIconFile</key>
+			<string>table</string>
+			<key>UTTypeIdentifier</key>
+			<string>net.errorbar.transcribbler.table</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.nspboard-type</key>
+				<array>
+					<string>net.errorbar.transcribbler.table</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>tsabbrevs</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.rtf</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Transcript Rich Text File</string>
+			<key>UTTypeIdentifier</key>
+			<string>net.errorbar.transcribbler.rtf</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>rtf</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

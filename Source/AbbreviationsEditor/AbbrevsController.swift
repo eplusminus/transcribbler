@@ -62,9 +62,11 @@ public class AbbrevsController: NSViewController {
   }
   
   public func addAbbrevListDocument(_ document: AbbrevListDocument) {
-    let alc = AbbrevListController()
+    if (!document.isDefaultList) {
+      AbbrevListDocument.default.abbrevResolver?.addProvider(document)
+    }
+    let alc = AbbrevListController(document)
     let alcv = alc.view
-    alc.document = document
     stackingView?.addView(alcv, in: .bottom)
     NotificationCenter.default.addObserver(self, selector: #selector(abbrevListClosed(_:)), name: AbbrevListController.ClosedNotification, object: alc)
     listControllers.append(alc)
@@ -90,7 +92,24 @@ public class AbbrevsController: NSViewController {
   }
   
   @IBAction public func openAbbreviationList(_ sender: Any?) {
-    
+    let panel = NSOpenPanel()
+    panel.canChooseFiles = true
+    panel.canChooseDirectories = false
+    panel.allowsMultipleSelection = true
+    panel.allowedFileTypes = [AbbrevListDocument.preferredFileType]
+    panel.begin { (result) in
+      if result == NSFileHandlingPanelOKButton {
+        for url in panel.urls {
+          let doc = AbbrevListDocument()
+          do {
+            try doc.read(from: url, ofType: AbbrevListDocument.preferredFileType)
+            self.addAbbrevListDocument(doc)
+          }
+          catch {
+          }
+        }
+      }
+    }
   }
   
   public func lendViewsTo(stackingView: StackingView) {

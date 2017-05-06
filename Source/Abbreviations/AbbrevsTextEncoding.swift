@@ -49,7 +49,7 @@ public class AbbrevsTextEncoding: AbbrevsEncoding {
     return aa
   }
   
-  public func writeAbbrevsToData(_ abbrevs: [AbbrevEntry]) -> Data? {
+  public func writeAbbrevsToData(_ abbrevs: [AbbrevEntry]) -> Data {
     let textBuffer = NSMutableString(capacity: 2000)
     for a in abbrevs {
       if !a.isEmpty() {
@@ -59,7 +59,7 @@ public class AbbrevsTextEncoding: AbbrevsEncoding {
         textBuffer.append("\n")
       }
     }
-    return textBuffer.data(using: String.Encoding.utf8.rawValue)
+    return textBuffer.data(using: String.Encoding.utf8.rawValue)!
   }
   
   public class func formatExpansion(_ expansion: String, _ variants: [AbbrevBase]?) -> String {

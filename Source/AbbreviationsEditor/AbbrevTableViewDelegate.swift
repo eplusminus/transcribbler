@@ -146,9 +146,8 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
     let pb = NSPasteboard.general()
     pb.declareTypes(pasteboardTypes, owner: self)
     for e in supportedEncodings {
-      if let data = e.writeAbbrevsToData(selectedEntries) {
-        pb.setData(data, forType: e.pasteboardType())
-      }
+      let data = e.writeAbbrevsToData(selectedEntries)
+      pb.setData(data, forType: e.pasteboardType())
     }
   }
   
