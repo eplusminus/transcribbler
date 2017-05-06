@@ -36,7 +36,6 @@ public class TransTextDocument: NSDocument {
   var windowController: TransTextWindowController!
   
   var textStorage: NSTextStorage?
-  var abbrevListDocument: AbbrevListDocument
   var abbrevResolver: AbbrevResolverImpl
   
   var loadedText: NSAttributedString?
@@ -49,8 +48,7 @@ public class TransTextDocument: NSDocument {
   }
   
   public override init() {
-    abbrevListDocument = AbbrevListDocument.default
-    abbrevResolver = abbrevListDocument.abbrevResolver!
+    abbrevResolver = AbbrevListDocument.default.abbrevResolver!
   }
 
   override public func makeWindowControllers() {
@@ -64,7 +62,6 @@ public class TransTextDocument: NSDocument {
     
     textStorage = windowController.textView.textStorage
     
-    windowController.abbrevsController.addAbbrevListDocument(abbrevListDocument)
     windowController.textView.abbrevResolver = abbrevResolver
     
     useLoadedText()

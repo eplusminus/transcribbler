@@ -58,7 +58,7 @@ public class TransDocumentController: NSDocumentController {
   override public func addDocument(_ document: NSDocument) {
     if let ald = document as? AbbrevListDocument {
       if let wc = NSApp.mainWindow?.windowController as? TransTextWindowController {
-        wc.abbrevsController.addAbbrevListDocument(ald)
+        let _ = wc.abbrevsController.addAbbrevListDocument(ald)
         wc.isAbbrevDrawerOpen = true
       }
       return

@@ -59,9 +59,13 @@ public class AbbrevsController: NSViewController {
         d.contentView = view
       }
     }
+    let _ = addAbbrevListDocument(AbbrevListDocument.default)
   }
   
   public func addAbbrevListDocument(_ document: AbbrevListDocument) -> AbbrevListController {
+    if let alc = listControllers.first(where: { alc in alc.document === document }) {
+      return alc
+    }
     if (!document.isDefaultList) {
       AbbrevListDocument.default.abbrevResolver?.addProvider(document)
     }
