@@ -123,7 +123,6 @@ public class AbbrevListDocument: NSDocument, AbbrevListProvider {
   private func persist() {
     if let data = AbbrevsPlatformEncoding().writeAbbrevsToData(getAbbreviations()) {
       UserDefaults.standard.set(data, forKey: DefaultAbbrevsKey)
-      NSLog("persisted")
     }
   }
 }
