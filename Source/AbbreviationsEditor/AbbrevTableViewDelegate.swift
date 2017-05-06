@@ -51,8 +51,8 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
   }
   
   override public func awakeFromNib() {
-//    self.nextResponder = view.nextResponder
-//    view.nextResponder = self
+    self.nextResponder = view.nextResponder
+    view.nextResponder = self
     errorImage = NSImage(named: "ErrorFlag")
     suffixImage = NSImage(named: "SuffixFlag")
   }
