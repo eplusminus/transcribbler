@@ -63,7 +63,7 @@ public class AbbrevListController: NSViewController {
       disclosureView.frame.size.height - actionButton.frame.size.height)
   }
   
-  @IBAction public func closeAbbreviationList(_ sender: Any) {
+  @IBAction public func closeAbbreviationList(_ sender: AnyObject?) {
     if let d = document {
       if !d.isDefaultList {
         d.abbrevResolver?.removeProvider(d)
@@ -72,7 +72,7 @@ public class AbbrevListController: NSViewController {
     }
   }
   
-  @IBAction public func saveAbbreviationListAs(_ sender: Any) {
+  @IBAction public func saveAbbreviationListAs(_ sender: AnyObject?) {
     
   }
   

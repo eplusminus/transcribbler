@@ -118,13 +118,13 @@
                                         <menuItem isSeparatorItem="YES" id="EE2-o8-XWK"/>
                                         <menuItem title="Close this abbrevation list" id="5K7-q7-Heb">
                                             <connections>
-                                                <action selector="closeAbbreviationList:" target="-1" id="DCY-f8-b6G"/>
+                                                <action selector="closeAbbreviationList:" target="-2" id="96G-V2-ggi"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Les-PS-Sjp"/>
                                         <menuItem title="Save abbreviation list as..." id="Inh-GS-thw">
                                             <connections>
-                                                <action selector="saveAbbreviationListAs:" target="-1" id="8UL-P8-3rD"/>
+                                                <action selector="saveAbbreviationListAs:" target="-2" id="Jxx-cV-OtP"/>
                                             </connections>
                                         </menuItem>
                                     </items>
