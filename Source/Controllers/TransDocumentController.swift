@@ -59,6 +59,7 @@ public class TransDocumentController: NSDocumentController {
     if let ald = document as? AbbrevListDocument {
       if let wc = NSApp.mainWindow?.windowController as? TransTextWindowController {
         wc.abbrevsController.addAbbrevListDocument(ald)
+        wc.isAbbrevDrawerOpen = true
       }
       return
     }
@@ -75,9 +76,9 @@ public class TransDocumentController: NSDocumentController {
       case #selector(openAbbreviationList):
         return true
       default:
-        return false
+        return super.validateMenuItem(menuItem)
       }
     }
-    return false
+    return super.validateMenuItem(menuItem)
   }
 }

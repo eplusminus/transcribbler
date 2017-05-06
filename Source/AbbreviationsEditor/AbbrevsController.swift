@@ -61,7 +61,7 @@ public class AbbrevsController: NSViewController {
     }
   }
   
-  public func addAbbrevListDocument(_ document: AbbrevListDocument) {
+  public func addAbbrevListDocument(_ document: AbbrevListDocument) -> AbbrevListController {
     if (!document.isDefaultList) {
       AbbrevListDocument.default.abbrevResolver?.addProvider(document)
     }
@@ -70,6 +70,7 @@ public class AbbrevsController: NSViewController {
     stackingView?.addView(alcv, in: .bottom)
     NotificationCenter.default.addObserver(self, selector: #selector(abbrevListClosed(_:)), name: AbbrevListController.ClosedNotification, object: alc)
     listControllers.append(alc)
+    return alc
   }
   
   @objc private func abbrevListClosed(_ notification: NSNotification) {
@@ -90,7 +91,10 @@ public class AbbrevsController: NSViewController {
   }
   
   @IBAction public func newAbbreviationList(_ sender: AnyObject?) {
-    addAbbrevListDocument(AbbrevListDocument())
+    let alc = addAbbrevListDocument(AbbrevListDocument())
+    drawer?.open()
+    NSApp.mainWindow?.makeFirstResponder(alc.tableView)
+    alc.tableViewDelegate.add(sender)
   }
   
   public func lendViewsTo(stackingView: StackingView) {
