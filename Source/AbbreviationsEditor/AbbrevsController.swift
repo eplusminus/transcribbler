@@ -26,10 +26,7 @@ import HelperViews
 @objc(AbbrevsController)
 public class AbbrevsController: NSViewController {
   @IBOutlet private(set) var drawer: NSDrawer?
-  @IBOutlet private(set) var containerView: NSView!
-  @IBOutlet private(set) var listView: NSView? = nil
-  @IBOutlet private(set) var tableView: HandyTableView? = nil
-  @IBOutlet private(set) var tableViewDelegate: AbbrevTableViewDelegate? = nil
+  @IBOutlet private(set) var stackingView: NSView? = nil
   @IBOutlet var textView: NSView? {
     get {
       return _textView
@@ -37,13 +34,13 @@ public class AbbrevsController: NSViewController {
     set(tv) {
       if (_textView != tv) {
         _textView = tv
-        tableView?.backTabDestination = tv;
+        // tableView?.backTabDestination = tv;
+        // TODO
       }
     }
   }
-  @IBOutlet private(set) var disclosureView: DisclosureView!
   
-  var document: AbbrevListDocument? = nil
+  private var listControllers: [AbbrevListController] = []
   private var _textView: NSView? = nil
   
   required public init?(coder aDecoder: NSCoder) {
@@ -62,51 +59,35 @@ public class AbbrevsController: NSViewController {
         d.contentView = view
       }
     }
-    disclosureView.fixedHeight = false
   }
   
   public func addAbbrevListDocument(_ document: AbbrevListDocument) {
-    if (self.document == nil) {
-      self.document = document
-      if (listView == nil) {
-        Bundle.main.loadNibNamed("AbbrevListView", owner: self, topLevelObjects: nil)
-      }
-      if let lv = listView {
-        lv.setFrameOrigin(NSMakePoint(0, 0))
-        lv.setFrameSize(containerView.frame.size)
-        lv.autoresizingMask = [NSAutoresizingMaskOptions.viewWidthSizable,
-                               NSAutoresizingMaskOptions.viewHeightSizable];
-        containerView.addSubview(lv)
-      }
-      tableView?.backTabDestination = textView
-      tableViewDelegate?.table = document.controller
-      tableViewDelegate?.resolver = document.abbrevResolver
-      tableView?.reloadData()
-    }
+    let alc = AbbrevListController()
+    let alcv = alc.view
+    alc.document = document
+    stackingView?.addSubview(alcv)
+    listControllers.append(alc)
   }
   
   @IBAction public func newAbbreviation(_ sender: Any) {
     drawer?.open()
-    NSApp.sendAction(#selector(AbbrevTableViewDelegate.add), to: tableViewDelegate, from: self)
+    // NSApp.sendAction(#selector(AbbrevTableViewDelegate.add), to: tableViewDelegate, from: self)
+    // TODO
   }
   
   public func lendViewsTo(stackingView: StackingView) {
-    if let lv = listView {
-      lv.removeFromSuperview();
-      if let cv = disclosureView.contentView {
-        cv.addSubview(lv)
-        lv.frame = cv.frame
-      }
+    for lc in listControllers {
+      let v = lc.view
+      v.removeFromSuperview()
+      stackingView.addSubview(v)
     }
-    stackingView.addSubview(disclosureView)
   }
   
   public func restoreViews() {
-    disclosureView.removeFromSuperview()
-    if let lv = listView {
-      lv.removeFromSuperview()
-      containerView.addSubview(lv)
-      lv.frame = NSMakeRect(0, 0, containerView.frame.size.width, containerView.frame.size.height)
+    for lc in listControllers {
+      let v = lc.view
+      v.removeFromSuperview()
+      self.stackingView?.addSubview(v)
     }
   }
   

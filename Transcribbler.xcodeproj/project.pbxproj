@@ -15,6 +15,7 @@
 		455BE3DD1712467C00DCAF5F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BF1712467C00DCAF5F /* Credits.rtf */; };
 		455BE3DE1712467C00DCAF5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3C11712467C00DCAF5F /* InfoPlist.strings */; };
 		455BE40817124D5400DCAF5F /* Menus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455BE40617124D5400DCAF5F /* Menus.xib */; };
+		457121A81EBD7D14006308C2 /* AbbrevListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457121A71EBD7D14006308C2 /* AbbrevListController.swift */; };
 		45768FA81EA982660090BBE7 /* TranscribblerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FA71EA982660090BBE7 /* TranscribblerTests.swift */; };
 		45768FD21EA98DF40090BBE7 /* Abbreviations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45768FC91EA98DF40090BBE7 /* Abbreviations.framework */; };
 		45768FDB1EA98DF40090BBE7 /* Abbreviations.h in Headers */ = {isa = PBXBuildFile; fileRef = 45768FCB1EA98DF40090BBE7 /* Abbreviations.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -174,6 +175,7 @@
 		455BE3C21712467C00DCAF5F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		455BE3C71712467C00DCAF5F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		455BE40717124D5400DCAF5F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Menus.xib; sourceTree = "<group>"; };
+		457121A71EBD7D14006308C2 /* AbbrevListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevListController.swift; path = AbbreviationsEditor/AbbrevListController.swift; sourceTree = "<group>"; };
 		45768FA51EA982660090BBE7 /* TranscribblerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TranscribblerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		45768FA71EA982660090BBE7 /* TranscribblerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscribblerTests.swift; sourceTree = "<group>"; };
 		45768FA91EA982660090BBE7 /* TranscribblerTests */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TranscribblerTests; path = ../TranscribblerTests; sourceTree = "<group>"; };
@@ -502,6 +504,7 @@
 			isa = PBXGroup;
 			children = (
 				457690601EA9E4F60090BBE7 /* AbbrevFormatter.swift */,
+				457121A71EBD7D14006308C2 /* AbbrevListController.swift */,
 				457BFB091EA69F0000E24526 /* AbbrevListDocument.swift */,
 				4576905D1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift */,
 				45F521B51EB40ABD00BF77B1 /* AbbrevsController.swift */,
@@ -937,6 +940,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4576902C1EA9CD510090BBE7 /* AbbrevListDocument.swift in Sources */,
+				457121A81EBD7D14006308C2 /* AbbrevListController.swift in Sources */,
 				45F521B61EB40ABD00BF77B1 /* AbbrevsController.swift in Sources */,
 				4576905E1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift in Sources */,
 				457690611EA9E4F60090BBE7 /* AbbrevFormatter.swift in Sources */,

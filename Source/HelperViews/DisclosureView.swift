@@ -36,7 +36,7 @@ public class DisclosureView: NSView, ViewSizeLimits {
 
   public var contentView: NSView?
   private var _title: String?
-  public var title: String? {
+  @IBInspectable public var title: String? {
     get {
       return _title
     }
@@ -47,7 +47,7 @@ public class DisclosureView: NSView, ViewSizeLimits {
   }
   private var inited: Bool = false
   private var _enabled: Bool = true
-  public var enabled: Bool {
+  @IBInspectable public var enabled: Bool {
     get {
       return _enabled
     }
@@ -59,7 +59,7 @@ public class DisclosureView: NSView, ViewSizeLimits {
     }
   }
   private var _expanded: Bool = true
-  public var expanded: Bool {
+  @IBInspectable public var expanded: Bool {
     get {
       return _expanded
     }
@@ -89,9 +89,9 @@ public class DisclosureView: NSView, ViewSizeLimits {
       }
     }
   }
-  public var fixedHeight: Bool = true
+  @IBInspectable public var fixedHeight: Bool = true
   private var _indentContent: Bool = false
-  public var indentContent: Bool {
+  @IBInspectable public var indentContent: Bool {
     get {
       return _indentContent
     }
@@ -141,6 +141,10 @@ public class DisclosureView: NSView, ViewSizeLimits {
       title = toolTip
     }
 
+    if !fixedHeight {
+      _preferredHeight -= titleHeight
+    }
+    
     let cvf = makeContentViewFrame()
     let cv = NSView(frame: cvf)
     contentView = cv
