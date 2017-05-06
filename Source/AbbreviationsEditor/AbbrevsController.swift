@@ -27,22 +27,23 @@ import HelperViews
 public class AbbrevsController: NSViewController {
   @IBOutlet private(set) var drawer: NSDrawer?
   @IBOutlet private(set) var containerView: NSView!
-  @IBOutlet var textView: NSView! {
+  @IBOutlet private(set) var listView: NSView? = nil
+  @IBOutlet private(set) var tableView: HandyTableView? = nil
+  @IBOutlet private(set) var tableViewDelegate: AbbrevTableViewDelegate? = nil
+  @IBOutlet var textView: NSView? {
     get {
       return _textView
     }
     set(tv) {
       if (_textView != tv) {
         _textView = tv
-        document?.tableView.backTabDestination = tv;
+        tableView?.backTabDestination = tv;
       }
     }
   }
   @IBOutlet private(set) var disclosureView: DisclosureView!
   
   var document: AbbrevListDocument? = nil
-  var tableViewDelegate: AbbrevTableViewDelegate? = nil
-  var listView: NSView? = nil
   private var _textView: NSView? = nil
   
   required public init?(coder aDecoder: NSCoder) {
@@ -67,26 +68,26 @@ public class AbbrevsController: NSViewController {
   public func addAbbrevListDocument(_ document: AbbrevListDocument) {
     if (self.document == nil) {
       self.document = document
-      if (document.view == nil) {
-        Bundle.main.loadNibNamed("AbbrevListView", owner: document, topLevelObjects: nil)
+      if (listView == nil) {
+        Bundle.main.loadNibNamed("AbbrevListView", owner: self, topLevelObjects: nil)
       }
-      if let lv = document.view {
+      if let lv = listView {
         lv.setFrameOrigin(NSMakePoint(0, 0))
         lv.setFrameSize(containerView.frame.size)
         lv.autoresizingMask = [NSAutoresizingMaskOptions.viewWidthSizable,
                                NSAutoresizingMaskOptions.viewHeightSizable];
-        listView = lv
         containerView.addSubview(lv)
       }
-      document.tableView.backTabDestination = textView
-      tableViewDelegate = document.tableView.delegate as? AbbrevTableViewDelegate  // table view keeps only a weak reference
+      tableView?.backTabDestination = textView
+      tableViewDelegate?.table = document.controller
       tableViewDelegate?.resolver = document.abbrevResolver
+      tableView?.reloadData()
     }
   }
   
   @IBAction public func newAbbreviation(_ sender: Any) {
     drawer?.open()
-    NSApp.sendAction(#selector(AbbrevTableViewDelegate.add), to: document?.tableView.delegate, from: self)
+    NSApp.sendAction(#selector(AbbrevTableViewDelegate.add), to: tableViewDelegate, from: self)
   }
   
   public func lendViewsTo(stackingView: StackingView) {

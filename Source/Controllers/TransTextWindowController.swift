@@ -58,10 +58,15 @@ public class TransTextWindowController: NSWindowController,
     super.windowDidLoad()
     
     self.window?.collectionBehavior = NSWindowCollectionBehavior.fullScreenPrimary
-    
-    mediaController.nextResponder = self.nextResponder
+  
+    // TODO: responder chain still isn't right here.  We need to be able to trigger commands on the
+    // AbbrevsController and MediaController while we're editing text, but we can't make either of
+    // those be the nextResponder from this window, because then they'll wrap around back to this in
+    // an infinite loop.  I think the right order is:  text *view* (not window), then each of the
+    // two controllers.
+    mediaController.nextResponder = textView.nextResponder
     abbrevsController.nextResponder = mediaController
-    self.nextResponder = abbrevsController
+    textView.nextResponder = mediaController
     
     mediaDrawer.delegate = self
     abbrevDrawer.delegate = self

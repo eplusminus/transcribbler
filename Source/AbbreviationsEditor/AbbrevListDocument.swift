@@ -26,16 +26,49 @@ import HelperViews
 let AbbrevListDocumentModified = "AbbrevListDocumentModified"
 
 public class AbbrevListDocument: NSDocument, AbbrevListProvider {
-  @IBOutlet private(set) var view: NSView!
+  private static var _default: AbbrevListDocument? = nil
+  
   @IBOutlet private(set) var controller: AbbrevArrayController!
-  @IBOutlet private(set) var tableView: HandyTableView!
   public var abbrevResolver: AbbrevResolverImpl?
   
-  public func getAbbreviations() -> [AbbrevEntry] {
-    if let a = controller?.arrangedObjects as? [AbbrevEntry] {
-      return a
+  private var dirty: Bool = false
+  
+  public static var `default`: AbbrevListDocument {
+    get {
+      if let d = _default {
+        return d
+      }
+      let ac = AbbrevArrayController()
+      if let data = UserDefaults.standard.data(forKey: DefaultAbbrevsKey) {
+        do {
+          let es = try AbbrevsPlatformEncoding().readAbbrevsFromData(data)
+          ac.add(contentsOf: es)
+        }
+        catch {
+        }
+      }
+      let ar = AbbrevResolverImpl()
+      let d = AbbrevListDocument(controller: ac, resolver: ar)
+      ar.addProvider(d)
+      ar.refresh()
+      _default = d
+      return d
     }
-    return []
+  }
+
+  private init(controller: AbbrevArrayController, resolver: AbbrevResolverImpl) {
+    super.init()
+    self.controller = controller
+    self.abbrevResolver = resolver
+    controller.addObserver(self, forKeyPath: "arrangedObjects", options: [], context: nil)
+  }
+  
+  override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    modified()
+  }
+  
+  public func getAbbreviations() -> [AbbrevEntry] {
+    return (controller?.arrangedObjects as? [AbbrevEntry]) ?? []
   }
   
   override public var windowNibName: String? {
@@ -66,9 +99,30 @@ public class AbbrevListDocument: NSDocument, AbbrevListProvider {
     return true
   }
   
-  func modified() {
-    if let ar = abbrevResolver {
-      ar.refresh()
+  private func modified() {
+    if !OSAtomicTestAndSet(0, &dirty) {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { self.processChanges() }
+    }
+  }
+
+  /**
+   * Ensures that any necessary internal updates have been done (re-indexing the lookup table,
+   * auto-saving, etc.) to take recent edits into account.  These are normally deferred a little
+   * for performance reasons.
+   */
+  public func processChanges() {
+    if OSAtomicTestAndClear(0, &dirty) {
+      if let ar = abbrevResolver {
+        ar.refresh()
+      }
+      persist()
+    }
+  }
+  
+  private func persist() {
+    if let data = AbbrevsPlatformEncoding().writeAbbrevsToData(getAbbreviations()) {
+      UserDefaults.standard.set(data, forKey: DefaultAbbrevsKey)
+      NSLog("persisted")
     }
   }
 }

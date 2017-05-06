@@ -23,9 +23,12 @@ import Abbreviations
 import Foundation
 import HelperViews
 
+let supportedEncodings: [AbbrevsEncoding] = [AbbrevsPlatformEncoding(), AbbrevsTextEncoding()]
+let pasteboardTypes: [String] = supportedEncodings.map { e in e.pasteboardType() }
+
 @objc(AbbrevTableViewDelegate)
 public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTableViewDelegate, HandyTableViewDelegate {
-  @IBOutlet private(set) var table: AbbrevArrayController!
+  @IBOutlet var table: AbbrevArrayController?
   @IBOutlet private(set) var view: NSTableView!
   @IBOutlet private(set) var statusColumn: NSTableColumn!
   @IBOutlet private(set) var abbreviationColumn: NSTableColumn!
@@ -36,37 +39,108 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
   private var suffixImage: NSImage?
   
   func entryAtIndex(_ i: Int) -> AbbrevEntry? {
-    if i >= 0 {
-      let os = table.arrangedObjects as! [AnyObject]
-      if i < os.count {
-        return os[i] as? AbbrevEntry
+    if let t = table {
+      if i >= 0 {
+        let os = t.arrangedObjects as! [AnyObject]
+        if i < os.count {
+          return os[i] as? AbbrevEntry
+        }
       }
     }
     return nil
   }
   
   override public func awakeFromNib() {
-    self.nextResponder = view.nextResponder
-    view.nextResponder = self
+//    self.nextResponder = view.nextResponder
+//    view.nextResponder = self
     errorImage = NSImage(named: "ErrorFlag")
     suffixImage = NSImage(named: "SuffixFlag")
   }
-
-  @IBAction public func delete(_ sender: Any) {
-    table.delete(self)
+  
+  @IBAction public func newAbbreviation(_ sender: AnyObject?) {
+    self.add(sender)
+  }
+  
+  @IBAction public func add(_ sender: AnyObject?) {
+    var row = view.selectedRow
+    let col = view.column(withIdentifier: abbreviationColumn.identifier)
+    if row < 0 {
+      row = view.numberOfRows
+    }
+    else {
+      let e = entryAtIndex(row)
+      if e == nil {
+        view.editColumn(col, row: row, with: nil, select: false)
+        return;
+      }
+      row += 1
+    }
+    view.validateEditing()
+    view.abortEditing()
+    table?.insert(AbbrevEntry(), atArrangedObjectIndex: row)
+    view.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
+    view.editColumn(col, row: row, with: nil, select: false)
+  }
+  
+  @IBAction public func delete(_ sender: AnyObject) {
+    if !view.selectedRowIndexes.isEmpty {
+      view.abortEditing()
+      table?.remove(atArrangedObjectIndexes: view.selectedRowIndexes)
+      view.deselectAll(nil)
+    }
   }
 
-  @IBAction public func cut(_ sender: Any) {
-    table.copy(self)
-    table.delete(self)
+  @IBAction public func cut(_ sender: AnyObject) {
+    copyInternal()
+    delete(sender)
   }
 
-  @IBAction public func copy(_ sender: Any) {
-    table.copy(self)
+  @IBAction public func copy(_ sender: AnyObject) {
+    copyInternal()
   }
 
-  @IBAction public func paste(_ sender: Any) {
-    table.paste(self)
+  @IBAction public func paste(_ sender: AnyObject) {
+    let pb = NSPasteboard.general()
+    var items: [Any] = [Any]()
+    
+    for e in supportedEncodings {
+      if let data = pb.data(forType: e.pasteboardType()) {
+        do {
+          try items = e.readAbbrevsFromData(data)
+        }
+        catch {
+        }
+        break
+      }
+    }
+    
+    if items.count > 0 {
+      view.validateEditing()
+      view.abortEditing()
+      var pos: Int = view.selectedRow
+      if pos == NSNotFound {
+        pos = (table?.arrangedObjects as? [Any])?.count ?? 0
+      }
+      for a: AbbrevEntry in (items as? [AbbrevEntry]) ?? ([AbbrevEntry]()) {
+        table?.insert(a, atArrangedObjectIndex: pos)
+        pos += 1
+      }
+    }
+  }
+  
+  private func copyInternal() {
+    let selectedEntries: [AbbrevEntry] = (table?.selectedObjects as? [AbbrevEntry]) ?? []
+    if selectedEntries.count == 0 {
+      return
+    }
+    
+    let pb = NSPasteboard.general()
+    pb.declareTypes(pasteboardTypes, owner: self)
+    for e in supportedEncodings {
+      if let data = e.writeAbbrevsToData(selectedEntries) {
+        pb.setData(data, forType: e.pasteboardType())
+      }
+    }
   }
   
   //
@@ -74,7 +148,10 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
   //
   
   public func numberOfRows(in tableView: NSTableView) -> Int {
-    return (table.arrangedObjects as! [AnyObject]).count
+    if let t = table {
+      return (t.arrangedObjects as! [AnyObject]).count
+    }
+    return 0
   }
   
   public func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
@@ -97,17 +174,22 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
   
   public func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
     if let a = entryAtIndex(row) {
+      var a1 = a
       switch tableColumn! {
       case abbreviationColumn:
-        a.abbreviation = (object as? String) ?? ""
+        a1 = AbbrevEntry(abbreviation: (object as? String) ?? "", expansion: a1.expansion, variants: a1.variants)
+        break
       case expansionColumn:
         let (ex, vs) = AbbrevsTextEncoding.parseExpansionAndVariants((object as? String) ?? "")
-        a.expansion = ex
-        a.variants = vs
+        a1 = AbbrevEntry(abbreviation: a.abbreviation, expansion: ex, variants: vs)
+        break
       default:
         break;
       }
-      table.persist()
+      if a1 != a {
+        table?.remove(atArrangedObjectIndex: row)
+        table?.insert(a1, atArrangedObjectIndex: row)
+      }
     }
   }
   
@@ -130,29 +212,6 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
     }
   }
   
-  @IBAction public func newAbbreviation(_ sender: Any) {
-    self.add(sender)
-  }
-
-  @IBAction public func add(_ sender: Any?) {
-    var row = view.selectedRow
-    let col = view.column(withIdentifier: abbreviationColumn.identifier)
-    if row < 0 {
-      row = view.numberOfRows
-    }
-    else {
-      let e = entryAtIndex(row)
-      if e == nil {
-        view.editColumn(col, row: row, with: nil, select: false)
-        return;
-      }
-      row += 1
-    }
-    table.insert(table.newEntry(), atArrangedObjectIndex: row)
-    view.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
-    view.editColumn(col, row: row, with: nil, select: false)
-  }
-  
   override public func keyDown(with event: NSEvent) {
     if let ch = event.characters?.unicodeScalars.first {
       let ci = Int(ch.value)
@@ -167,12 +226,12 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
   public func validateUserInterfaceItem(item: NSValidatedUserInterfaceItem) -> Bool {
     if let theAction = item.action {
       if theAction == #selector(copy(_:)) || theAction == #selector(cut) || theAction == #selector(delete) {
-        return (table.selectionIndex != NSNotFound)
+        return (table?.selectionIndex != NSNotFound)
       }
       
       if theAction == #selector(paste) {
         let pb = NSPasteboard.general()
-        return AbbrevArrayController.pasteboardTypes().contains { t in pb.data(forType: t) != nil }
+        return pasteboardTypes.contains { t in pb.data(forType: t) != nil }
       }
     }
     return false

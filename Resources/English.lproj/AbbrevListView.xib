@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="AbbrevListDocument">
+        <customObject id="-2" userLabel="File's Owner" customClass="AbbrevsController">
             <connections>
-                <outlet property="controller" destination="77" id="94"/>
                 <outlet property="tableView" destination="9" id="102"/>
+                <outlet property="tableViewDelegate" destination="96" id="DLZ-p6-gFh"/>
                 <outlet property="view" destination="1" id="89"/>
             </connections>
         </customObject>
@@ -71,7 +71,6 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <binding destination="77" name="selectionIndexes" keyPath="selectionIndexes" id="Mu4-vv-9Mo"/>
                                     <outlet property="dataSource" destination="96" id="u1o-6l-GGX"/>
                                     <outlet property="delegate" destination="96" id="97"/>
                                 </connections>
@@ -99,7 +98,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="delete:" target="77" id="91"/>
+                        <action selector="delete:" target="96" id="EDk-V5-67Q"/>
                     </connections>
                 </button>
                 <button toolTip="Add Insert/Substitutionkey pair" focusRingType="none" verticalHuggingPriority="750" id="5">
@@ -110,22 +109,16 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="add:" target="77" id="90"/>
+                        <action selector="newAbbreviation:" target="96" id="9GW-Sw-nAP"/>
                     </connections>
                 </button>
             </subviews>
         </customView>
-        <arrayController objectClassName="AbbrevEntry" automaticallyPreparesContent="YES" id="77" customClass="AbbrevArrayController">
-            <connections>
-                <outlet property="document" destination="-2" id="95"/>
-            </connections>
-        </arrayController>
         <customObject id="96" customClass="AbbrevTableViewDelegate">
             <connections>
                 <outlet property="abbreviationColumn" destination="12" id="ufr-P8-lYm"/>
                 <outlet property="expansionColumn" destination="13" id="L23-Xc-wSe"/>
                 <outlet property="statusColumn" destination="1Pm-YH-Mgu" id="H3P-oZ-Isy"/>
-                <outlet property="table" destination="77" id="99"/>
                 <outlet property="view" destination="9" id="98"/>
             </connections>
         </customObject>

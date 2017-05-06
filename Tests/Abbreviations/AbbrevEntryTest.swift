@@ -51,4 +51,22 @@ class AbbrevEntryTest: XCTestCase {
   func testVariantExpansionWithDoubling() {
     XCTAssertEqual("letting", letAbbrev.variantExpansion(ingVariantDoubling))
   }
+  
+  func testObserverForAbbreviation() {
+    let obs = AbbrevEntryTestObserverStub()
+    dogAbbrev.addObserver(obs, forKeyPath: "abbreviation", options: [], context: nil)
+    dogAbbrev.abbreviation = "cat"
+    dogAbbrev.setValue("catt", forKeyPath: "abbreviation")
+    XCTAssertEqual(["abbreviation"], obs.receivedKeyPaths)
+  }
+}
+
+class AbbrevEntryTestObserverStub: NSObject {
+  var receivedKeyPaths: [String] = []
+  var receivedObjects: [Any] = []
+  
+  override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    receivedKeyPaths.append(keyPath ?? "")
+    receivedObjects.append(object ?? self)
+  }
 }

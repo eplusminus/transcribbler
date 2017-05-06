@@ -43,10 +43,8 @@ public class TransTextDocument: NSDocument {
   var loadedDocAttributes: NSDictionary?
   
   public override init() {
-    abbrevListDocument = AbbrevListDocument()
-    abbrevResolver = AbbrevResolverImpl()
-    abbrevResolver.addProvider(abbrevListDocument)
-    abbrevListDocument.abbrevResolver = abbrevResolver
+    abbrevListDocument = AbbrevListDocument.default
+    abbrevResolver = abbrevListDocument.abbrevResolver!
   }
 
   override public func makeWindowControllers() {
