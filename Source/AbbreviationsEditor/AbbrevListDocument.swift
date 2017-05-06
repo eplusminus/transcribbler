@@ -24,13 +24,15 @@ import Foundation
 import HelperViews
 
 let AbbrevListDocumentModified = "AbbrevListDocumentModified"
-let DefaultAbbrevsKey = "DefaultAbbrevations"
+let DefaultAbbrevsKey = "DefaultAbbreviations"
 
 public class AbbrevListDocument: NSDocument, AbbrevListProvider {
   private static var _default: AbbrevListDocument? = nil
   
   @IBOutlet private(set) var controller: NSArrayController!
   public var abbrevResolver: AbbrevResolverImpl?
+  
+  public private(set) var isDefaultList: Bool = false
   
   private var dirty: Bool = false
   
@@ -50,18 +52,22 @@ public class AbbrevListDocument: NSDocument, AbbrevListProvider {
       }
       let ar = AbbrevResolverImpl()
       let d = AbbrevListDocument(controller: ac, resolver: ar)
-      ar.addProvider(d)
-      ar.refresh()
+      d.isDefaultList = true
       _default = d
       return d
     }
   }
 
+  override public convenience init() {
+    self.init(controller: NSArrayController(), resolver: AbbrevListDocument.default.abbrevResolver!)
+  }
+  
   private init(controller: NSArrayController, resolver: AbbrevResolverImpl) {
     super.init()
     self.controller = controller
     self.abbrevResolver = resolver
     controller.addObserver(self, forKeyPath: "arrangedObjects", options: [], context: nil)
+    resolver.addProvider(self)
   }
   
   override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -121,8 +127,10 @@ public class AbbrevListDocument: NSDocument, AbbrevListProvider {
   }
   
   private func persist() {
-    if let data = AbbrevsPlatformEncoding().writeAbbrevsToData(getAbbreviations()) {
-      UserDefaults.standard.set(data, forKey: DefaultAbbrevsKey)
+    if isDefaultList {
+      if let data = AbbrevsPlatformEncoding().writeAbbrevsToData(getAbbreviations()) {
+        UserDefaults.standard.set(data, forKey: DefaultAbbrevsKey)
+      }
     }
   }
 }

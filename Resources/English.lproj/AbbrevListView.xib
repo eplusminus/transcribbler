@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AbbrevListController">
             <connections>
+                <outlet property="actionButton" destination="jfa-G0-M18" id="W1f-Fg-A0H"/>
                 <outlet property="disclosureView" destination="GFb-jW-OeO" id="XnR-P1-giz"/>
                 <outlet property="tableView" destination="9" id="102"/>
                 <outlet property="tableViewDelegate" destination="96" id="DLZ-p6-gFh"/>
@@ -23,28 +24,6 @@
                     <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <button toolTip="Remove Insert/Substitutionkey pair" focusRingType="none" verticalHuggingPriority="750" misplaced="YES" id="2">
-                            <rect key="frame" x="454" y="-1" width="26" height="26"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="16">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="delete:" target="96" id="EDk-V5-67Q"/>
-                            </connections>
-                        </button>
-                        <button toolTip="Add Insert/Substitutionkey pair" focusRingType="none" verticalHuggingPriority="750" misplaced="YES" id="5">
-                            <rect key="frame" x="429" y="-1" width="26" height="26"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="6">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="newAbbreviation:" target="96" id="9GW-Sw-nAP"/>
-                            </connections>
-                        </button>
                         <scrollView focusRingType="none" misplaced="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="3">
                             <rect key="frame" x="0.0" y="23" width="480" height="249"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -117,6 +96,63 @@
                                 <autoresizingMask key="autoresizingMask"/>
                             </tableHeaderView>
                         </scrollView>
+                        <popUpButton misplaced="YES" id="jfa-G0-M18">
+                            <rect key="frame" x="317" y="1" width="24" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" altersStateOfSelectedItem="NO" id="fsQ-dN-A0q">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="smallSystem"/>
+                                <menu key="menu" id="8cu-0O-gVT">
+                                    <items>
+                                        <menuItem state="on" image="NSActionTemplate" hidden="YES" id="K9I-WN-yDh"/>
+                                        <menuItem title="New abbreviation list" id="X35-wK-1HP">
+                                            <connections>
+                                                <action selector="newAbbreviationList:" target="-1" id="UWw-m2-Uho"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Open another abbrevation list..." id="V5V-wQ-E0R">
+                                            <connections>
+                                                <action selector="openAbbreviationList:" target="-1" id="oQH-Zc-WJj"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="EE2-o8-XWK"/>
+                                        <menuItem title="Close this abbrevation list" id="5K7-q7-Heb">
+                                            <connections>
+                                                <action selector="closeAbbreviationList:" target="-1" id="DCY-f8-b6G"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Les-PS-Sjp"/>
+                                        <menuItem title="Save abbreviation list as..." id="Inh-GS-thw">
+                                            <connections>
+                                                <action selector="saveAbbreviationListAs:" target="-1" id="8UL-P8-3rD"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                        </popUpButton>
+                        <button focusRingType="none" verticalHuggingPriority="750" misplaced="YES" id="2">
+                            <rect key="frame" x="47" y="-1" width="26" height="26"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="16">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="delete:" target="96" id="EDk-V5-67Q"/>
+                            </connections>
+                        </button>
+                        <button focusRingType="none" verticalHuggingPriority="750" misplaced="YES" id="5">
+                            <rect key="frame" x="22" y="-1" width="26" height="26"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="6">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="newAbbreviation:" target="96" id="9GW-Sw-nAP"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="fixedHeight" value="NO"/>
@@ -140,6 +176,7 @@
     </objects>
     <resources>
         <image name="ErrorFlag" width="9" height="9"/>
+        <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
     </resources>

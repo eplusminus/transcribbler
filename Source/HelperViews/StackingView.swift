@@ -47,25 +47,22 @@ public class StackingView: NSView {
     updateLayout()
   }
 
-  override public func addSubview(_ view: NSView) {
-    if (!isCustomView(view)) {
-      view.addObserver(self, forKeyPath: "hidden", options: [], context: nil)
-      NotificationCenter.default.addObserver(self, selector: #selector(subviewFrameChanged),
-                                             name: NSNotification.Name.NSViewFrameDidChange, object: view)
-    }
-    super.addSubview(view)
+  override public func didAddSubview(_ view: NSView) {
+    view.addObserver(self, forKeyPath: "hidden", options: [], context: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(subviewFrameChanged),
+                                           name: NSNotification.Name.NSViewFrameDidChange, object: view)
     if inited {
       updateLayout()
     }
   }
-  
+
   override public func willRemoveSubview(_ view: NSView) {
     if view.superview == self && !isCustomView(view) {
       view.removeObserver(self, forKeyPath: "hidden")
       NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NSViewFrameDidChange, object: view)
     }
   }
-
+  
   func isCustomView(_ view: NSView) -> Bool {
     return false; // TODO
   }

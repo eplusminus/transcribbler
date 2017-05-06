@@ -66,13 +66,31 @@ public class AbbrevsController: NSViewController {
     let alcv = alc.view
     alc.document = document
     stackingView?.addSubview(alcv)
+    NotificationCenter.default.addObserver(self, selector: #selector(abbrevListClosed(_:)), name: AbbrevListController.ClosedNotification, object: alc)
     listControllers.append(alc)
+  }
+  
+  @objc private func abbrevListClosed(_ notification: NSNotification) {
+    if let alc = notification.object as? AbbrevListController {
+      if let i = listControllers.index(of: alc) {
+        listControllers.remove(at: i)
+        alc.view.removeFromSuperview()
+      }
+    }
   }
   
   @IBAction public func newAbbreviation(_ sender: Any) {
     drawer?.open()
     // NSApp.sendAction(#selector(AbbrevTableViewDelegate.add), to: tableViewDelegate, from: self)
     // TODO
+  }
+  
+  @IBAction public func newAbbreviationList(_ sender: Any) {
+    addAbbrevListDocument(AbbrevListDocument())
+  }
+  
+  @IBAction public func openAbbreviationList(_ sender: Any) {
+    
   }
   
   public func lendViewsTo(stackingView: StackingView) {
@@ -92,13 +110,20 @@ public class AbbrevsController: NSViewController {
   }
   
   //
-  // protocol NSMenuValidation
+  // NSMenuValidation
   //
   
   override public func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-    if menuItem.action == #selector(newAbbreviation) {
-      return true;
+    if let a = menuItem.action {
+      switch a {
+      case #selector(newAbbreviation),
+           #selector(newAbbreviationList),
+           #selector(openAbbreviationList):
+        return true
+      default:
+        return false
+      }
     }
-    return false;
+    return false
   }
 }

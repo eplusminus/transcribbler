@@ -25,9 +25,12 @@ import HelperViews
 
 @objc(AbbrevListController)
 public class AbbrevListController: NSViewController {
+  static let ClosedNotification = NSNotification.Name("AbbrevListClosed")
+  
   @IBOutlet private(set) var tableView: HandyTableView? = nil
   @IBOutlet private(set) var tableViewDelegate: AbbrevTableViewDelegate? = nil
   @IBOutlet private(set) var disclosureView: DisclosureView!
+  @IBOutlet private(set) var actionButton: NSButton!
   
   private var _document: AbbrevListDocument? = nil
   public var document: AbbrevListDocument? {
@@ -37,7 +40,7 @@ public class AbbrevListController: NSViewController {
     set(newDoc) {
       self._document = newDoc
       if let d = newDoc {
-        disclosureView.title = NSLocalizedString("MainAbbrevList", comment: "")
+        disclosureView.title = NSLocalizedString(d.isDefaultList ? "MainAbbrevList" : "NewAbbrevList", comment: "")
         tableViewDelegate?.table = d.controller
         tableViewDelegate?.resolver = d.abbrevResolver
         tableView?.reloadData()
@@ -54,5 +57,39 @@ public class AbbrevListController: NSViewController {
   }
   
   override public func awakeFromNib() {
+    actionButton.removeFromSuperview()
+    disclosureView.addSubview(actionButton)
+    actionButton.frame.origin = NSMakePoint(disclosureView.frame.size.width - actionButton.frame.size.width,
+      disclosureView.frame.size.height - actionButton.frame.size.height)
+  }
+  
+  @IBAction public func closeAbbreviationList(_ sender: Any) {
+    if let d = document {
+      if !d.isDefaultList {
+        d.abbrevResolver?.removeProvider(d)
+        NotificationCenter.default.post(name: AbbrevListController.ClosedNotification, object: self)
+      }
+    }
+  }
+  
+  @IBAction public func saveAbbreviationListAs(_ sender: Any) {
+    
+  }
+  
+  //
+  // NSMenuValidation
+  //
+  
+  override public func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    if let a = menuItem.action {
+      switch a {
+      case #selector(closeAbbreviationList),
+           #selector(saveAbbreviationListAs):
+        return !(document?.isDefaultList ?? true)
+      default:
+        return false
+      }
+    }
+    return false
   }
 }
