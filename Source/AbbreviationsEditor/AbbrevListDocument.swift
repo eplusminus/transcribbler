@@ -36,6 +36,7 @@ public class AbbrevListDocument: NSDocument, AbbrevListProvider {
   public private(set) var isDefaultList: Bool = false
   
   private var dirty: Bool = false
+  private var ignoreChanges: Bool = false
   private var encoding = AbbrevsPlatformEncoding()
   
   public static var preferredFileType: String {
@@ -84,7 +85,9 @@ public class AbbrevListDocument: NSDocument, AbbrevListProvider {
   }
   
   override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    modified()
+    if !ignoreChanges {
+      modified()
+    }
   }
   
   public func getAbbreviations() -> [AbbrevEntry] {
@@ -112,7 +115,10 @@ public class AbbrevListDocument: NSDocument, AbbrevListProvider {
   }
   
   private func persist() {
-    if isDefaultList {
+    if fileURL != nil {
+      save(nil)
+    }
+    else if isDefaultList {
       let data = AbbrevsPlatformEncoding().writeAbbrevsToData(getAbbreviations())
       UserDefaults.standard.set(data, forKey: DefaultAbbrevsKey)
     }
@@ -122,12 +128,12 @@ public class AbbrevListDocument: NSDocument, AbbrevListProvider {
   // NSDocument
   //
   
-  override public class func autosavesInPlace() -> Bool {
-    return true
-  }
-    
   override public func read(from data: Data, ofType typeName: String) throws {
     let es = try encoding.readAbbrevsFromData(data)
+    ignoreChanges = true
+    defer {
+      ignoreChanges = false
+    }
     controller.remove(atArrangedObjectIndexes: IndexSet(integersIn: 0..<getAbbreviations().count))
     controller.add(contentsOf: es)
   }
