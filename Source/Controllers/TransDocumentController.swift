@@ -64,4 +64,20 @@ public class TransDocumentController: NSDocumentController {
     }
     super.addDocument(document)
   }
+  
+  //
+  // NSMenuValidation
+  //
+  
+  override public func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    if let a = menuItem.action {
+      switch a {
+      case #selector(openAbbreviationList):
+        return true
+      default:
+        return false
+      }
+    }
+    return false
+  }
 }

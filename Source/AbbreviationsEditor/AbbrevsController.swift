@@ -81,35 +81,16 @@ public class AbbrevsController: NSViewController {
     }
   }
   
-  @IBAction public func newAbbreviation(_ sender: Any?) {
+  @IBAction public func newAbbreviation(_ sender: AnyObject?) {
     drawer?.open()
-    // NSApp.sendAction(#selector(AbbrevTableViewDelegate.add), to: tableViewDelegate, from: self)
-    // TODO
-  }
-  
-  @IBAction public func newAbbreviationList(_ sender: Any?) {
-    addAbbrevListDocument(AbbrevListDocument())
-  }
-  
-  @IBAction public func openAbbreviationList(_ sender: Any?) {
-    let panel = NSOpenPanel()
-    panel.canChooseFiles = true
-    panel.canChooseDirectories = false
-    panel.allowsMultipleSelection = true
-    panel.allowedFileTypes = [AbbrevListDocument.preferredFileType]
-    panel.begin { (result) in
-      if result == NSFileHandlingPanelOKButton {
-        for url in panel.urls {
-          let doc = AbbrevListDocument()
-          do {
-            try doc.read(from: url, ofType: AbbrevListDocument.preferredFileType)
-            self.addAbbrevListDocument(doc)
-          }
-          catch {
-          }
-        }
-      }
+    if let alc = listControllers.first {
+      NSApp.mainWindow?.makeFirstResponder(alc.tableView)
+      alc.tableViewDelegate.add(sender)
     }
+  }
+  
+  @IBAction public func newAbbreviationList(_ sender: AnyObject?) {
+    addAbbrevListDocument(AbbrevListDocument())
   }
   
   public func lendViewsTo(stackingView: StackingView) {
@@ -136,8 +117,7 @@ public class AbbrevsController: NSViewController {
     if let a = menuItem.action {
       switch a {
       case #selector(newAbbreviation),
-           #selector(newAbbreviationList),
-           #selector(openAbbreviationList):
+           #selector(newAbbreviationList):
         return true
       default:
         return false
