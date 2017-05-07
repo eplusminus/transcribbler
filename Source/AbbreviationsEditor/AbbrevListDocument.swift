@@ -24,52 +24,122 @@ import Foundation
 import HelperViews
 
 let AbbrevListDocumentModified = "AbbrevListDocumentModified"
+let DefaultAbbrevsKey = "DefaultAbbreviations"
 
+@objc(AbbrevListDocument)
 public class AbbrevListDocument: NSDocument, AbbrevListProvider {
-  @IBOutlet private(set) var view: NSView!
-  @IBOutlet private(set) var controller: AbbrevArrayController!
-  @IBOutlet private(set) var tableView: HandyTableView!
-  @IBOutlet private(set) var suffixEditor: AbbrevSuffixEditor!
+  private static var _default: AbbrevListDocument? = nil
+  
+  @IBOutlet private(set) var controller: NSArrayController!
+
   public var abbrevResolver: AbbrevResolverImpl?
   
-  public func getAbbreviations() -> [AbbrevEntry] {
-    if let a = controller?.arrangedObjects as? [AbbrevEntry] {
-      return a
-    }
-    return []
-  }
+  public private(set) var isDefaultList: Bool = false
   
-  override public var windowNibName: String? {
+  private var dirty: Bool = false
+  private var ignoreChanges: Bool = false
+  private var encoding = AbbrevsPlatformEncoding()
+  
+  public static var preferredFileType: String {
     get {
-      return "AbbrevListDocument"
+      return "net.errorbar.transcribbler.table"
     }
   }
   
-  override public func windowControllerDidLoadNib(_ aController: NSWindowController) {
-    super.windowControllerDidLoadNib(aController)
-    // Add any code here that needs to be executed once the windowController has loaded the document's window.
+  public static var `default`: AbbrevListDocument {
+    get {
+      if let d = _default {
+        return d
+      }
+      let ac = NSArrayController()
+      if let data = UserDefaults.standard.data(forKey: DefaultAbbrevsKey) {
+        do {
+          let es = try AbbrevsPlatformEncoding().readAbbrevsFromData(data)
+          ac.add(contentsOf: es)
+        }
+        catch {
+        }
+      }
+      let ar = AbbrevResolverImpl()
+      let d = AbbrevListDocument(controller: ac, resolver: ar)
+      d.isDefaultList = true
+      ar.addProvider(d)
+      d.displayName = NSLocalizedString("MainAbbrevList", comment: "")
+      _default = d
+      return d
+    }
   }
 
-  override public func data(ofType: String) throws -> Data {
-    // Insert code here to write your document to data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning nil.
-    // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
-    throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+  override public convenience init() {
+    self.init(controller: NSArrayController(), resolver: AbbrevListDocument.default.abbrevResolver!)
+    self.displayName = NSLocalizedString("NewAbbrevList", comment: "")
+  }
+  
+  private init(controller: NSArrayController, resolver: AbbrevResolverImpl) {
+    super.init()
+    
+    self.controller = controller
+    self.abbrevResolver = resolver
+    controller.addObserver(self, forKeyPath: "arrangedObjects", options: [], context: nil)
+    
+    self.fileType = AbbrevListDocument.preferredFileType
+  }
+  
+  override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if !ignoreChanges {
+      modified()
+    }
+  }
+  
+  public func getAbbreviations() -> [AbbrevEntry] {
+    return (controller?.arrangedObjects as? [AbbrevEntry]) ?? []
+  }
+  
+  private func modified() {
+    if !OSAtomicTestAndSet(0, &dirty) {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { self.processChanges() }
+    }
   }
 
+  /**
+   * Ensures that any necessary internal updates have been done (re-indexing the lookup table,
+   * auto-saving, etc.) to take recent edits into account.  These are normally deferred a little
+   * for performance reasons.
+   */
+  public func processChanges() {
+    if OSAtomicTestAndClear(0, &dirty) {
+      if let ar = abbrevResolver {
+        ar.refresh()
+      }
+      persist()
+    }
+  }
+  
+  private func persist() {
+    if fileURL != nil {
+      save(nil)
+    }
+    else if isDefaultList {
+      let data = AbbrevsPlatformEncoding().writeAbbrevsToData(getAbbreviations())
+      UserDefaults.standard.set(data, forKey: DefaultAbbrevsKey)
+    }
+  }
+  
+  //
+  // NSDocument
+  //
+  
   override public func read(from data: Data, ofType typeName: String) throws {
-    // Insert code here to read your document from the given data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning NO.
-    // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead.
-    // If you override either of these, you should also override -isEntireFileLoaded to return NO if the contents are lazily loaded.
-    throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
-  }
-
-  override public class func autosavesInPlace() -> Bool {
-    return true
+    let es = try encoding.readAbbrevsFromData(data)
+    ignoreChanges = true
+    defer {
+      ignoreChanges = false
+    }
+    controller.remove(atArrangedObjectIndexes: IndexSet(integersIn: 0..<getAbbreviations().count))
+    controller.add(contentsOf: es)
   }
   
-  func modified() {
-    if let ar = abbrevResolver {
-      ar.refresh()
-    }
+  override public func data(ofType typeName: String) throws -> Data {
+    return encoding.writeAbbrevsToData(getAbbreviations())
   }
 }

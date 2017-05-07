@@ -5,29 +5,56 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="AbbrevListDocument">
+        <customObject id="-2" userLabel="File's Owner" customClass="AbbrevListController">
             <connections>
-                <outlet property="controller" destination="77" id="94"/>
                 <outlet property="suffixEditor" destination="yto-cL-07d" id="ZBY-CS-QIL"/>
+                <outlet property="labelField" destination="aeb-md-nOA" id="cGa-2P-SzM"/>
+                <outlet property="tableContainerView" destination="3" id="sFn-yK-503"/>
+                <outlet property="collapseButton" destination="Lx3-fw-5f0" id="rJV-H8-36n"/>
                 <outlet property="tableView" destination="9" id="102"/>
-                <outlet property="view" destination="1" id="89"/>
+                <outlet property="tableViewDelegate" destination="96" id="DLZ-p6-gFh"/>
+                <outlet property="view" destination="1" id="1aB-OI-oGQ"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1">
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
-            <autoresizingMask key="autoresizingMask"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView focusRingType="none" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="3">
-                    <rect key="frame" x="0.0" y="23" width="480" height="249"/>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="aeb-md-nOA">
+                    <rect key="frame" x="26" y="247" width="431" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" enabled="NO" sendsActionOnEndEditing="YES" state="on" alignment="left" title="name" id="Wun-Rm-EuQ">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="document.displayName" id="1CB-wL-cG9"/>
+                    </connections>
+                </textField>
+                <button toolTip="Close this abbreviation list" focusRingType="none" verticalHuggingPriority="750" misplaced="YES" id="R2Y-1w-PSf">
+                    <rect key="frame" x="453" y="248" width="24" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSStopProgressFreestandingTemplate" imagePosition="overlaps" alignment="center" controlSize="mini" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Etk-Xb-tfH">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="miniSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="closeAbbreviationList:" target="-2" id="ccB-fN-2Cw"/>
+                        <binding destination="-2" name="hidden" keyPath="document.isDefaultList" id="69P-ZS-RUJ"/>
+                    </connections>
+                </button>
+                <scrollView focusRingType="none" misplaced="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="3">
+                    <rect key="frame" x="0.0" y="1" width="480" height="245"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="JGS-x4-JoF">
-                        <rect key="frame" x="1" y="0.0" width="463" height="248"/>
+                        <rect key="frame" x="1" y="0.0" width="463" height="244"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" autosaveColumns="NO" headerView="8" id="9" customClass="HandyTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="463" height="225"/>
+                                <rect key="frame" x="0.0" y="0.0" width="463" height="221"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -72,7 +99,6 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <binding destination="77" name="selectionIndexes" keyPath="selectionIndexes" id="Mu4-vv-9Mo"/>
                                     <outlet property="dataSource" destination="96" id="u1o-6l-GGX"/>
                                     <outlet property="delegate" destination="96" id="97"/>
                                 </connections>
@@ -84,7 +110,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="11">
-                        <rect key="frame" x="464" y="23" width="15" height="225"/>
+                        <rect key="frame" x="464" y="23" width="15" height="221"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="8">
@@ -92,41 +118,24 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
-                <button toolTip="Remove Insert/Substitutionkey pair" focusRingType="none" verticalHuggingPriority="750" id="2">
-                    <rect key="frame" x="454" y="-1" width="26" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="16">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                <button toolTip="Close this abbreviation list" focusRingType="none" verticalHuggingPriority="750" misplaced="YES" id="Lx3-fw-5f0">
+                    <rect key="frame" x="3" y="248" width="22" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSExitFullScreenTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="amq-yY-zAx">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                        <font key="font" metaFont="systemBold" size="12"/>
                     </buttonCell>
                     <connections>
-                        <action selector="delete:" target="77" id="91"/>
-                    </connections>
-                </button>
-                <button toolTip="Add Insert/Substitutionkey pair" focusRingType="none" verticalHuggingPriority="750" id="5">
-                    <rect key="frame" x="429" y="-1" width="26" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="6">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="add:" target="77" id="90"/>
+                        <action selector="collapseAbbreviationList:" target="-2" id="X1d-oz-Vg1"/>
                     </connections>
                 </button>
             </subviews>
         </customView>
-        <arrayController objectClassName="AbbrevEntry" automaticallyPreparesContent="YES" id="77" customClass="AbbrevArrayController">
-            <connections>
-                <outlet property="document" destination="-2" id="95"/>
-            </connections>
-        </arrayController>
         <customObject id="96" customClass="AbbrevTableViewDelegate">
             <connections>
                 <outlet property="abbreviationColumn" destination="12" id="ufr-P8-lYm"/>
                 <outlet property="expansionColumn" destination="13" id="L23-Xc-wSe"/>
                 <outlet property="statusColumn" destination="1Pm-YH-Mgu" id="H3P-oZ-Isy"/>
-                <outlet property="table" destination="77" id="99"/>
                 <outlet property="view" destination="9" id="98"/>
             </connections>
         </customObject>
@@ -135,7 +144,7 @@
     </objects>
     <resources>
         <image name="ErrorFlag" width="9" height="9"/>
-        <image name="NSAddTemplate" width="11" height="11"/>
-        <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="NSExitFullScreenTemplate" width="15" height="15"/>
+        <image name="NSStopProgressFreestandingTemplate" width="14" height="14"/>
     </resources>
 </document>

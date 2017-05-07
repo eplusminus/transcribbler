@@ -10,3 +10,5 @@
 "Video" = "Video";
 "AudioOnly" = "Audio only";
 "NoMediaFile" = "no media file selected";
+"MainAbbrevList" = "main abbreviations list";
+"NewAbbrevList" = "unsaved abbreviations list";

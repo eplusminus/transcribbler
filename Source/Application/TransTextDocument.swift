@@ -29,24 +29,25 @@ let windowPosCommentParam = "WindowPos"
 let mediaFilePathCommentParam = "MediaFile"
 let timeCodeCommentParam = "TimeCode"
 let mediaDrawerOpenCommentParam = "MediaDrawerOpen"
-let abbrevDrawerOpenCommentParam = "AbbrevDrawerOpen"
 
 @objc(TransTextDocument)
 public class TransTextDocument: NSDocument {
   var windowController: TransTextWindowController!
   
   var textStorage: NSTextStorage?
-  var abbrevListDocument: AbbrevListDocument
   var abbrevResolver: AbbrevResolverImpl
   
   var loadedText: NSAttributedString?
   var loadedDocAttributes: NSDictionary?
   
+  public static var preferredFileType: String {
+    get {
+      return "net.errorbar.transcribbler.rtf"
+    }
+  }
+  
   public override init() {
-    abbrevListDocument = AbbrevListDocument()
-    abbrevResolver = AbbrevResolverImpl()
-    abbrevResolver.addProvider(abbrevListDocument)
-    abbrevListDocument.abbrevResolver = abbrevResolver
+    abbrevResolver = AbbrevListDocument.default.abbrevResolver!
   }
 
   override public func makeWindowControllers() {
@@ -60,25 +61,33 @@ public class TransTextDocument: NSDocument {
     
     textStorage = windowController.textView.textStorage
     
-    windowController.abbrevsController.addAbbrevListDocument(abbrevListDocument)
     windowController.textView.abbrevResolver = abbrevResolver
     
     useLoadedText()
   }
   
-  override public func read(from file: FileWrapper, ofType typeName: String) throws {
-    if let rtf = file.regularFileContents {
-      loadedText = NSAttributedString(rtf: rtf, documentAttributes: &loadedDocAttributes)
-//      if loadedText != nil {
-//        useLoadedText()
-//      }
+  override public func read(from data: Data, ofType typeName: String) throws {
+    if typeName == "public.plain-text" {
+      if let s = String(data: data, encoding: .utf8) {
+        loadedText = NSAttributedString(string: s)
+      }
+    }
+    else {
+      if let rtf = NSAttributedString(rtf: data, documentAttributes: &loadedDocAttributes) {
+        loadedText = rtf
+      }
     }
   }
   
-  override public func fileWrapper(ofType typeName: String) throws -> FileWrapper {
-    let attrs = makeDocAttributes()
-    let data = textStorage!.rtf(from: NSMakeRange(0, textStorage!.string.characters.count), documentAttributes: attrs)
-    return FileWrapper(regularFileWithContents: data!)
+  override public func data(ofType typeName: String) throws -> Data {
+    if typeName == "public.plain-text" {
+      return textStorage!.string.data(using: .utf8)!
+    }
+    else {
+      let attrs = makeDocAttributes()
+      let data = textStorage!.rtf(from: NSMakeRange(0, textStorage!.string.characters.count), documentAttributes: attrs)
+      return data!
+    }
   }
 
   //
@@ -126,14 +135,10 @@ public class TransTextDocument: NSDocument {
     if let _ = commentParams[mediaDrawerOpenCommentParam] {
       windowController.isMediaDrawerOpen = true
     }
-    
-    if let _ = commentParams[abbrevDrawerOpenCommentParam] {
-      windowController.isAbbrevDrawerOpen = true
-    }
   }
   
   private func makeDocAttributes() -> [String: String] {
-    var attrs: [String: String] = [NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType]
+    var attrs: [String: String] = [NSDocumentTypeDocumentAttribute: TransTextDocument.preferredFileType]
     var commentParams: [String: String] = [:]
     let mc = windowController.mediaController
     
@@ -148,9 +153,6 @@ public class TransTextDocument: NSDocument {
     }
     if windowController.isMediaDrawerOpen {
       commentParams[mediaDrawerOpenCommentParam] = ""
-    }
-    if windowController.isAbbrevDrawerOpen {
-      commentParams[abbrevDrawerOpenCommentParam] = ""
     }
     
     let comment = CommentStringFields.stringFromParams(commentParams)

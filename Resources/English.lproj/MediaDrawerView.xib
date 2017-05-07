@@ -59,6 +59,11 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 </avPlayerView>
                             </subviews>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="enabled" value="YES"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="expanded" value="YES"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="title" value="Video"/>
+                            </userDefinedRuntimeAttributes>
                         </customView>
                         <customView autoresizesSubviews="NO" toolTip="Properties" id="39" customClass="DisclosureView">
                             <rect key="frame" x="0.0" y="206" width="192" height="51"/>

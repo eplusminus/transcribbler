@@ -33,6 +33,13 @@ public class AbbrevResolverImpl: NSObject, AbbrevResolver {
     refresh()
   }
   
+  public func removeProvider(_ provider: AbbrevListProvider) {
+    if let i = providers.index(where: { p in p === provider }) {
+      providers.remove(at: i)
+      refresh()
+    }
+  }
+  
 //  func addedDocument(_ document: AbbrevListDocument) {
 //    documents.append(document)
 //    NotificationCenter.default.addObserver(self,

@@ -24,122 +24,115 @@ import Foundation
 import HelperViews
 
 @objc(AbbrevsController)
-public class AbbrevsController: NSViewController {
-  @IBOutlet private(set) var drawer: NSDrawer?
-  @IBOutlet private(set) var containerView: NSView!
-  @IBOutlet var textView: NSView! {
+public class AbbrevsController: NSWindowController {
+  @IBOutlet private(set) var splitView: NSSplitView!
+  
+  public var isPanelVisible: Bool {
     get {
-      return _textView
+      return window?.isVisible ?? false
     }
-    set(tv) {
-      if (_textView != tv) {
-        _textView = tv
-        document?.tableView.backTabDestination = tv;
-      }
+    set(v) {
+      window?.setIsVisible(v)
     }
   }
-  @IBOutlet private(set) var disclosureView: DisclosureView!
   
-  var document: AbbrevListDocument? = nil
-  var tableViewDelegate: AbbrevTableViewDelegate? = nil
-  var listView: NSView? = nil
-  private var _textView: NSView? = nil
+  public private(set) static var sharedInstance: AbbrevsController? = nil
+
+  private var listControllers: [AbbrevListController] = []
+  private var wasVisibleBeforeFullScreen: Bool = false
   
-  required public init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    var objects = NSArray()
-    Bundle.main.loadNibNamed("AbbrevDrawerView", owner: self, topLevelObjects: &objects)
+  override public var windowNibName: String? {
+    get {
+      return "AbbrevsPanel"
+    }
   }
   
   override public func awakeFromNib() {
-    if let d = drawer {
-      if (d.contentView != view) {
-        let size = view.frame.size
-        view.autoresizesSubviews = true
-        d.contentSize = size
-        d.minContentSize = size
-        d.contentView = view
-      }
-    }
-    disclosureView.fixedHeight = false
-  }
-  
-  public func addAbbrevListDocument(_ document: AbbrevListDocument) {
-    if (self.document == nil) {
-      self.document = document
-      if (document.view == nil) {
-        Bundle.main.loadNibNamed("AbbrevListView", owner: document, topLevelObjects: nil)
-      }
-      if let lv = document.view {
-        lv.setFrameOrigin(NSMakePoint(0, 0))
-        lv.setFrameSize(containerView.frame.size)
-        lv.autoresizingMask = [NSAutoresizingMaskOptions.viewWidthSizable,
-                               NSAutoresizingMaskOptions.viewHeightSizable];
-        listView = lv
-        containerView.addSubview(lv)
-      }
-      document.tableView.backTabDestination = textView
-      tableViewDelegate = document.tableView.delegate as? AbbrevTableViewDelegate  // table view keeps only a weak reference
-      tableViewDelegate?.resolver = document.abbrevResolver
+    let _ = window  // triggers lazy loading
+    let _ = addAbbrevListDocument(AbbrevListDocument.default)
+    if AbbrevsController.sharedInstance == nil {
+      AbbrevsController.sharedInstance = self
     }
   }
   
-  @IBAction public func newAbbreviation(_ sender: Any) {
-    drawer?.open()
-    NSApp.sendAction(#selector(AbbrevTableViewDelegate.add), to: document?.tableView.delegate, from: self)
+  public func addAbbrevListDocument(_ document: AbbrevListDocument) -> AbbrevListController {
+    if let alc = listControllers.first(where: { alc in alc.document === document }) {
+      return alc
+    }
+    if (!document.isDefaultList) {
+      AbbrevListDocument.default.abbrevResolver?.addProvider(document)
+    }
+    let alc = AbbrevListController(document)
+    let alcv = alc.view
+    splitView.addSubview(alcv)
+    splitView.adjustSubviews()
+    NotificationCenter.default.addObserver(self, selector: #selector(abbrevListClosed(_:)), name: AbbrevListController.ClosedNotification, object: alc)
+    listControllers.append(alc)
+    return alc
   }
   
-  @IBAction public func toggleSuffixes(_ sender: Any) {
-    let se = document!.suffixEditor!
-    if se.isPopoverOpen {
-      se.popover.close()
-      document?.tableView?.window?.makeFirstResponder(document?.tableView)
-    }
-    else {
-      let tv = document!.tableView!
-      let sri = tv.selectedRowIndexes
-      if sri.count == 1 {
-        let sr = tv.selectedRow
-        if let ae = tableViewDelegate?.entryAtIndex(sr) {
-          se.setAbbrevEntry(ae)
-          let selectionFrame = tv.frameOfCell(atColumn: 1, row: tv.selectedRow)
-          se.popover.show(relativeTo: selectionFrame, of: tv, preferredEdge: NSRectEdge.maxY)
-        }
+  @objc private func abbrevListClosed(_ notification: NSNotification) {
+    if let alc = notification.object as? AbbrevListController {
+      if let i = listControllers.index(of: alc) {
+        listControllers.remove(at: i)
+        alc.view.removeFromSuperview()
       }
     }
+  }
+  
+  @IBAction public func toggleAbbrevsPanel(_ sender: AnyObject?) {
+    isPanelVisible = !isPanelVisible
+  }
+  
+  @IBAction public func newAbbreviation(_ sender: AnyObject?) {
+    isPanelVisible = true
+    if let alc = listControllers.first {
+      window?.makeKey()
+      window?.makeFirstResponder(alc.tableView)
+      alc.tableViewDelegate.add(sender)
+    }
+  }
+
+  @IBAction public func newAbbreviationList(_ sender: AnyObject?) {
+    let alc = addAbbrevListDocument(AbbrevListDocument())
+    isPanelVisible = true
+    NSApp.mainWindow?.makeFirstResponder(alc.tableView)
+    alc.tableViewDelegate.add(sender)
   }
   
   public func lendViewsTo(stackingView: StackingView) {
-    if let lv = listView {
-      lv.removeFromSuperview();
-      if let cv = disclosureView.contentView {
-        cv.addSubview(lv)
-        lv.frame = cv.frame
-      }
-    }
-    stackingView.addSubview(disclosureView)
+    wasVisibleBeforeFullScreen = isPanelVisible
+    isPanelVisible = false
+    splitView.removeFromSuperview()
+    stackingView.addSubview(splitView)
   }
   
   public func restoreViews() {
-    disclosureView.removeFromSuperview()
-    if let lv = listView {
-      lv.removeFromSuperview()
-      containerView.addSubview(lv)
-      lv.frame = NSMakeRect(0, 0, containerView.frame.size.width, containerView.frame.size.height)
+    splitView.removeFromSuperview()
+    if let cv = window?.contentView {
+      cv.addSubview(splitView)
+      splitView.frame = cv.frame
+      splitView.adjustSubviews()
     }
+    isPanelVisible = wasVisibleBeforeFullScreen
   }
   
   //
-  // protocol NSMenuValidation
+  // NSMenuValidation
   //
   
   override public func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-    if menuItem.action == #selector(newAbbreviation) {
-      return true;
-    }
-    if menuItem.action == #selector(toggleSuffixes(_:)) {
-      menuItem.state = (document?.suffixEditor.isPopoverOpen ?? false) ? NSOnState : NSOffState
-      return (document?.tableView.selectedRowIndexes.count ?? 0) == 1;
+    if let a = menuItem.action {
+      switch a {
+      case #selector(newAbbreviation),
+           #selector(newAbbreviationList):
+        return true
+      case #selector(toggleAbbrevsPanel(_:)):
+        menuItem.state = isPanelVisible ? NSOnState : NSOffState
+        return true
+      default:
+        return false
+      }
     }
     return false;
   }

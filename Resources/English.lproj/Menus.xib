@@ -7,12 +7,22 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
             <connections>
-                <outlet property="delegate" destination="811" id="814"/>
+                <outlet property="delegate" destination="811" id="Ci8-r9-AAB"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
-        <customObject id="811" customClass="AppDelegate"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customObject id="811" customClass="TransAppDelegate">
+            <connections>
+                <outlet property="abbrevsController" destination="mYB-xZ-V2F" id="50Y-zM-bVg"/>
+            </connections>
+        </customObject>
+        <customObject id="QHU-jY-Dcd" customClass="TransDocumentController">
+            <connections>
+                <outlet property="abbrevsController" destination="mYB-xZ-V2F" id="eOG-Gl-kcC"/>
+            </connections>
+        </customObject>
+        <customObject id="mYB-xZ-V2F" customClass="AbbrevsController"/>
         <customObject id="371" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="29">
             <items>
@@ -69,14 +79,10 @@
                                     <action selector="newDocument:" target="-1" id="796"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Fcn-mX-xzj"/>
                             <menuItem title="Open Text Document…" keyEquivalent="o" id="72">
                                 <connections>
-                                    <action selector="openDocument:" target="-1" id="817"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Open Media File..." keyEquivalent="O" id="829">
-                                <connections>
-                                    <action selector="loadMedia:" target="-1" id="830"/>
+                                    <action selector="openTextDocument:" target="QHU-jY-Dcd" id="oEu-8z-HIP"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Open Recent" id="124">
@@ -172,11 +178,6 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="838"/>
-                            <menuItem title="New Abbreviation" keyEquivalent="N" id="837">
-                                <connections>
-                                    <action selector="newAbbreviation:" target="-1" id="839"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="692"/>
                             <menuItem title="Find" id="693">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -611,6 +612,51 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Abbreviations" id="iiy-Z6-a6h">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Abbreviations" id="mDV-2q-mG9">
+                        <items>
+                            <menuItem title="New Abbreviation" keyEquivalent="N" id="837">
+                                <connections>
+                                    <action selector="newAbbreviation:" target="-1" id="839"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Suffixes" keyEquivalent="=" id="9fj-qt-JIt">
+                                <connections>
+                                    <action selector="toggleSuffixes:" target="-1" id="003-Cz-DYi"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="yMn-cV-FoD"/>
+                            <menuItem title="New Abbreviation List" keyEquivalent="n" id="OMI-1l-wb4">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="newAbbreviationList:" target="mYB-xZ-V2F" id="AOf-WQ-7dj"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="tZN-JN-bnc"/>
+                            <menuItem title="Open Abbreviation List..." keyEquivalent="o" id="yNd-PV-FO9">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="openAbbreviationList:" target="-1" id="ra1-iM-ILy"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="0ne-6s-rFF"/>
+                            <menuItem title="Close Abbreviation List" id="JKD-Ip-m5f">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="closeAbbreviationList:" target="-1" id="I8e-f4-ntv"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="LRc-73-iSP"/>
+                            <menuItem title="Save Abbreviation List As..." keyEquivalent="s" id="Qn2-Un-qdO">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="saveAbbreviationListAs:" target="-1" id="fhS-5k-Pot"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Media" id="818">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Media" id="819">
@@ -618,6 +664,12 @@
                             <menuItem title="Play" enabled="NO" keyEquivalent="/" id="820">
                                 <connections>
                                     <action selector="togglePlay:" target="-1" id="828"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="83S-Gg-1HR"/>
+                            <menuItem title="Open Media File..." keyEquivalent="O" id="829">
+                                <connections>
+                                    <action selector="loadMedia:" target="-1" id="830"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -634,12 +686,7 @@
                             </menuItem>
                             <menuItem title="Abbreviations" keyEquivalent="A" id="835">
                                 <connections>
-                                    <action selector="toggleAbbrevDrawer:" target="-1" id="836"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Suffixes" keyEquivalent="=" id="9fj-qt-JIt">
-                                <connections>
-                                    <action selector="toggleSuffixes:" target="-1" id="003-Cz-DYi"/>
+                                    <action selector="toggleAbbrevsPanel:" target="mYB-xZ-V2F" id="V0c-tV-dJT"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="832"/>

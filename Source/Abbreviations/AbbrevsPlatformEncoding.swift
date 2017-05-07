@@ -26,14 +26,14 @@ public class AbbrevsPlatformEncoding: AbbrevsEncoding {
   }
   
   public func pasteboardType() -> String {
-    return "AbbreviationsPasteBoardType"
+    return "net.errorbar.transcribber.table"
   }
   
   public func readAbbrevsFromData(_ data: Data) throws -> [AbbrevEntry] {
     return (NSKeyedUnarchiver.unarchiveObject(with: data) as? [AbbrevEntry]) ?? ([AbbrevEntry]())
   }
   
-  public func writeAbbrevsToData(_ abbrevs: [AbbrevEntry]) -> Data? {
+  public func writeAbbrevsToData(_ abbrevs: [AbbrevEntry]) -> Data {
     return NSKeyedArchiver.archivedData(withRootObject: abbrevs)
   }
 }

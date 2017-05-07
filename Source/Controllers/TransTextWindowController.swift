@@ -38,13 +38,11 @@ let bothShiftKeys = NSEventModifierFlags.shift.union(NSEventModifierFlags(rawVal
 public class TransTextWindowController: NSWindowController,
     NSWindowDelegate, NSDrawerDelegate, NSSplitViewDelegate, NSUserInterfaceValidations {
   @IBOutlet private(set) var mediaController: MediaController!
-  @IBOutlet private(set) var abbrevsController: AbbrevsController!
   
   @IBOutlet private(set) var mainContentView: NSView!
   @IBOutlet private(set) var textView: TransTextView!
   @IBOutlet private(set) var scrollView: NSScrollView!
   @IBOutlet private(set) var mediaDrawer: NSDrawer!
-  @IBOutlet private(set) var abbrevDrawer: NSDrawer!
   
   var fullScreen: Bool = false
   var toolbar: NSToolbar?
@@ -58,13 +56,13 @@ public class TransTextWindowController: NSWindowController,
     super.windowDidLoad()
     
     self.window?.collectionBehavior = NSWindowCollectionBehavior.fullScreenPrimary
-    
-    mediaController.nextResponder = self.nextResponder
-    abbrevsController.nextResponder = mediaController
-    self.nextResponder = abbrevsController
+  
+    // Insert the drawer controller into the responder chain after the text view, so that we can
+    // trigger commands like "play/pause" while editing text.
+    mediaController.nextResponder = textView.nextResponder
+    textView.nextResponder = mediaController
     
     mediaDrawer.delegate = self
-    abbrevDrawer.delegate = self
     
     toolbarVisibleInFullScreen = false
     
@@ -98,10 +96,6 @@ public class TransTextWindowController: NSWindowController,
     isMediaDrawerOpen = !isMediaDrawerOpen
   }
 
-  @IBAction public func toggleAbbrevDrawer(_ sender: Any) {
-    isAbbrevDrawerOpen = !isAbbrevDrawerOpen
-  }
-
   @IBAction public func toggleRuler(_ sender: Any) {
     textView.isRulerVisible = !textView.isRulerVisible
   }
@@ -112,15 +106,6 @@ public class TransTextWindowController: NSWindowController,
     }
     set(s) {
       setDrawerState(mediaDrawer, open: s)
-    }
-  }
-  
-  public var isAbbrevDrawerOpen: Bool {
-    get {
-      return abbrevDrawer.state == Int(NSDrawerState.openState.rawValue)
-    }
-    set(s) {
-      setDrawerState(abbrevDrawer, open: s)
     }
   }
   
@@ -151,7 +136,7 @@ public class TransTextWindowController: NSWindowController,
     w.contentView?.addSubview(splitter!)
     
     mediaController.lendViewsToStackingView(stackingView!)
-    abbrevsController.lendViewsTo(stackingView: stackingView!)
+    AbbrevsController.sharedInstance?.lendViewsTo(stackingView: stackingView!)
     
     textView.textContainerInset = NSMakeSize(100, 30)
   }
@@ -174,7 +159,7 @@ public class TransTextWindowController: NSWindowController,
     window!.contentView?.addSubview(mainContentView)
     
     mediaController.restoreViews()
-    abbrevsController.restoreViews()
+    AbbrevsController.sharedInstance?.restoreViews()
     
     textView.textContainerInset = NSMakeSize(0, 0)
   }
@@ -227,16 +212,7 @@ public class TransTextWindowController: NSWindowController,
       }
       return true
     }
-    if a == #selector(toggleAbbrevDrawer(_:)) {
-      if let m = item as? NSMenuItem {
-        m.state = abbrevDrawer.state
-      }
-      return true
-    }
     if a == #selector(toggleRuler(_:)) {
-      return true
-    }
-    if a == #selector(AbbrevsController.newAbbreviation) {
       return true
     }
     return false

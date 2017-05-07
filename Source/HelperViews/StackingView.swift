@@ -24,6 +24,20 @@ import Foundation
 
 @objc(StackingView)
 public class StackingView: NSView {
+  @IBInspectable public var margin: CGFloat {
+    get {
+      return _margin
+    }
+    set(m) {
+      if m != _margin {
+        _margin = m
+        if inited {
+          updateLayout()
+        }
+      }
+    }
+  }
+  private var _margin: CGFloat = 0
   private var inited: Bool = false
   private var updating: Bool = false
   private var dirty: Bool = false
@@ -33,25 +47,22 @@ public class StackingView: NSView {
     updateLayout()
   }
 
-  override public func addSubview(_ view: NSView) {
-    if (!isCustomView(view)) {
-      view.addObserver(self, forKeyPath: "hidden", options: [], context: nil)
-      NotificationCenter.default.addObserver(self, selector: #selector(subviewFrameChanged),
-                                             name: NSNotification.Name.NSViewFrameDidChange, object: view)
-    }
-    super.addSubview(view)
-    if (inited) {
+  override public func didAddSubview(_ view: NSView) {
+    view.addObserver(self, forKeyPath: "hidden", options: [], context: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(subviewFrameChanged),
+                                           name: NSNotification.Name.NSViewFrameDidChange, object: view)
+    if inited {
       updateLayout()
     }
   }
-  
+
   override public func willRemoveSubview(_ view: NSView) {
     if view.superview == self && !isCustomView(view) {
       view.removeObserver(self, forKeyPath: "hidden")
       NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NSViewFrameDidChange, object: view)
     }
   }
-
+  
   func isCustomView(_ view: NSView) -> Bool {
     return false; // TODO
   }
@@ -67,7 +78,7 @@ public class StackingView: NSView {
   }
   
   func subviewFrameChanged(_ sender: Any) {
-    if (updating) {
+    if updating {
       dirty = true
     }
     else {
@@ -76,7 +87,7 @@ public class StackingView: NSView {
   }
 
   func updateLayout() {
-    if (updating) {
+    if updating {
       return
     }
     updating = true
@@ -93,11 +104,14 @@ public class StackingView: NSView {
         if !v.isHidden {
           let min = minimumHeight(v)
           let max = maximumHeight(v)
-          minSpaceUsed += min
+          minSpaceUsed += min + _margin
           if (max > min) {
             varHeightCount += 1
           }
         }
+      }
+      if minSpaceUsed > 0 {
+        minSpaceUsed -= _margin
       }
       let availableHeight: CGFloat = frame.size.height - minSpaceUsed
       var pos: CGFloat = frame.size.height
@@ -107,12 +121,12 @@ public class StackingView: NSView {
           let min = minimumHeight(v)
           let max = maximumHeight(v)
           if (min == max) {
-            newHeight = min;
+            newHeight = min
           }
           else {
             newHeight = min + (availableHeight / CGFloat(varHeightCount))
             if (newHeight > max) {
-              newHeight = max;
+              newHeight = max
             }
           }
           let newFrame = NSMakeRect(0, pos - newHeight, fixedWidth, newHeight)
@@ -121,7 +135,7 @@ public class StackingView: NSView {
             v.frame = newFrame
             changed = true
           }
-          pos -= newHeight;
+          pos -= newHeight + _margin
         }
       }
       

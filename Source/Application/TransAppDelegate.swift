@@ -19,11 +19,22 @@
  
  */
 
+import AbbreviationsEditor
+
 import Cocoa
 import Foundation
 
 @NSApplicationMain
-@objc(AppDelegate)
-public class AppDelegate: NSResponder, NSApplicationDelegate {
-  // no need for anything here yet
+@objc(TransAppDelegate)
+public class TransAppDelegate: NSResponder, NSApplicationDelegate {
+
+  @IBOutlet private(set) var abbrevsController: AbbrevsController!
+  
+  @IBAction public func newAbbreviation(_ sender: AnyObject?) {
+    abbrevsController.newAbbreviation(sender)
+  }
+  
+  override public func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    return abbrevsController.validateMenuItem(menuItem)
+  }
 }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AbbrevsController">
+            <connections>
+                <outlet property="splitView" destination="5yt-QZ-KqM" id="CnS-xG-MbP"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="Yll-jd-PtR"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Abbreviations" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
+            <windowPositionMask key="initialPositionMask" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="1087" y="482" width="353" height="453"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="353" height="453"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <splitView fixedFrame="YES" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="5yt-QZ-KqM">
+                        <rect key="frame" x="0.0" y="0.0" width="353" height="453"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </splitView>
+                </subviews>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="44532990-113F-4C7D-9B86-96F2BE7DCE12" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="small" id="BbA-ly-DHT">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="B7A2C863-CAED-4695-8622-CFD06B6DF013" label="Add abbreviation" paletteLabel="Add abbreviation" tag="-1" image="NSAddTemplate" id="HHC-np-fGo">
+                        <connections>
+                            <action selector="newAbbreviation:" target="-1" id="KEb-5g-RNP"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="A5AAF28B-0490-4185-9D43-9436E4BE7ACF" label="Remove abbreviation" paletteLabel="Remove abbreviation" tag="-1" image="NSRemoveTemplate" id="Ako-Vp-xej">
+                        <connections>
+                            <action selector="removeAbbreviation:" target="-1" id="dGG-r1-BfL"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="BCAC546F-40C4-44D6-A869-880E3ED8CB96" label="Suffixes" paletteLabel="Suffixes" tag="-1" image="NSAdvanced" id="Cc8-VC-VGR">
+                        <connections>
+                            <action selector="toggleSuffixes:" target="-1" id="n1I-32-EIT"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="eKS-B6-TBy"/>
+                    <toolbarItem implicitItemIdentifier="C4083597-C670-4F32-AF76-748F6DFE2745" label="Open abbreviation list" paletteLabel="Open abbreviation list" tag="-1" image="NSFolder" id="Ass-Uj-aUK">
+                        <connections>
+                            <action selector="openAbbreviationList:" target="-1" id="ELP-uP-J5V"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="C9330E8B-8EEF-4791-AFE6-896487321739" label="Save abbreviation list" paletteLabel="Save abbreviation list" tag="-1" image="NSMultipleDocuments" id="Gaq-tk-b7K">
+                        <connections>
+                            <action selector="saveAbbreviationListAs:" target="-1" id="p7h-af-zf3"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="982-nx-Wgv"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="Ass-Uj-aUK"/>
+                    <toolbarItem reference="Gaq-tk-b7K"/>
+                    <toolbarItem reference="982-nx-Wgv"/>
+                    <toolbarItem reference="HHC-np-fGo"/>
+                    <toolbarItem reference="eKS-B6-TBy"/>
+                    <toolbarItem reference="Ako-Vp-xej"/>
+                    <toolbarItem reference="982-nx-Wgv"/>
+                    <toolbarItem reference="Cc8-VC-VGR"/>
+                </defaultToolbarItems>
+            </toolbar>
+            <point key="canvasLocation" x="122.5" y="149.5"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSAdvanced" width="32" height="32"/>
+        <image name="NSFolder" width="32" height="32"/>
+        <image name="NSMultipleDocuments" width="32" height="32"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
+    </resources>
+</document>
