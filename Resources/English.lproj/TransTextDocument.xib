@@ -36,7 +36,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" id="dga-yQ-PPx">
                                     <rect key="frame" x="1" y="1" width="810" height="352"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView importsGraphics="NO" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" smartInsertDelete="YES" id="12" customClass="TransTextView">
                                             <rect key="frame" x="0.0" y="0.0" width="810" height="352"/>
@@ -67,11 +67,6 @@
                     <toolbarItem implicitItemIdentifier="E96096C1-7F73-4779-80CC-DCA109DF2EBE" explicitItemIdentifier="ShowMediaToolbarItem" label="Media" paletteLabel="Media" tag="-1" image="NSFlowViewTemplate" id="18">
                         <connections>
                             <action selector="toggleMediaDrawer:" target="-1" id="39"/>
-                        </connections>
-                    </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="CF361E8D-0FE4-408D-82EE-F246598399D3" explicitItemIdentifier="ShowAbbrevsToolbarItem" label="Abbreviations" paletteLabel="Abbreviations" tag="-1" image="NSListViewTemplate" id="17">
-                        <connections>
-                            <action selector="toggleAbbrevDrawer:" target="-1" id="40"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="83ED6DFE-7E84-453F-96CC-227B48503790" explicitItemIdentifier="RulerToolbarItem" label="Ruler" paletteLabel="Ruler" tag="-1" image="NSFontPanel" id="16">
@@ -114,8 +109,6 @@
                     <toolbarItem reference="20"/>
                     <toolbarItem reference="21"/>
                     <toolbarItem reference="16"/>
-                    <toolbarItem reference="20"/>
-                    <toolbarItem reference="17"/>
                 </defaultToolbarItems>
                 <connections>
                     <outlet property="delegate" destination="-2" id="38"/>
@@ -142,6 +135,5 @@
     <resources>
         <image name="NSFlowViewTemplate" width="18" height="10"/>
         <image name="NSFontPanel" width="32" height="32"/>
-        <image name="NSListViewTemplate" width="14" height="10"/>
     </resources>
 </document>
