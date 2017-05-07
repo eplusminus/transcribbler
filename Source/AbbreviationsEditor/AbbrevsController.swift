@@ -103,7 +103,7 @@ public class AbbrevsController: NSViewController {
   
   public func lendViewsTo(stackingView: StackingView) {
     for lc in listControllers {
-      let v = lc.view
+      let v = lc.disclosureView!
       v.removeFromSuperview()
       stackingView.addSubview(v)
     }
@@ -111,10 +111,13 @@ public class AbbrevsController: NSViewController {
   
   public func restoreViews() {
     for lc in listControllers {
-      let v = lc.view
+      let v = lc.disclosureView!
       v.removeFromSuperview()
-      self.stackingView?.addSubview(v)
+      lc.view.addSubview(v)
+      v.frame.origin = NSMakePoint(0, 0)
+      v.frame.size = lc.view.frame.size
     }
+    self.stackingView?.needsLayout = true
   }
   
   //
