@@ -27,6 +27,8 @@ import Foundation
 @objc(TransDocumentController)
 public class TransDocumentController: NSDocumentController {
   
+  @IBOutlet private(set) var abbrevsController: AbbrevsController!
+  
   @IBAction public func openTextDocument(_ sender: AnyObject?) {
     openSomeFile(forTypes: ["public.plain-text", "public.rtf"])
   }
@@ -57,11 +59,8 @@ public class TransDocumentController: NSDocumentController {
   
   override public func addDocument(_ document: NSDocument) {
     if let ald = document as? AbbrevListDocument {
-      if let wc = NSApp.mainWindow?.windowController as? TransTextWindowController {
-        let _ = wc.abbrevsController.addAbbrevListDocument(ald)
-        wc.isAbbrevDrawerOpen = true
-      }
-      return
+      let _ = abbrevsController.addAbbrevListDocument(ald)
+      abbrevsController.isPanelVisible = true
     }
     super.addDocument(document)
   }

@@ -24,41 +24,29 @@ import Foundation
 import HelperViews
 
 @objc(AbbrevsController)
-public class AbbrevsController: NSViewController {
-  @IBOutlet private(set) var drawer: NSDrawer?
-  @IBOutlet private(set) var stackingView: NSStackView? = nil
-  @IBOutlet var textView: NSView? {
+public class AbbrevsController: NSWindowController {
+  @IBOutlet private(set) var splitView: NSSplitView!
+  
+  public var isPanelVisible: Bool {
     get {
-      return _textView
+      return window?.isVisible ?? false
     }
-    set(tv) {
-      if (_textView != tv) {
-        _textView = tv
-        // tableView?.backTabDestination = tv;
-        // TODO
-      }
+    set(v) {
+      window?.setIsVisible(v)
     }
   }
   
   private var listControllers: [AbbrevListController] = []
   private var _textView: NSView? = nil
-  
-  required public init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    var objects = NSArray()
-    Bundle.main.loadNibNamed("AbbrevDrawerView", owner: self, topLevelObjects: &objects)
+
+  override public var windowNibName: String? {
+    get {
+      return "AbbrevsPanel"
+    }
   }
   
   override public func awakeFromNib() {
-    if let d = drawer {
-      if (d.contentView != view) {
-        let size = view.frame.size
-        view.autoresizesSubviews = true
-        d.contentSize = size
-        d.minContentSize = size
-        d.contentView = view
-      }
-    }
+    let _ = window  // triggers lazy loading
     let _ = addAbbrevListDocument(AbbrevListDocument.default)
   }
   
@@ -71,7 +59,8 @@ public class AbbrevsController: NSViewController {
     }
     let alc = AbbrevListController(document)
     let alcv = alc.view
-    stackingView?.addView(alcv, in: .bottom)
+    splitView.addSubview(alcv)
+    splitView.adjustSubviews()
     NotificationCenter.default.addObserver(self, selector: #selector(abbrevListClosed(_:)), name: AbbrevListController.ClosedNotification, object: alc)
     listControllers.append(alc)
     return alc
@@ -86,38 +75,24 @@ public class AbbrevsController: NSViewController {
     }
   }
   
+  @IBAction public func toggleAbbrevsPanel(_ sender: AnyObject?) {
+    isPanelVisible = !isPanelVisible
+  }
+  
   @IBAction public func newAbbreviation(_ sender: AnyObject?) {
-    drawer?.open()
+    isPanelVisible = true
     if let alc = listControllers.first {
-      NSApp.mainWindow?.makeFirstResponder(alc.tableView)
+      window?.makeKey()
+      window?.makeFirstResponder(alc.tableView)
       alc.tableViewDelegate.add(sender)
     }
   }
   
   @IBAction public func newAbbreviationList(_ sender: AnyObject?) {
     let alc = addAbbrevListDocument(AbbrevListDocument())
-    drawer?.open()
+    isPanelVisible = true
     NSApp.mainWindow?.makeFirstResponder(alc.tableView)
     alc.tableViewDelegate.add(sender)
-  }
-  
-  public func lendViewsTo(stackingView: StackingView) {
-    for lc in listControllers {
-      let v = lc.disclosureView!
-      v.removeFromSuperview()
-      stackingView.addSubview(v)
-    }
-  }
-  
-  public func restoreViews() {
-    for lc in listControllers {
-      let v = lc.disclosureView!
-      v.removeFromSuperview()
-      lc.view.addSubview(v)
-      v.frame.origin = NSMakePoint(0, 0)
-      v.frame.size = lc.view.frame.size
-    }
-    self.stackingView?.needsLayout = true
   }
   
   //
@@ -129,6 +104,9 @@ public class AbbrevsController: NSViewController {
       switch a {
       case #selector(newAbbreviation),
            #selector(newAbbreviationList):
+        return true
+      case #selector(toggleAbbrevsPanel(_:)):
+        menuItem.state = isPanelVisible ? NSOnState : NSOffState
         return true
       default:
         return false

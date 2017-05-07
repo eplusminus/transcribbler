@@ -7,12 +7,22 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
             <connections>
-                <outlet property="delegate" destination="811" id="814"/>
+                <outlet property="delegate" destination="811" id="Ci8-r9-AAB"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="811" customClass="AppDelegate"/>
+        <customObject id="811" customClass="TransAppDelegate">
+            <connections>
+                <outlet property="abbrevsController" destination="mYB-xZ-V2F" id="50Y-zM-bVg"/>
+            </connections>
+        </customObject>
+        <customObject id="QHU-jY-Dcd" customClass="TransDocumentController">
+            <connections>
+                <outlet property="abbrevsController" destination="mYB-xZ-V2F" id="eOG-Gl-kcC"/>
+            </connections>
+        </customObject>
+        <customObject id="mYB-xZ-V2F" customClass="AbbrevsController"/>
         <customObject id="371" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="29">
             <items>
@@ -615,7 +625,7 @@
                             <menuItem title="New Abbreviation List" keyEquivalent="n" id="OMI-1l-wb4">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
-                                    <action selector="newAbbreviationList:" target="-1" id="Smv-Jt-dAS"/>
+                                    <action selector="newAbbreviationList:" target="mYB-xZ-V2F" id="AOf-WQ-7dj"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="tZN-JN-bnc"/>
@@ -671,7 +681,7 @@
                             </menuItem>
                             <menuItem title="Abbreviations" keyEquivalent="A" id="835">
                                 <connections>
-                                    <action selector="toggleAbbrevDrawer:" target="-1" id="836"/>
+                                    <action selector="toggleAbbrevsPanel:" target="mYB-xZ-V2F" id="V0c-tV-dJT"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="832"/>
@@ -736,6 +746,5 @@
                 </menuItem>
             </items>
         </menu>
-        <customObject id="QHU-jY-Dcd" customClass="TransDocumentController"/>
     </objects>
 </document>

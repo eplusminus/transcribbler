@@ -29,7 +29,7 @@ public class AbbrevListController: NSViewController {
   
   @IBOutlet private(set) var tableView: HandyTableView!
   @IBOutlet private(set) var tableViewDelegate: AbbrevTableViewDelegate!
-  @IBOutlet private(set) var disclosureView: DisclosureView!
+  @IBOutlet private(set) var labelField: NSTextField!
   
   public private(set) var document: AbbrevListDocument
   public var displayName: String {
@@ -51,8 +51,10 @@ public class AbbrevListController: NSViewController {
     tableViewDelegate.table = document.controller
     tableViewDelegate.resolver = document.abbrevResolver
     tableView?.reloadData()
-
-    disclosureView.bind("title", to: document, withKeyPath: "displayName", options: nil)
+  }
+  
+  @IBAction public func hideAbbreviationList(_ sender: AnyObject?) {
+    // TODO
   }
   
   @IBAction public func closeAbbreviationList(_ sender: AnyObject?) {
@@ -74,6 +76,7 @@ public class AbbrevListController: NSViewController {
     if let a = menuItem.action {
       switch a {
       case #selector(closeAbbreviationList),
+           #selector(hideAbbreviationList),
            #selector(saveAbbreviationListAs):
         return !document.isDefaultList
       default:

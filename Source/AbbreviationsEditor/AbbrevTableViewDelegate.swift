@@ -61,6 +61,10 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
     self.add(sender)
   }
   
+  @IBAction public func removeAbbreviation(_ sender: AnyObject?) {
+    self.delete(sender)
+  }
+  
   @IBAction public func add(_ sender: AnyObject?) {
     var row = view.selectedRow
     let col = view.column(withIdentifier: abbreviationColumn.identifier)
@@ -87,7 +91,7 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
     view.editColumn(col, row: row, with: nil, select: false)
   }
   
-  @IBAction public func delete(_ sender: AnyObject) {
+  @IBAction public func delete(_ sender: AnyObject?) {
     if !view.selectedRowIndexes.isEmpty {
       let rows = view.selectedRowIndexes
       view.abortEditing()
@@ -99,16 +103,16 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
     }
   }
 
-  @IBAction public func cut(_ sender: AnyObject) {
+  @IBAction public func cut(_ sender: AnyObject?) {
     copyInternal()
     delete(sender)
   }
 
-  @IBAction public func copy(_ sender: AnyObject) {
+  @IBAction public func copy(_ sender: AnyObject?) {
     copyInternal()
   }
 
-  @IBAction public func paste(_ sender: AnyObject) {
+  @IBAction public func paste(_ sender: AnyObject?) {
     let pb = NSPasteboard.general()
     var items: [Any] = [Any]()
     

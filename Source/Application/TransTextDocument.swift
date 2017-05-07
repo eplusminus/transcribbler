@@ -29,7 +29,6 @@ let windowPosCommentParam = "WindowPos"
 let mediaFilePathCommentParam = "MediaFile"
 let timeCodeCommentParam = "TimeCode"
 let mediaDrawerOpenCommentParam = "MediaDrawerOpen"
-let abbrevDrawerOpenCommentParam = "AbbrevDrawerOpen"
 
 @objc(TransTextDocument)
 public class TransTextDocument: NSDocument {
@@ -136,10 +135,6 @@ public class TransTextDocument: NSDocument {
     if let _ = commentParams[mediaDrawerOpenCommentParam] {
       windowController.isMediaDrawerOpen = true
     }
-    
-    if let _ = commentParams[abbrevDrawerOpenCommentParam] {
-      windowController.isAbbrevDrawerOpen = true
-    }
   }
   
   private func makeDocAttributes() -> [String: String] {
@@ -158,9 +153,6 @@ public class TransTextDocument: NSDocument {
     }
     if windowController.isMediaDrawerOpen {
       commentParams[mediaDrawerOpenCommentParam] = ""
-    }
-    if windowController.isAbbrevDrawerOpen {
-      commentParams[abbrevDrawerOpenCommentParam] = ""
     }
     
     let comment = CommentStringFields.stringFromParams(commentParams)

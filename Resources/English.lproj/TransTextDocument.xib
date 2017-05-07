@@ -8,8 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TransTextWindowController">
             <connections>
-                <outlet property="abbrevDrawer" destination="8" id="31"/>
-                <outlet property="abbrevsController" destination="5" id="33"/>
                 <outlet property="mainContentView" destination="48" id="49"/>
                 <outlet property="mediaController" destination="4" id="34"/>
                 <outlet property="mediaDrawer" destination="7" id="32"/>
@@ -19,7 +17,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="mainWindow" animationBehavior="default" id="3" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -38,7 +36,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" id="dga-yQ-PPx">
                                     <rect key="frame" x="1" y="1" width="810" height="352"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView importsGraphics="NO" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" smartInsertDelete="YES" id="12" customClass="TransTextView">
                                             <rect key="frame" x="0.0" y="0.0" width="810" height="352"/>
@@ -133,23 +131,11 @@
                 <outlet property="timeCodeLabel" destination="24" id="28"/>
             </connections>
         </viewController>
-        <viewController id="5" customClass="AbbrevsController">
-            <connections>
-                <outlet property="drawer" destination="8" id="30"/>
-            </connections>
-        </viewController>
         <drawer preferredEdge="minX" trailingOffset="15" id="7">
             <size key="contentSize" width="100" height="100"/>
             <size key="maxContentSize" width="10000" height="10000"/>
             <connections>
                 <outlet property="parentWindow" destination="3" id="26"/>
-            </connections>
-        </drawer>
-        <drawer trailingOffset="15" id="8">
-            <size key="contentSize" width="100" height="100"/>
-            <size key="maxContentSize" width="10000" height="10000"/>
-            <connections>
-                <outlet property="parentWindow" destination="3" id="29"/>
             </connections>
         </drawer>
     </objects>
