@@ -57,10 +57,9 @@ public class TransTextWindowController: NSWindowController,
     
     self.window?.collectionBehavior = NSWindowCollectionBehavior.fullScreenPrimary
   
-    // Insert the two drawer controllers into the responder chain after the text view, so that we can
-    // trigger commands like "play/pause" and "new abbreviation" while editing text.
+    // Insert the drawer controller into the responder chain after the text view, so that we can
+    // trigger commands like "play/pause" while editing text.
     mediaController.nextResponder = textView.nextResponder
-    //abbrevsController.nextResponder = mediaController
     textView.nextResponder = mediaController
     
     mediaDrawer.delegate = self
@@ -137,7 +136,7 @@ public class TransTextWindowController: NSWindowController,
     w.contentView?.addSubview(splitter!)
     
     mediaController.lendViewsToStackingView(stackingView!)
-//    abbrevsController.lendViewsTo(stackingView: stackingView!)
+    AbbrevsController.sharedInstance?.lendViewsTo(stackingView: stackingView!)
     
     textView.textContainerInset = NSMakeSize(100, 30)
   }
@@ -160,7 +159,7 @@ public class TransTextWindowController: NSWindowController,
     window!.contentView?.addSubview(mainContentView)
     
     mediaController.restoreViews()
-//    abbrevsController.restoreViews()
+    AbbrevsController.sharedInstance?.restoreViews()
     
     textView.textContainerInset = NSMakeSize(0, 0)
   }

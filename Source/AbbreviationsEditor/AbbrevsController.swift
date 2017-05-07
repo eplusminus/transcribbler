@@ -36,9 +36,11 @@ public class AbbrevsController: NSWindowController {
     }
   }
   
-  private var listControllers: [AbbrevListController] = []
-  private var _textView: NSView? = nil
+  public private(set) static var sharedInstance: AbbrevsController? = nil
 
+  private var listControllers: [AbbrevListController] = []
+  private var wasVisibleBeforeFullScreen: Bool = false
+  
   override public var windowNibName: String? {
     get {
       return "AbbrevsPanel"
@@ -48,6 +50,9 @@ public class AbbrevsController: NSWindowController {
   override public func awakeFromNib() {
     let _ = window  // triggers lazy loading
     let _ = addAbbrevListDocument(AbbrevListDocument.default)
+    if AbbrevsController.sharedInstance == nil {
+      AbbrevsController.sharedInstance = self
+    }
   }
   
   public func addAbbrevListDocument(_ document: AbbrevListDocument) -> AbbrevListController {
@@ -93,6 +98,23 @@ public class AbbrevsController: NSWindowController {
     isPanelVisible = true
     NSApp.mainWindow?.makeFirstResponder(alc.tableView)
     alc.tableViewDelegate.add(sender)
+  }
+  
+  public func lendViewsTo(stackingView: StackingView) {
+    wasVisibleBeforeFullScreen = isPanelVisible
+    isPanelVisible = false
+    splitView.removeFromSuperview()
+    stackingView.addSubview(splitView)
+  }
+  
+  public func restoreViews() {
+    splitView.removeFromSuperview()
+    if let cv = window?.contentView {
+      cv.addSubview(splitView)
+      splitView.frame = cv.frame
+      splitView.adjustSubviews()
+    }
+    isPanelVisible = wasVisibleBeforeFullScreen
   }
   
   //
