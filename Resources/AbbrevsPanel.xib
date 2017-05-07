@@ -23,7 +23,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="353" height="453"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <splitView fixedFrame="YES" dividerStyle="paneSplitter" translatesAutoresizingMaskIntoConstraints="NO" id="5yt-QZ-KqM">
+                    <splitView fixedFrame="YES" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="5yt-QZ-KqM">
                         <rect key="frame" x="0.0" y="0.0" width="353" height="453"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </splitView>
