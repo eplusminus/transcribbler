@@ -7,7 +7,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AbbrevListController">
             <connections>
+                <outlet property="collapseButton" destination="Lx3-fw-5f0" id="rJV-H8-36n"/>
                 <outlet property="labelField" destination="aeb-md-nOA" id="cGa-2P-SzM"/>
+                <outlet property="tableContainerView" destination="3" id="sFn-yK-503"/>
                 <outlet property="tableView" destination="9" id="102"/>
                 <outlet property="tableViewDelegate" destination="96" id="DLZ-p6-gFh"/>
                 <outlet property="view" destination="1" id="1aB-OI-oGQ"/>
@@ -115,15 +117,15 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
-                <button hidden="YES" toolTip="Close this abbreviation list" focusRingType="none" verticalHuggingPriority="750" misplaced="YES" id="Lx3-fw-5f0">
-                    <rect key="frame" x="3" y="248" width="24" height="22"/>
+                <button toolTip="Close this abbreviation list" focusRingType="none" verticalHuggingPriority="750" misplaced="YES" id="Lx3-fw-5f0">
+                    <rect key="frame" x="3" y="248" width="22" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSExitFullScreenTemplate" imagePosition="overlaps" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="amq-yY-zAx">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                    <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSExitFullScreenTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="amq-yY-zAx">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                        <font key="font" metaFont="systemBold" size="12"/>
                     </buttonCell>
                     <connections>
-                        <action selector="closeAbbreviationList:" target="-2" id="n6N-Zz-SYd"/>
+                        <action selector="collapseAbbreviationList:" target="-2" id="X1d-oz-Vg1"/>
                     </connections>
                 </button>
             </subviews>

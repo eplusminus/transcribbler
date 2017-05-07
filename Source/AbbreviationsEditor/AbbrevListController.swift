@@ -27,9 +27,11 @@ import HelperViews
 public class AbbrevListController: NSViewController {
   static let ClosedNotification = NSNotification.Name("AbbrevListClosed")
   
+  @IBOutlet private(set) var tableContainerView: NSView!
   @IBOutlet private(set) var tableView: HandyTableView!
   @IBOutlet private(set) var tableViewDelegate: AbbrevTableViewDelegate!
   @IBOutlet private(set) var labelField: NSTextField!
+  @IBOutlet private(set) var collapseButton: NSButton!
   
   public private(set) var document: AbbrevListDocument
   public var displayName: String {
@@ -37,6 +39,11 @@ public class AbbrevListController: NSViewController {
       return document.displayName
     }
   }
+  
+  public var collapsed: Bool = false
+  private var exactHeightConstraint: NSLayoutConstraint? = nil
+  private var minHeightConstraint: NSLayoutConstraint? = nil
+  private var savedHeight: CGFloat = 0
   
   public init(_ document: AbbrevListDocument) {
     self.document = document
@@ -51,10 +58,34 @@ public class AbbrevListController: NSViewController {
     tableViewDelegate.table = document.controller
     tableViewDelegate.resolver = document.abbrevResolver
     tableView?.reloadData()
+
+    let headerBarHeight = self.view.frame.height -
+      (tableContainerView.frame.origin.y + tableContainerView.frame.size.height)
+    exactHeightConstraint = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal,
+                                               toItem: nil, attribute: .height, multiplier: 0,
+                                               constant: headerBarHeight)
+    minHeightConstraint = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .greaterThanOrEqual,
+                                               toItem: nil, attribute: .height, multiplier: 0,
+                                               constant: headerBarHeight)
   }
   
-  @IBAction public func hideAbbreviationList(_ sender: AnyObject?) {
-    // TODO
+  @IBAction public func collapseAbbreviationList(_ sender: AnyObject?) {
+    collapsed = !collapsed
+    tableContainerView.isHidden = collapsed
+    if collapsed {
+      savedHeight = view.frame.height
+      view.addConstraint(exactHeightConstraint!)
+      view.needsLayout = true
+    }
+    else {
+      view.removeConstraint(exactHeightConstraint!)
+      view.layout()
+      minHeightConstraint?.constant = savedHeight
+      view.addConstraint(minHeightConstraint!)
+      view.layout()
+      view.removeConstraint(minHeightConstraint!)
+    }
+    collapseButton.state = collapsed ? NSOnState : NSOffState
   }
   
   @IBAction public func closeAbbreviationList(_ sender: AnyObject?) {
@@ -76,7 +107,7 @@ public class AbbrevListController: NSViewController {
     if let a = menuItem.action {
       switch a {
       case #selector(closeAbbreviationList),
-           #selector(hideAbbreviationList),
+           #selector(collapseAbbreviationList),
            #selector(saveAbbreviationListAs):
         return !document.isDefaultList
       default:

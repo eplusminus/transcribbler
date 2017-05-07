@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		451769E61EBE9C5E002FB012 /* AbbrevsPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 451769E51EBE9C5E002FB012 /* AbbrevsPanel.xib */; };
 		451769E81EBEA928002FB012 /* TransAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451769E71EBEA928002FB012 /* TransAppDelegate.swift */; };
+		451769EA1EBFB349002FB012 /* AbbrevListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 451769E91EBFB349002FB012 /* AbbrevListView.xib */; };
 		4525340F1724A5BB00E6D805 /* TransTextDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4525340D1724A5BB00E6D805 /* TransTextDocument.xib */; };
 		453012371EB56C8000AAB6A6 /* AbbrevsEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453012361EB56C8000AAB6A6 /* AbbrevsEncoding.swift */; };
 		453012391EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453012381EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift */; };
@@ -63,7 +64,6 @@
 		45F521BA1EB4221E00BF77B1 /* MediaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B91EB4221E00BF77B1 /* MediaController.swift */; };
 		45F521BD1EB44EE500BF77B1 /* CommentStringFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521BC1EB44EE500BF77B1 /* CommentStringFields.swift */; };
 		45F521C01EB45B6000BF77B1 /* TransTextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521BF1EB45B6000BF77B1 /* TransTextDocument.swift */; };
-		45FD2E8E1719E1D400D0204F /* AbbrevListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45FD2E8C1719E1D400D0204F /* AbbrevListView.xib */; };
 		45FD2E95171A1F6700D0204F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45FD2E93171A1F6700D0204F /* Localizable.strings */; };
 		45FFE0101EB501260055271E /* TransTextWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FFE00F1EB501260055271E /* TransTextWindowController.swift */; };
 		45FFE0191EB539120055271E /* ErrorFlag.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 45FFE0171EB539120055271E /* ErrorFlag.tiff */; };
@@ -169,6 +169,7 @@
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		451769E51EBE9C5E002FB012 /* AbbrevsPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbrevsPanel.xib; sourceTree = "<group>"; };
 		451769E71EBEA928002FB012 /* TransAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransAppDelegate.swift; path = Source/Application/TransAppDelegate.swift; sourceTree = SOURCE_ROOT; };
+		451769E91EBFB349002FB012 /* AbbrevListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbrevListView.xib; sourceTree = "<group>"; };
 		4525340E1724A5BB00E6D805 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = TransTextDocument.xib; sourceTree = "<group>"; };
 		453012361EB56C8000AAB6A6 /* AbbrevsEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevsEncoding.swift; sourceTree = "<group>"; };
 		453012381EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevsPlatformEncoding.swift; sourceTree = "<group>"; };
@@ -226,7 +227,6 @@
 		45F521B91EB4221E00BF77B1 /* MediaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaController.swift; sourceTree = "<group>"; };
 		45F521BC1EB44EE500BF77B1 /* CommentStringFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentStringFields.swift; sourceTree = "<group>"; };
 		45F521BF1EB45B6000BF77B1 /* TransTextDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransTextDocument.swift; sourceTree = "<group>"; };
-		45FD2E8D1719E1D400D0204F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = AbbrevListView.xib; sourceTree = "<group>"; };
 		45FD2E94171A1F6700D0204F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = Localizable.strings; sourceTree = "<group>"; };
 		45FFE00F1EB501260055271E /* TransTextWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransTextWindowController.swift; sourceTree = "<group>"; };
 		45FFE0171EB539120055271E /* ErrorFlag.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ErrorFlag.tiff; sourceTree = "<group>"; };
@@ -415,12 +415,13 @@
 		455BE3A51712461E00DCAF5F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				457121AB1EBE7773006308C2 /* table.icns */,
+				455BE3C71712467C00DCAF5F /* Info.plist */,
+				451769E91EBFB349002FB012 /* AbbrevListView.xib */,
+				451769E51EBE9C5E002FB012 /* AbbrevsPanel.xib */,
 				45FFE0171EB539120055271E /* ErrorFlag.tiff */,
 				45FFE0181EB539120055271E /* SuffixFlag.tiff */,
+				457121AB1EBE7773006308C2 /* table.icns */,
 				455BE3BE1712467C00DCAF5F /* English.lproj */,
-				455BE3C71712467C00DCAF5F /* Info.plist */,
-				451769E51EBE9C5E002FB012 /* AbbrevsPanel.xib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -430,7 +431,6 @@
 			children = (
 				4525340D1724A5BB00E6D805 /* TransTextDocument.xib */,
 				4591D48D1723482100BC713B /* MediaDrawerView.xib */,
-				45FD2E8C1719E1D400D0204F /* AbbrevListView.xib */,
 				455BE3BF1712467C00DCAF5F /* Credits.rtf */,
 				455BE3C11712467C00DCAF5F /* InfoPlist.strings */,
 				455BE40617124D5400DCAF5F /* Menus.xib */,
@@ -888,10 +888,10 @@
 				455BE3DE1712467C00DCAF5F /* InfoPlist.strings in Resources */,
 				45FFE0191EB539120055271E /* ErrorFlag.tiff in Resources */,
 				455BE40817124D5400DCAF5F /* Menus.xib in Resources */,
-				45FD2E8E1719E1D400D0204F /* AbbrevListView.xib in Resources */,
 				45FD2E95171A1F6700D0204F /* Localizable.strings in Resources */,
 				45E95DC9171B4DBD008FEEE4 /* LICENSE in Resources */,
 				4591D48F1723482100BC713B /* MediaDrawerView.xib in Resources */,
+				451769EA1EBFB349002FB012 /* AbbrevListView.xib in Resources */,
 				451769E61EBE9C5E002FB012 /* AbbrevsPanel.xib in Resources */,
 				457121AC1EBE7773006308C2 /* table.icns in Resources */,
 				4525340F1724A5BB00E6D805 /* TransTextDocument.xib in Resources */,
@@ -1085,14 +1085,6 @@
 				4591D48E1723482100BC713B /* English */,
 			);
 			name = MediaDrawerView.xib;
-			sourceTree = "<group>";
-		};
-		45FD2E8C1719E1D400D0204F /* AbbrevListView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				45FD2E8D1719E1D400D0204F /* English */,
-			);
-			name = AbbrevListView.xib;
 			sourceTree = "<group>";
 		};
 		45FD2E93171A1F6700D0204F /* Localizable.strings */ = {
