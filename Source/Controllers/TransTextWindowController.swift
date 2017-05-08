@@ -42,7 +42,7 @@ fileprivate struct FullScreenSavePanelState {
 
 @objc(TransTextWindowController)
 public class TransTextWindowController: NSWindowController,
-    NSWindowDelegate, NSDrawerDelegate, NSSplitViewDelegate, NSUserInterfaceValidations {
+    NSWindowDelegate, NSSplitViewDelegate, NSUserInterfaceValidations {
   @IBOutlet private(set) var mediaController: MediaController!
   
   @IBOutlet private(set) var mainContentView: NSView!
@@ -63,7 +63,7 @@ public class TransTextWindowController: NSWindowController,
     
     self.window?.collectionBehavior = NSWindowCollectionBehavior.fullScreenPrimary
   
-    // Insert the drawer controller into the responder chain after the text view, so that we can
+    // Insert the media controller into the responder chain after the text view, so that we can
     // trigger commands like "play/pause" while editing text.
     mediaController.nextResponder = textView.nextResponder
     textView.nextResponder = mediaController
@@ -85,7 +85,7 @@ public class TransTextWindowController: NSWindowController,
     }
   }
 
-  @IBAction public func toggleMediaDrawer(_ sender: Any) {
+  @IBAction public func toggleMediaPanel(_ sender: Any) {
     mediaController.isPanelVisible = !mediaController.isPanelVisible
   }
 
@@ -172,20 +172,6 @@ public class TransTextWindowController: NSWindowController,
   }
   
   //
-  // NSDrawerDelegate
-  //
-  
-  public func drawerDidOpen(_ notification: Notification) {
-    if let drawer = notification.object as? NSDrawer {
-      let sf = window!.screen!.visibleFrame
-      let df = drawer.contentView!.window!.frame
-      if !NSContainsRect(sf, df) {
-        window!.zoom(nil)
-      }
-    }
-  }
-  
-  //
   // NSSplitViewDelegate
   //
   
@@ -207,7 +193,7 @@ public class TransTextWindowController: NSWindowController,
   
   public func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
     let a = item.action
-    if a == #selector(toggleMediaDrawer(_:)) {
+    if a == #selector(toggleMediaPanel(_:)) {
       if let m = item as? NSMenuItem {
         m.state = mediaController.isPanelVisible ? NSOnState : NSOffState
       }

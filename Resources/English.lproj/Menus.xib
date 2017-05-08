@@ -681,7 +681,7 @@
                         <items>
                             <menuItem title="Media Info" keyEquivalent="M" id="831">
                                 <connections>
-                                    <action selector="toggleMediaDrawer:" target="-1" id="834"/>
+                                    <action selector="toggleMediaPanel:" target="-1" id="No1-kH-Vdi"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Abbreviations" keyEquivalent="A" id="835">

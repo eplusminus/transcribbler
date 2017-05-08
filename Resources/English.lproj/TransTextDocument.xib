@@ -69,7 +69,7 @@
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="E96096C1-7F73-4779-80CC-DCA109DF2EBE" explicitItemIdentifier="ShowMediaToolbarItem" label="Media" paletteLabel="Media" tag="-1" image="NSFlowViewTemplate" id="18">
                         <connections>
-                            <action selector="toggleMediaDrawer:" target="-1" id="39"/>
+                            <action selector="toggleMediaPanel:" target="-1" id="pNn-rQ-u4a"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="83ED6DFE-7E84-453F-96CC-227B48503790" explicitItemIdentifier="RulerToolbarItem" label="Ruler" paletteLabel="Ruler" tag="-1" image="NSFontPanel" id="16">
