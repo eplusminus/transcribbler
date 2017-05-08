@@ -28,7 +28,6 @@ import Foundation
 let windowPosCommentParam = "WindowPos"
 let mediaFilePathCommentParam = "MediaFile"
 let timeCodeCommentParam = "TimeCode"
-let mediaDrawerOpenCommentParam = "MediaDrawerOpen"
 
 @objc(TransTextDocument)
 public class TransTextDocument: NSDocument {
@@ -131,10 +130,6 @@ public class TransTextDocument: NSDocument {
     if let tc = commentParams[timeCodeCommentParam] {
       mc?.timeCodeString = tc
     }
-    
-    if let _ = commentParams[mediaDrawerOpenCommentParam] {
-      windowController.isMediaDrawerOpen = true
-    }
   }
   
   private func makeDocAttributes() -> [String: String] {
@@ -150,9 +145,6 @@ public class TransTextDocument: NSDocument {
     }
     if let tc = mc?.timeCodeString {
       commentParams[timeCodeCommentParam] = tc
-    }
-    if windowController.isMediaDrawerOpen {
-      commentParams[mediaDrawerOpenCommentParam] = ""
     }
     
     let comment = CommentStringFields.stringFromParams(commentParams)

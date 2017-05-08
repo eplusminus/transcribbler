@@ -24,8 +24,9 @@ import Foundation
 import HelperViews
 
 @objc(AbbrevsController)
-public class AbbrevsController: NSWindowController {
+public class AbbrevsController: NSWindowController, CanBorrowViewForFullScreen {
   @IBOutlet private(set) var splitView: NSSplitView!
+  @IBOutlet private(set) var stackView: NSStackView!
   
   public var isPanelVisible: Bool {
     get {
@@ -39,7 +40,6 @@ public class AbbrevsController: NSWindowController {
   public private(set) static var sharedInstance: AbbrevsController? = nil
 
   private var listControllers: [AbbrevListController] = []
-  private var wasVisibleBeforeFullScreen: Bool = false
   
   override public var windowNibName: String? {
     get {
@@ -49,6 +49,14 @@ public class AbbrevsController: NSWindowController {
   
   override public func awakeFromNib() {
     let _ = window  // triggers lazy loading
+  }
+  
+  override public func windowDidLoad() {
+    // Put splitView inside stackView so we can easily make it auto-resize when we toggle
+    // full-screen mode.
+    splitView.removeFromSuperview()
+    stackView.addView(splitView, in: .center)
+    
     let _ = addAbbrevListDocument(AbbrevListDocument.default)
     if AbbrevsController.sharedInstance == nil {
       AbbrevsController.sharedInstance = self
@@ -100,21 +108,22 @@ public class AbbrevsController: NSWindowController {
     alc.tableViewDelegate.add(sender)
   }
   
-  public func lendViewsTo(stackingView: StackingView) {
-    wasVisibleBeforeFullScreen = isPanelVisible
-    isPanelVisible = false
-    splitView.removeFromSuperview()
-    stackingView.addSubview(splitView)
+  //
+  // CanBorrowViewForFullScreen
+  //
+  
+  public func getFullScreenHideableWindow() -> NSWindow? {
+    return window
   }
   
-  public func restoreViews() {
+  public func borrowViewForFullScreen() -> NSView? {
+    return splitView
+  }
+  
+  public func restoreViewFromFullScreen() {
     splitView.removeFromSuperview()
-    if let cv = window?.contentView {
-      cv.addSubview(splitView)
-      splitView.frame = cv.frame
-      splitView.adjustSubviews()
-    }
-    isPanelVisible = wasVisibleBeforeFullScreen
+    stackView.addView(splitView, in: .center)
+//    splitView.adjustSubviews()
   }
   
   //

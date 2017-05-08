@@ -4,14 +4,10 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
         <capability name="box content view" minToolsVersion="7.0"/>
-        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TransTextWindowController">
             <connections>
-                <outlet property="fullScreenSidebarStackView" destination="GJa-Fe-mwV" id="ahd-cS-AEy"/>
-                <outlet property="fullScreenSidebarView" destination="Oae-Me-Gqg" id="tFo-12-Nj9"/>
-                <outlet property="fullScreenSplitView" destination="Thz-Ol-U2p" id="HfL-6O-2iK"/>
                 <outlet property="mainContentView" destination="48" id="49"/>
                 <outlet property="mediaController" destination="e4i-1Z-NaO" id="EJu-Et-4re"/>
                 <outlet property="scrollView" destination="11" id="52"/>
@@ -128,27 +124,6 @@
             </connections>
         </window>
         <customObject id="e4i-1Z-NaO" customClass="MediaController"/>
-        <splitView misplaced="YES" dividerStyle="thin" vertical="YES" id="Thz-Ol-U2p">
-            <rect key="frame" x="0.0" y="0.0" width="216" height="337"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <customView id="Oae-Me-Gqg">
-                    <rect key="frame" x="0.0" y="0.0" width="216" height="337"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" id="GJa-Fe-mwV">
-                            <rect key="frame" x="0.0" y="0.0" width="216" height="337"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <edgeInsets key="edgeInsets" left="6" right="6" top="6" bottom="6"/>
-                        </stackView>
-                    </subviews>
-                </customView>
-            </subviews>
-            <holdingPriorities>
-                <real value="250"/>
-            </holdingPriorities>
-            <point key="canvasLocation" x="9" y="523.5"/>
-        </splitView>
     </objects>
     <resources>
         <image name="NSFlowViewTemplate" width="18" height="10"/>
