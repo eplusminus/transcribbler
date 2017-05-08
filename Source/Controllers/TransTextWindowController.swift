@@ -21,6 +21,7 @@
 
 import AbbreviationsEditor
 import HelperViews
+import Media
 
 import Foundation
 
@@ -34,6 +35,11 @@ let sidebarHiddenKey = "SidebarHidden"
 let bothShiftKeys = NSEventModifierFlags.shift.union(NSEventModifierFlags(rawValue: 0x06))
 
 
+fileprivate struct FullScreenSavePanelState {
+  var panel: CanBorrowViewForFullScreen
+  var wasVisible: Bool
+}
+
 @objc(TransTextWindowController)
 public class TransTextWindowController: NSWindowController,
     NSWindowDelegate, NSDrawerDelegate, NSSplitViewDelegate, NSUserInterfaceValidations {
@@ -42,15 +48,15 @@ public class TransTextWindowController: NSWindowController,
   @IBOutlet private(set) var mainContentView: NSView!
   @IBOutlet private(set) var textView: TransTextView!
   @IBOutlet private(set) var scrollView: NSScrollView!
-  @IBOutlet private(set) var mediaDrawer: NSDrawer!
+  @IBOutlet private(set) var fullScreenSplitView: NSSplitView!
+  @IBOutlet private(set) var fullScreenSidebarView: NSView!
+  @IBOutlet private(set) var fullScreenSidebarStackView: NSStackView!
   
   var fullScreen: Bool = false
   var toolbar: NSToolbar?
-  var splitter: NSSplitView?
-  var fullScreenSidebarView: NSView?
-  var stackingView: StackingView?
   var toolbarVisibleDefault: Bool = false
   var toolbarVisibleInFullScreen: Bool = false
+  fileprivate var panelsBeforeFullScreen: [FullScreenSavePanelState] = []
   
   override public func windowDidLoad() {
     super.windowDidLoad()
@@ -62,26 +68,13 @@ public class TransTextWindowController: NSWindowController,
     mediaController.nextResponder = textView.nextResponder
     textView.nextResponder = mediaController
     
-    mediaDrawer.delegate = self
-    
     toolbarVisibleInFullScreen = false
     
-    let r0 = NSMakeRect(0, 0, defaultSidebarWidthValue, defaultSidebarWidthValue)
-    let sp = NSSplitView(frame: r0)
-    sp.isVertical = true
-    sp.dividerStyle = NSSplitViewDividerStyle.thin
-    sp.autoresizingMask = [NSAutoresizingMaskOptions.viewWidthSizable, NSAutoresizingMaskOptions.viewHeightSizable]
-    sp.delegate = self
-    splitter = sp
-
-    let r1 = NSMakeRect(0, 0, minimumSidebarWidthValue, defaultSidebarWidthValue)
-    let fssv = NSView(frame: r1)
-    let sv = StackingView(frame: NSInsetRect(r1, sidebarInset, sidebarInset))
-    sv.autoresizingMask = [NSAutoresizingMaskOptions.viewWidthSizable, NSAutoresizingMaskOptions.viewHeightSizable]
-    fssv.addSubview(sv)
-    sp.addSubview(fssv)
-    fullScreenSidebarView = fssv
-    stackingView = sv
+    fullScreenSplitView.delegate = self
+    
+    if defaultSidebarWidth <= 0 {
+      defaultSidebarWidth = fullScreenSidebarView.frame.width
+    }
     
     document?.windowControllerDidLoadNib(self)
   }
@@ -93,20 +86,11 @@ public class TransTextWindowController: NSWindowController,
   }
 
   @IBAction public func toggleMediaDrawer(_ sender: Any) {
-    isMediaDrawerOpen = !isMediaDrawerOpen
+    mediaController.isPanelVisible = !mediaController.isPanelVisible
   }
 
   @IBAction public func toggleRuler(_ sender: Any) {
     textView.isRulerVisible = !textView.isRulerVisible
-  }
-
-  public var isMediaDrawerOpen: Bool {
-    get {
-      return mediaDrawer.state == Int(NSDrawerState.openState.rawValue)
-    }
-    set(s) {
-      setDrawerState(mediaDrawer, open: s)
-    }
   }
   
   //
@@ -127,24 +111,37 @@ public class TransTextWindowController: NSWindowController,
     let scaledWidth = defaultSidebarWidth * w.frame.size.width
       / (NSScreen.main()?.frame.size.width ?? 1)
     
-    splitter?.frame = w.contentView!.frame
+    panelsBeforeFullScreen = []
+    var borrowedViews: [NSView] = []
+    for cbv in [mediaController as CanBorrowViewForFullScreen,
+                AbbrevsController.sharedInstance! as CanBorrowViewForFullScreen] {
+      let w = cbv.getFullScreenHideableWindow()
+      let fss = FullScreenSavePanelState(panel: cbv,
+                                         wasVisible: w?.isVisible ?? false)
+      panelsBeforeFullScreen.append(fss)
+      w?.setIsVisible(false)
+      if let v = cbv.borrowViewForFullScreen() {
+        borrowedViews.append(v)
+        v.removeFromSuperview()
+      }
+    }
+    fullScreenSidebarStackView.setViews(borrowedViews, in: .top)
+    
+    fullScreenSplitView.frame = w.contentView!.frame
     mainContentView.removeFromSuperview()
-    splitter?.addSubview(mainContentView)
-    splitter?.setPosition(scaledWidth, ofDividerAt: 0)
+    fullScreenSplitView.addSubview(mainContentView)
+    fullScreenSplitView.setPosition(scaledWidth, ofDividerAt: 0)
     fullScreenSidebarView?.isHidden = defaultSidebarHidden
     
-    w.contentView?.addSubview(splitter!)
-    
-    mediaController.lendViewsToStackingView(stackingView!)
-    AbbrevsController.sharedInstance?.lendViewsTo(stackingView: stackingView!)
-    
+    w.contentView?.addSubview(fullScreenSplitView)
+
     textView.textContainerInset = NSMakeSize(100, 30)
   }
 
   public func windowDidEnterFullScreen(_ notification: Notification) {
     // set splitter position again in case scaledWidth had a rounding error
-    if !(fullScreenSidebarView?.isHidden ?? false) {
-      splitter?.setPosition(defaultSidebarWidth, ofDividerAt: 0)
+    if !fullScreenSidebarView.isHidden {
+      fullScreenSplitView.setPosition(defaultSidebarWidth, ofDividerAt: 0)
     }
   }
   
@@ -154,12 +151,16 @@ public class TransTextWindowController: NSWindowController,
     
     let cf = window!.contentView!.frame
     mainContentView.removeFromSuperview()
-    splitter?.removeFromSuperview()
+    fullScreenSplitView.removeFromSuperview()
     mainContentView.frame = cf
     window!.contentView?.addSubview(mainContentView)
     
-    mediaController.restoreViews()
-    AbbrevsController.sharedInstance?.restoreViews()
+    fullScreenSidebarStackView.setViews([], in: .top)
+    for fss in panelsBeforeFullScreen {
+      fss.panel.restoreViewFromFullScreen()
+      fss.panel.getFullScreenHideableWindow()?.setIsVisible(fss.wasVisible)
+    }
+    panelsBeforeFullScreen = []
     
     textView.textContainerInset = NSMakeSize(0, 0)
   }
@@ -208,7 +209,7 @@ public class TransTextWindowController: NSWindowController,
     let a = item.action
     if a == #selector(toggleMediaDrawer(_:)) {
       if let m = item as? NSMenuItem {
-        m.state = mediaDrawer.state
+        m.state = mediaController.isPanelVisible ? NSOnState : NSOffState
       }
       return true
     }
@@ -224,8 +225,7 @@ public class TransTextWindowController: NSWindowController,
   
   private var defaultSidebarWidth: CGFloat {
     get {
-      let f = CGFloat(UserDefaults.standard.float(forKey: sidebarWidthKey))
-      return (f == 0) ? defaultSidebarWidthValue : ((f < 0) ? 0 : f)
+      return CGFloat(UserDefaults.standard.float(forKey: sidebarWidthKey))
     }
     set(f) {
       UserDefaults.standard.set((f <= 0) ? -1 : f, forKey: sidebarWidthKey)
@@ -238,15 +238,6 @@ public class TransTextWindowController: NSWindowController,
     }
     set(f) {
       UserDefaults.standard.set(f, forKey: sidebarHiddenKey)
-    }
-  }
-  
-  private func setDrawerState(_ drawer: NSDrawer, open: Bool) {
-    if (open) {
-      drawer.open(on: (drawer == mediaDrawer) ? NSRectEdge.minX : NSRectEdge.maxX)
-    }
-    else {
-      drawer.close()
     }
   }
 }

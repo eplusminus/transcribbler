@@ -23,7 +23,7 @@
             <subviews>
                 <textField verticalHuggingPriority="750" misplaced="YES" id="aeb-md-nOA">
                     <rect key="frame" x="26" y="247" width="431" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" enabled="NO" sendsActionOnEndEditing="YES" state="on" alignment="left" title="name" id="Wun-Rm-EuQ">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>

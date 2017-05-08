@@ -152,7 +152,7 @@ public class StackingView: NSView {
     if let v = view as? ViewSizeLimits {
       return v.minimumSize().height
     }
-    return 0
+    return view.intrinsicContentSize.height
   }
   
   func maximumHeight(_ view: NSView) -> CGFloat
