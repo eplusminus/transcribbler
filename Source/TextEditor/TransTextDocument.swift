@@ -37,7 +37,7 @@ public class TransTextDocument: NSDocument {
   var abbrevResolver: AbbrevResolverImpl
   
   var loadedText: NSAttributedString?
-  var loadedDocAttributes: NSDictionary?
+  var loadedDocAttributes: [String: Any]?
   
   public static var preferredFileType: String {
     get {
@@ -72,8 +72,9 @@ public class TransTextDocument: NSDocument {
       }
     }
     else {
-      if let rtf = NSAttributedString(rtf: data, documentAttributes: &loadedDocAttributes) {
-        loadedText = rtf
+      if let (text, attrs) = TimeStamps.deserializeTextFromRtfPreservingTimeStamps(data) {
+        loadedText = text
+        loadedDocAttributes = attrs
       }
     }
   }
@@ -84,7 +85,7 @@ public class TransTextDocument: NSDocument {
     }
     else {
       let attrs = makeDocAttributes()
-      let data = textStorage!.rtf(from: NSMakeRange(0, textStorage!.string.characters.count), documentAttributes: attrs)
+      let data = TimeStamps.serializeTextToRtfPreservingTimeStamps(textStorage!, documentAttributes: attrs)
       return data!
     }
   }
@@ -96,7 +97,7 @@ public class TransTextDocument: NSDocument {
   private func useLoadedText() {
     if let t = textStorage {
       if let lt = loadedText {
-        t.replaceCharacters(in: NSMakeRange(0, t.characters.count), with: lt)
+        t.setAttributedString(lt)
         loadedText = nil
       }
     }
@@ -106,8 +107,8 @@ public class TransTextDocument: NSDocument {
     }
   }
   
-  private func readDocAttributes(_ attrs: NSDictionary) {
-    let paramsString = (attrs.object(forKey: NSCommentDocumentAttribute) as? String) ?? ""
+  private func readDocAttributes(_ attrs: [String: Any]) {
+    let paramsString = (attrs[NSCommentDocumentAttribute] as? String) ?? ""
     let (commentParams, _) = CommentStringFields.paramsFromString(paramsString)
     
     if let wp = commentParams[windowPosCommentParam] {

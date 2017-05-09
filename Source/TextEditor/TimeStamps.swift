@@ -27,15 +27,51 @@ public class TimeStamps {
   public static let backgroundColor = NSColor.lightGray
   public static let textColor = NSColor.white
   public static let font = NSFont.toolTipsFont(ofSize: NSFont.smallSystemFontSize())
+  public static let timeStampAttribute = "TranscribblerTimeStamp"
+  
+  public static func createAttributedString(timeString: String) -> NSAttributedString {
+    let att = TimeStamps.createAttachment(timeString: timeString)
+    let attStr = NSAttributedString(attachment: att)
+    let ret = NSMutableAttributedString(attributedString: attStr)
+    //ret.addAttribute(timeStampAttribute, value: timeString, range: NSRange(location: 0, length: attStr.length))
+    return ret
+  }
   
   public static func createAttachment(timeString: String) -> NSTextAttachment {
     let cell = TimeStampCell(timeString: timeString)
     let att = NSTextAttachment()
     att.attachmentCell = cell
-    if #available(OSX 10.11, *) {
-      att.bounds.origin.y = TimeStamps.font.descender
-    }
     return att
+  }
+  
+  public static func serializeTextToRtfPreservingTimeStamps(_ text: NSAttributedString, documentAttributes: [String: Any]) -> Data? {
+    let buf = NSMutableAttributedString(attributedString: text)
+    buf.enumerateAttributes(in: NSRange(location: 0, length: text.length), options: .longestEffectiveRangeNotRequired) { (attrs, range, stop) in
+      if let ta = attrs[NSAttachmentAttributeName] as? NSTextAttachment {
+        if let tsc = ta.attachmentCell as? TimeStampCell {
+          let placeholderText = "[TIME=" + tsc.timeString + "]"
+          buf.replaceCharacters(in: range, with: NSAttributedString(string: placeholderText))
+        }
+      }
+    }
+    return buf.rtf(from: NSRange(location: 0, length: buf.length), documentAttributes: documentAttributes)
+  }
+  
+  public static func deserializeTextFromRtfPreservingTimeStamps(_ rtfData: Data) -> (NSAttributedString, [String: Any])? {
+    var attrs: NSDictionary?
+    if let src = NSAttributedString(rtf: rtfData, documentAttributes: &attrs) {
+      let buf = NSMutableAttributedString(attributedString: src)
+      if let regex = try? NSRegularExpression(pattern: "\\[TIME=([0-9:.]*)\\]", options: []) {
+        var pos = 0
+        while let found = regex.firstMatch(in: buf.string, options: [], range: NSMakeRange(pos, buf.length - pos)) {
+          let ts = buf.attributedSubstring(from: found.rangeAt(1)).string
+          buf.replaceCharacters(in: found.range, with: TimeStamps.createAttributedString(timeString: ts))
+          pos = found.range.location + 1
+        }
+      }
+      return (buf, (attrs ?? NSDictionary()) as! [String: Any])
+    }
+    return nil
   }
 }
 
@@ -48,9 +84,8 @@ public class TimeStampCell: NSTextAttachmentCell {
     
     let style = NSMutableParagraphStyle()
     style.alignment = .center
-    let font = TimeStamps.font
     let attrs = [NSParagraphStyleAttributeName: style,
-                 NSFontAttributeName: font,
+                 NSFontAttributeName: TimeStamps.font,
                  NSForegroundColorAttributeName: TimeStamps.textColor]
     let attStr = NSAttributedString(string: timeString, attributes: attrs)
     let textSize = attStr.size()
@@ -64,7 +99,6 @@ public class TimeStampCell: NSTextAttachmentCell {
       return true
     }
     self.image = customImage
-    self.isBordered = true
   }
   
   required public init(coder: NSCoder) {

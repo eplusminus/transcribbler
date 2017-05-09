@@ -42,7 +42,7 @@ fileprivate struct FullScreenSavePanelState {
 
 @objc(TransTextWindowController)
 public class TransTextWindowController: NSWindowController,
-    NSWindowDelegate, NSSplitViewDelegate, NSTextViewDelegate, NSUserInterfaceValidations {
+    NSWindowDelegate, NSSplitViewDelegate, NSTextStorageDelegate, NSTextViewDelegate, NSUserInterfaceValidations {
   @IBOutlet private(set) var mediaController: MediaController!
   
   @IBOutlet private(set) var mainContentView: NSView!
@@ -69,6 +69,7 @@ public class TransTextWindowController: NSWindowController,
     textView.nextResponder = mediaController
     
     textView.delegate = self
+    textView.textStorage?.delegate = self
     
     toolbarVisibleInFullScreen = false
     
@@ -102,14 +103,21 @@ public class TransTextWindowController: NSWindowController,
   }
   
   private func insertTimeStamp(timeString: String) {
-    let att = TimeStamps.createAttachment(timeString: timeString)
-    let attStr = NSAttributedString(attachment: att)
-    textView.textStorage?.insert(attStr, at: textView.selectedRange().location)
+    textView.textStorage?.insert(TimeStamps.createAttributedString(timeString: timeString),
+                                 at: textView.selectedRange().location)
   }
   
   //
   // NSTextViewDelegate
   //
+  
+  public func textView(_ view: NSTextView, draggedCell cell: NSTextAttachmentCellProtocol, in rect: NSRect, event: NSEvent, at charIndex: Int) {
+    // ignore
+  }
+  
+  public func textView(_ textView: NSTextView, clickedOn cell: NSTextAttachmentCellProtocol, in cellFrame: NSRect, at charIndex: Int) {
+    // ignore
+  }
   
   public func textView(_ textView: NSTextView, doubleClickedOn cell: NSTextAttachmentCellProtocol, in cellFrame: NSRect, at charIndex: Int) {
     if let tsc = cell as? TimeStampCell {
