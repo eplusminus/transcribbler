@@ -130,15 +130,23 @@ public class AbbrevSuffixTableBehavior: NSObject, NSTableViewDataSource, NSTable
   @IBInspectable public var editable: Bool = false
   
   func addOrReplaceItemAt(_ variant: AbbrevBase, row: Int, insert: Bool, tableView: NSTableView) {
-    self.willChangeValue(forKey: "variants")
+    willChange()
     if insert {
       variants.insert(variant, at: row)
     }
     else {
       variants[row] = variant
     }
-    self.didChangeValue(forKey: "variants")
+    didChange()
     tableView.reloadData()
+  }
+  
+  private func willChange() {
+    self.willChangeValue(forKey: "variants")
+  }
+  
+  private func didChange() {
+    self.didChangeValue(forKey: "variants")
   }
   
   //
@@ -177,14 +185,14 @@ public class AbbrevSuffixTableBehavior: NSObject, NSTableViewDataSource, NSTable
           default: break
           }
           if v1 !== v0 {
-            self.willChangeValue(forKey: "variants")
+            willChange()
             if row < variants.count {
               variants[row] = v1
             }
             else {
               variants.append(v1)
             }
-            self.didChangeValue(forKey: "variants")
+            didChange()
           }
         }
       }
@@ -198,7 +206,9 @@ public class AbbrevSuffixTableBehavior: NSObject, NSTableViewDataSource, NSTable
   public func tableViewInsertRow(_ v: HandyTableView, beforeRow: NSInteger) -> Bool {
     if editable {
       if beforeRow <= v.numberOfRows {
+        willChange()
         variants.insert(AbbrevBase(), at: beforeRow)
+        didChange()
         v.beginUpdates()
         v.insertRows(at: IndexSet(integer: beforeRow), withAnimation: [])
         v.endUpdates()
@@ -210,7 +220,9 @@ public class AbbrevSuffixTableBehavior: NSObject, NSTableViewDataSource, NSTable
   
   public func tableViewDeleteRows(_ v: HandyTableView, rows: NSRange) -> Bool {
     if editable {
+      willChange()
       variants.replaceSubrange(rows.toRange()!, with: [])
+      didChange()
       v.beginUpdates()
       v.removeRows(at: IndexSet(integersIn: rows.toRange()!), withAnimation: [])
       v.endUpdates()
