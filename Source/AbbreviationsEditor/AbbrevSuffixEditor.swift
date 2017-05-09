@@ -190,15 +190,7 @@ public class AbbrevSuffixTableBehavior: NSObject, NSTableViewDataSource, NSTable
       }
     }
   }
-  
-  //
-  // NSTableViewDelegate
-  //
-  
-  public func tableView(_ tableView: NSTableView, shouldEdit tableColumn: NSTableColumn?, row: Int) -> Bool {
-    return editable && !(tableColumn?.identifier == "result")
-  }
-  
+    
   //
   // HandyTableViewDelegate
   //
@@ -212,6 +204,17 @@ public class AbbrevSuffixTableBehavior: NSObject, NSTableViewDataSource, NSTable
         v.endUpdates()
         return true
       }
+    }
+    return false
+  }
+  
+  public func tableViewDeleteRows(_ v: HandyTableView, rows: NSRange) -> Bool {
+    if editable {
+      variants.replaceSubrange(rows.toRange()!, with: [])
+      v.beginUpdates()
+      v.removeRows(at: IndexSet(integersIn: rows.toRange()!), withAnimation: [])
+      v.endUpdates()
+      return true
     }
     return false
   }

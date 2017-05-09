@@ -48,14 +48,24 @@ public class HandyTableView: NSTableView {
   }
   
   @IBAction public func insertNewLine(_ sender: AnyObject?) {
-    validateEditing()
-    abortEditing()
+    acceptEdits()
     let lastRow = selectedRowIndexes.last ?? (numberOfRows - 1)
     let row = lastRow + 1
     if handyDelegate()?.tableViewInsertRow(self, beforeRow: row) ?? false {
       selectRow(row)
       scrollRowToVisible(row)
       let _ = tryEditingColumn(findEditableColumnFrom(0, row: row, inc: 1), row: row)
+    }
+  }
+  
+  @IBAction public func delete(_ sender: Any?) {
+    if !selectedRowIndexes.isEmpty {
+      let rows = selectedRowIndexes
+      let r = NSRange(location: rows.first ?? 0, length: rows.count)
+      acceptEdits()
+      if handyDelegate()?.tableViewDeleteRows(self, rows: r) ?? false {
+        deselectAll(nil)
+      }
     }
   }
   
@@ -99,16 +109,14 @@ public class HandyTableView: NSTableView {
       let row = self.row(at: loc)
       if row >= 0 {
         if self.selectedRow != row || self.editedColumn != col {
-          validateEditing()
-          abortEditing()
+          acceptEdits()
           selectRow(row)
           myClickedRow = row
           myClickedCol = col
         }
       }
       else {
-        validateEditing()
-        abortEditing()
+        acceptEdits()
         var newRow: NSInteger = numberOfRows - 1
         if newRow < 0 || !(handyDelegate()?.tableViewRowIsEmpty(self, row: newRow) ?? false) {
           if handyDelegate()?.tableViewInsertRow(self, beforeRow: newRow + 1) ?? false {
@@ -127,7 +135,7 @@ public class HandyTableView: NSTableView {
       }
     }
   }
-  
+
   override public func mouseDragged(with event: NSEvent) {
     if myClickedRow < 0 {
       super.mouseDragged(with: event)
@@ -165,6 +173,35 @@ public class HandyTableView: NSTableView {
       super.mouseUp(with: event)
     }
   }
+  
+  override public func keyDown(with event: NSEvent) {
+    if let ch = event.characters?.unicodeScalars.first {
+      let ci = Int(ch.value)
+      if ci == NSDeleteCharacter || ci == NSDeleteFunctionKey {
+        self.delete(self)
+        return
+      }
+    }
+    super.keyDown(with: event)
+  }
+  
+  public func validateUserInterfaceItem(item: NSValidatedUserInterfaceItem) -> Bool {
+    if let a = item.action {
+      switch a {
+      case #selector(delete(_:)):
+        return !selectedRowIndexes.isEmpty
+      case #selector(insertNewLine(_:)):
+        return true
+      default:
+        return false
+      }
+    }
+    return false
+  }
+
+  public func acceptEdits() {
+    self.window?.makeFirstResponder(self)
+  }
 
   internal func handyDelegate() -> HandyTableViewDelegate? {
     return self.delegate as? HandyTableViewDelegate
@@ -175,8 +212,7 @@ public class HandyTableView: NSTableView {
   }
   
   internal func canEditColumn(_ col: NSInteger, row: NSInteger) -> Bool {
-    return (col >= 0) && (col < numberOfColumns) &&
-      delegate?.tableView?(self, shouldEdit: self.tableColumns[col], row: row) ?? true
+    return (col >= 0) && (col < numberOfColumns) && tableColumns[col].isEditable
   }
   
   internal func tryEditingColumn(_ col: NSInteger, row: NSInteger) -> Bool {
@@ -198,6 +234,7 @@ public class HandyTableView: NSTableView {
 
 @objc public protocol HandyTableViewDelegate {
   func tableViewInsertRow(_ view: HandyTableView, beforeRow: NSInteger) -> Bool
+  func tableViewDeleteRows(_ view: HandyTableView, rows: NSRange) -> Bool
   func tableViewRowIsEmpty(_ view: HandyTableView, row: NSInteger) -> Bool
 }
 
@@ -300,14 +337,13 @@ internal class QuickTableTextView: NSTextView {
     }
     let row = tableView.editedRow
     let col = tableView.editedColumn
-    if col == 0 {
+    if col == tableView.findEditableColumnFrom(0, row: row, inc: 1) {
       if row > 0 {
-        tableView.validateEditing()
-        tableView.abortEditing()
+        tableView.acceptEdits()
         if tableView.handyDelegate()?.tableViewRowIsEmpty(tableView, row: row) ?? false {
           self.window?.makeFirstResponder(tableView)
           tableView.selectRow(row)
-          NSApplication.shared().sendAction(#selector(delete), to: tableView.delegate, from: self)
+          tableView.delete(self)
         }
         tableView.selectRow(row - 1)
         tableView.editColumn(tableView.numberOfColumns - 1, row: row - 1, with: nil, select: false)

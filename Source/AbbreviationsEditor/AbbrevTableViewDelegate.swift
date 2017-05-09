@@ -29,7 +29,7 @@ let pasteboardTypes: [String] = supportedEncodings.map { e in e.pasteboardType()
 @objc(AbbrevTableViewDelegate)
 public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTableViewDelegate, HandyTableViewDelegate {
   @IBOutlet var table: NSArrayController?
-  @IBOutlet private(set) var view: NSTableView!
+  @IBOutlet private(set) var view: HandyTableView!
   @IBOutlet private(set) var statusColumn: NSTableColumn!
   @IBOutlet private(set) var abbreviationColumn: NSTableColumn!
   @IBOutlet private(set) var expansionColumn: NSTableColumn!
@@ -67,7 +67,7 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
   }
   
   @IBAction public func removeAbbreviation(_ sender: AnyObject?) {
-    self.delete(sender)
+    view.delete(sender)
   }
   
   @IBAction public func add(_ sender: AnyObject?) {
@@ -85,8 +85,7 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
       }
       row += 1
     }
-    view.validateEditing()
-    view.abortEditing()
+    view.acceptEdits()
     table?.insert(AbbrevEntry(), atArrangedObjectIndex: row)
     view.beginUpdates()
     view.insertRows(at: IndexSet(integer: row), withAnimation: [])
@@ -96,21 +95,9 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
     view.editColumn(col, row: row, with: nil, select: false)
   }
   
-  @IBAction public func delete(_ sender: AnyObject?) {
-    if !view.selectedRowIndexes.isEmpty {
-      let rows = view.selectedRowIndexes
-      view.abortEditing()
-      table?.remove(atArrangedObjectIndexes: rows)
-      view.beginUpdates()
-      view.removeRows(at: rows, withAnimation: [])
-      view.endUpdates()
-      view.deselectAll(nil)
-    }
-  }
-
   @IBAction public func cut(_ sender: AnyObject?) {
     copyInternal()
-    delete(sender)
+    view.delete(sender)
   }
 
   @IBAction public func copy(_ sender: AnyObject?) {
@@ -133,9 +120,9 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
     }
     
     if items.count > 0 {
-      view.validateEditing()
-      view.abortEditing()
+      view.acceptEdits()
       var pos: Int = view.selectedRow
+      let startPos = pos
       if pos == NSNotFound {
         pos = (table?.arrangedObjects as? [Any])?.count ?? 0
       }
@@ -143,20 +130,27 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
         table?.insert(a, atArrangedObjectIndex: pos)
         pos += 1
       }
+      view.beginUpdates()
+      view.insertRows(at: IndexSet(integersIn: startPos..<pos), withAnimation: [])
+      view.endUpdates()
     }
   }
   
   private func copyInternal() {
-    let selectedEntries: [AbbrevEntry] = (table?.selectedObjects as? [AbbrevEntry]) ?? []
-    if selectedEntries.count == 0 {
-      return
-    }
-    
-    let pb = NSPasteboard.general()
-    pb.declareTypes(pasteboardTypes, owner: self)
-    for e in supportedEncodings {
-      let data = e.writeAbbrevsToData(selectedEntries)
-      pb.setData(data, forType: e.pasteboardType())
+    let sri = view.selectedRowIndexes
+    if !sri.isEmpty {
+      var selectedEntries = [AbbrevEntry]()
+      for i in sri {
+        if let e = entryAtIndex(i) {
+          selectedEntries.append(e)
+        }
+      }
+      let pb = NSPasteboard.general()
+      pb.declareTypes(pasteboardTypes, owner: self)
+      for e in supportedEncodings {
+        let data = e.writeAbbrevsToData(selectedEntries)
+        pb.setData(data, forType: e.pasteboardType())
+      }
     }
   }
   
@@ -228,26 +222,18 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
     }
   }
   
-  override public func keyDown(with event: NSEvent) {
-    if let ch = event.characters?.unicodeScalars.first {
-      let ci = Int(ch.value)
-      if ci == NSDeleteCharacter || ci == NSDeleteFunctionKey {
-        self.delete(self)
-        return
-      }
-    }
-    super.keyDown(with: event)
-  }
-
   public func validateUserInterfaceItem(item: NSValidatedUserInterfaceItem) -> Bool {
-    if let theAction = item.action {
-      if theAction == #selector(copy(_:)) || theAction == #selector(cut) || theAction == #selector(delete) {
+    if let a = item.action {
+      switch a {
+      case #selector(copy(_:)),
+           #selector(cut(_:)),
+           #selector(paste(_:)):
         return (table?.selectionIndex != NSNotFound)
-      }
-      
-      if theAction == #selector(paste) {
+      case #selector(paste(_:)):
         let pb = NSPasteboard.general()
         return pasteboardTypes.contains { t in pb.data(forType: t) != nil }
+      default:
+        return false
       }
     }
     return false
@@ -266,6 +252,14 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
       return true
     }
     return false
+  }
+  
+  public func tableViewDeleteRows(_ v: HandyTableView, rows: NSRange) -> Bool {
+    table?.remove(atArrangedObjectIndexes: IndexSet(integersIn: rows.toRange()!))
+    v.beginUpdates()
+    v.removeRows(at: IndexSet(integersIn: rows.toRange()!), withAnimation: [])
+    v.endUpdates()
+    return true
   }
   
   public func tableViewRowIsEmpty(_ v: HandyTableView, row: NSInteger) -> Bool {
