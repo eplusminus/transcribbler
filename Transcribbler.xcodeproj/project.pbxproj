@@ -84,6 +84,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4541D5261EC227AB0017ED4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 45768FC81EA98DF40090BBE7;
+			remoteInfo = Abbreviations;
+		};
+		4541D5281EC227AB0017ED4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 457690351EA9CDA70090BBE7;
+			remoteInfo = HelperViews;
+		};
+		4541D52A1EC2281A0017ED4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 457690351EA9CDA70090BBE7;
+			remoteInfo = HelperViews;
+		};
 		45768FAA1EA982660090BBE7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
@@ -198,7 +219,7 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		451769E51EBE9C5E002FB012 /* AbbrevsPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbrevsPanel.xib; sourceTree = "<group>"; };
-		451769E71EBEA928002FB012 /* TransAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransAppDelegate.swift; path = Source/Application/TransAppDelegate.swift; sourceTree = SOURCE_ROOT; };
+		451769E71EBEA928002FB012 /* TransAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransAppDelegate.swift; sourceTree = "<group>"; };
 		451769E91EBFB349002FB012 /* AbbrevListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbrevListView.xib; sourceTree = "<group>"; };
 		451769EB1EBFBEC0002FB012 /* AbbrevSuffixEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbrevSuffixEditor.xib; sourceTree = "<group>"; };
 		451769ED1EBFC398002FB012 /* MediaDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaDetailsView.xib; sourceTree = "<group>"; };
@@ -228,7 +249,7 @@
 		45768FF71EA99E230090BBE7 /* AbbrevBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevBaseTest.swift; path = Tests/Abbreviations/AbbrevBaseTest.swift; sourceTree = "<group>"; };
 		45768FF91EA9A3A90090BBE7 /* AbbrevsTextEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevsTextEncoding.swift; sourceTree = "<group>"; };
 		45768FFB1EA9A41F0090BBE7 /* AbbrevsTextEncodingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevsTextEncodingTest.swift; path = Tests/Abbreviations/AbbrevsTextEncodingTest.swift; sourceTree = "<group>"; };
-		457690051EA9C8470090BBE7 /* TransTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransTextView.swift; path = Source/Views/TransTextView.swift; sourceTree = "<group>"; };
+		457690051EA9C8470090BBE7 /* TransTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransTextView.swift; sourceTree = "<group>"; };
 		4576900D1EA9CD1C0090BBE7 /* AbbreviationsEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AbbreviationsEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		457690101EA9CD1C0090BBE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		457690151EA9CD1C0090BBE7 /* AbbreviationsEditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AbbreviationsEditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,9 +276,9 @@
 		45A923491EC0F52E00ED6B16 /* MediaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MediaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A923501EC0F52E00ED6B16 /* MediaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTests.swift; sourceTree = "<group>"; };
 		45A923521EC0F52E00ED6B16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		45A9235E1EC0F55B00ED6B16 /* MediaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaController.swift; path = Media/MediaController.swift; sourceTree = "<group>"; };
+		45A9235E1EC0F55B00ED6B16 /* MediaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaController.swift; sourceTree = "<group>"; };
 		45A923601EC0F6DE00ED6B16 /* MediaPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaPanel.xib; sourceTree = "<group>"; };
-		45B0DC1F1EC11270002F0201 /* CanBorrowViewForFullScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CanBorrowViewForFullScreen.swift; path = HelperViews/CanBorrowViewForFullScreen.swift; sourceTree = "<group>"; };
+		45B0DC1F1EC11270002F0201 /* CanBorrowViewForFullScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanBorrowViewForFullScreen.swift; sourceTree = "<group>"; };
 		45B0DC211EC157E0002F0201 /* CommonSuffixes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonSuffixes.swift; sourceTree = "<group>"; };
 		45B0DC271EC16089002F0201 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = English; path = Defaults.plist; sourceTree = "<group>"; };
 		45E95DC8171B4DBD008FEEE4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -448,6 +469,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4541D5251EC2262C0017ED4F /* TextEditor */ = {
+			isa = PBXGroup;
+			children = (
+				45F521BC1EB44EE500BF77B1 /* CommentStringFields.swift */,
+				45F521BF1EB45B6000BF77B1 /* TransTextDocument.swift */,
+				457690051EA9C8470090BBE7 /* TransTextView.swift */,
+				45FFE00F1EB501260055271E /* TransTextWindowController.swift */,
+			);
+			path = TextEditor;
+			sourceTree = "<group>";
+		};
 		455BE3A31712430300DCAF5F /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,9 +487,8 @@
 				457690071EA9CCFD0090BBE7 /* AbbreviationsEditor */,
 				457690301EA9CD920090BBE7 /* HelperViews */,
 				45A9233B1EC0F4D000ED6B16 /* Media */,
+				4541D5251EC2262C0017ED4F /* TextEditor */,
 				455BE3A41712452000DCAF5F /* Application */,
-				639E92AD0E4D0B7F0006FDEE /* Controllers */,
-				639E92AC0E4D0B5C0006FDEE /* Views */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -465,9 +496,8 @@
 		455BE3A41712452000DCAF5F /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				45F521BC1EB44EE500BF77B1 /* CommentStringFields.swift */,
 				451769E71EBEA928002FB012 /* TransAppDelegate.swift */,
-				45F521BF1EB45B6000BF77B1 /* TransTextDocument.swift */,
+				457121A91EBE425E006308C2 /* TransDocumentController.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -599,10 +629,10 @@
 		457690301EA9CD920090BBE7 /* HelperViews */ = {
 			isa = PBXGroup;
 			children = (
-				45F521B71EB40CE100BF77B1 /* HandyTableView.swift */,
 				45B0DC1F1EC11270002F0201 /* CanBorrowViewForFullScreen.swift */,
+				45F521B71EB40CE100BF77B1 /* HandyTableView.swift */,
 			);
-			name = HelperViews;
+			path = HelperViews;
 			sourceTree = "<group>";
 		};
 		457690371EA9CDA70090BBE7 /* HelperViews */ = {
@@ -628,7 +658,7 @@
 			children = (
 				45A9235E1EC0F55B00ED6B16 /* MediaController.swift */,
 			);
-			name = Media;
+			path = Media;
 			sourceTree = "<group>";
 		};
 		45A923421EC0F52E00ED6B16 /* Media */ = {
@@ -647,24 +677,6 @@
 				45A923521EC0F52E00ED6B16 /* Info.plist */,
 			);
 			path = MediaTests;
-			sourceTree = "<group>";
-		};
-		639E92AC0E4D0B5C0006FDEE /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				457690051EA9C8470090BBE7 /* TransTextView.swift */,
-			);
-			name = Views;
-			path = ..;
-			sourceTree = "<group>";
-		};
-		639E92AD0E4D0B7F0006FDEE /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				457121A91EBE425E006308C2 /* TransDocumentController.swift */,
-				45FFE00F1EB501260055271E /* TransTextWindowController.swift */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -771,6 +783,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				4541D5271EC227AB0017ED4F /* PBXTargetDependency */,
+				4541D5291EC227AB0017ED4F /* PBXTargetDependency */,
 			);
 			name = AbbreviationsEditor;
 			productName = AbbreviationsEditor;
@@ -845,6 +859,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4541D52B1EC2281A0017ED4F /* PBXTargetDependency */,
 			);
 			name = Media;
 			productName = Media;
@@ -1172,6 +1187,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4541D5271EC227AB0017ED4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 45768FC81EA98DF40090BBE7 /* Abbreviations */;
+			targetProxy = 4541D5261EC227AB0017ED4F /* PBXContainerItemProxy */;
+		};
+		4541D5291EC227AB0017ED4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 457690351EA9CDA70090BBE7 /* HelperViews */;
+			targetProxy = 4541D5281EC227AB0017ED4F /* PBXContainerItemProxy */;
+		};
+		4541D52B1EC2281A0017ED4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 457690351EA9CDA70090BBE7 /* HelperViews */;
+			targetProxy = 4541D52A1EC2281A0017ED4F /* PBXContainerItemProxy */;
+		};
 		45768FAB1EA982660090BBE7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D15AC270486D014006FF6A4 /* Transcribbler */;
@@ -1718,6 +1748,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1759,6 +1790,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.errorbar.transcribbler.HelperViews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
