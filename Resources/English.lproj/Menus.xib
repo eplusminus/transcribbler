@@ -672,6 +672,12 @@
                                     <action selector="loadMedia:" target="-1" id="830"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="gXY-88-a4z"/>
+                            <menuItem title="Insert Timestamp" keyEquivalent="'" id="AJ2-ff-gRe">
+                                <connections>
+                                    <action selector="insertTimeStamp:" target="-1" id="8Yt-pY-vpy"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>

@@ -108,6 +108,7 @@
                             </view>
                         </box>
                         <connections>
+                            <action selector="insertTimeStamp:" target="-2" id="f8H-te-8X2"/>
                             <binding destination="e4i-1Z-NaO" name="enabled" keyPath="hasMedia" id="VNf-CF-giv"/>
                         </connections>
                     </toolbarItem>

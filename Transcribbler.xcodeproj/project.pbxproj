@@ -16,6 +16,7 @@
 		453012371EB56C8000AAB6A6 /* AbbrevsEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453012361EB56C8000AAB6A6 /* AbbrevsEncoding.swift */; };
 		453012391EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453012381EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift */; };
 		4530123B1EB7A40E00AAB6A6 /* AbbrevsPlatformEncodingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4530123A1EB7A40E00AAB6A6 /* AbbrevsPlatformEncodingTest.swift */; };
+		4541D52D1EC229D00017ED4F /* TimeStamps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4541D52C1EC229D00017ED4F /* TimeStamps.swift */; };
 		455BE3DD1712467C00DCAF5F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3BF1712467C00DCAF5F /* Credits.rtf */; };
 		455BE3DE1712467C00DCAF5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 455BE3C11712467C00DCAF5F /* InfoPlist.strings */; };
 		455BE40817124D5400DCAF5F /* Menus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455BE40617124D5400DCAF5F /* Menus.xib */; };
@@ -227,6 +228,7 @@
 		453012361EB56C8000AAB6A6 /* AbbrevsEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevsEncoding.swift; sourceTree = "<group>"; };
 		453012381EB5724E00AAB6A6 /* AbbrevsPlatformEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevsPlatformEncoding.swift; sourceTree = "<group>"; };
 		4530123A1EB7A40E00AAB6A6 /* AbbrevsPlatformEncodingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevsPlatformEncodingTest.swift; path = Tests/Abbreviations/AbbrevsPlatformEncodingTest.swift; sourceTree = "<group>"; };
+		4541D52C1EC229D00017ED4F /* TimeStamps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeStamps.swift; sourceTree = "<group>"; };
 		455BE3C01712467C00DCAF5F /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
 		455BE3C21712467C00DCAF5F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		455BE3C71712467C00DCAF5F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				45F521BC1EB44EE500BF77B1 /* CommentStringFields.swift */,
+				4541D52C1EC229D00017ED4F /* TimeStamps.swift */,
 				45F521BF1EB45B6000BF77B1 /* TransTextDocument.swift */,
 				457690051EA9C8470090BBE7 /* TransTextView.swift */,
 				45FFE00F1EB501260055271E /* TransTextWindowController.swift */,
@@ -1175,6 +1178,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4541D52D1EC229D00017ED4F /* TimeStamps.swift in Sources */,
 				45F521C01EB45B6000BF77B1 /* TransTextDocument.swift in Sources */,
 				457121AA1EBE425E006308C2 /* TransDocumentController.swift in Sources */,
 				451769E81EBEA928002FB012 /* TransAppDelegate.swift in Sources */,

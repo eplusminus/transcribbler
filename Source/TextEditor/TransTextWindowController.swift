@@ -42,7 +42,7 @@ fileprivate struct FullScreenSavePanelState {
 
 @objc(TransTextWindowController)
 public class TransTextWindowController: NSWindowController,
-    NSWindowDelegate, NSSplitViewDelegate, NSUserInterfaceValidations {
+    NSWindowDelegate, NSSplitViewDelegate, NSTextViewDelegate, NSUserInterfaceValidations {
   @IBOutlet private(set) var mediaController: MediaController!
   
   @IBOutlet private(set) var mainContentView: NSView!
@@ -68,6 +68,8 @@ public class TransTextWindowController: NSWindowController,
     mediaController.nextResponder = textView.nextResponder
     textView.nextResponder = mediaController
     
+    textView.delegate = self
+    
     toolbarVisibleInFullScreen = false
     
     fullScreenSplitView.delegate = self
@@ -91,6 +93,28 @@ public class TransTextWindowController: NSWindowController,
 
   @IBAction public func toggleRuler(_ sender: Any) {
     textView.isRulerVisible = !textView.isRulerVisible
+  }
+  
+  @IBAction public func insertTimeStamp(_ sender: AnyObject?) {
+    if mediaController.hasMedia {
+      insertTimeStamp(timeString: mediaController.currentTimeCodeString)
+    }
+  }
+  
+  private func insertTimeStamp(timeString: String) {
+    let att = TimeStamps.createAttachment(timeString: timeString)
+    let attStr = NSAttributedString(attachment: att)
+    textView.textStorage?.insert(attStr, at: textView.selectedRange().location)
+  }
+  
+  //
+  // NSTextViewDelegate
+  //
+  
+  public func textView(_ textView: NSTextView, doubleClickedOn cell: NSTextAttachmentCellProtocol, in cellFrame: NSRect, at charIndex: Int) {
+    if let tsc = cell as? TimeStampCell {
+      mediaController.timeCodeString = tsc.timeString
+    }
   }
   
   //
@@ -188,15 +212,20 @@ public class TransTextWindowController: NSWindowController,
   //
   
   public func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-    let a = item.action
-    if a == #selector(toggleMediaPanel(_:)) {
-      if let m = item as? NSMenuItem {
-        m.state = mediaController.isPanelVisible ? NSOnState : NSOffState
+    if let a = item.action {
+      switch a {
+      case #selector(insertTimeStamp(_:)):
+        return true //return mediaController.hasMedia
+      case #selector(toggleMediaPanel(_:)):
+        if let m = item as? NSMenuItem {
+          m.state = mediaController.isPanelVisible ? NSOnState : NSOffState
+        }
+        return true
+      case #selector(toggleRuler(_:)):
+        return true
+      default:
+        return false
       }
-      return true
-    }
-    if a == #selector(toggleRuler(_:)) {
-      return true
     }
     return false
   }

@@ -30,6 +30,10 @@ public class TransTextView: NSTextView {
     self.isRulerVisible = true
   }
   
+  //
+  // NSResponder
+  //
+  
   override public func keyDown(with event: NSEvent) {
     let chars = (event.characters ?? "").characters
     let ap = AbbrevParser.sharedInstance()
