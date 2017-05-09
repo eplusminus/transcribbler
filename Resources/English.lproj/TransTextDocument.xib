@@ -137,7 +137,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="216" height="337"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" id="GJa-Fe-mwV">
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" id="GJa-Fe-mwV">
                             <rect key="frame" x="0.0" y="0.0" width="216" height="337"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <edgeInsets key="edgeInsets" left="6" right="6" top="6" bottom="6"/>
