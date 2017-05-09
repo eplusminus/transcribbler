@@ -64,37 +64,37 @@
                                 <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn editable="NO" width="40" minWidth="40" maxWidth="1000" id="nGc-Ib-7VK">
+                                    <tableColumn identifier="short" editable="NO" width="40" minWidth="40" maxWidth="1000" id="nGc-Ib-7VK">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="short">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
-                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="Cym-If-nmp">
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" alignment="left" id="Cym-If-nmp">
                                             <font key="font" size="9" name="Monaco"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </tableColumn>
-                                    <tableColumn editable="NO" width="64.6220703125" minWidth="31.6220703125" maxWidth="1000" id="oo7-kn-LNd">
+                                    <tableColumn identifier="long" editable="NO" width="64.6220703125" minWidth="31.6220703125" maxWidth="1000" id="oo7-kn-LNd">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="long">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
-                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="kTm-e1-PrR">
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" alignment="left" id="kTm-e1-PrR">
                                             <font key="font" size="9" name="Monaco"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </tableColumn>
-                                    <tableColumn editable="NO" width="121.357421875" minWidth="34.357421875" maxWidth="1000" id="TLs-UU-ENZ">
+                                    <tableColumn identifier="result" editable="NO" width="121.357421875" minWidth="34.357421875" maxWidth="1000" id="TLs-UU-ENZ">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="result">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
-                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="CgP-cC-1Kg">
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" alignment="left" id="CgP-cC-1Kg">
                                             <font key="font" size="9" name="Monaco"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -102,6 +102,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <action selector="clickedSuggestedSuffix:" target="-2" id="JU3-x0-IzR"/>
                                     <outlet property="dataSource" destination="Xbm-KU-oIe" id="rjn-Xz-yiH"/>
                                     <outlet property="delegate" destination="Xbm-KU-oIe" id="wJe-12-KB5"/>
                                 </connections>

@@ -26,7 +26,7 @@ import Cocoa
 import Foundation
 
 @objc(AbbrevSuffixEditor)
-public class AbbrevSuffixEditor: NSViewController, NSPopoverDelegate {
+public class AbbrevSuffixEditor: NSViewController {
   @IBOutlet private(set) var editorPanelView: NSView!
   @IBOutlet private(set) var entryAbbreviationLabel: NSTextField!
   @IBOutlet private(set) var suffixTableView: NSTableView!
@@ -51,7 +51,6 @@ public class AbbrevSuffixEditor: NSViewController, NSPopoverDelegate {
   private func initPopover() {
     popover.contentViewController = self
     popover.behavior = NSPopoverBehavior.transient
-    popover.delegate = self
   }
 
   override public func viewDidLoad() {
@@ -75,6 +74,7 @@ public class AbbrevSuffixEditor: NSViewController, NSPopoverDelegate {
       suffixEditingTableData.baseEntry = e
       suffixEditingTableData.variants = e?.variants ?? []
       commonSuffixesTableData.baseEntry = e
+      commonSuffixesTableData.variants = e.map { CommonSuffixes.suggestCommonSuffixesFor($0) } ?? []
       suffixTableView.reloadData()
       commonSuffixesTableView.reloadData()
     }
@@ -82,7 +82,7 @@ public class AbbrevSuffixEditor: NSViewController, NSPopoverDelegate {
   
   public var variants: [AbbrevBase] {
     get {
-      return suffixEditingTableData.variants
+      return suffixEditingTableData.variants.filter { $0.abbreviation != "" }
     }
   }
   
@@ -93,12 +93,33 @@ public class AbbrevSuffixEditor: NSViewController, NSPopoverDelegate {
     }
   }
   
-  //
-  // NSPopoverDelegate
-  //
-  
-  public func popoverWillClose(_ notification: Notification) {
-    // TODO: update source entry
+  @IBAction public func clickedSuggestedSuffix(_ sender: AnyObject?) {
+    let chosenPos = commonSuffixesTableView.selectedRow
+    if chosenPos >= 0 {
+      let chosenVariant = commonSuffixesTableData.variants[chosenPos]
+      var pos: Int
+      var insert: Bool
+      if let i = suffixEditingTableData.variants.index(where: { $0.abbreviation == chosenVariant.abbreviation }) {
+        insert = false
+        pos = i
+      }
+      else {
+        insert = true
+        // pick a place to insert the new row corresponding to the order that the suggestion list is in
+        if let firstOneOrderedAfterThis = suffixEditingTableData.variants.index(where: { v in
+          if let foundPos = commonSuffixesTableData.variants.index(where: { $0.abbreviation == v.abbreviation }) {
+            return foundPos > chosenPos
+          }
+          return false
+        }) {
+          pos = firstOneOrderedAfterThis
+        }
+        else {
+          pos = suffixEditingTableData.variants.count
+        }
+      }
+      suffixEditingTableData.addOrReplaceItemAt(chosenVariant, row: pos, insert: insert, tableView: suffixTableView)
+    }
   }
 }
 
@@ -107,6 +128,18 @@ public class AbbrevSuffixTableBehavior: NSObject, NSTableViewDataSource, NSTable
   public var baseEntry: AbbrevEntry? = nil
   public var variants: [AbbrevBase] = []
   @IBInspectable public var editable: Bool = false
+  
+  func addOrReplaceItemAt(_ variant: AbbrevBase, row: Int, insert: Bool, tableView: NSTableView) {
+    self.willChangeValue(forKey: "variants")
+    if insert {
+      variants.insert(variant, at: row)
+    }
+    else {
+      variants[row] = variant
+    }
+    self.didChangeValue(forKey: "variants")
+    tableView.reloadData()
+  }
   
   //
   // NSTableViewDataSource

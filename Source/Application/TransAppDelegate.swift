@@ -30,11 +30,24 @@ public class TransAppDelegate: NSResponder, NSApplicationDelegate {
 
   @IBOutlet private(set) var abbrevsController: AbbrevsController!
   
+  public func applicationDidFinishLaunching(_ notification: Notification) {
+    registerDefaults()
+  }
+  
   @IBAction public func newAbbreviation(_ sender: AnyObject?) {
     abbrevsController.newAbbreviation(sender)
   }
   
   override public func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
     return abbrevsController.validateMenuItem(menuItem)
+  }
+  
+  private func registerDefaults() {
+    UserDefaults.standard.removeObject(forKey: "CommonSuffixes")
+    if let path = Bundle.main.path(forResource: "Defaults", ofType: "plist") {
+      if let dict = NSDictionary(contentsOfFile: path) as? [String: Any] {
+        UserDefaults.standard.register(defaults: dict)
+      }
+    }
   }
 }
