@@ -26,14 +26,17 @@ import Cocoa
 import Foundation
 
 @objc(AbbrevSuffixEditor)
-public class AbbrevSuffixEditor: NSViewController {
+public class AbbrevSuffixEditor: NSViewController, NSPopoverDelegate {
   @IBOutlet private(set) var editorPanelView: NSView!
   @IBOutlet private(set) var entryAbbreviationLabel: NSTextField!
   @IBOutlet private(set) var suffixTableView: NSTableView!
-  @IBOutlet private(set) var suffixTableBehavior: AbbrevSuffixTableBehavior!
-  
+  @IBOutlet private(set) var suffixEditingTableData: AbbrevSuffixTableBehavior!
+  @IBOutlet private(set) var commonSuffixesTableView: NSTableView!
+  @IBOutlet private(set) var commonSuffixesTableData: AbbrevSuffixTableBehavior!
+
   public var popover: NSPopover = NSPopover()
-  private var abbrevEntry: AbbrevEntry? = nil
+  
+  private var _abbrevEntry: AbbrevEntry? = nil
 
   override public init?(nibName: String?, bundle: Bundle?) {
     super.init(nibName: "AbbrevSuffixEditor", bundle: bundle)
@@ -48,38 +51,66 @@ public class AbbrevSuffixEditor: NSViewController {
   private func initPopover() {
     popover.contentViewController = self
     popover.behavior = NSPopoverBehavior.transient
+    popover.delegate = self
   }
 
+  override public func viewDidLoad() {
+    suffixEditingTableData.addObserver(self, forKeyPath: "variants", options: .new, context: nil)
+  }
+  
   public var isPopoverOpen: Bool {
     get {
       return popover.isShown
     }
   }
   
-  public func setAbbrevEntry(_ e: AbbrevEntry) {
-    let _ = self.view  // ensures lazy loading has happened
-    abbrevEntry = e
-    entryAbbreviationLabel.stringValue = e.abbreviation
-    suffixTableBehavior.abbrevEntry = e
-    suffixTableView.reloadData()
-  }
-}
-
-@objc(AbbrevSuffixTableBehavior)
-public class AbbrevSuffixTableBehavior: NSObject, NSTableViewDataSource, NSTableViewDelegate, HandyTableViewDelegate {
   public var abbrevEntry: AbbrevEntry? {
     get {
       return _abbrevEntry
     }
     set(e) {
       _abbrevEntry = e
-      variants = e?.variants ?? []
+      let _ = view  // triggers lazy loading
+      entryAbbreviationLabel.stringValue = e?.abbreviation ?? ""
+      suffixEditingTableData.baseEntry = e
+      suffixEditingTableData.variants = e?.variants ?? []
+      commonSuffixesTableData.baseEntry = e
+      suffixTableView.reloadData()
+      commonSuffixesTableView.reloadData()
     }
   }
-  private var _abbrevEntry: AbbrevEntry? = nil
-  private var variants: [AbbrevBase] = []
   
+  public var variants: [AbbrevBase] {
+    get {
+      return suffixEditingTableData.variants
+    }
+  }
+  
+  override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if keyPath == "variants" {
+      self.willChangeValue(forKey: "variants")
+      self.didChangeValue(forKey: "variants")
+    }
+  }
+  
+  //
+  // NSPopoverDelegate
+  //
+  
+  public func popoverWillClose(_ notification: Notification) {
+    // TODO: update source entry
+  }
+}
+
+@objc(AbbrevSuffixTableBehavior)
+public class AbbrevSuffixTableBehavior: NSObject, NSTableViewDataSource, NSTableViewDelegate, HandyTableViewDelegate {
+  public var baseEntry: AbbrevEntry? = nil
+  public var variants: [AbbrevBase] = []
+  @IBInspectable public var editable: Bool = false
+  
+  //
   // NSTableViewDataSource
+  //
   
   public func numberOfRows(in tableView: NSTableView) -> Int {
     return variants.count
@@ -92,7 +123,7 @@ public class AbbrevSuffixTableBehavior: NSObject, NSTableViewDataSource, NSTable
         switch colId {
         case "short": return v.abbreviation
         case "long": return v.expansion
-        case "result": return abbrevEntry?.variantExpansion(v)
+        case "result": return baseEntry?.variantExpansion(v)
         default: return nil
         }
       }
@@ -100,19 +131,59 @@ public class AbbrevSuffixTableBehavior: NSObject, NSTableViewDataSource, NSTable
     return nil
   }
   
+  public func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
+    if editable {
+      if let colId = tableColumn?.identifier {
+        if row >= 0 && row <= variants.count {
+          let s = (object as? String) ?? ""
+          let v0 = (row >= 0 && row < variants.count) ? variants[row] : AbbrevBase()
+          var v1 = v0
+          switch colId {
+          case "short": v1 = AbbrevBase(abbreviation: s, expansion: v0.expansion)
+          case "long": v1 = AbbrevBase(abbreviation: v0.abbreviation, expansion: s)
+          default: break
+          }
+          if v1 !== v0 {
+            self.willChangeValue(forKey: "variants")
+            if row < variants.count {
+              variants[row] = v1
+            }
+            else {
+              variants.append(v1)
+            }
+            self.didChangeValue(forKey: "variants")
+          }
+        }
+      }
+    }
+  }
+  
+  //
   // NSTableViewDelegate
+  //
   
   public func tableView(_ tableView: NSTableView, shouldEdit tableColumn: NSTableColumn?, row: Int) -> Bool {
-    return !(tableColumn?.identifier == "result")
+    return editable && !(tableColumn?.identifier == "result")
   }
   
+  //
   // HandyTableViewDelegate
+  //
   
-  public func tableViewCanDeleteEmptyRow(_ view: HandyTableView, row: NSInteger) -> Bool {
+  public func tableViewInsertRow(_ v: HandyTableView, beforeRow: NSInteger) -> Bool {
+    if editable {
+      if beforeRow <= v.numberOfRows {
+        variants.insert(AbbrevBase(), at: beforeRow)
+        v.beginUpdates()
+        v.insertRows(at: IndexSet(integer: beforeRow), withAnimation: [])
+        v.endUpdates()
+        return true
+      }
+    }
     return false
   }
   
-  public func tableViewClickedBelowLastRow(_ view: HandyTableView, point: NSPoint) -> Bool {
-    return false
+  public func tableViewRowIsEmpty(_ v: HandyTableView, row: NSInteger) -> Bool {
+    return variants[row].isEmpty()
   }
 }

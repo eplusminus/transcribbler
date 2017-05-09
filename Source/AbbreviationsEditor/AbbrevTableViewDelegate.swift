@@ -50,6 +50,11 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
     return nil
   }
   
+  func replaceEntryAtIndex(_ i: Int, _ e: AbbrevEntry) {
+    table?.remove(atArrangedObjectIndex: i)
+    table?.insert(e, atArrangedObjectIndex: i)
+  }
+  
   override public func awakeFromNib() {
     self.nextResponder = view.nextResponder
     view.nextResponder = self
@@ -199,8 +204,7 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
         break;
       }
       if a1 != a {
-        table?.remove(atArrangedObjectIndex: row)
-        table?.insert(a1, atArrangedObjectIndex: row)
+        replaceEntryAtIndex(row, a1)
       }
     }
   }
@@ -252,24 +256,19 @@ public class AbbrevTableViewDelegate: NSResponder, NSTableViewDataSource, NSTabl
   //
   // HandyTableViewDelegate
   //
-  public func tableViewCanDeleteEmptyRow(_ v: HandyTableView, row: NSInteger) -> Bool {
-    return entryAtIndex(row)?.isEmpty() ?? false
+  
+  public func tableViewInsertRow(_ v: HandyTableView, beforeRow: NSInteger) -> Bool {
+    if beforeRow <= v.numberOfRows {
+      table?.insert(AbbrevEntry(), atArrangedObjectIndex: beforeRow)
+      view.beginUpdates()
+      view.insertRows(at: IndexSet(integer: beforeRow), withAnimation: [])
+      view.endUpdates()
+      return true
+    }
+    return false
   }
   
-  public func tableViewClickedBelowLastRow(_ v: HandyTableView, point: NSPoint) -> Bool {
-    v.validateEditing()
-    v.abortEditing()
-    
-    let count = v.numberOfRows
-    if count > 0 {
-      if entryAtIndex(count - 1)?.isEmpty() ?? false {
-        v.selectRowIndexes(IndexSet(integer: count - 1), byExtendingSelection: false)
-        v.editColumn(view.column(withIdentifier: abbreviationColumn.identifier), row: count - 1, with: nil, select: false)
-        return true
-      }
-    }
-    v.selectRowIndexes(IndexSet(), byExtendingSelection: false)
-    self.add(nil)
-    return true
+  public func tableViewRowIsEmpty(_ v: HandyTableView, row: NSInteger) -> Bool {
+    return entryAtIndex(row)?.isEmpty() ?? false
   }
 }

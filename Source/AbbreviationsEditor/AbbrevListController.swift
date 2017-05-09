@@ -19,6 +19,8 @@
  
  */
 
+import Abbreviations
+
 import Cocoa
 import Foundation
 import HelperViews
@@ -59,6 +61,8 @@ public class AbbrevListController: NSViewController {
     tableViewDelegate.table = document.controller
     tableViewDelegate.resolver = document.abbrevResolver
     tableView?.reloadData()
+    
+    suffixEditor.addObserver(self, forKeyPath: "variants", options: .new, context: nil)
 
     let headerBarHeight = self.view.frame.height -
       (tableContainerView.frame.origin.y + tableContainerView.frame.size.height)
@@ -110,9 +114,24 @@ public class AbbrevListController: NSViewController {
       if sri.count == 1 {
         let sr = tableView.selectedRow
         if let ae = tableViewDelegate.entryAtIndex(sr) {
-          suffixEditor.setAbbrevEntry(ae)
+          suffixEditor.abbrevEntry = ae
           let selectionFrame = tableView.frameOfCell(atColumn: 1, row: tableView.selectedRow)
           suffixEditor.popover.show(relativeTo: selectionFrame, of: tableView, preferredEdge: NSRectEdge.maxY)
+          suffixEditor.popover.nextResponder = tableView
+        }
+      }
+    }
+  }
+  
+  override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if keyPath == "variants" {
+      if tableView.selectedRowIndexes.count == 1 {
+        let sr = tableView.selectedRow
+        if let a0 = tableViewDelegate.entryAtIndex(sr) {
+          let vs = suffixEditor.variants
+          let a1 = AbbrevEntry(abbreviation: a0.abbreviation, expansion: a0.expansion,
+                               variants: (vs.count > 0) ? vs : nil)
+          tableViewDelegate.replaceEntryAtIndex(sr, a1)
         }
       }
     }

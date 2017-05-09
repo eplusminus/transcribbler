@@ -24,7 +24,7 @@ import Foundation
 import HelperViews
 
 @objc(AbbrevsController)
-public class AbbrevsController: NSWindowController, CanBorrowViewForFullScreen {
+public class AbbrevsController: NSWindowController, NSWindowDelegate, CanBorrowViewForFullScreen {
   @IBOutlet private(set) var splitView: NSSplitView!
   @IBOutlet private(set) var stackView: NSStackView!
   
@@ -144,5 +144,13 @@ public class AbbrevsController: NSWindowController, CanBorrowViewForFullScreen {
       }
     }
     return false;
+  }
+  
+  //
+  // NSWindowDelegate
+  //
+  
+  public func windowWillReturnFieldEditor(_ sender: NSWindow, to client: Any?) -> Any? {
+    return HandyTableView.windowWillReturnFieldEditor(sender, toObject: client)
   }
 }

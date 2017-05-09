@@ -7,8 +7,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AbbrevSuffixEditor">
             <connections>
+                <outlet property="commonSuffixesTableData" destination="Xbm-KU-oIe" id="oEe-o0-Tfo"/>
+                <outlet property="commonSuffixesTableView" destination="9dJ-pj-bfJ" id="Ihi-sY-LJO"/>
                 <outlet property="entryAbbreviationLabel" destination="hQm-x8-ZgQ" id="b0q-qa-wDJ"/>
-                <outlet property="suffixTableBehavior" destination="D5g-A0-5tH" id="EGs-On-gaq"/>
+                <outlet property="suffixEditingTableData" destination="D5g-A0-5tH" id="k1t-SW-2OT"/>
                 <outlet property="suffixTableView" destination="yQC-y3-hd4" id="Nud-8M-0EV"/>
                 <outlet property="view" destination="c22-O7-iKe" id="bM0-KB-4Fm"/>
             </connections>
@@ -51,7 +53,7 @@
                     <rect key="frame" x="20" y="18" width="237" height="143"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" ambiguous="YES" id="k3Z-XO-dAa">
-                        <rect key="frame" x="1" y="23" width="235" height="119"/>
+                        <rect key="frame" x="1" y="0.0" width="235" height="142"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="12" headerView="Pns-cf-U6J" id="9dJ-pj-bfJ">
@@ -99,6 +101,10 @@
                                         </textFieldCell>
                                     </tableColumn>
                                 </tableColumns>
+                                <connections>
+                                    <outlet property="dataSource" destination="Xbm-KU-oIe" id="rjn-Xz-yiH"/>
+                                    <outlet property="delegate" destination="Xbm-KU-oIe" id="wJe-12-KB5"/>
+                                </connections>
                             </tableView>
                         </subviews>
                     </clipView>
@@ -107,7 +113,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="HCm-mU-NGk">
-                        <rect key="frame" x="-30" y="17" width="15" height="125"/>
+                        <rect key="frame" x="-14" y="23" width="15" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="Pns-cf-U6J">
@@ -116,9 +122,9 @@
                     </tableHeaderView>
                 </scrollView>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQm-x8-ZgQ">
-                    <rect key="frame" x="88" y="308" width="102" height="13"/>
+                    <rect key="frame" x="88" y="308" width="118" height="13"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="x" id="hl0-aa-Auz">
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="x" id="hl0-aa-Auz">
                         <font key="font" metaFont="systemBold" size="10"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -128,7 +134,7 @@
                     <rect key="frame" x="20" y="188" width="237" height="117"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" ambiguous="YES" id="3JX-oV-UCP">
-                        <rect key="frame" x="1" y="23" width="235" height="93"/>
+                        <rect key="frame" x="1" y="0.0" width="235" height="116"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="12" headerView="vHu-3B-FEI" id="yQC-y3-hd4" customClass="HandyTableView">
@@ -187,7 +193,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="3Gy-HG-YVZ">
-                        <rect key="frame" x="-30" y="17" width="15" height="99"/>
+                        <rect key="frame" x="-14" y="23" width="15" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="vHu-3B-FEI">
@@ -205,9 +211,18 @@
                     </textFieldCell>
                 </textField>
             </subviews>
-            <point key="canvasLocation" x="126" y="305"/>
+            <point key="canvasLocation" x="126" y="304.5"/>
         </customView>
-        <customObject id="D5g-A0-5tH" customClass="AbbrevSuffixTableBehavior"/>
+        <customObject id="D5g-A0-5tH" customClass="AbbrevSuffixTableBehavior">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="YES"/>
+            </userDefinedRuntimeAttributes>
+        </customObject>
+        <customObject id="Xbm-KU-oIe" customClass="AbbrevSuffixTableBehavior">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
+            </userDefinedRuntimeAttributes>
+        </customObject>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>

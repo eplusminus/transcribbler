@@ -43,9 +43,22 @@ public class HandyTableView: NSTableView {
     fieldEditor.tableView = self
   }
   
-  public func add(_ sender: Any?) {
+  @IBAction public func add(_ sender: Any?) {
+    
   }
-
+  
+  @IBAction public func insertNewLine(_ sender: AnyObject?) {
+    validateEditing()
+    abortEditing()
+    let lastRow = selectedRowIndexes.last ?? (numberOfRows - 1)
+    let row = lastRow + 1
+    if handyDelegate()?.tableViewInsertRow(self, beforeRow: row) ?? false {
+      selectRow(row)
+      scrollRowToVisible(row)
+      let _ = tryEditingColumn(findEditableColumnFrom(0, row: row, inc: 1), row: row)
+    }
+  }
+  
   //
   // NSTableView
   //
@@ -94,7 +107,21 @@ public class HandyTableView: NSTableView {
         }
       }
       else {
-        if !(handyDelegate()?.tableViewClickedBelowLastRow(self, point: loc) ?? false) {
+        validateEditing()
+        abortEditing()
+        var newRow: NSInteger = numberOfRows - 1
+        if newRow < 0 || !(handyDelegate()?.tableViewRowIsEmpty(self, row: newRow) ?? false) {
+          if handyDelegate()?.tableViewInsertRow(self, beforeRow: newRow + 1) ?? false {
+            newRow += 1
+          }
+        }
+        if newRow >= 0 {
+          selectRow(newRow)
+          let _ = tryEditingColumn(findEditableColumnFrom(0, row: newRow, inc: 1), row: newRow)
+          myClickedRow = newRow
+          myClickedCol = col
+        }
+        else {
           super.mouseDown(with: event)
         }
       }
@@ -159,11 +186,19 @@ public class HandyTableView: NSTableView {
     }
     return false
   }
+  
+  internal func findEditableColumnFrom(_ col: NSInteger, row: NSInteger, inc: Int) -> NSInteger {
+    var ret = col
+    while (ret >= 0 && ret < numberOfColumns && !canEditColumn(ret, row: row)) {
+      ret = ret + inc
+    }
+    return ret
+  }
 }
 
 @objc public protocol HandyTableViewDelegate {
-  func tableViewCanDeleteEmptyRow(_ view: HandyTableView, row: NSInteger) -> Bool
-  func tableViewClickedBelowLastRow(_ view: HandyTableView, point: NSPoint) -> Bool
+  func tableViewInsertRow(_ view: HandyTableView, beforeRow: NSInteger) -> Bool
+  func tableViewRowIsEmpty(_ view: HandyTableView, row: NSInteger) -> Bool
 }
 
 //
@@ -205,7 +240,7 @@ internal class QuickTableTextView: NSTextView {
   
   private func moveToNextColumn(canAddNewRow: Bool) {
     let row = tableView.editedRow
-    let col = findEditableColumnFrom(tableView.editedColumn + 1, row: row, inc: 1)
+    let col = tableView.findEditableColumnFrom(tableView.editedColumn + 1, row: row, inc: 1)
     if col == tableView.numberOfColumns {
       if let ftd = tableView.forwardTabDestination {
         tableView.window?.makeFirstResponder(ftd)
@@ -222,7 +257,7 @@ internal class QuickTableTextView: NSTextView {
         }
         else {
           tableView.selectRow(row + 1)
-          let firstCol = findEditableColumnFrom(0, row: row + 1, inc: 1)
+          let firstCol = tableView.findEditableColumnFrom(0, row: row + 1, inc: 1)
           let _ = tableView.tryEditingColumn(firstCol, row: row + 1)
         }
       }
@@ -236,7 +271,7 @@ internal class QuickTableTextView: NSTextView {
   
   private func moveToPreviousColumn() {
     let row = tableView.editedRow
-    let col = findEditableColumnFrom(tableView.editedColumn - 1, row: row, inc: -1)
+    let col = tableView.findEditableColumnFrom(tableView.editedColumn - 1, row: row, inc: -1)
     if col < 0 {
       if let btd = tableView.backTabDestination {
         tableView.window?.makeFirstResponder(btd)
@@ -245,7 +280,7 @@ internal class QuickTableTextView: NSTextView {
       else {
         if row > 0 {
           tableView.selectRow(row - 1)
-          let lastCol = findEditableColumnFrom(tableView.numberOfColumns - 1, row: row - 1, inc: -1)
+          let lastCol = tableView.findEditableColumnFrom(tableView.numberOfColumns - 1, row: row - 1, inc: -1)
           let _ = tableView.tryEditingColumn(lastCol, row: row - 1)
         }
       }
@@ -255,14 +290,6 @@ internal class QuickTableTextView: NSTextView {
     }
     moveInsertionPointToStartOrEnd(end: true)
     movedVerticallyAtCharPos = NSNotFound
-  }
-  
-  private func findEditableColumnFrom(_ col: NSInteger, row: NSInteger, inc: Int) -> NSInteger {
-    var ret = col
-    while (ret >= 0 && ret < tableView.numberOfColumns && !tableView.canEditColumn(ret, row: row)) {
-      ret = ret + inc
-    }
-    return ret
   }
   
   override public func deleteBackward(_ sender: Any?) {
@@ -277,7 +304,7 @@ internal class QuickTableTextView: NSTextView {
       if row > 0 {
         tableView.validateEditing()
         tableView.abortEditing()
-        if tableView.handyDelegate()?.tableViewCanDeleteEmptyRow(tableView, row: row) ?? false {
+        if tableView.handyDelegate()?.tableViewRowIsEmpty(tableView, row: row) ?? false {
           self.window?.makeFirstResponder(tableView)
           tableView.selectRow(row)
           NSApplication.shared().sendAction(#selector(delete), to: tableView.delegate, from: self)
@@ -329,8 +356,7 @@ internal class QuickTableTextView: NSTextView {
   }
   
   override public func insertNewline(_ sender: Any?) {
-    window?.makeFirstResponder(tableView)
-    NSApplication.shared().sendAction(#selector(HandyTableView.add), to: nil, from: self)
+    tableView.insertNewLine(self)
   }
   
   private func getSelectionPixelPos() -> CGFloat {

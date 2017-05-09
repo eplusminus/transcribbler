@@ -97,10 +97,6 @@ public class TransTextWindowController: NSWindowController,
   // NSWindowDelegate
   //
   
-  public func windowWillReturnFieldEditor(_ sender: NSWindow, to client: Any?) -> Any? {
-    return HandyTableView.windowWillReturnFieldEditor(sender, toObject: client)
-  }
-
   public func windowWillEnterFullScreen(_ notification: Notification) {
     let w = window!
     

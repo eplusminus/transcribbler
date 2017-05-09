@@ -23,7 +23,7 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="352" height="395"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hLn-Qw-fXL">
                         <rect key="frame" x="0.0" y="0.0" width="352" height="395"/>
@@ -76,6 +76,9 @@
                     <toolbarItem reference="Cc8-VC-VGR"/>
                 </defaultToolbarItems>
             </toolbar>
+            <connections>
+                <outlet property="delegate" destination="-2" id="nJw-df-2Pk"/>
+            </connections>
             <point key="canvasLocation" x="122" y="120.5"/>
         </window>
     </objects>
