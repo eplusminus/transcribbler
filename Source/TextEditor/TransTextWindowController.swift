@@ -23,6 +23,7 @@ import AbbreviationsEditor
 import HelperViews
 import Media
 
+import Cocoa
 import Foundation
 
 

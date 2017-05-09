@@ -19,6 +19,7 @@
  
  */
 
+import Cocoa
 import Foundation
 
 public class AbbrevsTextEncoding: AbbrevsEncoding {

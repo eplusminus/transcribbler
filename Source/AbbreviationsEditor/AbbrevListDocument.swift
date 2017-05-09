@@ -20,8 +20,10 @@
  */
 
 import Abbreviations
-import Foundation
 import HelperViews
+
+import Cocoa
+import Foundation
 
 let AbbrevListDocumentModified = "AbbrevListDocumentModified"
 

@@ -19,6 +19,8 @@
  
  */
 
+import Foundation
+
 var sAbbrevParser: AbbrevParser? = nil
 
 public class AbbrevParser: NSObject {

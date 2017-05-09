@@ -20,6 +20,8 @@
  */
 
 import Abbreviations
+
+import Cocoa
 import Foundation
 
 @objc(TransTextView)

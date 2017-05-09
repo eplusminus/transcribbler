@@ -19,6 +19,8 @@
  
  */
 
+import Foundation
+
 @objc public protocol AbbrevListProvider: class {
   func getAbbreviations() -> [AbbrevEntry]
 }

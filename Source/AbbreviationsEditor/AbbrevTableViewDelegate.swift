@@ -20,8 +20,10 @@
  */
 
 import Abbreviations
-import Foundation
 import HelperViews
+
+import Cocoa
+import Foundation
 
 let supportedEncodings: [AbbrevsEncoding] = [AbbrevsPlatformEncoding(), AbbrevsTextEncoding()]
 let pasteboardTypes: [String] = supportedEncodings.map { e in e.pasteboardType() }
