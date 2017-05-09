@@ -235,11 +235,6 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
     }
     if let m = _movie {
       var exampleSize = movieView.fittingSize
-      // With AVPlayerView, unlike QTMovieView, there doesn't seem to be any way to get the height of
-      // just the controller bar.  So we're getting the minimum height of the overall view instead,
-      // which includes the big useless "Quicktime audio" logo; oh well.
-      //      movieDisclosureView?.preferredHeight = movieView?.fittingSize.height ?? 0
-
       if hasVideo {
         if let track = m.tracks(withMediaType: AVMediaTypeVideo).first {
           exampleSize = track.naturalSize

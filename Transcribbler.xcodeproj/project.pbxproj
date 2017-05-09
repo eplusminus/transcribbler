@@ -51,9 +51,6 @@
 		457690481EA9CDA70090BBE7 /* HelperViews.h in Headers */ = {isa = PBXBuildFile; fileRef = 457690381EA9CDA70090BBE7 /* HelperViews.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4576904B1EA9CDA70090BBE7 /* HelperViews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457690361EA9CDA70090BBE7 /* HelperViews.framework */; };
 		4576904C1EA9CDA70090BBE7 /* HelperViews.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 457690361EA9CDA70090BBE7 /* HelperViews.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		457690531EA9CDB20090BBE7 /* StackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45768FFF1EA9B6A70090BBE7 /* StackingView.swift */; };
-		457690541EA9CDB90090BBE7 /* DisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690031EA9BEE20090BBE7 /* DisclosureView.swift */; };
-		457690551EA9CDC20090BBE7 /* ViewSizeLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */; };
 		457690591EA9CFAE0090BBE7 /* Abbreviations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45768FC91EA98DF40090BBE7 /* Abbreviations.framework */; };
 		4576905A1EA9CFB10090BBE7 /* HelperViews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457690361EA9CDA70090BBE7 /* HelperViews.framework */; };
 		4576905E1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576905D1EA9D7F10090BBE7 /* AbbrevTableViewDelegate.swift */; };
@@ -229,9 +226,6 @@
 		45768FF71EA99E230090BBE7 /* AbbrevBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevBaseTest.swift; path = Tests/Abbreviations/AbbrevBaseTest.swift; sourceTree = "<group>"; };
 		45768FF91EA9A3A90090BBE7 /* AbbrevsTextEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevsTextEncoding.swift; sourceTree = "<group>"; };
 		45768FFB1EA9A41F0090BBE7 /* AbbrevsTextEncodingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbbrevsTextEncodingTest.swift; path = Tests/Abbreviations/AbbrevsTextEncodingTest.swift; sourceTree = "<group>"; };
-		45768FFF1EA9B6A70090BBE7 /* StackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StackingView.swift; path = HelperViews/StackingView.swift; sourceTree = "<group>"; };
-		457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewSizeLimits.swift; path = HelperViews/ViewSizeLimits.swift; sourceTree = "<group>"; };
-		457690031EA9BEE20090BBE7 /* DisclosureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DisclosureView.swift; path = HelperViews/DisclosureView.swift; sourceTree = "<group>"; };
 		457690051EA9C8470090BBE7 /* TransTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransTextView.swift; path = Source/Views/TransTextView.swift; sourceTree = "<group>"; };
 		4576900D1EA9CD1C0090BBE7 /* AbbreviationsEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AbbreviationsEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		457690101EA9CD1C0090BBE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -599,9 +593,6 @@
 		457690301EA9CD920090BBE7 /* HelperViews */ = {
 			isa = PBXGroup;
 			children = (
-				457690031EA9BEE20090BBE7 /* DisclosureView.swift */,
-				45768FFF1EA9B6A70090BBE7 /* StackingView.swift */,
-				457690011EA9BDF20090BBE7 /* ViewSizeLimits.swift */,
 				45F521B71EB40CE100BF77B1 /* HandyTableView.swift */,
 				45B0DC1F1EC11270002F0201 /* CanBorrowViewForFullScreen.swift */,
 			);
@@ -1059,7 +1050,7 @@
 				457121AC1EBE7773006308C2 /* table.icns in Resources */,
 				4525340F1724A5BB00E6D805 /* TransTextDocument.xib in Resources */,
 				451769EC1EBFBEC0002FB012 /* AbbrevSuffixEditor.xib in Resources */,
-				45A923611EC0F6DE00ED6B16 /* MediaPanel.xib in Resources */
+				45A923611EC0F6DE00ED6B16 /* MediaPanel.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1129,10 +1120,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45B0DC201EC11270002F0201 /* CanBorrowViewForFullScreen.swift in Sources */,
-				457690551EA9CDC20090BBE7 /* ViewSizeLimits.swift in Sources */,
-				457690531EA9CDB20090BBE7 /* StackingView.swift in Sources */,
 				45F521B81EB40CE100BF77B1 /* HandyTableView.swift in Sources */,
-				457690541EA9CDB90090BBE7 /* DisclosureView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
