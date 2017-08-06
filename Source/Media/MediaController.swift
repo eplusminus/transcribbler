@@ -50,6 +50,7 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   private var movieFileURL: URL?
   private var hasVideo: Bool = false
   private var lastTimeValue: CMTimeValue = 0
+  private var defaultRate: Float = 1.0
   private var playerSizeConstraint: NSLayoutConstraint? = nil
   private var oldResizingMask: NSAutoresizingMaskOptions = []
   
@@ -156,6 +157,27 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
     }
   }
   
+  public var playbackRate: Float {
+    get {
+      return defaultRate
+    }
+    set(n) {
+      defaultRate = n
+      if isPlaying {
+        player?.rate = n
+      }
+    }
+  }
+  
+  public var playbackRatePercent: Int {
+    get {
+      return Int(playbackRate * 100)
+    }
+    set(n) {
+      playbackRate = Float(n) / 100
+    }
+  }
+  
   @IBAction public func pause(_ sender: Any?) {
     if isPlaying {
       player?.pause()
@@ -164,7 +186,7 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   
   @IBAction public func play(_ sender: Any?) {
     if !isPlaying && movie != nil {
-      player?.play()
+      player?.rate = defaultRate
     }
   }
   
