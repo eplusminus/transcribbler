@@ -53,6 +53,8 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   private var playerSizeConstraint: NSLayoutConstraint? = nil
   private var oldResizingMask: NSAutoresizingMaskOptions = []
   
+  public static var replayInterval: CMTime = CMTimeMake(1, 1)
+  
   public var movie: AVAsset? {
     get {
       return _movie
@@ -198,9 +200,10 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
 
   @IBAction public func replay(_ sender: Any?) {
     if movie != nil {
-      let decrement = CMTimeMake(1, 1)
-      player?.seek(to: CMTimeSubtract(player?.currentTime() ?? decrement, decrement))
-      play(sender)
+      if let p = player {
+        p.seek(to: CMTimeSubtract(p.currentTime(), MediaController.replayInterval))
+        play(sender)
+      }
     }
   }
   

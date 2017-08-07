@@ -2,41 +2,43 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ReplayIntervalPercent</key>
+	<integer>100</integer>
 	<key>CommonSuffixes</key>
 	<array>
-    <string>s s</string>
-    <string>s es ch sh ss x</string>
-    <string>s s [aeou]y</string>
-    <string>s &lt;ies y</string>
-    <string>d d a e i o u</string>
-    <string>d ed</string>
-    <string>d ed bb dd ff gg ll mm nn pp ss tt</string>
-    <string>d &gt;ed [aeiou][bdfglmnpst]</string>
-    <string>d ed ng [aeou]y</string>
-    <string>d &lt;ied y</string>
-    <string>g ing</string>
-    <string>g &lt;ing e</string>
-    <string>j &lt;ssion mit</string>
-    <string>j ion t</string>
-    <string>j &lt;ion te se</string>
-    <string>j ation m n</string>
-    <string>j &lt;ation ze</string>
-    <string>j &lt;tion ce</string>
-    <string>j &lt;sion d</string>
-    <string>j ion s</string>
-    <string>l ly</string>
-    <string>l &lt;ily y</string>
-    <string>m ment</string>
-    <string>m &lt;iment y</string>
-    <string>r r e</string>
-    <string>r er</string>
-    <string>r or</string>
-    <string>v ive</string>
-    <string>v &lt;ive e</string>
-    <string>b able</string>
-    <string>b &lt;iable [^aeou]y ey oy uy</string>
-    <string>c ance</string>
-    <string>c &lt;iance y</string>
+		<string>s s</string>
+		<string>s es ch sh ss x</string>
+		<string>s s [aeou]y</string>
+		<string>s &lt;ies y</string>
+		<string>d d a e i o u</string>
+		<string>d ed</string>
+		<string>d ed bb dd ff gg ll mm nn pp ss tt</string>
+		<string>d &gt;ed [aeiou][bdfglmnpst]</string>
+		<string>d ed ng [aeou]y</string>
+		<string>d &lt;ied y</string>
+		<string>g ing</string>
+		<string>g &lt;ing e</string>
+		<string>j &lt;ssion mit</string>
+		<string>j ion t</string>
+		<string>j &lt;ion te se</string>
+		<string>j ation m n</string>
+		<string>j &lt;ation ze</string>
+		<string>j &lt;tion ce</string>
+		<string>j &lt;sion d</string>
+		<string>j ion s</string>
+		<string>l ly</string>
+		<string>l &lt;ily y</string>
+		<string>m ment</string>
+		<string>m &lt;iment y</string>
+		<string>r r e</string>
+		<string>r er</string>
+		<string>r or</string>
+		<string>v ive</string>
+		<string>v &lt;ive e</string>
+		<string>b able</string>
+		<string>b &lt;iable [^aeou]y ey oy uy</string>
+		<string>c ance</string>
+		<string>c &lt;iance y</string>
 	</array>
 </dict>
 </plist>

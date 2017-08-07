@@ -32,6 +32,7 @@ public class TransAppDelegate: NSResponder, NSApplicationDelegate {
   
   public func applicationDidFinishLaunching(_ notification: Notification) {
     registerDefaults()
+    AppPreferences.sharedInstance.loadPreferences()
   }
   
   @IBAction public func newAbbreviation(_ sender: AnyObject?) {
@@ -43,7 +44,7 @@ public class TransAppDelegate: NSResponder, NSApplicationDelegate {
   }
   
   private func registerDefaults() {
-    UserDefaults.standard.removeObject(forKey: "CommonSuffixes")
+    //UserDefaults.standard.removeObject(forKey: "CommonSuffixes")
     if let path = Bundle.main.path(forResource: "Defaults", ofType: "plist") {
       if let dict = NSDictionary(contentsOfFile: path) as? [String: Any] {
         UserDefaults.standard.register(defaults: dict)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
@@ -23,6 +23,7 @@
             </connections>
         </customObject>
         <customObject id="mYB-xZ-V2F" customClass="AbbrevsController"/>
+        <customObject id="tTH-s1-88F" customClass="PreferencesPanel"/>
         <customObject id="371" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="29">
             <items>
@@ -37,7 +38,11 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="236"/>
-                            <menuItem title="Preferences…" keyEquivalent="," id="129"/>
+                            <menuItem title="Preferences…" keyEquivalent="," id="129">
+                                <connections>
+                                    <action selector="showWindow:" target="tTH-s1-88F" id="gGn-rj-aTr"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="143"/>
                             <menuItem title="Services" id="131">
                                 <modifierMask key="keyEquivalentModifierMask"/>
