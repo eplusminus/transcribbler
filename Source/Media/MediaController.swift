@@ -46,17 +46,12 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   
   private var _movie: AVAsset?
   private var player: AVPlayer?
-  private var timer: Timer?
   private var movieFileURL: URL?
   private var hasVideo: Bool = false
   private var lastTimeValue: CMTimeValue = 0
   private var defaultRate: Float = 1.0
   private var playerSizeConstraint: NSLayoutConstraint? = nil
   private var oldResizingMask: NSAutoresizingMaskOptions = []
-  
-  deinit {
-    disableTimer()
-  }
   
   public var movie: AVAsset? {
     get {
@@ -80,15 +75,15 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
           
           hasMedia = true
           currentTimeCodeString = ""
-          
-          enableTimer()
+  
+          player?.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 10), queue: nil) {
+            [weak self] time in self?.updateTimeCode(time)
+          }
         }
         else {
           hasMedia = false
           player = nil
           currentTimeCodeString = ""
-          
-          disableTimer()
         }
       }
     }
@@ -213,30 +208,10 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   // internal use
   //
   
-  private func enableTimer() {
-    if timer == nil {
-      let t = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerTask), userInfo: nil, repeats: true)
-      timer = t
-      RunLoop.current.add(t, forMode: RunLoopMode.defaultRunLoopMode)
-    }
-  }
-  
-  private func disableTimer() {
-    timer?.invalidate()
-    timer = nil
-  }
-  
-  func timerTask(_ sender: Any) {
-    updateTimeCode()
-  }
-
-  func updateTimeCode() {
-    if let p = player {
-      let current = p.currentTime()
-      if current.value != lastTimeValue {
-        lastTimeValue = current.value
-        currentTimeCodeString = MediaController.timeString(current, withTenths: true)
-      }
+  func updateTimeCode(_ current: CMTime) {
+    if current.value != lastTimeValue {
+      lastTimeValue = current.value
+      currentTimeCodeString = MediaController.timeString(current, withTenths: true)
     }
   }
 
