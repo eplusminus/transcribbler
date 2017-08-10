@@ -99,7 +99,9 @@ public class TransTextWindowController: NSWindowController,
   
   @IBAction public func insertTimeStamp(_ sender: AnyObject?) {
     if mediaController.hasMedia {
-      insertTimeStamp(timeString: mediaController.currentTimeCodeString)
+      if let ts = mediaController.timeCodeString {
+        insertTimeStamp(timeString: ts)
+      }
     }
   }
   

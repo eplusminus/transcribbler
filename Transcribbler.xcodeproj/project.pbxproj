@@ -70,6 +70,7 @@
 		45B0DC201EC11270002F0201 /* CanBorrowViewForFullScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B0DC1F1EC11270002F0201 /* CanBorrowViewForFullScreen.swift */; };
 		45B0DC221EC157E0002F0201 /* CommonSuffixes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B0DC211EC157E0002F0201 /* CommonSuffixes.swift */; };
 		45B0DC281EC16089002F0201 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45B0DC261EC16089002F0201 /* Defaults.plist */; };
+		45E955961F3A8AC000E835B9 /* TimeCodeOffsetPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45E955951F3A8AC000E835B9 /* TimeCodeOffsetPanel.xib */; };
 		45E95DC9171B4DBD008FEEE4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 45E95DC8171B4DBD008FEEE4 /* LICENSE */; };
 		45F521B61EB40ABD00BF77B1 /* AbbrevsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B51EB40ABD00BF77B1 /* AbbrevsController.swift */; };
 		45F521B81EB40CE100BF77B1 /* HandyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B71EB40CE100BF77B1 /* HandyTableView.swift */; };
@@ -289,6 +290,7 @@
 		45B0DC1F1EC11270002F0201 /* CanBorrowViewForFullScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanBorrowViewForFullScreen.swift; sourceTree = "<group>"; };
 		45B0DC211EC157E0002F0201 /* CommonSuffixes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonSuffixes.swift; sourceTree = "<group>"; };
 		45B0DC271EC16089002F0201 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = English; path = Defaults.plist; sourceTree = "<group>"; };
+		45E955951F3A8AC000E835B9 /* TimeCodeOffsetPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeCodeOffsetPanel.xib; sourceTree = "<group>"; };
 		45E95DC8171B4DBD008FEEE4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		45F521B51EB40ABD00BF77B1 /* AbbrevsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevsController.swift; sourceTree = "<group>"; };
 		45F521B71EB40CE100BF77B1 /* HandyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandyTableView.swift; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 				451769E51EBE9C5E002FB012 /* AbbrevsPanel.xib */,
 				451769ED1EBFC398002FB012 /* MediaDetailsView.xib */,
 				45A923601EC0F6DE00ED6B16 /* MediaPanel.xib */,
+				45E955951F3A8AC000E835B9 /* TimeCodeOffsetPanel.xib */,
 				45B067D61F383F4F00CC9F8D /* PreferencesPanel.xib */,
 				45FFE0171EB539120055271E /* ErrorFlag.tiff */,
 				45FFE0181EB539120055271E /* SuffixFlag.tiff */,
@@ -1072,6 +1075,7 @@
 			files = (
 				45B0DC281EC16089002F0201 /* Defaults.plist in Resources */,
 				451769EE1EBFC398002FB012 /* MediaDetailsView.xib in Resources */,
+				45E955961F3A8AC000E835B9 /* TimeCodeOffsetPanel.xib in Resources */,
 				45FFE01A1EB539120055271E /* SuffixFlag.tiff in Resources */,
 				455BE3DD1712467C00DCAF5F /* Credits.rtf in Resources */,
 				455BE3DE1712467C00DCAF5F /* InfoPlist.strings in Resources */,

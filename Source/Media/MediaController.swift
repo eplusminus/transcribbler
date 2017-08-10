@@ -25,11 +25,58 @@ import AVFoundation
 import AVKit
 import Foundation
 
+@objc(TimeWrapper)
+public class TimeWrapper: NSObject, NSCopying {
+  public var value: CMTime
+  
+  public init(_ v: CMTime) {
+    value = v
+  }
+  
+  public func copy(with zone: NSZone? = nil) -> Any {
+    return TimeWrapper(value)
+  }
+}
+
+//@objc(TimeCodeOffsetDef)
+//public class TimeCodeOffsetDef: NSObject {
+//  public var realTime: TimeWrapper?
+//  public var fakeTime: TimeWrapper?
+//  
+//  public init(realTime: TimeWrapper, fakeTime: TimeWrapper) {
+//    self.realTime = realTime
+//    self.fakeTime = fakeTime
+//  }
+//}
+
+@objc(TimeFormatter)
+public class TimeFormatter: Formatter {
+  override public func string(for obj: Any?) -> String? {
+    if let o = obj {
+      if let t = o as? TimeWrapper {
+        return MediaController.timeString(t.value, withFractions: true)
+      }
+    }
+    return nil
+  }
+  
+  override public func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+    if let o = obj {
+      if let t = MediaController.timeFromString(string) {
+        o.pointee = TimeWrapper(t) as AnyObject?
+        return true
+      }
+    }
+    return false
+  }
+}
+
 @objc(MediaController)
 public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   @IBOutlet private(set) var view: NSView?
   @IBOutlet private(set) var stackView: NSStackView!
   @IBOutlet private(set) var movieView: AVPlayerView!
+  @IBOutlet private(set) var timeCodeOffsetsPanel: NSPanel?
   
   public var isPanelVisible: Bool {
     get {
@@ -43,6 +90,7 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   public dynamic var hasMedia: Bool = false
   public dynamic var currentTimeCodeString: String = ""
   public dynamic var totalTimeString: String = ""
+  public dynamic var timeCodeOffset: TimeWrapper? = nil
   
   private var _movie: AVAsset?
   private var player: AVPlayer?
@@ -71,7 +119,7 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
           
           updatePlayerSizeConstraint()
           
-          totalTimeString = MediaController.timeString(actualMovie.duration, withTenths: false)
+          totalTimeString = MediaController.timeString(actualMovie.duration, withFractions: false)
           
           lastTimeValue = -1
           
@@ -140,7 +188,7 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
     get {
       if movie != nil {
         if let p = player {
-          return MediaController.timeString(p.currentTime(), withTenths: true)
+          return MediaController.timeString(applyOffsetsToTime(p.currentTime()), withFractions: true)
         }
       }
       return nil
@@ -148,7 +196,7 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
     set(str) {
       if let s = str {
         if let t = MediaController.timeFromString(s) {
-          player?.seek(to: t)
+          player?.seek(to: removeOffsetsFromTime(t))
         }
       }
     }
@@ -207,14 +255,32 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
     }
   }
   
+  @IBAction public func showTimeCodeOffsetsPanel(_ sender: AnyObject?) {
+    timeCodeOffsetsPanel?.setIsVisible(true)
+  }
+  
   //
   // internal use
   //
   
+  private func applyOffsetsToTime(_ t: CMTime) -> CMTime {
+    if let to = timeCodeOffset {
+      return CMTimeAdd(to.value, t)
+    }
+    return t
+  }
+  
+  private func removeOffsetsFromTime(_ t: CMTime) -> CMTime {
+    if let to = timeCodeOffset {
+      return CMTimeSubtract(t, to.value)
+    }
+    return t
+  }
+  
   func updateTimeCode(_ current: CMTime) {
     if current.value != lastTimeValue {
       lastTimeValue = current.value
-      currentTimeCodeString = MediaController.timeString(current, withTenths: true)
+      currentTimeCodeString = MediaController.timeString(current, withFractions: true)
     }
   }
 
@@ -248,20 +314,37 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
     }
   }
   
-  private static func timeString(_ time: CMTime, withTenths: Bool) -> String {
-    let secondsTimes10: Int64 = Int64(CMTimeGetSeconds(time) * 10)
-    let t = secondsTimes10 % 10
-    let seconds = secondsTimes10 / 10
-    let ss = seconds % 60
-    let minutes = seconds / 60
-    let mm = minutes % 60
-    let hh = minutes / 60
-    
-    return withTenths ? String(format: "%02d:%02d:%02d.%d", hh, mm, ss, t) :
-      String(format: "%02d:%02d:%02d", hh, mm, ss)
+  static func timeString(_ time: CMTime, withFractions: Bool) -> String {
+    if (withFractions) {
+      var seconds, t: Int64
+      if (time.timescale == 60) {
+        let secondsTimes60 = time.value
+        t = secondsTimes60 % 60
+        seconds = secondsTimes60 / 60
+      }
+      else {
+        let secondsTimes10: Int64 = Int64(CMTimeGetSeconds(time) * 10)
+        t = secondsTimes10 % 10
+        seconds = secondsTimes10 / 10
+      }
+      let ss = seconds % 60
+      let mins = seconds / 60
+      let mm = mins % 60
+      let hh = mins / 60
+      return String(format: (time.timescale == 60) ? "%02d:%02d:%02d:%02d" : "%02d:%02d:%02d.%d",
+                    hh, mm, ss, t)
+    }
+    else {
+      let t = Int64(CMTimeGetSeconds(time))
+      let ss = t % 60
+      let mins = ss / 60
+      let mm = mins % 60
+      let hh = mins / 60
+      return String(format: "%02d:%02d:%02d", hh, mm, ss)
+    }
   }
 
-  private static func timeFromString(_ str: String) -> CMTime? {
+  static func timeFromString(_ str: String) -> CMTime? {
     let s = (str.characters.count == 8) ? (str + ".0") : str
     if s.characters.count == 10 {
       let fields = s.components(separatedBy: CharacterSet(charactersIn: ":."))
@@ -272,6 +355,17 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
         let t = Int64(fields[3]) ?? 0
         let value = (((((hh * 60) + mm) * 60) + ss) * 10) + t
         return CMTimeMake(value, 10)
+      }
+    }
+    if s.characters.count == 11 && s.characters.dropFirst(8).first == Character(":") {
+      let fields = s.components(separatedBy: CharacterSet(charactersIn: ":"))
+      if fields.count == 4 {
+        let hh = Int64(fields[0]) ?? 0
+        let mm = Int64(fields[1]) ?? 0
+        let ss = Int64(fields[2]) ?? 0
+        let t = Int64(fields[3]) ?? 0
+        let value = (((((hh * 60) + mm) * 60) + ss) * 60) + t
+        return CMTimeMake(value, 60)
       }
     }
     return nil
@@ -314,6 +408,9 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
       if let v = view {
         stackView.addView(v, in: .center)
       }
+    }
+    if timeCodeOffsetsPanel == nil {
+      Bundle.main.loadNibNamed("TimeCodeOffsetPanel", owner: self, topLevelObjects: nil)
     }
   }
   
