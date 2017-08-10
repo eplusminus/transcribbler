@@ -192,7 +192,7 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
     get {
       if movie != nil {
         if let p = player {
-          return MediaController.timeString(applyOffsetsToTime(p.currentTime()), withFractions: true)
+          return MediaController.timeString(applyOffsetsToTime(p.currentTime()), withFractions: false)
         }
       }
       return nil
