@@ -89,6 +89,7 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   
   public dynamic var hasMedia: Bool = false
   public dynamic var currentTimeCodeString: String = ""
+  public dynamic var currentTimePercent: Int = 0
   public dynamic var totalTimeString: String = ""
   public dynamic var timeCodeOffset: TimeWrapper? = nil
   
@@ -98,6 +99,7 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   private var hasVideo: Bool = false
   private var lastTimeValue: CMTimeValue = 0
   private var defaultRate: Float = 1.0
+  private var totalSeconds: Double = 0
   private var playerSizeConstraint: NSLayoutConstraint? = nil
   private var oldResizingMask: NSAutoresizingMaskOptions = []
   
@@ -120,11 +122,12 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
           updatePlayerSizeConstraint()
           
           totalTimeString = MediaController.timeString(actualMovie.duration, withFractions: false)
-          
+          totalSeconds = CMTimeGetSeconds(actualMovie.duration)
           lastTimeValue = -1
           
           hasMedia = true
           currentTimeCodeString = ""
+          currentTimePercent = 0
   
           player?.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 10), queue: nil) {
             [weak self] time in self?.updateTimeCode(time)
@@ -134,6 +137,7 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
           hasMedia = false
           player = nil
           currentTimeCodeString = ""
+          currentTimePercent = 0
         }
       }
     }
@@ -281,6 +285,7 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
     if current.value != lastTimeValue {
       lastTimeValue = current.value
       currentTimeCodeString = MediaController.timeString(current, withFractions: true)
+      currentTimePercent = (totalSeconds == 0) ? 0 : Int((CMTimeGetSeconds(current) * 100) / totalSeconds)
     }
   }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
@@ -92,13 +92,25 @@
                                 <rect key="frame" x="3" y="3" width="85" height="27"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textField verticalHuggingPriority="750" id="24">
-                                        <rect key="frame" x="0.0" y="7" width="85" height="17"/>
+                                    <progressIndicator wantsLayer="YES" focusRingType="none" misplaced="YES" maxValue="100" controlSize="small" style="bar" id="kon-WE-Xdi">
+                                        <rect key="frame" x="0.0" y="-3" width="85" height="12"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="25">
-                                            <font key="font" metaFont="system"/>
+                                        <connections>
+                                            <binding destination="e4i-1Z-NaO" name="hidden" keyPath="self.hasMedia" id="l8Z-M0-8Ub">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                            <binding destination="e4i-1Z-NaO" name="value" keyPath="self.currentTimePercent" id="60J-GO-Uva"/>
+                                        </connections>
+                                    </progressIndicator>
+                                    <textField verticalHuggingPriority="750" misplaced="YES" id="24">
+                                        <rect key="frame" x="0.0" y="9" width="85" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" enabled="NO" sendsActionOnEndEditing="YES" alignment="center" placeholderString="00:00:00.0" id="25">
+                                            <font key="font" metaFont="fixedUser" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
                                             <binding destination="e4i-1Z-NaO" name="value" keyPath="currentTimeCodeString" id="672-yK-2uW"/>
