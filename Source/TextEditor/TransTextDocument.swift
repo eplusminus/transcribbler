@@ -21,6 +21,7 @@
 
 import Abbreviations
 import AbbreviationsEditor
+import Media
 
 import Cocoa
 import Foundation
@@ -28,6 +29,7 @@ import Foundation
 let windowPosCommentParam = "WindowPos"
 let mediaFilePathCommentParam = "MediaFile"
 let timeCodeCommentParam = "TimeCode"
+let timeCodeOffsetCommentParam = "TimeCodeOffset"
 
 @objc(TransTextDocument)
 public class TransTextDocument: NSDocument {
@@ -128,6 +130,12 @@ public class TransTextDocument: NSDocument {
       }
     }
     
+    if let tos = commentParams[timeCodeOffsetCommentParam] {
+      if let to = MediaController.timeFromString(tos) {
+        mc?.timeCodeOffset = TimeWrapper(to)
+      }
+    }
+    
     if let tc = commentParams[timeCodeCommentParam] {
       mc?.timeCodeString = tc
     }
@@ -146,6 +154,9 @@ public class TransTextDocument: NSDocument {
     }
     if let tc = mc?.timeCodeString {
       commentParams[timeCodeCommentParam] = tc
+    }
+    if let to = mc?.timeCodeOffset {
+      commentParams[timeCodeOffsetCommentParam] = MediaController.timeString(to.value, withFractions: false)
     }
     
     let comment = CommentStringFields.stringFromParams(commentParams)

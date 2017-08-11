@@ -319,13 +319,13 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
     }
   }
   
-  static func timeString(_ time: CMTime, withFractions: Bool) -> String {
+  public static func timeString(_ time: CMTime, withFractions: Bool) -> String {
     if (withFractions) {
       var seconds, t: Int64
-      if (time.timescale == 60) {
-        let secondsTimes60 = time.value
-        t = secondsTimes60 % 60
-        seconds = secondsTimes60 / 60
+      if (time.timescale == 30) {
+        let secondsTimes30 = time.value
+        t = secondsTimes30 % 30
+        seconds = secondsTimes30 / 30
       }
       else {
         let secondsTimes10: Int64 = Int64(CMTimeGetSeconds(time) * 10)
@@ -336,22 +336,22 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
       let mins = seconds / 60
       let mm = mins % 60
       let hh = mins / 60
-      return String(format: (time.timescale == 60) ? "%02d:%02d:%02d:%02d" : "%02d:%02d:%02d.%d",
+      return String(format: (time.timescale == 30) ? "%02d:%02d:%02d:%02d" : "%02d:%02d:%02d.%d",
                     hh, mm, ss, t)
     }
     else {
-      let t = Int64(CMTimeGetSeconds(time))
-      let ss = t % 60
-      let mins = ss / 60
+      let seconds = Int64(CMTimeGetSeconds(time))
+      let ss = seconds % 60
+      let mins = seconds / 60
       let mm = mins % 60
       let hh = mins / 60
       return String(format: "%02d:%02d:%02d", hh, mm, ss)
     }
   }
 
-  static func timeFromString(_ str: String) -> CMTime? {
+  public static func timeFromString(_ str: String) -> CMTime? {
     let s = (str.characters.count == 8) ? (str + ".0") : str
-    if s.characters.count == 10 {
+    if s.characters.count == 10 && s.characters.dropFirst(8).first == Character(".") {
       let fields = s.components(separatedBy: CharacterSet(charactersIn: ":."))
       if fields.count == 4 {
         let hh = Int64(fields[0]) ?? 0
@@ -369,8 +369,8 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
         let mm = Int64(fields[1]) ?? 0
         let ss = Int64(fields[2]) ?? 0
         let t = Int64(fields[3]) ?? 0
-        let value = (((((hh * 60) + mm) * 60) + ss) * 60) + t
-        return CMTimeMake(value, 60)
+        let value = (((((hh * 60) + mm) * 60) + ss) * 30) + t
+        return CMTimeMake(value, 30)
       }
     }
     return nil
