@@ -91,7 +91,8 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   public dynamic var currentTimeCodeString: String = ""
   public dynamic var currentTimePercent: Int = 0
   public dynamic var totalTimeString: String = ""
-  public dynamic var timeCodeOffset: TimeWrapper? = nil
+  public dynamic var timeCodeOffsetSubtract: TimeWrapper? = nil
+  public dynamic var timeCodeOffsetAdd: TimeWrapper? = nil
   
   private var _movie: AVAsset?
   private var player: AVPlayer?
@@ -261,6 +262,7 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   
   @IBAction public func showTimeCodeOffsetsPanel(_ sender: AnyObject?) {
     timeCodeOffsetsPanel?.setIsVisible(true)
+    timeCodeOffsetsPanel?.makeKeyAndOrderFront(nil)
   }
   
   //
@@ -268,17 +270,25 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   //
   
   private func applyOffsetsToTime(_ t: CMTime) -> CMTime {
-    if let to = timeCodeOffset {
-      return CMTimeAdd(to.value, t)
+    var t1 = t
+    if let tos = timeCodeOffsetSubtract {
+      t1 = CMTimeSubtract(t, tos.value)
     }
-    return t
+    if let toa = timeCodeOffsetAdd {
+      return CMTimeAdd(t1, toa.value)
+    }
+    return t1
   }
   
   private func removeOffsetsFromTime(_ t: CMTime) -> CMTime {
-    if let to = timeCodeOffset {
-      return CMTimeSubtract(t, to.value)
+    var t1 = t
+    if let toa = timeCodeOffsetAdd {
+      t1 = CMTimeSubtract(t, toa.value)
     }
-    return t
+    if let tos = timeCodeOffsetSubtract {
+      return CMTimeAdd(t1, tos.value)
+    }
+    return t1
   }
   
   func updateTimeCode(_ current: CMTime) {
