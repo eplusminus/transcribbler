@@ -98,7 +98,6 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   private var player: AVPlayer?
   private var movieFileURL: URL?
   private var hasVideo: Bool = false
-  private var lastTimeValue: CMTimeValue = 0
   private var defaultRate: Float = 1.0
   private var totalSeconds: Double = 0
   private var playerSizeConstraint: NSLayoutConstraint? = nil
@@ -124,7 +123,6 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
           
           totalTimeString = MediaController.timeString(actualMovie.duration, withFractions: false)
           totalSeconds = CMTimeGetSeconds(actualMovie.duration)
-          lastTimeValue = -1
           
           hasMedia = true
           currentTimeCodeString = ""
@@ -292,11 +290,8 @@ public class MediaController: NSWindowController, CanBorrowViewForFullScreen {
   }
   
   func updateTimeCode(_ current: CMTime) {
-    if current.value != lastTimeValue {
-      lastTimeValue = current.value
-      currentTimeCodeString = MediaController.timeString(current, withFractions: true)
-      currentTimePercent = (totalSeconds == 0) ? 0 : Int((CMTimeGetSeconds(current) * 100) / totalSeconds)
-    }
+    currentTimeCodeString = MediaController.timeString(current, withFractions: true)
+    currentTimePercent = (totalSeconds == 0) ? 0 : Int((CMTimeGetSeconds(current) * 100) / totalSeconds)
   }
 
   private func updateTitle() {
