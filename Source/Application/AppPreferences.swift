@@ -41,6 +41,8 @@ public class AppPreferences: NSObject {
   }
   
   public var replayIntervalPercent: Int = 100
+  public var timeStampPrefix: String? = "\n"
+  public var timeStampSuffix: String? = "\t"
   
   private static var ReplayIntervalPercentKey = "ReplayIntervalPercent"
   

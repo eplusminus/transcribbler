@@ -106,9 +106,31 @@ public class TransTextWindowController: NSWindowController,
   }
   
   private func insertTimeStamp(timeString: String) {
-    textView.textStorage?.insert(TimeStamps.createAttributedString(timeString: timeString),
-                                 at: textView.selectedRange().location)
+    if let ts = textView.textStorage {
+      let pos = textView.selectedRange()
+      let timeAttrString = TimeStamps.createAttributedString(timeString: timeString)
+      let buf = NSMutableAttributedString()
+      if let before = AppPreferences.sharedInstance.timeStampPrefix {
+        if !before.isEmpty &&
+          ((pos.location < before.characters.count) ||
+          (ts.attributedSubstring(from: NSMakeRange(pos.location - before.characters.count, before.characters.count)).string != before)) {
+          buf.append(NSAttributedString(string: before))
+        }
+      }
+      buf.append(timeAttrString)
+      if let after = AppPreferences.sharedInstance.timeStampSuffix {
+        if !after.isEmpty &&
+          ((pos.location + after.characters.count > ts.characters.count) ||
+          (ts.attributedSubstring(from: NSMakeRange(pos.location, after.characters.count)).string != after)) {
+          buf.append(NSAttributedString(string: after))
+        }
+      }
+
+      ts.insert(buf, at: pos.location)
+      textView.scrollRangeToVisible(textView.selectedRange())
+    }
   }
+  
   
   //
   // NSTextViewDelegate
