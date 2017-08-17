@@ -113,51 +113,44 @@ public class TransTextDocument: NSDocument {
   private func readDocAttributes(_ attrs: [String: Any]) {
     let paramsString = (attrs[NSCommentDocumentAttribute] as? String) ?? ""
     let (commentParams, _) = CommentStringFields.paramsFromString(paramsString)
+    let dp = DocPreferences.deserializeFromStrings(commentParams)
     
-    if let wp = commentParams[windowPosCommentParam] {
-      let r = NSRectFromString(wp)
-      if r.size.width > 0 {
-        windowController.window?.setFrame(r, display: true)
-      }
+    if let r = dp.windowPos {
+      windowController.window?.setFrame(r, display: true)
     }
   
-    let mc = windowController.mediaController
-    
-    if let mfp = commentParams[mediaFilePathCommentParam] {
-      do {
-        try mc?.openMediaFile(filePath: mfp)
+    if let mc = windowController.mediaController {
+      if let mfp = dp.mediaFilePath {
+        do {
+          try mc.openMediaFile(filePath: mfp)
+        }
+        catch {
+        }
       }
-      catch {
+      mc.timeCodeOffsetSubtract = dp.timeCodeOffsetSubtract
+      mc.timeCodeOffsetAdd = dp.timeCodeOffsetAdd
+      mc.timeCodeString = dp.timeCodeString
+      if let prp = dp.playbackRatePercent {
+        mc.playbackRatePercent = prp
       }
     }
-    
-    mc?.timeCodeOffsetSubtract = commentParams[timeCodeOffsetSubtractCommentParam].flatMap { MediaController.timeFromString($0) }.map { TimeWrapper($0) }
-    mc?.timeCodeOffsetAdd = commentParams[timeCodeOffsetAddCommentParam].flatMap { MediaController.timeFromString($0) }.map { TimeWrapper($0) }
-
-    mc?.timeCodeString = commentParams[timeCodeCommentParam]
   }
   
   private func makeDocAttributes() -> [String: String] {
     var attrs: [String: String] = [NSDocumentTypeDocumentAttribute: TransTextDocument.preferredFileType]
-    var commentParams: [String: String] = [:]
-    let mc = windowController.mediaController
-    
-    addParam(&commentParams, windowController.window?.frame, windowPosCommentParam) { NSStringFromRect($0) }
-    addParam(&commentParams, mc?.mediaFilePath, mediaFilePathCommentParam) { $0 }
-    addParam(&commentParams, mc?.timeCodeString, timeCodeCommentParam) { $0 }
-    addParam(&commentParams, mc?.timeCodeOffsetSubtract, timeCodeOffsetSubtractCommentParam) { MediaController.timeString($0.value, withFractions: false) }
-    addParam(&commentParams, mc?.timeCodeOffsetAdd, timeCodeOffsetAddCommentParam) { MediaController.timeString($0.value, withFractions: false) }
-    
-    let comment = CommentStringFields.stringFromParams(commentParams)
+    let dp = DocPreferences()
+    dp.windowPos = windowController.window?.frame
+    if let mc = windowController.mediaController {
+      dp.mediaFilePath = mc.mediaFilePath
+      dp.timeCodeString = mc.timeCodeString
+      dp.timeCodeOffsetSubtract = mc.timeCodeOffsetSubtract
+      dp.timeCodeOffsetAdd = mc.timeCodeOffsetAdd
+      dp.playbackRatePercent = mc.playbackRatePercent
+    }
+    let comment = CommentStringFields.stringFromParams(dp.serializeToStrings())
     if comment != "" {
       attrs[NSCommentDocumentAttribute] = comment
     }
     return attrs
-  }
-  
-  private func addParam<T>(_ commentParams: inout [String: String], _ optValue: T?, _ key: String, _ transform: (T) -> String) {
-    if let value = optValue {
-      commentParams[key] = transform(value)
-    }
   }
 }

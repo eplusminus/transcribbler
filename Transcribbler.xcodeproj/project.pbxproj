@@ -70,6 +70,7 @@
 		45B0DC201EC11270002F0201 /* CanBorrowViewForFullScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B0DC1F1EC11270002F0201 /* CanBorrowViewForFullScreen.swift */; };
 		45B0DC221EC157E0002F0201 /* CommonSuffixes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B0DC211EC157E0002F0201 /* CommonSuffixes.swift */; };
 		45B0DC281EC16089002F0201 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45B0DC261EC16089002F0201 /* Defaults.plist */; };
+		45D5FE451F4229C400300E8D /* DocPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5FE441F4229C400300E8D /* DocPreferences.swift */; };
 		45E955961F3A8AC000E835B9 /* TimeCodeOffsetPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45E955951F3A8AC000E835B9 /* TimeCodeOffsetPanel.xib */; };
 		45E95DC9171B4DBD008FEEE4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 45E95DC8171B4DBD008FEEE4 /* LICENSE */; };
 		45F521B61EB40ABD00BF77B1 /* AbbrevsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F521B51EB40ABD00BF77B1 /* AbbrevsController.swift */; };
@@ -290,6 +291,7 @@
 		45B0DC1F1EC11270002F0201 /* CanBorrowViewForFullScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanBorrowViewForFullScreen.swift; sourceTree = "<group>"; };
 		45B0DC211EC157E0002F0201 /* CommonSuffixes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonSuffixes.swift; sourceTree = "<group>"; };
 		45B0DC271EC16089002F0201 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = English; path = Defaults.plist; sourceTree = "<group>"; };
+		45D5FE441F4229C400300E8D /* DocPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocPreferences.swift; sourceTree = "<group>"; };
 		45E955951F3A8AC000E835B9 /* TimeCodeOffsetPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeCodeOffsetPanel.xib; sourceTree = "<group>"; };
 		45E95DC8171B4DBD008FEEE4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		45F521B51EB40ABD00BF77B1 /* AbbrevsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbbrevsController.swift; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 				45F521BF1EB45B6000BF77B1 /* TransTextDocument.swift */,
 				457690051EA9C8470090BBE7 /* TransTextView.swift */,
 				45FFE00F1EB501260055271E /* TransTextWindowController.swift */,
+				45D5FE441F4229C400300E8D /* DocPreferences.swift */,
 			);
 			path = TextEditor;
 			sourceTree = "<group>";
@@ -1201,6 +1204,7 @@
 				457690061EA9C8470090BBE7 /* TransTextView.swift in Sources */,
 				45F521BD1EB44EE500BF77B1 /* CommentStringFields.swift in Sources */,
 				45B067D91F38413800CC9F8D /* PreferencesPanel.swift in Sources */,
+				45D5FE451F4229C400300E8D /* DocPreferences.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
